@@ -1,43 +1,24 @@
-MODE: PLAN_ONLY
+MODE: REVIEW_DIFF
 
 This task may be executed via `RUN_CODEX.md`. Do not edit files unless the
 human explicitly approves implementation. Do not merge unless explicitly
 allowed.
 
-# Next Task: Plan Manuscript-Relevant Non-Final CRLB Candidate
+# Next Task: Review Manuscript CRLB Candidate Branch Before Merge
 
 ## Purpose
 
-Use the package-native CRLB geometry diagnostics to design a manuscript-relevant
-non-final CRLB candidate before any figure rerun. The goal is to choose a
-scientifically defensible diagnostic direction, not to generate final
-manuscript figures.
-
-## Context
-
-The merged CRLB geometry diagnostic separates:
-
-- fixed-parameter information addition;
-- growing-`N_s` nuisance-clock behavior;
-- rank-feasibility checks.
-
-The fixed-parameter diagnostic provides the clean monotonicity sanity check.
-The growing-`N_s` diagnostic is useful context but is not a monotonic CRLB
-curve because `N_theta` changes. The rank-feasibility grid can identify
-full-rank regimes before any manuscript-style CRLB rerun.
+Review the branch implementing the non-final manuscript-relevant CRLB candidate
+diagnostic before merge. Confirm it marks rank-deficient cases unavailable and
+only exposes finite bound values for manuscript-ready full-rank cases.
 
 ## Scope
 
-Allowed files to inspect:
+Inspect:
 
-- `v24_diagnostics/crlb_geometry_diagnostics.json`
-- `v24_diagnostics/sweep_v24_crlb_ns.json`
-- `scripts/diagnose_v24_crlb_geometry.py`
-- `scripts/sweep_v24_crlb.py`
-- `jcls_sim/configs.py`
-- `jcls_sim/bounds.py`
-- `tests/test_crlb_diagnostics.py`
-- `tests/test_crlb_sweep.py`
+- `scripts/diagnose_v24_manuscript_crlb_candidate.py`
+- `tests/test_manuscript_crlb_candidate.py`
+- `v24_diagnostics/manuscript_crlb_candidate.json`
 - `PROJECT_STATUS.md`
 - `docs/tasks/NEXT.md`
 
@@ -54,45 +35,41 @@ Do not edit:
 - existing manuscript result files
 - plotting code
 - figure-generation code
-- package source files
-- tests
 
-## Planning Questions
+## Checks
 
-1. Which candidate is most defensible for manuscript-relevant non-final CRLB
-   diagnostics?
-   - full-rank CRLB versus `N_s` with unavailable points marked;
-   - CRLB versus measurement subset size for fixed `Nu,Ns`;
-   - rank-feasibility heatmap over `Nu,Ns`;
-   - another small diagnostic derived from the rank grid.
-2. Which candidate best supports or replaces the existing CRLB manuscript
-   figures without overclaiming monotonicity?
-3. What full-rank regimes should be used, based on the current
-   `crlb_geometry_diagnostics.json`?
-4. What metadata must be carried forward so rank-deficient/unavailable points
-   cannot be mistaken for finite CRLB values?
-5. What implementation should be approved next, and what files should it edit?
+1. Candidate output:
+   - diagnostic type is non-final;
+   - output note says it is not a manuscript figure or result sweep;
+   - unavailable policy is explicit.
+
+2. Rank-deficient handling:
+   - rank-deficient cases use `plot_value_status = unavailable_rank_deficient`;
+   - rank-deficient cases have null finite plot values;
+   - rank-deficient cases are not manuscript-ready.
+
+3. Full-rank handling:
+   - full-rank manuscript-ready cases use `plot_value_status = finite`;
+   - finite cases include average UE PEB and clock bounds;
+   - seconds conversion is correct.
+
+4. Summary:
+   - finite and unavailable case counts are present;
+   - minimal full-rank satellite counts are reported by user count and link
+     pattern.
+
+5. Tests:
+   - Run `powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'`
+     from the repository root.
 
 ## Required Output
 
 Return:
 
-- PASS / PASS WITH CAVEAT / FAIL for using the current geometry diagnostics as
-  planning input;
-- recommended manuscript-relevant non-final CRLB candidate;
-- rationale and scientific caveats;
-- exact proposed output JSON schema;
-- proposed tests;
-- expected runtime/scope;
-- stop gates;
-- exact files to edit in the next `IMPLEMENT_APPROVED` task;
-- confirmation that no files were edited in this `PLAN_ONLY` task.
-
-## Hard Constraints
-
-- Do not run notebook code.
-- Do not generate figures.
-- Do not run full sweeps.
-- Do not edit manuscript, response-letter, bibliography, figure, PSFrag,
-  generated PDF, notebook, package source, test, or result files.
+- PASS / FAIL / PASS WITH CAVEAT;
+- merge recommendation;
+- required fixes before merge, if any;
+- nonblocking caveats;
+- confirmation that manuscript, response-letter, bibliography, figure, PSFrag,
+  PDF, notebook, and final-result files were not edited.
 
