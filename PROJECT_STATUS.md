@@ -178,6 +178,18 @@ global `map_filter_iteration` fallback behavior, truth-error acceptance gates,
 smoothing/fitting transforms, and the legacy all-clock synchronization metric.
 The artifacts are marked legacy replay, non-final, and not manuscript-ready.
 
+A plot-gallery and cache/checkpointing layer is implemented on branch
+`codex/plot-gallery-cache`. It renders generated/replayed diagnostic PDFs from
+`v24_notebook_regression_outputs/`, `v24_human_review_outputs/`,
+`v24_manuscript_candidate_outputs/`, and `v24_figure_outputs/` into PNG
+previews under `v24_plot_gallery/previews/`, with browsable Markdown/HTML/JSON
+gallery files under `v24_plot_gallery/`. The legacy clock-sweep replay now has
+row-level JSON/NPZ cache entries under `v24_notebook_regression_outputs/cache/`
+with script/notebook/extracted-cell/config hash validation, stale-cache
+rejection, failure logs, and cache manifests. The full clock sweep has been
+regenerated through valid cache hits instead of rerunning the 1619 s legacy
+simulation.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -255,6 +267,10 @@ Safe legacy clock-sweep full replay artifacts are implemented on branch
 `sync_vary_clock.pdf`. The figures are replayed into diagnostics only and
 remain unverified matches/not manuscript-ready because of legacy truth-gated
 optimizer and all-clock metric caveats.
+Plot-gallery previews and validated cache/checkpointing for the full
+clock-sweep replay are implemented on branch `codex/plot-gallery-cache`; the
+latest cached full replay reports 7/7 cache hits and writes
+`v24_plot_gallery/PLOT_GALLERY.html`.
 
 ## Next task
 

@@ -590,6 +590,9 @@ def _write_top_level_report(report: dict[str, Any]) -> None:
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT)
+    preview_group = parser.add_mutually_exclusive_group()
+    preview_group.add_argument("--render-previews", action="store_true", default=True, help="Render gallery previews after success.")
+    preview_group.add_argument("--no-render-previews", action="store_true", help="Skip preview rendering.")
     return parser.parse_args()
 
 
@@ -600,7 +603,22 @@ def main() -> int:
     report = replay_legacy_crlb_figures(output_root=args.output_root)
     _update_figure_regression_table(report)
     _write_top_level_report(report)
-    print(json.dumps({"status": report["status"], "output_root": report["output_root"]}, indent=2))
+    gallery_report = None
+    if not args.no_render_previews:
+        from render_all_figure_previews import GALLERY_ROOT, render_gallery
+
+        gallery_report = render_gallery(force=False)
+    print(
+        json.dumps(
+            {
+                "status": report["status"],
+                "output_root": report["output_root"],
+                "gallery": str((GALLERY_ROOT / "PLOT_GALLERY.html").relative_to(SAT_SIM_ROOT)) if gallery_report else None,
+                "preview_pngs": gallery_report.get("preview_pngs", []) if gallery_report else [],
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

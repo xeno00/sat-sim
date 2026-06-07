@@ -67,6 +67,9 @@ def _parse_args() -> argparse.Namespace:
         action="store_true",
         help="Developer-only override for writing outside repo-local diagnostic output roots.",
     )
+    preview_group = parser.add_mutually_exclusive_group()
+    preview_group.add_argument("--render-previews", action="store_true", default=True)
+    preview_group.add_argument("--no-render-previews", action="store_true")
     return parser.parse_args()
 
 
@@ -202,6 +205,13 @@ def main() -> int:
     print("combined provenance:")
     print(f"  json: {json_path}")
     print(f"  markdown: {md_path}")
+    if not args.no_render_previews:
+        from render_all_figure_previews import GALLERY_ROOT, render_gallery
+
+        gallery_report = render_gallery(force=False)
+        print(f"plot gallery: {GALLERY_ROOT / 'PLOT_GALLERY.html'}")
+        for preview in gallery_report.get("preview_pngs", []):
+            print(f"  preview: {preview}")
     return 0
 
 
