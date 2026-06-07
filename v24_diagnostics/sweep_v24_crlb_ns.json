@@ -1,0 +1,379 @@
+{
+  "base_seed": 20260606,
+  "cases": [
+    {
+      "average_clock_bound_km": 0.019678392354507617,
+      "average_non_reference_satellite_clock_bound_km": 0.02325549399933992,
+      "average_ue_clock_bound_km": 0.017889841532091465,
+      "average_ue_peb_km": 0.05410096800180279,
+      "covariance_condition_number": 9.942228173616341e+16,
+      "covariance_method": "pinv",
+      "covariance_rank": 5,
+      "expected_parameter_dim": 9,
+      "fim_min_eigenvalue": -6.927128876597417e-13,
+      "fim_rank": 5,
+      "fim_shape": [
+        9,
+        9
+      ],
+      "links": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "measurement_count": 5,
+      "num_satellites": 2,
+      "parameter_dim": 9,
+      "range_std_devs_km": [
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03
+      ],
+      "runtime_seconds": 0.0,
+      "scenario_name": "v24_crlb_mini_sweep_ns2",
+      "seed": 20262624
+    },
+    {
+      "average_clock_bound_km": 0.04579910954136348,
+      "average_non_reference_satellite_clock_bound_km": 0.02514111916522905,
+      "average_ue_clock_bound_km": 0.0664570999174979,
+      "average_ue_peb_km": 0.11884038581692571,
+      "covariance_condition_number": 1.6323137535155597e+17,
+      "covariance_method": "pinv",
+      "covariance_rank": 7,
+      "expected_parameter_dim": 10,
+      "fim_min_eigenvalue": -9.349844087657162e-13,
+      "fim_rank": 7,
+      "fim_shape": [
+        10,
+        10
+      ],
+      "links": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "measurement_count": 7,
+      "num_satellites": 3,
+      "parameter_dim": 10,
+      "range_std_devs_km": [
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03
+      ],
+      "runtime_seconds": 0.0,
+      "scenario_name": "v24_crlb_mini_sweep_ns3",
+      "seed": 20263633
+    },
+    {
+      "average_clock_bound_km": 0.26569390982302477,
+      "average_non_reference_satellite_clock_bound_km": 0.23553443054182113,
+      "average_ue_clock_bound_km": 0.3109331287448301,
+      "average_ue_peb_km": 1.5219337422674213,
+      "covariance_condition_number": 1.2787790158264485e+17,
+      "covariance_method": "pinv",
+      "covariance_rank": 9,
+      "expected_parameter_dim": 11,
+      "fim_min_eigenvalue": 2.648811076252817e-14,
+      "fim_rank": 9,
+      "fim_shape": [
+        11,
+        11
+      ],
+      "links": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "measurement_count": 9,
+      "num_satellites": 4,
+      "parameter_dim": 11,
+      "range_std_devs_km": [
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03
+      ],
+      "runtime_seconds": 0.0,
+      "scenario_name": "v24_crlb_mini_sweep_ns4",
+      "seed": 20264642
+    },
+    {
+      "average_clock_bound_km": 2.9950269619291574,
+      "average_non_reference_satellite_clock_bound_km": 0.5895489872877502,
+      "average_ue_clock_bound_km": 7.805982911211972,
+      "average_ue_peb_km": 8.17735135460109,
+      "covariance_condition_number": 6.423002775365026e+16,
+      "covariance_method": "pinv",
+      "covariance_rank": 11,
+      "expected_parameter_dim": 12,
+      "fim_min_eigenvalue": 9.683626202789394e-13,
+      "fim_rank": 11,
+      "fim_shape": [
+        12,
+        12
+      ],
+      "links": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "measurement_count": 11,
+      "num_satellites": 5,
+      "parameter_dim": 12,
+      "range_std_devs_km": [
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03
+      ],
+      "runtime_seconds": 0.0,
+      "scenario_name": "v24_crlb_mini_sweep_ns5",
+      "seed": 20265651
+    },
+    {
+      "average_clock_bound_km": 3.843216230185534,
+      "average_non_reference_satellite_clock_bound_km": 2.8758066602940042,
+      "average_ue_clock_bound_km": 6.261740154914362,
+      "average_ue_peb_km": 10.674940082654388,
+      "covariance_condition_number": 3729739.2292922665,
+      "covariance_method": "inverse",
+      "covariance_rank": 13,
+      "expected_parameter_dim": 13,
+      "fim_min_eigenvalue": 0.0039710534721207015,
+      "fim_rank": 13,
+      "fim_shape": [
+        13,
+        13
+      ],
+      "links": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "measurement_count": 13,
+      "num_satellites": 6,
+      "parameter_dim": 13,
+      "range_std_devs_km": [
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03,
+        0.03
+      ],
+      "runtime_seconds": 0.0,
+      "scenario_name": "v24_crlb_mini_sweep_ns6",
+      "seed": 20266660
+    }
+  ],
+  "diagnostic_type": "non_final_v24_full_gauged_crlb_ns_sweep",
+  "legacy_static_risk_notes": [
+    "Legacy CRLB notebook cells are not executed by this diagnostic.",
+    "Static inspection found post-hoc position/clock FIMs formed after column deletion.",
+    "This package-native path extracts localization and clock bounds from the full gauged covariance."
+  ],
+  "num_users": 2,
+  "output_note": "diagnostic/non-final; not a manuscript figure or result sweep",
+  "range_std_dev_km": 0.03,
+  "reference_clock_convention": "first satellite node Nu+1 fixed at zero",
+  "satellite_counts": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "schema_version": 1,
+  "sweep_axis": "num_satellites"
+}

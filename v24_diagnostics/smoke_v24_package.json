@@ -1,0 +1,96 @@
+{
+  "clock_metric_km": {
+    "ekf_all_non_reference": 0.024719926434220964,
+    "gn_all_non_reference": 0.02846588866013199
+  },
+  "diagnostic_type": "non_final_v24_package_smoke",
+  "draw_noise": true,
+  "ekf_cov_trace": 1.0687630143846254,
+  "ekf_update_norm": 0.1224659000182267,
+  "expected_parameter_dim": 9,
+  "fim_min_eigenvalue": -6.596718378027281e-13,
+  "fim_rank": 5,
+  "fim_shape": [
+    9,
+    9
+  ],
+  "fim_trace": 16482.312925170067,
+  "gn_update_norm": 0.1603295603686555,
+  "jacobian_shape": [
+    5,
+    9
+  ],
+  "links": [
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "lm_update_norm": 0.16031639318642976,
+  "measurement_count": 5,
+  "measurement_noise_km": [
+    -0.012760432079684206,
+    -0.04068134497657206,
+    0.03830634543046582,
+    -0.017336452713971856,
+    0.01695401846525231
+  ],
+  "measurements_nominal_km": [
+    9.9,
+    11.380339887498948,
+    20.4,
+    21.315528128088303,
+    4.7
+  ],
+  "measurements_observed_km": [
+    9.887239567920316,
+    11.339658542522375,
+    20.438306345430465,
+    21.29819167537433,
+    4.716954018465253
+  ],
+  "num_satellites": 2,
+  "num_users": 2,
+  "output_note": "diagnostic/non-final; not a manuscript figure or result sweep",
+  "parameter_dim": 9,
+  "position_error_m": {
+    "ekf_mean": 69.97136836924452,
+    "gn_mean": 95.25757534547557
+  },
+  "r_z_diag_km2": [
+    0.0004,
+    0.0006250000000000001,
+    0.0009,
+    0.0012250000000000002,
+    0.0016
+  ],
+  "range_std_devs_km": [
+    0.02,
+    0.025,
+    0.03,
+    0.035,
+    0.04
+  ],
+  "reference_clock_column_present": false,
+  "reference_clock_convention": "first satellite node Nu+1 fixed at zero",
+  "scenario_name": "tiny_v24_package_smoke",
+  "schema_version": 1,
+  "seed": 20260606,
+  "used_reference_satellite_node_id": 3
+}
