@@ -60,11 +60,10 @@ include rank-feasibility heatmap matrices, finite CRLB-vs-`N_s` series with
 unavailable masks, and fixed-parameter measurement-addition series. No figures
 are generated.
 
-Non-final CRLB preview SVGs are implemented on branch
-`codex/crlb-preview-candidates`. The previews read the merged candidate JSON and
-write diagnostic-only SVGs plus a manifest under `v24_diagnostics/crlb_preview/`.
-They are not manuscript figures and require human review before any figure
-workflow decision.
+Non-final CRLB preview SVGs are implemented and merged. The previews read the
+merged candidate JSON and write diagnostic-only SVGs plus a manifest under
+`v24_diagnostics/crlb_preview/`. They are not manuscript figures and require
+human review before any figure workflow decision.
 
 ## Blocking risks
 
@@ -91,8 +90,7 @@ exists under `v24_diagnostics/` with hardened CRLB status/reportability fields.
 The CRLB geometry diagnostic runner/tests are merged on `main`.
 The manuscript-relevant CRLB candidate runner/tests are merged on `main`.
 The non-final CRLB figure-candidate data runner/tests are merged on `main`.
-The non-final CRLB preview SVG runner/tests are implemented on branch
-`codex/crlb-preview-candidates` and await review before merge.
+The non-final CRLB preview SVG runner/tests are merged on `main`.
 
 ## Next task
 
