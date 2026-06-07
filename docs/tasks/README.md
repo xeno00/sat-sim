@@ -1,0 +1,88 @@
+# Codex Task Files for sat-sim
+
+This folder holds persistent task instructions for Codex sessions working on
+the `sat-sim` codebase.
+
+## How to use
+
+For code/simulation/result tasks, Codex should read:
+
+1. `AGENTS.md`
+2. `RUN_CODEX.md`
+3. `PROJECT_STATUS.md`
+4. `docs/tasks/QUEUE.md` if present
+5. `docs/tasks/NEXT.md`
+
+Then execute only the task in `docs/tasks/NEXT.md` or the explicitly requested
+queue task. After each substantial implementation task, update
+`PROJECT_STATUS.md` and replace `docs/tasks/NEXT.md` with the next recommended
+task. Do not start the next task automatically.
+
+## Modes
+
+- `MODE: PLAN_ONLY`: inspect and plan; do not edit files.
+- `MODE: IMPLEMENT_APPROVED`: execute the approved task with the smallest safe
+  diff and run the requested tests/checks.
+- `MODE: REVIEW_DIFF`: audit changes or consistency; do not edit unless the
+  task explicitly says to fix.
+
+## Parallel task design
+
+Tasks intended for parallel execution should declare:
+
+- mode;
+- allowed files;
+- forbidden files;
+- whether the task may run in parallel;
+- expected tests/checks;
+- stop gates;
+- whether the task may merge;
+- whether the task may generate outputs.
+
+Parallel edit-capable tasks must use branch/worktree isolation and explicit
+file ownership. `PROJECT_STATUS.md`, `docs/tasks/NEXT.md`, and
+`docs/tasks/QUEUE.md` are coordinator-owned and should not be edited by
+subagents.
+
+Each subagent must report using this format:
+
+```text
+Assigned role:
+Branch/worktree:
+Files inspected:
+Files changed:
+Tests/checks run:
+Result:
+Risks:
+Recommended next action:
+Scope boundary encountered:
+```
+
+### Example parallel-safe task
+
+```markdown
+Mode: IMPLEMENT_APPROVED
+Parallel-safe: yes
+Allowed files:
+- jcls_sim/bounds.py
+- tests/test_bounds.py
+Forbidden:
+- JCLS_Simulation.ipynb
+- result outputs
+Tests:
+- python -m unittest discover -s tests
+Stop if:
+- any other branch touches bounds.py or test_bounds.py
+May merge: no
+May run expensive simulations: no
+```
+
+## Future command
+
+From the repository root, the user may simply say:
+
+```text
+Follow AGENTS.md.
+```
+
+Root `AGENTS.md` routes code/simulation work here automatically.
