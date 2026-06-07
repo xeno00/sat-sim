@@ -43,6 +43,8 @@ FULL_OUTPUT_ROOT = (
     / "clock_sweep_replay_full"
 )
 EXECUTED_LEGACY_ROOT = SAT_SIM_ROOT / "v24_notebook_regression_outputs" / "executed_legacy"
+CACHE_ROOT = SAT_SIM_ROOT / "v24_notebook_regression_outputs" / "cache"
+CACHE_SCHEMA_VERSION = "legacy-clock-sweep-row-v1"
 TARGET_FIGURES = ("pos_vary_clock.pdf", "sync_vary_clock.pdf")
 
 
@@ -159,6 +161,59 @@ def _hash_file(path: Path) -> str | None:
     if not path.exists():
         return None
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _hash_text(text: str) -> str:
+    """Return SHA256 for a text payload."""
+
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _canonical_json(data: Any) -> str:
+    """Return canonical JSON for hashing."""
+
+    return json.dumps(data, sort_keys=True, separators=(",", ":"), default=str)
+
+
+def _git_value(args: list[str]) -> str | None:
+    """Return a git metadata value when available."""
+
+    import subprocess
+
+    try:
+        result = subprocess.run(
+            ["git", *args],
+            cwd=SAT_SIM_ROOT,
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+    except Exception:
+        return None
+    return result.stdout.strip() or None
+
+
+def _git_metadata() -> dict[str, str | None]:
+    """Return branch/commit metadata for diagnostics."""
+
+    return {
+        "branch": _git_value(["rev-parse", "--abbrev-ref", "HEAD"]),
+        "commit": _git_value(["rev-parse", "--short", "HEAD"]),
+    }
+
+
+def _selected_cell_hashes() -> list[dict[str, Any]]:
+    """Return hashes for extracted notebook cells."""
+
+    return [
+        {
+            "cell_index_zero_based": index,
+            "cell_number_one_based": index + 1,
+            "name": name,
+            "sha256": _hash_text(source),
+        }
+        for index, name, source in _selected_sources()
+    ]
 
 
 def _find_existing_artifacts() -> list[dict[str, Any]]:
@@ -425,6 +480,207 @@ def _mode_config(mode: str) -> dict[str, Any]:
     }
 
 
+def _row_cache_config(config: dict[str, Any], clock_std_dev: float) -> dict[str, Any]:
+    """Return the row-specific cache configuration."""
+
+    return {
+        "mode": config["mode"],
+        "clock_std_dev": float(clock_std_dev),
+        "num_iterations": int(config["num_iterations"]),
+        "num_users": int(config["num_users"]),
+        "num_satellites": int(config["num_satellites"]),
+        "error_range": float(config["error_range"]),
+        "seed": int(config["seed"]),
+        "estimator_mode": "legacy_il_lm_map_filter_iteration",
+    }
+
+
+def _cache_identity(config: dict[str, Any], clock_std_dev: float) -> dict[str, Any]:
+    """Return full identity data used for cache validation."""
+
+    return {
+        "cache_schema_version": CACHE_SCHEMA_VERSION,
+        "script_name": Path(__file__).name,
+        "script_sha256": _hash_file(Path(__file__).resolve()),
+        "notebook_sha256": _hash_file(NOTEBOOK_PATH),
+        "extracted_cell_hashes": _selected_cell_hashes(),
+        "config": _row_cache_config(config, clock_std_dev),
+    }
+
+
+def _cache_key(identity: dict[str, Any]) -> str:
+    """Return deterministic row cache key."""
+
+    return _hash_text(_canonical_json(identity))
+
+
+def _cache_paths(cache_root: Path, key: str) -> dict[str, Path]:
+    """Return cache file paths for a row key."""
+
+    row_dir = cache_root / "legacy_clock_sweep" / key[:16]
+    return {
+        "dir": row_dir,
+        "metadata": row_dir / "metadata.json",
+        "row": row_dir / "row.json",
+        "arrays": row_dir / "row_values.npz",
+    }
+
+
+def _row_result_hash(row: dict[str, Any]) -> str:
+    """Hash a cached row result."""
+
+    return _hash_text(_canonical_json(row))
+
+
+def _load_cached_row(
+    *,
+    cache_root: Path,
+    identity: dict[str, Any],
+    manifest_events: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    """Load a row from cache if metadata exactly matches."""
+
+    key = _cache_key(identity)
+    paths = _cache_paths(cache_root, key)
+    event = {
+        "cache_key": key,
+        "mode": identity["config"]["mode"],
+        "clock_std_dev": identity["config"]["clock_std_dev"],
+        "hit": False,
+        "fresh": False,
+        "invalidation_reason": None,
+    }
+    if not paths["metadata"].exists() or not paths["row"].exists():
+        event["invalidation_reason"] = "missing_cache_entry"
+        manifest_events.append(event)
+        return None
+    metadata = json.loads(paths["metadata"].read_text(encoding="utf-8"))
+    if metadata.get("status") != "complete":
+        event["invalidation_reason"] = f"cache_status_{metadata.get('status')}"
+        manifest_events.append(event)
+        return None
+    if metadata.get("cache_key") != key or metadata.get("identity") != identity:
+        event["invalidation_reason"] = "metadata_identity_mismatch"
+        manifest_events.append(event)
+        return None
+    row = json.loads(paths["row"].read_text(encoding="utf-8"))
+    if metadata.get("raw_result_hash") != _row_result_hash(row):
+        event["invalidation_reason"] = "raw_result_hash_mismatch"
+        manifest_events.append(event)
+        return None
+    event["hit"] = True
+    event["fresh"] = True
+    event["cache_path"] = str(paths["metadata"].relative_to(SAT_SIM_ROOT))
+    manifest_events.append(event)
+    row["cache_used"] = True
+    row["cache_key"] = key
+    return row
+
+
+def _write_cached_row(
+    *,
+    cache_root: Path,
+    identity: dict[str, Any],
+    row: dict[str, Any],
+    status: str = "complete",
+) -> None:
+    """Write one row cache entry."""
+
+    key = _cache_key(identity)
+    paths = _cache_paths(cache_root, key)
+    paths["dir"].mkdir(parents=True, exist_ok=True)
+    row_to_cache = dict(row)
+    row_to_cache["cache_used"] = False
+    row_to_cache["cache_key"] = key
+    paths["row"].write_text(json.dumps(row_to_cache, indent=2), encoding="utf-8")
+    numeric_values = {
+        key_name: value
+        for key_name, value in row_to_cache.items()
+        if isinstance(value, (int, float, bool))
+    }
+    np.savez(paths["arrays"], **numeric_values)
+    metadata = {
+        "status": status,
+        "cache_key": key,
+        "identity": identity,
+        "raw_result_hash": _row_result_hash(row_to_cache),
+        "row_json": str(paths["row"].relative_to(SAT_SIM_ROOT)),
+        "row_npz": str(paths["arrays"].relative_to(SAT_SIM_ROOT)),
+        "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        **_git_metadata(),
+    }
+    paths["metadata"].write_text(json.dumps(metadata, indent=2), encoding="utf-8")
+
+
+def _write_failed_cache_entry(cache_root: Path, identity: dict[str, Any], error: Exception) -> None:
+    """Write a failed cache entry that is never considered valid."""
+
+    key = _cache_key(identity)
+    paths = _cache_paths(cache_root, key)
+    paths["dir"].mkdir(parents=True, exist_ok=True)
+    metadata = {
+        "status": "failed",
+        "cache_key": key,
+        "identity": identity,
+        "error_type": type(error).__name__,
+        "error_message": str(error),
+        "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        **_git_metadata(),
+    }
+    paths["metadata"].write_text(json.dumps(metadata, indent=2), encoding="utf-8")
+
+
+def _write_cache_manifest(cache_root: Path, events: list[dict[str, Any]]) -> dict[str, Any]:
+    """Write cache manifest files."""
+
+    cache_root.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "artifact_status": "non_final_cache_manifest",
+        "cache_schema_version": CACHE_SCHEMA_VERSION,
+        "events": events,
+        "entry_count": len(events),
+        "fresh_hit_count": sum(1 for event in events if event.get("fresh")),
+        "miss_or_stale_count": sum(1 for event in events if not event.get("fresh")),
+        "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        **_git_metadata(),
+    }
+    (cache_root / "CACHE_MANIFEST.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    md_lines = [
+        "# Cache Manifest",
+        "",
+        f"- Schema: `{CACHE_SCHEMA_VERSION}`",
+        f"- Entries observed: {payload['entry_count']}",
+        f"- Fresh hits: {payload['fresh_hit_count']}",
+        f"- Miss/stale: {payload['miss_or_stale_count']}",
+        "",
+        "| Mode | Clock std dev | Hit | Fresh | Reason |",
+        "|---|---:|---:|---:|---|",
+    ]
+    for event in events:
+        md_lines.append(
+            "| {mode} | {clock} | {hit} | {fresh} | {reason} |".format(
+                mode=event.get("mode"),
+                clock=event.get("clock_std_dev"),
+                hit=event.get("hit"),
+                fresh=event.get("fresh"),
+                reason=event.get("invalidation_reason") or "",
+            )
+        )
+    (cache_root / "CACHE_MANIFEST.md").write_text("\n".join(md_lines) + "\n", encoding="utf-8")
+    return payload
+
+
+def cache_status(*, mode: str, cache_root: Path = CACHE_ROOT) -> dict[str, Any]:
+    """Return cache freshness status for the current mode config."""
+
+    config = _mode_config(mode)
+    events: list[dict[str, Any]] = []
+    for clock_std_dev in config["clock_std_devs"]:
+        identity = _cache_identity(config, float(clock_std_dev))
+        _load_cached_row(cache_root=cache_root, identity=identity, manifest_events=events)
+    return _write_cache_manifest(cache_root, events)
+
+
 def _write_raw_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     """Write raw row diagnostics."""
 
@@ -446,6 +702,8 @@ def _write_raw_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "lm_sync_error_s",
         "map_sync_error_s",
         "success",
+        "cache_used",
+        "cache_key",
         "fallbacks",
         "failures",
     ]
@@ -479,6 +737,8 @@ def _write_summary_csv(path: Path, rows: list[dict[str, Any]]) -> None:
                 "il_failures",
                 "lm_failures",
                 "map_failures",
+                "cache_hit_count",
+                "cache_miss_count",
             ],
         )
         writer.writeheader()
@@ -492,11 +752,20 @@ def _write_summary_csv(path: Path, rows: list[dict[str, Any]]) -> None:
                 "il_failures": sum(1 for row in rows if row["il_status"] != "passed"),
                 "lm_failures": sum(1 for row in rows if row["lm_status"] != "passed"),
                 "map_failures": sum(row["map_failure_count"] for row in rows),
+                "cache_hit_count": sum(1 for row in rows if row.get("cache_used")),
+                "cache_miss_count": sum(1 for row in rows if not row.get("cache_used")),
             }
         )
 
 
-def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT_ROOT) -> dict[str, Any]:
+def replay_legacy_clock_sweep(
+    *,
+    mode: str = "smoke",
+    output_root: Path = OUTPUT_ROOT,
+    cache_root: Path = CACHE_ROOT,
+    use_cache: bool = True,
+    force_rerun: bool = False,
+) -> dict[str, Any]:
     """Replay the legacy clock-sweep figure pair in smoke or full mode."""
 
     start_time = time.perf_counter()
@@ -505,15 +774,29 @@ def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT
     np.random.seed(int(config["seed"]))
     namespace, executed_cells = _execute_legacy_namespace()
     rows = []
+    cache_events: list[dict[str, Any]] = []
     for clock_std_dev in config["clock_std_devs"]:
-        row = _scenario_result(
-            namespace=namespace,
-            clock_std_dev=float(clock_std_dev),
-            num_iterations=int(config["num_iterations"]),
-            num_users=int(config["num_users"]),
-            num_satellites=int(config["num_satellites"]),
-            error_range=float(config["error_range"]),
-        )
+        identity = _cache_identity(config, float(clock_std_dev))
+        row = None
+        if use_cache and not force_rerun:
+            row = _load_cached_row(cache_root=cache_root, identity=identity, manifest_events=cache_events)
+        if row is None:
+            try:
+                row = _scenario_result(
+                    namespace=namespace,
+                    clock_std_dev=float(clock_std_dev),
+                    num_iterations=int(config["num_iterations"]),
+                    num_users=int(config["num_users"]),
+                    num_satellites=int(config["num_satellites"]),
+                    error_range=float(config["error_range"]),
+                )
+            except Exception as error:
+                _write_failed_cache_entry(cache_root, identity, error)
+                raise
+            row["cache_used"] = False
+            row["cache_key"] = _cache_key(identity)
+            if use_cache:
+                _write_cached_row(cache_root=cache_root, identity=identity, row=row)
         row["mode"] = mode
         rows.append(row)
 
@@ -614,6 +897,16 @@ def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT
         "full_mode_completed": mode == "full",
         "runtime_seconds": runtime_seconds,
         "output_root": str(output_root.relative_to(SAT_SIM_ROOT)),
+        "cache": {
+            "use_cache": use_cache,
+            "force_rerun": force_rerun,
+            "cache_root": str(cache_root.relative_to(SAT_SIM_ROOT)),
+            "cache_manifest_json": str((cache_root / "CACHE_MANIFEST.json").relative_to(SAT_SIM_ROOT)),
+            "cache_manifest_md": str((cache_root / "CACHE_MANIFEST.md").relative_to(SAT_SIM_ROOT)),
+            "cache_hit_count": sum(1 for row in rows if row.get("cache_used")),
+            "cache_miss_count": sum(1 for row in rows if not row.get("cache_used")),
+            "cache_events": cache_events,
+        },
         "notebook_source_modified": False,
         "full_notebook_executed": False,
         "colab_setup_executed": False,
@@ -721,6 +1014,9 @@ def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT
         ],
         "next_recommended_figure_family": "pos_vary_ues.pdf and sync_vary_ues.pdf",
     }
+    manifest = _write_cache_manifest(cache_root, cache_events)
+    report["cache"]["manifest_fresh_hit_count"] = manifest["fresh_hit_count"]
+    report["cache"]["manifest_miss_or_stale_count"] = manifest["miss_or_stale_count"]
     (output_root / "legacy_clock_sweep_metadata.json").write_text(
         json.dumps(report, indent=2),
         encoding="utf-8",
@@ -869,6 +1165,15 @@ def _parse_args() -> argparse.Namespace:
     group.add_argument("--smoke", action="store_true", help="Run reduced deterministic smoke replay.")
     group.add_argument("--full", action="store_true", help="Run legacy-sized replay for human use.")
     parser.add_argument("--output-root", type=Path, default=None)
+    cache_group = parser.add_mutually_exclusive_group()
+    cache_group.add_argument("--use-cache", action="store_true", default=True, help="Use valid row cache entries.")
+    cache_group.add_argument("--no-cache", action="store_true", help="Do not read or write row cache entries.")
+    parser.add_argument("--force-rerun", action="store_true", help="Bypass valid cache and rewrite row cache entries.")
+    parser.add_argument("--cache-status", action="store_true", help="Report cache freshness for the selected mode and exit.")
+    parser.add_argument("--cache-root", type=Path, default=CACHE_ROOT)
+    preview_group = parser.add_mutually_exclusive_group()
+    preview_group.add_argument("--render-previews", action="store_true", default=True, help="Render gallery previews after success.")
+    preview_group.add_argument("--no-render-previews", action="store_true", help="Skip preview rendering.")
     return parser.parse_args()
 
 
@@ -913,13 +1218,31 @@ def main() -> int:
     output_root = args.output_root or (FULL_OUTPUT_ROOT if mode == "full" else OUTPUT_ROOT)
     if SAT_SIM_ROOT not in output_root.resolve().parents and output_root.resolve() != SAT_SIM_ROOT:
         raise ValueError("output-root must be inside sat-sim.")
+    if SAT_SIM_ROOT not in args.cache_root.resolve().parents and args.cache_root.resolve() != SAT_SIM_ROOT:
+        raise ValueError("cache-root must be inside sat-sim.")
+    if args.cache_status:
+        manifest = cache_status(mode=mode, cache_root=args.cache_root)
+        print(json.dumps(manifest, indent=2))
+        return 0
+    use_cache = not args.no_cache
     try:
-        report = replay_legacy_clock_sweep(mode=mode, output_root=output_root)
+        report = replay_legacy_clock_sweep(
+            mode=mode,
+            output_root=output_root,
+            cache_root=args.cache_root,
+            use_cache=use_cache,
+            force_rerun=args.force_rerun,
+        )
     except Exception as error:
         _write_execution_failure(mode, output_root, error)
         raise
     _update_figure_regression_table(report)
     _write_top_level_report(report)
+    gallery_report = None
+    if not args.no_render_previews:
+        from render_all_figure_previews import GALLERY_ROOT, render_gallery
+
+        gallery_report = render_gallery(force=False)
     print(
         json.dumps(
             {
@@ -927,6 +1250,10 @@ def main() -> int:
                 "mode": mode,
                 "runtime_seconds": report["runtime_seconds"],
                 "output_root": report["output_root"],
+                "cache_hit_count": report["cache"]["cache_hit_count"],
+                "cache_miss_count": report["cache"]["cache_miss_count"],
+                "gallery": str((GALLERY_ROOT / "PLOT_GALLERY.html").relative_to(SAT_SIM_ROOT)) if gallery_report else None,
+                "preview_pngs": gallery_report.get("preview_pngs", []) if gallery_report else [],
             },
             indent=2,
         )

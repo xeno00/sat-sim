@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "v24_human_review_outputs\\fig6_localization_vs_clock_std_human_review\\fig6_localization_vs_clock_std_human_review.pdf",
+  "source_pdf_sha256": "0397ae1c78cb28fdd9546c1ab23f304925282700ad70d64439d485df0be49cb0",
+  "source_pdf_size_bytes": 19910,
+  "preview_paths": [
+    "v24_plot_gallery\\previews\\af547fc3eef8____fig6_localization_vs_clock_std_human_review__fig6_localization_vs_clock_std_human_review-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "v24_plot_gallery\\previews\\af547fc3eef8____fig6_localization_vs_clock_std_human_review__fig6_localization_vs_clock_std_human_review.json",
+  "render_timestamp_utc": "2026-06-07T20:38:45.522008+00:00",
+  "render_status": "rendered",
+  "branch": "codex/plot-gallery-cache",
+  "commit": "7166d9d"
+}

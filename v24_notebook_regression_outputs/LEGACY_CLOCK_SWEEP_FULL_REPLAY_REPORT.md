@@ -2,7 +2,7 @@
 
 - Status: `legacy_full_replayed_unverified_match`
 - Mode: `full`
-- Runtime seconds: 1619.341
+- Runtime seconds: 7.512
 - Output root: `v24_notebook_regression_outputs\executed_legacy\clock_sweep_replay_full`
 - Manuscript ready: `False`
 
@@ -22,13 +22,8 @@
 - `total_fallback_events`: 175
 - `il_failures`: 0
 - `lm_failures`: 0
-- `map_failures`: 0
-- `map_global_fallback_count`: 175
-
-## Replayed Artifact Hashes
-
-- `pos_vary_clock.pdf`: 22759 bytes, `815b8a5670c2691c3c406deac716c584f9dc4cbbc0db9128a947a2c804de1901`
-- `sync_vary_clock.pdf`: 22497 bytes, `a052312d2091f9d583374f19eebb9ef265aa1ca9d02d4b2d4a7644bec222936b`
+- `map_failures`: 0.0
+- `map_global_fallback_count`: 175.0
 
 ## Caveats
 

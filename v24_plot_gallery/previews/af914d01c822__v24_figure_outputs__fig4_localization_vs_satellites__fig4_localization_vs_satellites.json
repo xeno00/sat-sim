@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "v24_figure_outputs\\fig4_localization_vs_satellites\\fig4_localization_vs_satellites.pdf",
+  "source_pdf_sha256": "3bd704814e15c68c39b1aba0aed12a96d7e4b7b6c6aade39ef54bf9b76f7c50d",
+  "source_pdf_size_bytes": 24847,
+  "preview_paths": [
+    "v24_plot_gallery\\previews\\af914d01c822__v24_figure_outputs__fig4_localization_vs_satellites__fig4_localization_vs_satellites-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "v24_plot_gallery\\previews\\af914d01c822__v24_figure_outputs__fig4_localization_vs_satellites__fig4_localization_vs_satellites.json",
+  "render_timestamp_utc": "2026-06-07T20:38:39.793185+00:00",
+  "render_status": "rendered",
+  "branch": "codex/plot-gallery-cache",
+  "commit": "7166d9d"
+}
