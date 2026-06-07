@@ -1,0 +1,67 @@
+{
+  "branch": "codex/notebook-manuscript-regression-sprint",
+  "lanes": [
+    {
+      "fallback": false,
+      "lane": "A",
+      "status": "complete",
+      "stem": "A_manuscript_system_model"
+    },
+    {
+      "fallback": true,
+      "lane": "B",
+      "status": "complete",
+      "stem": "B_manuscript_algorithm"
+    },
+    {
+      "fallback": false,
+      "lane": "C",
+      "status": "complete",
+      "stem": "C_manuscript_results"
+    },
+    {
+      "fallback": true,
+      "lane": "D",
+      "status": "complete",
+      "stem": "D_notebook_classes_models"
+    },
+    {
+      "fallback": false,
+      "lane": "E",
+      "status": "complete",
+      "stem": "E_notebook_optimizer"
+    },
+    {
+      "fallback": false,
+      "lane": "F",
+      "status": "complete",
+      "stem": "F_notebook_figure_blocks"
+    },
+    {
+      "fallback": true,
+      "lane": "G",
+      "status": "complete",
+      "stem": "G_units_noise_covariance"
+    },
+    {
+      "fallback": true,
+      "lane": "H",
+      "status": "complete",
+      "stem": "H_gauge_all_clock"
+    },
+    {
+      "fallback": true,
+      "lane": "I",
+      "status": "complete",
+      "stem": "I_baseline_semantics"
+    },
+    {
+      "fallback": true,
+      "lane": "L",
+      "status": "complete",
+      "stem": "L_red_team"
+    }
+  ],
+  "observable_active_agent_count_at_intervention": 0,
+  "report_type": "task_matrix"
+}

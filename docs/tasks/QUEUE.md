@@ -16,6 +16,9 @@ Queue execution rules:
 
 ## 1. Package-native CRLB mini-sweep comparison plan
 
+Status: superseded by merged CRLB geometry, manuscript-candidate,
+figure-candidate, preview, and decision-plan diagnostics.
+
 Mode: `PLAN_ONLY`
 
 Parallel-safe: yes, read-only/planning
@@ -53,6 +56,9 @@ May run expensive simulations: no
 
 ## 2. Package-native CRLB mini-sweep implementation
 
+Status: completed/superseded by merged package-native CRLB sweep and hardened
+diagnostics.
+
 Mode: `IMPLEMENT_APPROVED`
 
 Parallel-safe: maybe, only if it edits distinct runner/output files
@@ -88,6 +94,9 @@ May run expensive simulations: no
 
 ## 3. Legacy notebook bridge audit
 
+Status: implemented on branch `codex/crlb-decision-sprint`; awaiting
+read-only review before merge. See `docs/tasks/NEXT.md`.
+
 Mode: `PLAN_ONLY` / `REVIEW_DIFF`
 
 Parallel-safe: yes, read-only
@@ -119,6 +128,8 @@ May run expensive simulations: no
 
 ## 4. Runtime profiling plan
 
+Status: pending after legacy notebook provenance audit.
+
 Mode: `PLAN_ONLY`
 
 Parallel-safe: yes, read-only
@@ -143,6 +154,44 @@ Stop gates:
 - need for expensive profiling run
 - need for optimizer refactor
 - need for final figure generation
+
+May merge: no
+
+May run expensive simulations: no
+
+## 5. CRLB figure-family regression diagnostics
+
+Status: implemented on branch `codex/crlb-decision-sprint`; awaiting read-only
+review before merge. See `docs/tasks/NEXT.md`.
+
+Mode: `REVIEW_DIFF`
+
+Parallel-safe: yes, read-only
+
+Allowed edit files:
+
+- none
+
+Read-only files:
+
+- `scripts/regress_v24_crlb_figures.py`
+- `tests/test_crlb_regression.py`
+- `v24_diagnostics/regression/crlb_figure_family_regression.json`
+- `v24_diagnostics/regression/crlb_figure_family_regression.csv`
+- `v24_diagnostics/regression/crlb_figure_family_regression_masks.npz`
+- package modules used by the CRLB candidate path
+
+Expected tests:
+
+- `powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'`
+
+Stop gates:
+
+- code edits required
+- notebook execution required
+- generated manuscript figure risk
+- output overwrite risk
+- human technical decision required
 
 May merge: no
 

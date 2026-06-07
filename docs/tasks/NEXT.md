@@ -1,37 +1,36 @@
 MODE: PLAN_ONLY
 
-This task may be executed via `RUN_CODEX.md`. Do not edit files unless the
-human explicitly approves implementation. Do not generate manuscript figures.
-
-# Next Task: Plan Human Decision From CRLB Preview Outputs
+# Next Task: Plan Safe Legacy Network-Size Figure Replay
 
 ## Purpose
 
-Use the merged non-final CRLB preview outputs to prepare a human decision plan
-for CRLB figure handling. This is still not a manuscript-figure generation task.
+Use the successful safe CRLB and clock-sweep replay artifacts to plan the next
+legacy figure-family replay. Do not implement yet and do not regenerate
+manuscript figures.
 
-## Context
+Already replayed into diagnostics:
 
-The package now has non-final CRLB figure-candidate data and preview SVGs under
-`v24_diagnostics/`. The previews are diagnostic aids only:
+- `pos_crlb_0dB_0dB.pdf`
+- `sync_crlb_0dB_0dB.pdf`
+- `pos_vary_clock.pdf`
+- `sync_vary_clock.pdf`
 
-- rank-feasibility heatmap preview;
-- finite CRLB-vs-`N_s` UE PEB preview with unavailable markers;
-- finite CRLB-vs-`N_s` clock-bound preview with unavailable markers;
-- fixed-parameter measurement-addition preview.
+The next candidate family is:
+
+- `pos_vary_ues.pdf`
+- `sync_vary_ues.pdf`
 
 ## Scope
 
-Allowed files to inspect:
+Inspect:
 
-- `v24_diagnostics/crlb_preview/preview_manifest.json`
-- `v24_diagnostics/crlb_preview/*.svg`
-- `v24_diagnostics/crlb_figure_candidate_data.json`
-- `v24_diagnostics/manuscript_crlb_candidate.json`
-- `v24_diagnostics/crlb_geometry_diagnostics.json`
-- `scripts/preview_v24_crlb_figure_candidates.py`
-- `PROJECT_STATUS.md`
-- `docs/tasks/NEXT.md`
+- `v24_notebook_regression_outputs/LEGACY_CRLB_REPLAY_REPORT.md`
+- `v24_notebook_regression_outputs/LEGACY_CLOCK_SWEEP_REPLAY_REPORT.md`
+- `v24_notebook_regression_outputs/LEGACY_CLOCK_SWEEP_FULL_REPLAY_REPORT.md`
+- `v24_notebook_regression_outputs/FIGURE_REGRESSION_TABLE.md`
+- `scripts/replay_legacy_crlb_figures.py`
+- `scripts/replay_legacy_clock_sweep_figures.py`
+- `JCLS_Simulation.ipynb` statically only
 
 Do not edit:
 
@@ -44,39 +43,38 @@ Do not edit:
 - generated manuscript PDFs
 - generated manuscript figure PDFs/EPS/PNGs
 - existing manuscript result files
-- plotting code
-- package source files
-- tests
 
-## Planning Questions
+## Required Analysis
 
-1. Which preview concept should be proposed to the human team first?
-2. Which current manuscript CRLB figure(s) would each concept replace or
-   supplement?
-3. What exact caveats must accompany any CRLB-vs-`N_s` presentation?
-4. What manuscript or response-letter changes would be needed if the CRLB
-   figure concept changes?
-5. What implementation task should be approved next if humans choose a
-   non-final manuscript-style figure candidate?
+1. Identify exact notebook cells/functions needed for:
+   - `pos_vary_ues.pdf`
+   - `sync_vary_ues.pdf`
+2. Determine whether replay depends on:
+   - nonlinear estimator convergence,
+   - workspace variables from previous cells,
+   - oracle/truth-gated updates,
+   - smoothing/fitting/manual edits,
+   - random seeds or Monte Carlo loops.
+3. Decide whether a safe replay should:
+   - execute the original legacy network-size logic with reduced grid/trials;
+   - replay saved/static arrays if present;
+   - create a tiny deterministic smoke replay;
+   - or stop because a human decision is required.
+4. Propose output paths under
+   `v24_notebook_regression_outputs/executed_legacy/network_size_replay/`.
+5. Define tests and stop conditions.
 
-## Required Output
+## Expected Output
 
-Return:
+Return a plan with:
 
-- PASS / PASS WITH CAVEAT / FAIL for using the preview outputs as decision
-  input;
-- recommended CRLB figure decision path;
-- human-review questions;
-- exact next implementation task if a non-final manuscript-style figure
-  candidate is approved;
-- files that task may edit;
-- stop gates;
-- confirmation no files were edited.
+- network-size figure dependency map;
+- extraction/skipping rules;
+- runtime/seed risk;
+- output redirection strategy;
+- smallest next implementation task;
+- tests to add;
+- whether full legacy network-size replay is feasible.
 
-## Hard Constraints
-
-- Do not run notebook code.
-- Do not generate manuscript figures.
-- Do not run full sweeps.
-- Do not edit manuscript, response-letter, bibliography, figure, PSFrag,
-  generated PDF, notebook, package source, test, or result files.
+Update `PROJECT_STATUS.md` and `docs/tasks/NEXT.md` only if the human approves a
+new implementation plan.

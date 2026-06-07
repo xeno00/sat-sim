@@ -1,0 +1,38 @@
+{
+  "artifact_kind": "manuscript_candidate",
+  "artifact_warning": "Manuscript-candidate package-native output; geometry/noise assumptions are closer to V24 but algorithm fidelity and final human signoff are still required before TAES submission.",
+  "assumptions": [
+    "MIT Stata Center reference location with deterministic random UEs inside a 500 m disk.",
+    "Starlink-like synthetic LEO geometry with a 30 degree minimum elevation mask.",
+    "Clock-offset sweep uses nanosecond-valued time standard deviations converted to range-domain kilometers.",
+    "Refined JCLS uses a package-native dynamic SCI/SFI information update with x=theta, F=I, Pi=I, and Q=process_noise_std_km^2 I."
+  ],
+  "candidate_only": true,
+  "command": "python scripts/run_v24_figures_4_7.py --config configs/v24_manuscript_candidate_figures_4_7/fig6_localization_vs_clock_std_candidate.json --output-root v24_manuscript_candidate_outputs --overwrite",
+  "config_file": "configs/v24_manuscript_candidate_figures_4_7/fig6_localization_vs_clock_std_candidate.json",
+  "diagnostic_only": false,
+  "figure_id": "fig6_localization_vs_clock_std_candidate",
+  "known_discrepancy_from_v24": "Manuscript-candidate geometry/noise/algorithm path; synthetic satellite geometry and final human signoff remain unresolved.",
+  "manuscript_figure": "Fig. 6",
+  "manuscript_ready": false,
+  "metadata_file": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_metadata.json",
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "npz_output_file": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_raw.npz",
+  "plot_output_file": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate.pdf",
+  "provenance_type": "package_native_v24_manuscript_candidate_figure_provenance",
+  "rank_metadata": {
+    "baseline_specific_rank_pending": true,
+    "note": "Rank fields named full_jcls_scenario_* are computed for the full gauged V24 theta and the scenario links used by the selected epoch count. They are not baseline-specific observability claims.",
+    "scope": "full_jcls_scenario_not_baseline_observability"
+  },
+  "raw_output_file": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_raw.csv",
+  "summary_output_file": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_summary.csv",
+  "test_coverage": [
+    "tests/test_figure_generation.py",
+    "tests/test_estimators.py",
+    "tests/test_measurements.py",
+    "tests/test_jacobian.py",
+    "tests/test_metrics.py"
+  ]
+}

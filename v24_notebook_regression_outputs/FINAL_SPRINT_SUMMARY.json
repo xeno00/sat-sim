@@ -1,0 +1,18 @@
+{
+  "branch": "codex/notebook-manuscript-regression-sprint",
+  "commit_hash": "b77da497201ad156db0c5c00970341a99a289f70",
+  "manuscript_files_edited": false,
+  "notebook_executed": false,
+  "outputs": [
+    "MANUSCRIPT_ALGORITHM_MAP.md/json",
+    "NOTEBOOK_FORENSICS_REPORT.md/json",
+    "MANUSCRIPT_NOTEBOOK_CROSSWALK.md/json",
+    "FIGURE_REGRESSION_TABLE.md/json",
+    "BASELINE_SEMANTICS_REPORT.md/json",
+    "UNITS_NOISE_COVARIANCE_REPORT.md/json",
+    "GAUGE_AB_TEST_REPORT.md/json",
+    "PLOT_GALLERY.md/json"
+  ],
+  "report_type": "notebook_manuscript_regression_sprint_summary",
+  "subagent_reports": []
+}

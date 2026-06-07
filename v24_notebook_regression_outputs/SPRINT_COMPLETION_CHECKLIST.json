@@ -1,0 +1,152 @@
+{
+  "lane_outputs": [
+    {
+      "fallback": false,
+      "lane": "A",
+      "status": "complete",
+      "stem": "A_manuscript_system_model"
+    },
+    {
+      "fallback": true,
+      "lane": "B",
+      "status": "complete",
+      "stem": "B_manuscript_algorithm"
+    },
+    {
+      "fallback": false,
+      "lane": "C",
+      "status": "complete",
+      "stem": "C_manuscript_results"
+    },
+    {
+      "fallback": true,
+      "lane": "D",
+      "status": "complete",
+      "stem": "D_notebook_classes_models"
+    },
+    {
+      "fallback": false,
+      "lane": "E",
+      "status": "complete",
+      "stem": "E_notebook_optimizer"
+    },
+    {
+      "fallback": false,
+      "lane": "F",
+      "status": "complete",
+      "stem": "F_notebook_figure_blocks"
+    },
+    {
+      "fallback": true,
+      "lane": "G",
+      "status": "complete",
+      "stem": "G_units_noise_covariance"
+    },
+    {
+      "fallback": true,
+      "lane": "H",
+      "status": "complete",
+      "stem": "H_gauge_all_clock"
+    },
+    {
+      "fallback": true,
+      "lane": "I",
+      "status": "complete",
+      "stem": "I_baseline_semantics"
+    },
+    {
+      "fallback": true,
+      "lane": "L",
+      "status": "complete",
+      "stem": "L_red_team"
+    }
+  ],
+  "mandatory_outputs": [
+    {
+      "item": "TASK_MATRIX",
+      "json": "v24_notebook_regression_outputs/TASK_MATRIX.json",
+      "markdown": "v24_notebook_regression_outputs/TASK_MATRIX.md",
+      "status": "complete"
+    },
+    {
+      "item": "SPRINT_COMPLETION_CHECKLIST",
+      "json": "v24_notebook_regression_outputs/SPRINT_COMPLETION_CHECKLIST.json",
+      "markdown": "v24_notebook_regression_outputs/SPRINT_COMPLETION_CHECKLIST.md",
+      "status": "complete"
+    },
+    {
+      "item": "MANUSCRIPT_ALGORITHM_MAP",
+      "json": "v24_notebook_regression_outputs/MANUSCRIPT_ALGORITHM_MAP.json",
+      "markdown": "v24_notebook_regression_outputs/MANUSCRIPT_ALGORITHM_MAP.md",
+      "status": "complete"
+    },
+    {
+      "item": "NOTEBOOK_FORENSICS_REPORT",
+      "json": "v24_notebook_regression_outputs/NOTEBOOK_FORENSICS_REPORT.json",
+      "markdown": "v24_notebook_regression_outputs/NOTEBOOK_FORENSICS_REPORT.md",
+      "status": "complete"
+    },
+    {
+      "item": "MANUSCRIPT_NOTEBOOK_CROSSWALK",
+      "json": "v24_notebook_regression_outputs/MANUSCRIPT_NOTEBOOK_CROSSWALK.json",
+      "markdown": "v24_notebook_regression_outputs/MANUSCRIPT_NOTEBOOK_CROSSWALK.md",
+      "status": "complete"
+    },
+    {
+      "item": "ORDERED_LINK_CONVENTION_AUDIT",
+      "json": "v24_notebook_regression_outputs/ORDERED_LINK_CONVENTION_AUDIT.json",
+      "markdown": "v24_notebook_regression_outputs/ORDERED_LINK_CONVENTION_AUDIT.md",
+      "status": "complete"
+    },
+    {
+      "item": "UNIT_CLOCK_REPRESENTATION_AUDIT",
+      "json": "v24_notebook_regression_outputs/UNIT_CLOCK_REPRESENTATION_AUDIT.json",
+      "markdown": "v24_notebook_regression_outputs/UNIT_CLOCK_REPRESENTATION_AUDIT.md",
+      "status": "complete"
+    },
+    {
+      "item": "UNITS_NOISE_COVARIANCE_REPORT",
+      "json": "v24_notebook_regression_outputs/UNITS_NOISE_COVARIANCE_REPORT.json",
+      "markdown": "v24_notebook_regression_outputs/UNITS_NOISE_COVARIANCE_REPORT.md",
+      "status": "complete"
+    },
+    {
+      "item": "GAUGE_AB_TEST_REPORT",
+      "json": "v24_notebook_regression_outputs/GAUGE_AB_TEST_REPORT.json",
+      "markdown": "v24_notebook_regression_outputs/GAUGE_AB_TEST_REPORT.md",
+      "status": "complete"
+    },
+    {
+      "item": "BASELINE_SEMANTICS_REPORT",
+      "json": "v24_notebook_regression_outputs/BASELINE_SEMANTICS_REPORT.json",
+      "markdown": "v24_notebook_regression_outputs/BASELINE_SEMANTICS_REPORT.md",
+      "status": "complete"
+    },
+    {
+      "item": "FIGURE_REGRESSION_TABLE",
+      "json": "v24_notebook_regression_outputs/FIGURE_REGRESSION_TABLE.json",
+      "markdown": "v24_notebook_regression_outputs/FIGURE_REGRESSION_TABLE.md",
+      "status": "complete"
+    },
+    {
+      "item": "PLOT_GALLERY",
+      "json": "v24_notebook_regression_outputs/PLOT_GALLERY.json",
+      "markdown": "v24_notebook_regression_outputs/PLOT_GALLERY.md",
+      "status": "complete"
+    },
+    {
+      "item": "RED_TEAM_REPORT",
+      "json": "v24_notebook_regression_outputs/RED_TEAM_REPORT.json",
+      "markdown": "v24_notebook_regression_outputs/RED_TEAM_REPORT.md",
+      "status": "complete"
+    },
+    {
+      "item": "FORENSIC_REGRESSION_SPRINT_REPORT",
+      "json": "v24_notebook_regression_outputs/FORENSIC_REGRESSION_SPRINT_REPORT.json",
+      "markdown": "v24_notebook_regression_outputs/FORENSIC_REGRESSION_SPRINT_REPORT.md",
+      "status": "complete"
+    }
+  ],
+  "report_type": "sprint_completion_checklist",
+  "status": "complete"
+}

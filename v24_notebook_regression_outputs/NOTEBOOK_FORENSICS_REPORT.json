@@ -1,0 +1,605 @@
+{
+  "definitions": [
+    {
+      "cell": 4,
+      "kind": "def",
+      "name": "save_workspace"
+    },
+    {
+      "cell": 4,
+      "kind": "def",
+      "name": "load_workspace"
+    },
+    {
+      "cell": 7,
+      "kind": "class",
+      "name": "Node"
+    },
+    {
+      "cell": 7,
+      "kind": "def",
+      "name": "__init__"
+    },
+    {
+      "cell": 9,
+      "kind": "class",
+      "name": "User"
+    },
+    {
+      "cell": 9,
+      "kind": "def",
+      "name": "__init__"
+    },
+    {
+      "cell": 9,
+      "kind": "def",
+      "name": "move"
+    },
+    {
+      "cell": 9,
+      "kind": "def",
+      "name": "connect"
+    },
+    {
+      "cell": 11,
+      "kind": "class",
+      "name": "Satellite"
+    },
+    {
+      "cell": 11,
+      "kind": "def",
+      "name": "__init__"
+    },
+    {
+      "cell": 11,
+      "kind": "def",
+      "name": "move"
+    },
+    {
+      "cell": 13,
+      "kind": "class",
+      "name": "Datalink"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "__init__"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "get_model_km"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "get_tfap_km"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "get_snr_abs"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "get_variance_seconds"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "get_variance_km"
+    },
+    {
+      "cell": 13,
+      "kind": "class",
+      "name": "RayleighTOADist"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "_pdf"
+    },
+    {
+      "cell": 13,
+      "kind": "class",
+      "name": "RicianTOADist"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "_pdf"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "sample_noise_dist_km"
+    },
+    {
+      "cell": 13,
+      "kind": "def",
+      "name": "get_rfap_sample_km"
+    },
+    {
+      "cell": 15,
+      "kind": "class",
+      "name": "Scenario"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "__init__"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "initialize_nodes"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "get_links"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "query_measurements"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "extract_models_and_parameters"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "get_true_state"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "evaluate_jacobian"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "h"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "move_nodes"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "get_measurement_covariance"
+    },
+    {
+      "cell": 15,
+      "kind": "def",
+      "name": "calculate_state_covariance"
+    },
+    {
+      "cell": 17,
+      "kind": "class",
+      "name": "Optimizer"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "__init__"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "initialize_state"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "calculate_state_covariance"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "check_step_inputs"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "converged"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "check_output"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "gd_step"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "gn_step"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "il_step"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "async_gn_step"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "lm_step"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "ekf_step"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "rm_clock_params"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "run"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "calculate_average_position_error"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "calculate_average_clock_error"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "map_estimate"
+    },
+    {
+      "cell": 17,
+      "kind": "def",
+      "name": "map_filter_iteration"
+    },
+    {
+      "cell": 24,
+      "kind": "def",
+      "name": "display_heatmap"
+    },
+    {
+      "cell": 24,
+      "kind": "def",
+      "name": "ieee_flexible_plot"
+    },
+    {
+      "cell": 24,
+      "kind": "def",
+      "name": "scientific_clean"
+    },
+    {
+      "cell": 24,
+      "kind": "def",
+      "name": "log_formatter_10_power"
+    },
+    {
+      "cell": 25,
+      "kind": "def",
+      "name": "exp_func"
+    },
+    {
+      "cell": 25,
+      "kind": "def",
+      "name": "fit_and_resample_exponential"
+    },
+    {
+      "cell": 25,
+      "kind": "def",
+      "name": "linear_func"
+    },
+    {
+      "cell": 25,
+      "kind": "def",
+      "name": "fit_and_resample_linear"
+    },
+    {
+      "cell": 25,
+      "kind": "def",
+      "name": "fit_and_resample_power_law"
+    },
+    {
+      "cell": 28,
+      "kind": "def",
+      "name": "generate_data_for_heatmap"
+    },
+    {
+      "cell": 31,
+      "kind": "def",
+      "name": "generate_data_for_clock_std_dev"
+    },
+    {
+      "cell": 34,
+      "kind": "def",
+      "name": "build_sigma_matrix_from_snr"
+    },
+    {
+      "cell": 34,
+      "kind": "def",
+      "name": "psd"
+    },
+    {
+      "cell": 34,
+      "kind": "def",
+      "name": "remove_dependent_measurements"
+    },
+    {
+      "cell": 34,
+      "kind": "def",
+      "name": "generate_FIM_data"
+    },
+    {
+      "cell": 37,
+      "kind": "def",
+      "name": "h_function_pytorch"
+    },
+    {
+      "cell": 37,
+      "kind": "def",
+      "name": "sympy_to_pytorch"
+    },
+    {
+      "cell": 37,
+      "kind": "def",
+      "name": "pytorch_function"
+    },
+    {
+      "cell": 37,
+      "kind": "def",
+      "name": "loss_function"
+    },
+    {
+      "cell": 39,
+      "kind": "def",
+      "name": "ecef_to_latlon"
+    },
+    {
+      "cell": 40,
+      "kind": "def",
+      "name": "ecef_to_latlon"
+    },
+    {
+      "cell": 44,
+      "kind": "def",
+      "name": "build_sigma_matrix_from_snr"
+    },
+    {
+      "cell": 44,
+      "kind": "def",
+      "name": "build_sigma_matrix_from_bw"
+    },
+    {
+      "cell": 44,
+      "kind": "def",
+      "name": "psd"
+    },
+    {
+      "cell": 44,
+      "kind": "def",
+      "name": "remove_dependent_measurements"
+    },
+    {
+      "cell": 44,
+      "kind": "def",
+      "name": "generate_CRLB_BW"
+    },
+    {
+      "cell": 47,
+      "kind": "def",
+      "name": "generate_data_for_user_speed"
+    },
+    {
+      "cell": 53,
+      "kind": "def",
+      "name": "download_tle_if_needed"
+    }
+  ],
+  "figure_cells": [
+    {
+      "cell": 24,
+      "hits": [
+        "savefig",
+        "ieee_flexible_plot"
+      ],
+      "snippet": "import matplotlib\nfrom matplotlib.ticker import LogLocator, LogFormatterExponent  # Import LogLocator and LogFormatterExponent\nfrom matplotlib.ticker import LogFormatterSciNotation  # Import LogFormatterSciNotation\nfrom matplotlib.ticker import ScalarFormatter, LogLocator\nfrom matplotlib.ticker import LogLocator, FuncFormatter\nimport matplotlib.ticker as ticker\n\n\nmatplotlib.use('Agg')\ndef display_heatmap(data, title, xlabel, x_range, ylabel, y_range, zlabel=\"\", log=False):\n    # Set IEEE plot parameters\n    plt.rcParams['font.family'] = 'serif'  # Use serif font\n    plt.rcParams['font.size'] = 10  # Set font size to 10 points\n    plt.rcParams['axes.labelsize'] = 10  # Set label size to 10 points"
+    },
+    {
+      "cell": 28,
+      "hits": [
+        "map_position_errors",
+        "map_sync_errors"
+      ],
+      "snippet": "def generate_data_for_heatmap(num_satellites_range, num_users_range, num_iterations=25):\n    \"\"\"\n    Generates data for heatmaps of JCLS accuracy.\n\n    Args:\n        num_satellites_range (range): Range of number of satellites to test.\n        num_users_range (range): Range of number of users to test.\n        num_iterations (int, optional): Number of iterations for each algorithm. Defaults to 25.\n\n    Returns:\n        tuple: A tuple containing the following:\n            - il_position_errors (np.ndarray): Heatmap of average position errors for IL.\n            - il_sync_errors (np.ndarray): Heatmap of average sync errors for IL.\n            - lm_position_errors (np.ndarray): Heatmap of average position errors for LM."
+    },
+    {
+      "cell": 29,
+      "hits": [
+        "ieee_flexible_plot",
+        "map_position_errors",
+        "map_sync_errors"
+      ],
+      "snippet": "pos_mat = gaussian_filter(map_position_errors, sigma=0.22)\nys = [pos_mat[i, :] for i in range(len(pos_mat))]\nys_fitted = [fit_and_resample_power_law(num_satellites_range,y,num_satellites_range) for y in ys]#[fit_and_resample_exponential(y,num_resamples=len(y)) for y in ys]\nlabels = [\"Without cooperation\"] + [f\"JCLS, $N_{{\\mathrm{{u}}}}={num_users_range[i]}$\" for i in range(1, len(ys))]\nieee_flexible_plot(num_satellites_range, ys_fitted, labels,\n                        xlabel=r'Number of Satellites ($N_{\\mathrm{s}}$)', ylabel=r'Average UE error $[\\mathrm{m}]$', title=\"pos_vary_ues\",\n                        plot_type='scatter',  # 'line' or 'scatter'\n                        markers=None, linestyles=None,\n                        save_path=None, figsize=(3.5, 3),\n                        x_ticks = [1, 3, 5, 7, 9, 11, 13, 15],\n                        x_max=15,\n                        log_y=True,\n                        legend_loc=\"center right\")#\"upper right\")\n"
+    },
+    {
+      "cell": 31,
+      "hits": [
+        "map_position_errors",
+        "map_sync_errors"
+      ],
+      "snippet": "\ndef generate_data_for_clock_std_dev(clock_std_devs, num_iterations=25, num_users=2, num_satellites=3):\n    \"\"\"\n    Generates data for analyzing JCLS accuracy with different clock standard deviations.\n\n    Args:\n        clock_std_devs (list or np.ndarray): A list of clock standard deviations to test (in seconds).\n        num_iterations (int, optional): Number of iterations for each algorithm. Defaults to 25.\n        num_users (int, optional): Number of users in the scenario. Defaults to 2.\n        num_satellites (int, optional): Number of satellites in the scenario. Defaults to 3.\n\n    Returns:\n        tuple: A tuple containing the following:\n            - il_position_errors (np.ndarray): Average position errors for IL."
+    },
+    {
+      "cell": 32,
+      "hits": [
+        "ieee_flexible_plot",
+        "pos_vary_clock",
+        "sync_vary_clock"
+      ],
+      "snippet": "il_pos_fitted = fit_and_resample_power_law(clock_std_devs, il_pos, clock_std_devs)\nys = [il_pos_fitted, lm_pos, map_pos]\nys_fitted = gaussian_filter(ys, sigma=.25)#[fit_and_resample_power_law(clock_std_devs, y, clock_std_devs) for y in ys]\nlabels = [\"Without cooperation\", \"Coarse JCLS\", \"Refined JCLS, $.5\\,$ns\"]\nieee_flexible_plot(clock_std_devs*1e9, ys_fitted, labels,\n                        xlabel=r'$\\sigma_\\delta \\; [\\mathrm{ns}]$', ylabel=r'Average UE position error $[\\mathrm{m}]$', title=\"pos_vary_clock\",\n                        plot_type='line',  # 'line' or 'scatter'\n                        figsize=(3.5, 3),\n                        y_ticks = [1e-2, 1e0, 1e2, 1e4],\n                        #x_ticks=clock_std_devs,\n                        #x_max=15,\n                        log_y=True,\n                        log_x=True,\n                        x_max=1e5,"
+    },
+    {
+      "cell": 33,
+      "hits": [
+        "CRLB"
+      ],
+      "snippet": "##### Test 5: 0dB FIM/CRLB (Success)"
+    },
+    {
+      "cell": 34,
+      "hits": [
+        "CRLB",
+        "map_position_errors",
+        "map_sync_errors"
+      ],
+      "snippet": "def build_sigma_matrix_from_snr(scenario, snr_dl, snr_sl):\n    \"\"\"\n    Builds a new Sigma matrix based on the given SNR values for downlinks (DL) and sidelinks (SL).\n    Uses scenario information to determine link types and calculate variances.\n\n    Args:\n        scenario (Scenario): The scenario object.\n        snr_dl (float): The desired SNR value for downlinks (in linear scale).\n        snr_sl (float): The desired SNR value for sidelinks (in linear scale).\n\n    Returns:\n        np.ndarray: The new Sigma matrix (covariance matrix).\n    \"\"\"\n"
+    },
+    {
+      "cell": 35,
+      "hits": [
+        "ieee_flexible_plot",
+        "CRLB"
+      ],
+      "snippet": "loc_mat = gaussian_filter(loc, sigma=0.0)\nys = [loc_mat[i, :] for i in range(len(loc_mat))]\nys_fitted = [fit_and_resample_power_law(num_satellites_range,y,num_satellites_range) for y in ys]#[fit_and_resample_exponential(y,num_resamples=len(y)) for y in ys]\nlabels = [\"Without cooperation\"] + [f\"JCLS, $N_\\mathrm{{u}} = {num_users_range[i]}$\" for i in range(1, len(ys))]\nieee_flexible_plot(num_satellites_range, ys_fitted, labels,\n                        xlabel=r'Number of Satellites ($N_\\mathrm{s}$)', ylabel=r'CRLB on average UE position error [m]', title=\"pos_crlb_0dB_0dB\",\n                        plot_type='scatter',  # 'line' or 'scatter'\n                        figsize=(3.5, 3),\n                        x_ticks = [1,3,5,7,9,11,13,15],\n                        x_max=15,\n                        log_y=True,\n                        legend_loc=\"best\")\n\nsync_mat = gaussian_filter(sync*1e9, sigma=0.0)"
+    },
+    {
+      "cell": 42,
+      "hits": [
+        "map_position_errors",
+        "map_sync_errors"
+      ],
+      "snippet": "print(min(map_position_errors.flatten()),max(map_position_errors.flatten()))\nprint(np.unravel_index(np.argmax(map_position_errors), map_position_errors.shape))\nr1 = map_position_errors\n#r1[6,0] = r1[6,2]\nfitted_plane_matrix = gaussian_filter(map_position_errors, sigma=.7)#fit_plane_to_matrix_values(r1)\nprint(min(r1.flatten()),max(r1.flatten()))\n\n#display_heatmap(il_position_errors, title=\"IL Position Errors (m)\", xlabel=\"Number of Satellites\", x_range=num_satellites_range, ylabel=\"Number of Users\", y_range=num_users_range)\n#display_heatmap(lm_position_errors, title=\"LM Position Errors (m)\", xlabel=\"Number of Satellites\", x_range=num_satellites_range, ylabel=\"Number of Users\", y_range=num_users_range)\nr1 = map_position_errors\nsp.pprint(sp.Matrix(r1))\n#r1[3,0] = r1[2,0]\nr2 = r1-il_position_errors\n#r2[3,2] = r1[3,3]"
+    },
+    {
+      "cell": 44,
+      "hits": [
+        "CRLB",
+        "map_position_errors",
+        "map_sync_errors"
+      ],
+      "snippet": "def build_sigma_matrix_from_snr(scenario, snr_dl, snr_sl):\n    \"\"\"\n    Builds a new Sigma matrix based on the given SNR values for downlinks (DL) and sidelinks (SL).\n    Uses scenario information to determine link types and calculate variances.\n\n    Args:\n        scenario (Scenario): The scenario object.\n        snr_dl (float): The desired SNR value for downlinks (in linear scale).\n        snr_sl (float): The desired SNR value for sidelinks (in linear scale).\n\n    Returns:\n        np.ndarray: The new Sigma matrix (covariance matrix).\n    \"\"\"\n"
+    },
+    {
+      "cell": 45,
+      "hits": [
+        "CRLB"
+      ],
+      "snippet": "import matplotlib.pyplot as plt\nimport matplotlib.colors as colors\nimport numpy as np\n\ncrlb1 = loc\ndisplay_heatmap(loc*1000, title=\"Localization CRLB 0dB 0dB\", xlabel=\"DL BW\", x_range=dl, ylabel=\"SL BW\", y_range=sl, zlabel=\"$\\,$m\",log=False)\n#plot_heatmap(loc*1000, title=\"Localization CRLB for static JCLS (m)\", xlabel=\"$N_\\mathrm{NTN}$\", ylabel=\"$N_\\mathrm{UE}$\", xticks=num_satellites_range, yticks=num_users_range)\n#display_heatmap(sy, title=\"Localization CRLB for static JCLS (km)\", xlabel=\"$N_\\mathrm{NTN}$\", x_range=num_satellites_range, ylabel=\"$N_\\mathrm{UE}$\", y_range=num_users_range)\ndisplay_heatmap(sync*1000/3e8, title=\"Synchronization CRLB 0dB 0dB\", xlabel=\"DL BW\", x_range=dl, ylabel=\"SL BW\", y_range=sl, zlabel=\"$\\,$s\")"
+    },
+    {
+      "cell": 47,
+      "hits": [
+        "map_position_errors",
+        "map_sync_errors"
+      ],
+      "snippet": "from tqdm import tqdm\nimport numpy as np\n\ndef generate_data_for_user_speed(user_speeds, num_iterations=25, num_users=3, num_satellites=10):\n    \"\"\"\n    Generates data for analyzing JCLS accuracy with different user speeds.\n\n    Args:\n        user_speeds (list or np.ndarray): A list of user speeds to test (in meters per iteration).\n        num_iterations (int, optional): Number of iterations for each algorithm. Defaults to 25.\n        num_users (int, optional): Number of users in the scenario. Defaults to 3.\n        num_satellites (int, optional): Number of satellites in the scenario. Defaults to 10.\n\n    Returns:"
+    },
+    {
+      "cell": 48,
+      "hits": [
+        "ieee_flexible_plot"
+      ],
+      "snippet": "ys = [il_pos_speed, lm_pos_speed, map_pos_speed]\n#ys_fitted = gaussian_filter(ys, sigma=.25)#[fit_and_resample_power_law(clock_std_devs, y, clock_std_devs) for y in ys]\nlabels = [\"Conventional TOA\", \"Coarse JCLS\", \"Refined JCLS ($.5\\,$s)\"]\nieee_flexible_plot(user_speeds, ys, labels,\n                        xlabel=r'$\\sigma_\\delta$ [s]', ylabel=r'Average UE error [m]', title=\"pos error vary clock\",\n                        plot_type='line',  # 'line' or 'scatter'\n                        markers=None, linestyles=None,\n                        save_path=None, figsize=(3.5, 3),\n                        log_y=True,\n                        log_x=False,\n                        legend_loc=\"best\")"
+    }
+  ],
+  "non_obvious_tricks": [
+    "clockless/reduced preconditioning before full-clock solve",
+    "pseudoinverse/damping in GN/LM",
+    "conditional covariance regularization",
+    "curve smoothing/fitting in figure blocks"
+  ],
+  "notebook_executed": false,
+  "optimizer_cells": [
+    {
+      "cell": 16,
+      "hits": [
+        "Optimizer"
+      ],
+      "snippet": "##### Optimizer"
+    },
+    {
+      "cell": 17,
+      "hits": [
+        "Optimizer",
+        "initialize_state",
+        "rm_clock_params",
+        "il_step",
+        "async_gn_step",
+        "gn_step",
+        "lm_step",
+        "ekf_step"
+      ],
+      "snippet": "class Optimizer:\n    \"\"\"\n    An Optimizer has functions that pass around and play with a scenario. It can\n    chop a scenario into pieces and play with those pieces too. It can imagine\n    similar scenarios and use those to solve a problem. The optimizer also keeps\n    track of all the interesting things that it's doing.\n    Whenever a scenario is eaten up by an opimizer function, theres no telling\n    where it will get passed around to (unless, of course, you look at the stack)\n    \"\"\"\n    def __init__(self):\n        self.measurement_history = {}       # order: 1rx2tx, 1rx3tx,..., 2rx1tx...\n        self.true_state_history = {}        # order: alphabetical d,d,...x,x,...,y,y...\n        self.estimated_state_history = {}   # order: alphabetical d,d,...x,x,...,y,y...\n        self.cov_history = {}"
+    },
+    {
+      "cell": 20,
+      "hits": [
+        "Optimizer",
+        "initialize_state"
+      ],
+      "snippet": "##### PRECONDITIONING #####\nif __name__ == \"__main__\":\n    scenario = Scenario(num_users=2, num_satellites=6, clock_std_dev_seconds=1e-6)\n    optimizer = Optimizer()\n    z = scenario.query_measurements(tfap=False)\n    x_init = optimizer.initialize_state(scenario, 100)\n    x_PC1 = optimizer.run(\"IL\",  scenario, x_init, z, num_steps=15, tol=1e-9, verbose=True)\n    x_JCLS2 = optimizer.run(\"LM\", scenario, x_PC1, z, num_steps=25, tol=1e-9, verbose=True)#optimizer.lm(scenario, x_PC1, z, num_steps=20, damping_factor=0.5)"
+    },
+    {
+      "cell": 21,
+      "hits": [
+        "Optimizer",
+        "ekf_step"
+      ],
+      "snippet": "    # Initialize v using prior information\n    x = x_JCLS2\n    clock_indices = [i for i, param in enumerate(scenario.symbolic_parameter_vector)\n                     if param.name.startswith('delta_')]\n    P = optimizer.calculate_state_covariance(scenario, x) #*10000#/ 1.1\n    #P = 1e4*np.eye(len(x))\n    print(np.diag(P))\n    #P[clock_indices, clock_indices] = 1\n    #P = P*100000\n    #P = 1e3*np.eye(len(x))\n    print(\"incoming error from previous steps\", np.linalg.norm(x_JCLS2-scenario.get_true_state())*1000)\n    for i in range(25):\n        z = scenario.query_measurements(tfap=True)#=False)\n        P, x = map_filter_iteration(None, scenario, P, x, z)"
+    },
+    {
+      "cell": 28,
+      "hits": [
+        "Optimizer",
+        "initialize_state"
+      ],
+      "snippet": "def generate_data_for_heatmap(num_satellites_range, num_users_range, num_iterations=25):\n    \"\"\"\n    Generates data for heatmaps of JCLS accuracy.\n\n    Args:\n        num_satellites_range (range): Range of number of satellites to test.\n        num_users_range (range): Range of number of users to test.\n        num_iterations (int, optional): Number of iterations for each algorithm. Defaults to 25.\n\n    Returns:\n        tuple: A tuple containing the following:\n            - il_position_errors (np.ndarray): Heatmap of average position errors for IL.\n            - il_sync_errors (np.ndarray): Heatmap of average sync errors for IL.\n            - lm_position_errors (np.ndarray): Heatmap of average position errors for LM."
+    },
+    {
+      "cell": 31,
+      "hits": [
+        "Optimizer",
+        "initialize_state"
+      ],
+      "snippet": "\ndef generate_data_for_clock_std_dev(clock_std_devs, num_iterations=25, num_users=2, num_satellites=3):\n    \"\"\"\n    Generates data for analyzing JCLS accuracy with different clock standard deviations.\n\n    Args:\n        clock_std_devs (list or np.ndarray): A list of clock standard deviations to test (in seconds).\n        num_iterations (int, optional): Number of iterations for each algorithm. Defaults to 25.\n        num_users (int, optional): Number of users in the scenario. Defaults to 2.\n        num_satellites (int, optional): Number of satellites in the scenario. Defaults to 3.\n\n    Returns:\n        tuple: A tuple containing the following:\n            - il_position_errors (np.ndarray): Average position errors for IL."
+    },
+    {
+      "cell": 37,
+      "hits": [
+        "Optimizer"
+      ],
+      "snippet": "def h_function_pytorch(x, scenario):\n    \"\"\"\n    PyTorch implementation of the h function.\n\n    Args:\n        x (torch.Tensor): The state estimate tensor.\n        scenario (Scenario): The scenario object containing the symbolic model vector.\n\n    Returns:\n        torch.Tensor: The predicted measurements tensor.\n    \"\"\"\n\n    # Create a dictionary to map parameter names to their values in the state estimate\n    state_dict = dict(zip(scenario.symbolic_parameter_vector, x.tolist()))  # Convert x to list for compatibility"
+    },
+    {
+      "cell": 47,
+      "hits": [
+        "Optimizer",
+        "initialize_state"
+      ],
+      "snippet": "from tqdm import tqdm\nimport numpy as np\n\ndef generate_data_for_user_speed(user_speeds, num_iterations=25, num_users=3, num_satellites=10):\n    \"\"\"\n    Generates data for analyzing JCLS accuracy with different user speeds.\n\n    Args:\n        user_speeds (list or np.ndarray): A list of user speeds to test (in meters per iteration).\n        num_iterations (int, optional): Number of iterations for each algorithm. Defaults to 25.\n        num_users (int, optional): Number of users in the scenario. Defaults to 3.\n        num_satellites (int, optional): Number of satellites in the scenario. Defaults to 10.\n\n    Returns:"
+    }
+  ],
+  "report_type": "notebook_forensics_report",
+  "status": "complete_static"
+}

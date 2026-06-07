@@ -1,0 +1,26 @@
+{
+  "figure_id": "fig4_localization_vs_satellites",
+  "manuscript_figure_label": "Fig. 4",
+  "title": "Package-native Fig. 4: localization vs satellites",
+  "sweep_type": "satellite_count",
+  "metric_field": "position_error_mean_m",
+  "plot_metric_scale": 1.0,
+  "plot_metric_unit": "m",
+  "x_label": "Number of satellites, Ns",
+  "y_label": "Average 3D UE localization error [m]",
+  "log_y": true,
+  "base_seed": 20260704,
+  "monte_carlo_trials": 8,
+  "num_users_values": [1, 3, 5],
+  "num_satellites_values": [4, 6, 8, 10],
+  "clock_std_devs_ns": [1000.0],
+  "range_std_dev_km": 0.03,
+  "refinement_epochs": 5,
+  "assumptions": [
+    "Synthetic deterministic static geometry, not legacy TLE propagation.",
+    "All satellite downlinks and all directed sidelinks are available.",
+    "Clock offsets are sampled as range-domain equivalents of zero-mean Gaussian time offsets.",
+    "Refined JCLS fuses repeated independent measurement epochs over a fixed static geometry."
+  ],
+  "known_discrepancy_from_v24": "Package-native provenance is intentionally not forced to match legacy notebook curves."
+}

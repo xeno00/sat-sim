@@ -1,0 +1,67 @@
+{
+  "artifact_warning": "Diagnostic-only package-native output; not a manuscript-grade reproduction and not for TAES submission.",
+  "base_seed": 20260705,
+  "baselines": {
+    "coarse_jcls": {
+      "bias_note": "Clock offsets are estimated jointly with UE positions using one measurement epoch.",
+      "label": "Coarse JCLS",
+      "satellite_clocks": "non-reference satellite clocks estimated; first satellite fixed",
+      "state_estimated": "full V24 theta: UE positions, UE clocks, non-reference satellite clocks",
+      "ue_clocks": "estimated",
+      "uses_multiple_satellite_dl": true,
+      "uses_sl": true
+    },
+    "refined_jcls": {
+      "bias_note": "Uses the coarse JCLS solution as initialization and fuses multiple independent measurement epochs over the configured refinement window.",
+      "label": "Refined JCLS, 0.5 s",
+      "satellite_clocks": "non-reference satellite clocks estimated; first satellite fixed",
+      "state_estimated": "full V24 theta over repeated static-geometry measurement epochs",
+      "ue_clocks": "estimated",
+      "uses_multiple_satellite_dl": true,
+      "uses_sl": true
+    },
+    "without_cooperation": {
+      "bias_note": "This conventional TOA baseline is intentionally vulnerable to residual UE and satellite clock offsets because it does not estimate clock states.",
+      "label": "Without cooperation",
+      "satellite_clocks": "ignored/fixed to zero",
+      "state_estimated": "UE position per receiver only",
+      "ue_clocks": "ignored/fixed to zero",
+      "uses_multiple_satellite_dl": true,
+      "uses_sl": false
+    }
+  },
+  "code_path": [
+    "jcls_sim.figure_generation",
+    "jcls_sim.measurements",
+    "jcls_sim.jacobian",
+    "jcls_sim.fim",
+    "jcls_sim.metrics"
+  ],
+  "commit_hash": "c20cd87beda780d1821eb8266676acb3b4f502a8",
+  "config_path": "configs/v24_figures_4_7/fig5_synchronization_vs_satellites.json",
+  "diagnostic_only": true,
+  "figure_id": "fig5_synchronization_vs_satellites",
+  "manuscript_directories_touched": false,
+  "manuscript_ready": false,
+  "metadata_type": "package_native_v24_figure_metadata",
+  "monte_carlo_trials": 8,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "notebook_used": false,
+  "output_dir": "v24_figure_outputs/fig5_synchronization_vs_satellites",
+  "overwrite_used": true,
+  "range_std_dev_km": 0.03,
+  "raw_row_count": 288,
+  "refinement_epochs": 5,
+  "runtime_seconds": 61.268175100005465,
+  "summary_row_count": 36,
+  "units": {
+    "clock_offsets_internal": "range-domain km",
+    "plot_metric_scale": 1000000000.0,
+    "plot_metric_unit": "ns",
+    "position_metric": "m",
+    "positions_internal": "km",
+    "synchronization_metric_raw": "s",
+    "toa_measurements": "range-domain km"
+  }
+}

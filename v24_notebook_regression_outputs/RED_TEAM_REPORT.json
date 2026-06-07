@@ -1,0 +1,22 @@
+{
+  "defensible_tricks": [
+    "reduced/clockless Step 1 preconditioning",
+    "LM damping/regularization for full clock-position solve",
+    "information-form/EKF covariance update for soft-information refinement"
+  ],
+  "report_type": "red_team_report",
+  "status": "complete_orchestrator_fallback",
+  "top_risks": [
+    "Reviewer could attack mismatch between manuscript gauge convention and legacy all-clock notebook implementation.",
+    "Reviewer could attack unit ambiguity: meters/seconds in manuscript versus km/range-equivalent clocks in code.",
+    "Reviewer could attack figure claims if old notebook used truth-derived covariance, smoothing, curve fitting, or post-hoc clock-column deletion.",
+    "Package-native cleanup may have broken a deliberate continuation/preconditioning strategy rather than proving the manuscript algorithm is flawed.",
+    "Single-UE cases must not be interpreted as full cooperative JCLS clock-estimation success/failure."
+  ],
+  "unsafe_until_explained": [
+    "Sigma_z used as covariance in some places and as precision-like weighting in others",
+    "truth-derived covariance or state-error covariance in notebook cells",
+    "Gaussian smoothing/fitting of plotted curves",
+    "all-clock pseudoinverse null-space behavior"
+  ]
+}

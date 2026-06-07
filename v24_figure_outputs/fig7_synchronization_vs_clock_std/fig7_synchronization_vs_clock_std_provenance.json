@@ -1,0 +1,31 @@
+{
+  "artifact_warning": "Diagnostic-only package-native output; not a manuscript-grade reproduction and not for TAES submission.",
+  "assumptions": [
+    "Synthetic deterministic static geometry with Nu=3 and Ns=10.",
+    "Synchronization is measured relative to the first satellite reference clock.",
+    "The reference satellite clock is excluded from the synchronization average.",
+    "Refined JCLS fuses repeated independent measurement epochs over a fixed static geometry."
+  ],
+  "command": "python scripts/run_v24_figures_4_7.py --config configs/v24_figures_4_7/fig7_synchronization_vs_clock_std.json --output-root v24_figure_outputs --overwrite",
+  "config_file": "configs/v24_figures_4_7/fig7_synchronization_vs_clock_std.json",
+  "diagnostic_only": true,
+  "figure_id": "fig7_synchronization_vs_clock_std",
+  "known_discrepancy_from_v24": "Package-native provenance is intentionally not forced to match legacy notebook curves.",
+  "manuscript_figure": "Fig. 7",
+  "manuscript_ready": false,
+  "metadata_file": "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std_metadata.json",
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "npz_output_file": "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std_raw.npz",
+  "plot_output_file": "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std.pdf",
+  "provenance_type": "package_native_v24_diagnostic_figure_provenance",
+  "raw_output_file": "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std_raw.csv",
+  "summary_output_file": "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std_summary.csv",
+  "test_coverage": [
+    "tests/test_figure_generation.py",
+    "tests/test_estimators.py",
+    "tests/test_measurements.py",
+    "tests/test_jacobian.py",
+    "tests/test_metrics.py"
+  ]
+}

@@ -1,0 +1,344 @@
+{
+  "status": "legacy_crlb_replayed_unverified_match",
+  "artifact_status": "non_final_legacy_crlb_replay",
+  "legacy_replay": true,
+  "manuscript_ready": false,
+  "notebook_source_modified": false,
+  "full_notebook_executed": false,
+  "colab_setup_executed": false,
+  "workspace_pickle_executed": false,
+  "manuscript_output_paths_written": false,
+  "output_root": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay",
+  "seed": 2026,
+  "num_satellites_range": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "num_users_range": [
+    1,
+    3,
+    5,
+    7
+  ],
+  "executed_cells": [
+    {
+      "cell_index_zero_based": 7,
+      "cell_number_one_based": 8,
+      "kind": "class_definition",
+      "name": "Node"
+    },
+    {
+      "cell_index_zero_based": 9,
+      "cell_number_one_based": 10,
+      "kind": "class_definition",
+      "name": "User"
+    },
+    {
+      "cell_index_zero_based": 11,
+      "cell_number_one_based": 12,
+      "kind": "class_definition",
+      "name": "Satellite"
+    },
+    {
+      "cell_index_zero_based": 13,
+      "cell_number_one_based": 14,
+      "kind": "class_definition",
+      "name": "Datalink"
+    },
+    {
+      "cell_index_zero_based": 15,
+      "cell_number_one_based": 16,
+      "kind": "class_definition",
+      "name": "Scenario"
+    },
+    {
+      "cell_index_zero_based": 25,
+      "cell_number_one_based": 26,
+      "kind": "fit_helper_definitions",
+      "name": "fit_and_resample_power_law"
+    },
+    {
+      "cell_index_zero_based": 34,
+      "cell_number_one_based": 35,
+      "kind": "crlb_helper_definitions",
+      "name": "generate_FIM_data",
+      "global_invocation_stripped": true
+    }
+  ],
+  "cells_functions_extracted": [
+    "Node",
+    "User",
+    "Satellite",
+    "Datalink",
+    "Scenario",
+    "build_sigma_matrix_from_snr",
+    "remove_dependent_measurements",
+    "generate_FIM_data",
+    "fit_and_resample_power_law"
+  ],
+  "legacy_caveats": {
+    "uses_all_clock_symbolic_state": true,
+    "v24_gauged_state": false,
+    "removes_dependent_rows_by_qr": true,
+    "forms_full_fim_but_does_not_use_full_covariance_for_bounds": true,
+    "posthoc_position_clock_slicing": true,
+    "localization_bound_uses_inv": true,
+    "synchronization_bound_uses_pinv": true,
+    "sync_bound_averages_all_clock_symbols_including_reference": true,
+    "pos_plot_uses_power_law_fit": true,
+    "sync_power_law_fit_computed_but_raw_series_plotted": true,
+    "classification": "legacy_only_unsafe_for_v24_claims_without_replacement_or_human_review"
+  },
+  "raw_outputs": {
+    "loc_csv": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\legacy_loc_mat_km2_per_user.csv",
+    "sync_csv": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\legacy_sync_mat_km2_per_clock.csv",
+    "pos_plot_csv": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\legacy_pos_plot_y_m.csv",
+    "sync_plot_csv": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\legacy_sync_plot_y_ns.csv",
+    "arrays_npz": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\legacy_crlb_replay_arrays.npz"
+  },
+  "plot_outputs": [
+    "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\pos_crlb_0dB_0dB.pdf",
+    "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\sync_crlb_0dB_0dB.pdf"
+  ],
+  "existing_artifact_comparison": {
+    "existing_artifacts": [
+      {
+        "figure": "pos_crlb_0dB_0dB.pdf",
+        "matches": [
+          {
+            "path": "All-Version-Archive\\V10\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 19576,
+            "sha256": "5bacd45c610450efd2f2e085f4b6bbdd41cc8eceb2c31762d9c526ffe600f55f"
+          },
+          {
+            "path": "All-Version-Archive\\V11\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 19576,
+            "sha256": "5bacd45c610450efd2f2e085f4b6bbdd41cc8eceb2c31762d9c526ffe600f55f"
+          },
+          {
+            "path": "All-Version-Archive\\V12\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 19576,
+            "sha256": "5bacd45c610450efd2f2e085f4b6bbdd41cc8eceb2c31762d9c526ffe600f55f"
+          },
+          {
+            "path": "All-Version-Archive\\V13\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 19964,
+            "sha256": "925b15887a8f7c0eb3ced4f0e5b8a26899cf367528edcb7bcdd5e4a5f2a84b7d"
+          },
+          {
+            "path": "All-Version-Archive\\V14\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 19964,
+            "sha256": "925b15887a8f7c0eb3ced4f0e5b8a26899cf367528edcb7bcdd5e4a5f2a84b7d"
+          },
+          {
+            "path": "All-Version-Archive\\V15\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V16\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V17\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V18\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V19\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V20\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V21-1st-Submission-TAES\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V22\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V23\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V24\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          },
+          {
+            "path": "All-Version-Archive\\V8\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 20499,
+            "sha256": "7181706948aea023e7ce0fab3a4e6724b55e638e48747709843e20deadc29e6e"
+          },
+          {
+            "path": "All-Version-Archive\\V9\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 20499,
+            "sha256": "7181706948aea023e7ce0fab3a4e6724b55e638e48747709843e20deadc29e6e"
+          },
+          {
+            "path": "Work-In-Progress\\Figures\\GeneratePSFrag\\pos_crlb_0dB_0dB.pdf",
+            "size_bytes": 706759,
+            "sha256": "0d856c0eddbb7fce748eb98d01e5e6789c61fe37157ff2286f1151293bb0a08c"
+          }
+        ],
+        "match_count": 18
+      },
+      {
+        "figure": "sync_crlb_0dB_0dB.pdf",
+        "matches": [
+          {
+            "path": "All-Version-Archive\\V10\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 18149,
+            "sha256": "37c6edd9933534d1f2139dd1fa3009f5c4fcdc0cd2ff98a87b8b9da15a2e589d"
+          },
+          {
+            "path": "All-Version-Archive\\V11\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 18149,
+            "sha256": "37c6edd9933534d1f2139dd1fa3009f5c4fcdc0cd2ff98a87b8b9da15a2e589d"
+          },
+          {
+            "path": "All-Version-Archive\\V12\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 18149,
+            "sha256": "37c6edd9933534d1f2139dd1fa3009f5c4fcdc0cd2ff98a87b8b9da15a2e589d"
+          },
+          {
+            "path": "All-Version-Archive\\V13\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 18626,
+            "sha256": "4bfc820c497f07335ad697867f08a37e01df4ef714246eded6b82cd3fade6d59"
+          },
+          {
+            "path": "All-Version-Archive\\V14\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 18626,
+            "sha256": "4bfc820c497f07335ad697867f08a37e01df4ef714246eded6b82cd3fade6d59"
+          },
+          {
+            "path": "All-Version-Archive\\V15\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V16\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V17\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V18\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V19\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V20\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V21-1st-Submission-TAES\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V22\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V23\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V24\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          },
+          {
+            "path": "All-Version-Archive\\V8\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 19069,
+            "sha256": "cb0bf8b471b72501f3877011938bed75a3a073f1cb61e180b3d3b716306245ea"
+          },
+          {
+            "path": "All-Version-Archive\\V9\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 19069,
+            "sha256": "cb0bf8b471b72501f3877011938bed75a3a073f1cb61e180b3d3b716306245ea"
+          },
+          {
+            "path": "Work-In-Progress\\Figures\\GeneratePSFrag\\sync_crlb_0dB_0dB.pdf",
+            "size_bytes": 680610,
+            "sha256": "24736c2f899d8b96f8743d7e65592751f559a4711b2b2ce30c93cb673f195b6f"
+          }
+        ],
+        "match_count": 18
+      }
+    ],
+    "comparison_status": "unverified_match",
+    "claim_match": false,
+    "note": "Existing target artifact paths were inventoried and replay PDFs were generated, but this sprint does not claim visual or data equality."
+  },
+  "replayed_figures": [
+    {
+      "figure": "pos_crlb_0dB_0dB.pdf",
+      "replayed_pdf": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\pos_crlb_0dB_0dB.pdf",
+      "sha256": "1fdfb07b3bb9f9e13b7affef0b5b8735379ce9b4a540e2bfab6a92c06e987f13",
+      "status": "legacy_replayed_unverified_match",
+      "legacy_replay": true,
+      "manuscript_ready": false,
+      "comparison_basis": "file inventory/hash only; no source artifact visual match claimed"
+    },
+    {
+      "figure": "sync_crlb_0dB_0dB.pdf",
+      "replayed_pdf": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\sync_crlb_0dB_0dB.pdf",
+      "sha256": "849d6c0a1e0279c2b75219293b23d0afc659148b02bbc74147a6ab2ea412c0e8",
+      "status": "legacy_replayed_unverified_match",
+      "legacy_replay": true,
+      "manuscript_ready": false,
+      "comparison_basis": "file inventory/hash only; no source artifact visual match claimed"
+    }
+  ],
+  "finite_checks": {
+    "loc_all_finite": true,
+    "sync_all_finite": true,
+    "pos_plot_all_positive": true,
+    "sync_plot_all_positive": true
+  },
+  "commands_to_rerun": [
+    "python scripts/replay_legacy_crlb_figures.py",
+    "python -m unittest tests.test_legacy_crlb_replay"
+  ],
+  "next_recommended_figure_family": "pos_vary_clock.pdf and sync_vary_clock.pdf"
+}
