@@ -152,6 +152,18 @@ supplied in notebook `get_links()` order. It also verifies the km/range-clock
 representation against meters/seconds after a single speed-of-light
 conversion. Full notebook figure reproduction is still not performed.
 
+A safe legacy CRLB figure replay is implemented on branch
+`codex/legacy-crlb-figure-replay`. It extracts selected notebook class/helper
+definitions, replays the legacy `generate_FIM_data` CRLB figure family into
+`v24_notebook_regression_outputs/executed_legacy/crlb_replay/`, and writes
+raw CSV/NPZ plus redirected PDFs for `pos_crlb_0dB_0dB.pdf` and
+`sync_crlb_0dB_0dB.pdf`. The replay preserves legacy all-clock symbolic state,
+QR dependent-row removal, post-hoc position/clock slicing, `inv` for
+localization bounds, `pinv` for synchronization bounds, and legacy plotting
+behavior. The replay is marked `legacy_replayed_unverified_match`,
+`legacy_replay: true`, and `manuscript_ready: false`; it is not V24-compatible
+without replacement or human review.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -173,6 +185,9 @@ conversion. Full notebook figure reproduction is still not performed.
   compatible with the package for deterministic tiny fixtures, but the legacy
   notebook still keeps all clock parameters and uses mixed covariance/precision
   optimizer notation.
+- Legacy CRLB replay is behavioral provenance only. It reproduces the notebook
+  logic into a safe output folder, but the legacy all-clock/post-hoc bound path
+  remains unsafe for V24 manuscript claims.
 
 ## Last completed task
 
@@ -212,6 +227,11 @@ legacy smoke harness, and upgraded figure-regression statuses. Ordered-link and
 unit/clock representation are no longer blocking unresolved; they are verified
 compatible for the audited tiny fixtures. Full figure reproduction remains
 not done.
+Safe legacy CRLB replay artifacts are implemented on branch
+`codex/legacy-crlb-figure-replay` for `pos_crlb_0dB_0dB.pdf` and
+`sync_crlb_0dB_0dB.pdf`. The figures are replayed into diagnostics only and
+remain unverified matches/not manuscript-ready because of legacy all-clock and
+post-hoc slicing caveats.
 
 ## Next task
 

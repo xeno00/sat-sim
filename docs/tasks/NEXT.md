@@ -1,31 +1,28 @@
 MODE: PLAN_ONLY
 
-# Next Task: Plan Safe Legacy Figure-Cell Replay After Executable Notebook Audit
+# Next Task: Plan Safe Legacy Clock-Sweep Figure Replay
 
 ## Purpose
 
-Use the executable notebook regression-audit outputs under
-`v24_notebook_regression_outputs/` to plan the smallest safe legacy figure-cell
-replay path. Do not implement yet and do not regenerate manuscript figures.
+Use the successful safe CRLB replay artifacts to plan the next legacy figure
+family replay. Do not implement yet and do not regenerate manuscript figures.
 
-The current audit verifies deterministic row-order and unit/clock compatibility
-for tiny fixtures, and the extracted-class smoke harness can instantiate the
-legacy classes and run tiny model/Jacobian/LM/EKF checks. Full notebook figure
-reproduction has not been performed.
+The CRLB pair has been replayed into
+`v24_notebook_regression_outputs/executed_legacy/crlb_replay/` as legacy-only,
+not manuscript-ready diagnostics. The next candidate family is:
+
+- `pos_vary_clock.pdf`
+- `sync_vary_clock.pdf`
 
 ## Scope
 
 Inspect:
 
-- `v24_notebook_regression_outputs/EXECUTABLE_NOTEBOOK_REGRESSION_REPORT.md`
-- `v24_notebook_regression_outputs/EXECUTABLE_NOTEBOOK_REGRESSION_REPORT.json`
-- `v24_notebook_regression_outputs/NOTEBOOK_DATALINK_LINE_AUDIT.md`
-- `v24_notebook_regression_outputs/NOTEBOOK_MEASUREMENT_ORDER_AUDIT.md`
-- `v24_notebook_regression_outputs/UNIT_CLOCK_EXECUTABLE_FIXTURE.md`
-- `v24_notebook_regression_outputs/executed_legacy/legacy_notebook_smoke.json`
+- `v24_notebook_regression_outputs/LEGACY_CRLB_REPLAY_REPORT.md`
+- `v24_notebook_regression_outputs/LEGACY_CRLB_REPLAY_REPORT.json`
+- `v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_crlb_replay_metadata.json`
 - `v24_notebook_regression_outputs/FIGURE_REGRESSION_TABLE.md`
-- `scripts/run_legacy_notebook_smoke.py`
-- `scripts/audit_notebook_measurements.py`
+- `scripts/replay_legacy_crlb_figures.py`
 - `JCLS_Simulation.ipynb` statically only
 
 Do not edit:
@@ -42,42 +39,35 @@ Do not edit:
 
 ## Required Analysis
 
-1. Identify the exact notebook cells/functions needed to replay only:
-   - `pos_vary_ues.pdf`
-   - `sync_vary_ues.pdf`
+1. Identify exact notebook cells/functions needed for:
    - `pos_vary_clock.pdf`
    - `sync_vary_clock.pdf`
-   - `pos_crlb_0dB_0dB.pdf`
-   - `sync_crlb_0dB_0dB.pdf`
-2. Identify every side effect that must be skipped or redirected:
-   - Colab setup,
-   - package installs,
-   - workspace pickle load/save,
-   - `plt.show`,
-   - manuscript figure folders,
-   - existing result outputs.
-3. Decide whether the first implementation should replay:
-   - one tiny deterministic optimizer smoke case;
-   - one tiny CRLB figure-family smoke case;
-   - one target figure script with one Monte Carlo trial;
-   - or only extract callable figure functions and stop.
-4. Propose an output root under
-   `v24_notebook_regression_outputs/executed_legacy/` that cannot overwrite
-   manuscript or legacy outputs.
-5. State whether human approval is required before executing any target figure
-   cell.
+2. Determine whether replay depends on:
+   - nonlinear estimator convergence,
+   - workspace variables from previous cells,
+   - oracle/truth-gated updates,
+   - smoothing/fitting,
+   - random seeds or Monte Carlo loops.
+3. Decide whether a safe replay should:
+   - execute the original legacy figure logic with reduced trials;
+   - replay only saved/static arrays if present;
+   - create a tiny deterministic smoke replay;
+   - or stop because a human decision is required.
+4. Propose output paths under
+   `v24_notebook_regression_outputs/executed_legacy/clock_replay/`.
+5. Define tests and stop conditions.
 
 ## Expected Output
 
 Return a plan with:
 
-- figure-cell dependency map;
-- required extraction/skipping rules;
+- clock-sweep figure dependency map;
+- extraction/skipping rules;
+- runtime/seed risk;
 - output redirection strategy;
 - smallest next implementation task;
 - tests to add;
-- stop conditions;
-- whether full notebook figure reproduction is now feasible.
+- whether full legacy clock-sweep replay is feasible.
 
 Update `PROJECT_STATUS.md` and `docs/tasks/NEXT.md` only if the human approves a
 new implementation plan.
