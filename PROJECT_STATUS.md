@@ -65,6 +65,13 @@ merged candidate JSON and write diagnostic-only SVGs plus a manifest under
 `v24_diagnostics/crlb_preview/`. They are not manuscript figures and require
 human review before any figure workflow decision.
 
+A non-final CRLB figure decision-plan diagnostic is implemented on branch
+`codex/crlb-decision-sprint`. It summarizes the preview/candidate data into a
+human-review plan, recommends rank feasibility as the first CRLB concept to
+consider, and flags legacy CRLB-vs-satellite-count and localization/
+synchronization CRLB panels as likely needing package-native rerun or
+replacement before final confidence.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -91,6 +98,8 @@ The CRLB geometry diagnostic runner/tests are merged on `main`.
 The manuscript-relevant CRLB candidate runner/tests are merged on `main`.
 The non-final CRLB figure-candidate data runner/tests are merged on `main`.
 The non-final CRLB preview SVG runner/tests are merged on `main`.
+The non-final CRLB figure decision-plan runner/tests are implemented on branch
+`codex/crlb-decision-sprint`.
 
 ## Next task
 

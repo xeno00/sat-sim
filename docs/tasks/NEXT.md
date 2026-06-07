@@ -1,82 +1,63 @@
-MODE: PLAN_ONLY
+MODE: IMPLEMENT_APPROVED
 
-This task may be executed via `RUN_CODEX.md`. Do not edit files unless the
-human explicitly approves implementation. Do not generate manuscript figures.
+This task may be executed via `RUN_CODEX.md`. Keep it diagnostic-only. Do not
+run notebook code, full sweeps, or manuscript figure generation.
 
-# Next Task: Plan Human Decision From CRLB Preview Outputs
+# Next Task: Implement Legacy Notebook Provenance Audit
 
 ## Purpose
 
-Use the merged non-final CRLB preview outputs to prepare a human decision plan
-for CRLB figure handling. This is still not a manuscript-figure generation task.
+Create a read-only provenance audit for `JCLS_Simulation.ipynb` that maps
+legacy figure/CRLB-related notebook cells to V24 package-native risk flags
+without executing the notebook or changing any result files.
 
-## Context
+## Allowed Edit Files
 
-The package now has non-final CRLB figure-candidate data and preview SVGs under
-`v24_diagnostics/`. The previews are diagnostic aids only:
-
-- rank-feasibility heatmap preview;
-- finite CRLB-vs-`N_s` UE PEB preview with unavailable markers;
-- finite CRLB-vs-`N_s` clock-bound preview with unavailable markers;
-- fixed-parameter measurement-addition preview.
-
-## Scope
-
-Allowed files to inspect:
-
-- `v24_diagnostics/crlb_preview/preview_manifest.json`
-- `v24_diagnostics/crlb_preview/*.svg`
-- `v24_diagnostics/crlb_figure_candidate_data.json`
-- `v24_diagnostics/manuscript_crlb_candidate.json`
-- `v24_diagnostics/crlb_geometry_diagnostics.json`
-- `scripts/preview_v24_crlb_figure_candidates.py`
+- `scripts/audit_legacy_notebook_provenance.py`
+- `tests/test_legacy_notebook_provenance.py`
+- `v24_diagnostics/legacy_notebook_provenance_audit.json`
 - `PROJECT_STATUS.md`
 - `docs/tasks/NEXT.md`
+- `docs/tasks/QUEUE.md`
 
-Do not edit:
+## Read-Only Files
 
 - `JCLS_Simulation.ipynb`
-- manuscript files
-- response-letter files
-- bibliography files
-- Work-In-Progress figure files
-- PSFrag files
-- generated manuscript PDFs
-- generated manuscript figure PDFs/EPS/PNGs
-- existing manuscript result files
-- plotting code
-- package source files
-- tests
+- `v24_diagnostics/crlb_figure_decision_plan.json`
+- package modules/tests as needed for context
 
-## Planning Questions
+## Goals
 
-1. Which preview concept should be proposed to the human team first?
-2. Which current manuscript CRLB figure(s) would each concept replace or
-   supplement?
-3. What exact caveats must accompany any CRLB-vs-`N_s` presentation?
-4. What manuscript or response-letter changes would be needed if the CRLB
-   figure concept changes?
-5. What implementation task should be approved next if humans choose a
-   non-final manuscript-style figure candidate?
-
-## Required Output
-
-Return:
-
-- PASS / PASS WITH CAVEAT / FAIL for using the preview outputs as decision
-  input;
-- recommended CRLB figure decision path;
-- human-review questions;
-- exact next implementation task if a non-final manuscript-style figure
-  candidate is approved;
-- files that task may edit;
-- stop gates;
-- confirmation no files were edited.
+1. Parse the notebook JSON as text/data only; do not execute it.
+2. Identify cells containing CRLB/FIM/bound keywords, figure-output/save
+   keywords, legacy all-clock/gauge-risk keywords, and synchronization-metric
+   keywords.
+3. Produce a compact non-final JSON audit under `v24_diagnostics/` with cell
+   indices, matched keyword categories, risk level, and a short excerpt.
+4. Flag whether legacy CRLB/figure cells are likely unsafe until package-native
+   V24 paths replace them.
+5. Add tests using a small synthetic notebook fixture so tests do not depend on
+   exact legacy notebook contents.
 
 ## Hard Constraints
 
+- Do not edit `JCLS_Simulation.ipynb`.
 - Do not run notebook code.
-- Do not generate manuscript figures.
+- Do not generate figures.
 - Do not run full sweeps.
-- Do not edit manuscript, response-letter, bibliography, figure, PSFrag,
-  generated PDF, notebook, package source, test, or result files.
+- Do not edit manuscript, response-letter, bibliography, Work-In-Progress
+  figures, PSFrag files, generated manuscript PDFs, or existing manuscript
+  result outputs.
+
+## Expected Tests
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'
+```
+
+## Stop Gates
+
+- Notebook execution is needed.
+- The audit requires changing notebook/result/figure files.
+- Tests fail and the fix is not obvious/safely scoped.
+- The audit needs human scientific judgment to classify a cell.

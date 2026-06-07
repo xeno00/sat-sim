@@ -16,6 +16,9 @@ Queue execution rules:
 
 ## 1. Package-native CRLB mini-sweep comparison plan
 
+Status: superseded by merged CRLB geometry, manuscript-candidate,
+figure-candidate, preview, and decision-plan diagnostics.
+
 Mode: `PLAN_ONLY`
 
 Parallel-safe: yes, read-only/planning
@@ -53,6 +56,9 @@ May run expensive simulations: no
 
 ## 2. Package-native CRLB mini-sweep implementation
 
+Status: completed/superseded by merged package-native CRLB sweep and hardened
+diagnostics.
+
 Mode: `IMPLEMENT_APPROVED`
 
 Parallel-safe: maybe, only if it edits distinct runner/output files
@@ -88,6 +94,8 @@ May run expensive simulations: no
 
 ## 3. Legacy notebook bridge audit
 
+Status: active next implementation target. See `docs/tasks/NEXT.md`.
+
 Mode: `PLAN_ONLY` / `REVIEW_DIFF`
 
 Parallel-safe: yes, read-only
@@ -118,6 +126,8 @@ May merge: no
 May run expensive simulations: no
 
 ## 4. Runtime profiling plan
+
+Status: pending after legacy notebook provenance audit.
 
 Mode: `PLAN_ONLY`
 
