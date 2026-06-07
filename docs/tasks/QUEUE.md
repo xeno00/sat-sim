@@ -158,3 +158,41 @@ Stop gates:
 May merge: no
 
 May run expensive simulations: no
+
+## 5. CRLB figure-family regression diagnostics
+
+Status: implemented on branch `codex/crlb-decision-sprint`; awaiting read-only
+review before merge. See `docs/tasks/NEXT.md`.
+
+Mode: `REVIEW_DIFF`
+
+Parallel-safe: yes, read-only
+
+Allowed edit files:
+
+- none
+
+Read-only files:
+
+- `scripts/regress_v24_crlb_figures.py`
+- `tests/test_crlb_regression.py`
+- `v24_diagnostics/regression/crlb_figure_family_regression.json`
+- `v24_diagnostics/regression/crlb_figure_family_regression.csv`
+- `v24_diagnostics/regression/crlb_figure_family_regression_masks.npz`
+- package modules used by the CRLB candidate path
+
+Expected tests:
+
+- `powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'`
+
+Stop gates:
+
+- code edits required
+- notebook execution required
+- generated manuscript figure risk
+- output overwrite risk
+- human technical decision required
+
+May merge: no
+
+May run expensive simulations: no

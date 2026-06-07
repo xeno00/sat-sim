@@ -8,8 +8,8 @@ unless the human explicitly approves merge after review.
 ## Purpose
 
 Review branch `codex/crlb-decision-sprint` before merge. The branch adds
-diagnostic-only CRLB figure decision planning and static legacy notebook
-provenance audit outputs.
+diagnostic-only CRLB figure decision planning, static legacy notebook provenance
+audit outputs, and package-native CRLB figure-family regression diagnostics.
 
 ## Scope
 
@@ -21,6 +21,11 @@ Inspect:
 - `scripts/audit_legacy_notebook_provenance.py`
 - `tests/test_legacy_notebook_provenance.py`
 - `v24_diagnostics/legacy_notebook_provenance_audit.json`
+- `scripts/regress_v24_crlb_figures.py`
+- `tests/test_crlb_regression.py`
+- `v24_diagnostics/regression/crlb_figure_family_regression.json`
+- `v24_diagnostics/regression/crlb_figure_family_regression.csv`
+- `v24_diagnostics/regression/crlb_figure_family_regression_masks.npz`
 - `PROJECT_STATUS.md`
 - `docs/tasks/NEXT.md`
 - `docs/tasks/QUEUE.md`
@@ -47,7 +52,14 @@ Do not edit:
    finite CRLB-vs-`N_s` as secondary with the growing-parameter caveat.
 5. Confirm the notebook audit flags CRLB/FIM + gauge/all-clock risk cells and
    reports the legacy CRLB paths as unsafe until package-native replacement.
-6. Confirm tests pass:
+6. Confirm the CRLB regression diagnostic uses package-native V24 full-gauged
+   FIM/bounds only.
+7. Confirm regression JSON/CSV/NPZ rows include localization and synchronization
+   figure families, measurement count, parameter dimension, rank, nullity,
+   status masks, and finite-only bound values.
+8. Confirm rank-deficient/non-ready cases have unavailable masks and no finite
+   manuscript-style bound values.
+9. Confirm tests pass:
 
    ```powershell
    powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'

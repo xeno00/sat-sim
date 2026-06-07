@@ -79,6 +79,13 @@ synchronization-metric, and workspace-persistence cells, and writes a non-final
 audit under `v24_diagnostics/legacy_notebook_provenance_audit.json`. The audit
 flags the legacy notebook CRLB paths as unsafe until package-native replacement.
 
+A package-native CRLB figure-family regression diagnostic is implemented on
+branch `codex/crlb-decision-sprint`. It writes deterministic non-final JSON,
+CSV, and NPZ diagnostics under `v24_diagnostics/regression/` for the
+localization and synchronization CRLB figure families. The diagnostic uses the
+V24 full-gauged FIM/bounds path only and masks rank-deficient/non-ready cases
+instead of emitting finite manuscript-style values.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -109,6 +116,8 @@ The non-final CRLB figure decision-plan runner/tests are implemented on branch
 `codex/crlb-decision-sprint`.
 The static legacy notebook provenance audit runner/tests are implemented on
 branch `codex/crlb-decision-sprint`.
+The CRLB figure-family regression diagnostic runner/tests and non-final
+JSON/CSV/NPZ outputs are implemented on branch `codex/crlb-decision-sprint`.
 
 ## Next task
 
@@ -119,6 +128,9 @@ See `docs/tasks/NEXT.md`.
 - CRLB localization and synchronization figures remain unsafe to trust until a
   manuscript-relevant package-native CRLB figure concept is reviewed from
   non-final diagnostics/previews and explicitly approved for figure-rerun work.
+- Non-final CRLB figure-family regression diagnostics now exist under
+  `v24_diagnostics/regression/`; they are diagnostic-only and are not manuscript
+  figures or final manuscript result data.
 - The package-native CRLB mini-sweep diagnostic exists at
   `v24_diagnostics/sweep_v24_crlb_ns.json`, but it is non-final, not a
   manuscript figure, and explicitly marks rank-deficient cases as
