@@ -1,0 +1,86 @@
+{
+  "artifact_status": "canonical_output_index",
+  "folders": [
+    {
+      "path": "outputs/gallery",
+      "contains": "PNG previews and browsable Markdown/HTML/JSON gallery",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "path": "outputs/legacy_replay",
+      "contains": "legacy-compatible replay graphs and raw diagnostics",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "path": "outputs/package_diagnostic",
+      "contains": "package diagnostic aliases/status only",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "path": "outputs/manuscript_candidate",
+      "contains": "candidate-only graph provenance/status",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "path": "outputs/human_review",
+      "contains": "human-review diagnostics/status",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "path": "outputs/cache",
+      "contains": "validated replay cache/checkpoint entries",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "path": "outputs/reports",
+      "contains": "human-readable reports and machine JSON",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    }
+  ],
+  "legacy_provenance_paths": [
+    "v24_notebook_regression_outputs",
+    "v24_plot_gallery",
+    "v24_figure_outputs",
+    "v24_manuscript_candidate_outputs",
+    "v24_human_review_outputs"
+  ],
+  "current_best_graphs": [
+    {
+      "name": "Corrected LOS localization CRLB replay",
+      "path": "outputs/legacy_replay/crlb_los/pos_crlb_0dB_0dB.pdf",
+      "status": "legacy replay, not V24-clean"
+    },
+    {
+      "name": "Corrected LOS synchronization CRLB replay",
+      "path": "outputs/legacy_replay/crlb_los/sync_crlb_0dB_0dB.pdf",
+      "status": "legacy replay, not V24-clean"
+    },
+    {
+      "name": "Full legacy clock-sweep localization replay",
+      "path": "outputs/legacy_replay/clock_sweep_full/pos_vary_clock.pdf",
+      "status": "legacy replay, unverified match"
+    },
+    {
+      "name": "Full legacy clock-sweep synchronization replay",
+      "path": "outputs/legacy_replay/clock_sweep_full/sync_vary_clock.pdf",
+      "status": "legacy replay, unverified match"
+    },
+    {
+      "name": "Legacy-compatible network-size localization smoke replay",
+      "path": "outputs/legacy_replay/network_size/pos_vary_ues.pdf",
+      "status": "bounded smoke legacy replay, unverified match"
+    },
+    {
+      "name": "Legacy-compatible network-size synchronization smoke replay",
+      "path": "outputs/legacy_replay/network_size/sync_vary_ues.pdf",
+      "status": "bounded smoke legacy replay, unverified match"
+    }
+  ]
+}

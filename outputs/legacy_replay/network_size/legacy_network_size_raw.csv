@@ -1,0 +1,4 @@
+num_satellites,num_users,measurement_count,state_dimension,il_position_error_m,lm_position_error_m,map_position_error_m,il_sync_error_s,lm_sync_error_s,map_sync_error_s,success,cache_used,fallbacks,failures
+4,3,18,16,0.30275559240563177,0.29337468698779173,0.29337468698779173,4.076500191426217e-10,3.5267908365890616e-10,3.5267908365890616e-10,True,False,"[""MAP_optimizer_method_missing_global_fallback"", ""MAP_optimizer_method_missing_global_fallback""]",[]
+8,3,30,20,0.2629246223708794,0.029334227208314582,0.029334227208314582,4.5341127527666253e-10,1.0354206312875119e-10,1.0354206312875119e-10,True,False,"[""MAP_optimizer_method_missing_global_fallback"", ""MAP_optimizer_method_missing_global_fallback""]",[]
+12,3,42,24,0.18218320668031932,0.08063342638622925,0.028323625706258786,4.001650243312257e-10,1.3549289938604484e-10,1.1920773910241257e-10,True,False,"[""MAP_optimizer_method_missing_global_fallback"", ""MAP_optimizer_method_missing_global_fallback""]",[]

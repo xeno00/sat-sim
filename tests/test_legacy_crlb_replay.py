@@ -60,7 +60,8 @@ class TestLegacyCrlbReplay(unittest.TestCase):
             "pos_vary_ues.pdf",
             "sync_vary_ues.pdf",
         ]:
-            self.assertEqual(status_by_figure[figure]["status"], "static_mapped_only")
+            self.assertEqual(status_by_figure[figure]["status"], "legacy_network_size_smoke_replayed_unverified_match")
+            self.assertFalse(status_by_figure[figure]["manuscript_ready"])
 
     def test_replay_script_uses_safe_output_root_and_no_work_in_progress_paths(self) -> None:
         source = (ROOT / "scripts" / "replay_legacy_crlb_figures.py").read_text(encoding="utf-8")

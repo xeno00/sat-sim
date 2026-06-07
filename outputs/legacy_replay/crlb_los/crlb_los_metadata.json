@@ -1,0 +1,23 @@
+{
+  "artifact_status": "non_final_legacy_crlb_los_replay_corrected_legend",
+  "status": "legacy_replayed_unverified_match",
+  "legacy_replay": true,
+  "manuscript_ready": false,
+  "los_nlos": "LOS",
+  "noise_fim_model": "legacy notebook LOS CRLB replay matrices; plots regenerated with corrected legends only",
+  "output_root": "outputs/legacy_replay/crlb_los",
+  "plot_outputs": [
+    "outputs/legacy_replay/crlb_los/pos_crlb_0dB_0dB.pdf",
+    "outputs/legacy_replay/crlb_los/sync_crlb_0dB_0dB.pdf"
+  ],
+  "raw_outputs": [
+    "outputs/legacy_replay/crlb_los/legacy_pos_plot_y_m.csv",
+    "outputs/legacy_replay/crlb_los/legacy_sync_plot_y_ns.csv",
+    "outputs/legacy_replay/crlb_los/legacy_crlb_los_arrays.npz"
+  ],
+  "caveats": [
+    "Legacy all-clock/post-hoc CRLB path preserved as provenance.",
+    "Legend and plot readability corrected; underlying CRLB numbers are not V24-clean.",
+    "First legend row follows the legacy notebook's single-UE/no-sidelink convention."
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "status": "complete",
+  "cache_key": "e9d3e3927f2e22d9f1b9157dc4176b0b52bf1bd78c9bb4dbbdaaebf2b1bc4e5c",
+  "identity": {
+    "cache_schema_version": "legacy-network-size-row-v1",
+    "script_name": "replay_legacy_network_size_figures.py",
+    "script_sha256": "accf35664b1a94e0fe68c53633b35fae9dea05af811ff2b6142fb216174310ce",
+    "notebook_sha256": "39a3b434a64fa8631df287a980e3e2330824c6bec3e4e3c014095399dcff9916",
+    "extracted_cell_hashes": [
+      {
+        "cell_index_zero_based": 7,
+        "cell_number_one_based": 8,
+        "name": "Node",
+        "sha256": "2a9b6f743de67706553f482b2d1fb449bdf24ae36c5fa9fd0a76c77af9858ee5"
+      },
+      {
+        "cell_index_zero_based": 9,
+        "cell_number_one_based": 10,
+        "name": "User",
+        "sha256": "8ee038f5f0b8aaed570bf4729c53c0d67c842478413a372c16b1de8be2e816d8"
+      },
+      {
+        "cell_index_zero_based": 11,
+        "cell_number_one_based": 12,
+        "name": "Satellite",
+        "sha256": "f455ec76acc4adee13494f100f420e17e0996d4986190fc1e76f6105ff0453b3"
+      },
+      {
+        "cell_index_zero_based": 13,
+        "cell_number_one_based": 14,
+        "name": "Datalink",
+        "sha256": "a146f6f4003b1981cc633c52ab82288726dcac3139f654e572ba0f2d91bf5e15"
+      },
+      {
+        "cell_index_zero_based": 15,
+        "cell_number_one_based": 16,
+        "name": "Scenario",
+        "sha256": "7ff80bf541d3858e2a67af7be975c651f420d474a40dad511d3b1d96f067b8f0"
+      },
+      {
+        "cell_index_zero_based": 17,
+        "cell_number_one_based": 18,
+        "name": "Optimizer",
+        "sha256": "f9ebfc9ad0ed2058ab952224628dba43cb8619e8532ee1d855330e3337f9a7d8"
+      },
+      {
+        "cell_index_zero_based": 25,
+        "cell_number_one_based": 26,
+        "name": "fit_helpers",
+        "sha256": "12a61f043dbb13bdc220ecb1edc54b3fd72562b0c663bf14feca348227e0ce6c"
+      }
+    ],
+    "config": {
+      "mode": "network_size_smoke",
+      "num_satellites": 8,
+      "num_users": 3,
+      "clock_std_dev": 5e-10,
+      "num_iterations": 2,
+      "error_range": 100.0,
+      "seed": 2042,
+      "estimator_mode": "legacy_il_lm_map_filter_iteration"
+    }
+  },
+  "raw_result_hash": "5bbbb2eeac8bfc6c5d61d3e991807e3429943d3abb01b5503f163a3ee7e9b467",
+  "row_json": "outputs/cache/legacy_network_size/e9d3e3927f2e22d9/row.json",
+  "timestamp_utc": "2026-06-07T22:09:20Z",
+  "branch": "codex/legacy-figures-gallery-crlb-nlos",
+  "commit": "bd34891"
+}

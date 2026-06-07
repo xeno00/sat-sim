@@ -1,0 +1,74 @@
+{
+  "report_type": "merged_state_preflight",
+  "current_branch": "codex/legacy-figures-gallery-crlb-nlos",
+  "base_commit": "bd34891",
+  "checks": {
+    "legacy_crlb_replay_files": [
+      {
+        "path": "v24_notebook_regression_outputs/executed_legacy/crlb_replay/pos_crlb_0dB_0dB.pdf",
+        "exists": true,
+        "size_bytes": 24138
+      },
+      {
+        "path": "v24_notebook_regression_outputs/executed_legacy/crlb_replay/sync_crlb_0dB_0dB.pdf",
+        "exists": true,
+        "size_bytes": 23711
+      },
+      {
+        "path": "v24_notebook_regression_outputs/LEGACY_CRLB_REPLAY_REPORT.json",
+        "exists": true,
+        "size_bytes": 14376
+      }
+    ],
+    "full_legacy_clock_sweep_replay_files": [
+      {
+        "path": "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/pos_vary_clock.pdf",
+        "exists": true,
+        "size_bytes": 22759
+      },
+      {
+        "path": "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/sync_vary_clock.pdf",
+        "exists": true,
+        "size_bytes": 22497
+      },
+      {
+        "path": "v24_notebook_regression_outputs/LEGACY_CLOCK_SWEEP_FULL_REPLAY_REPORT.json",
+        "exists": true,
+        "size_bytes": 34903
+      }
+    ],
+    "plot_gallery_preview_files": [
+      {
+        "path": "v24_plot_gallery/PLOT_GALLERY.html",
+        "exists": true,
+        "size_bytes": 18928
+      },
+      {
+        "path": "v24_plot_gallery/PLOT_GALLERY.md",
+        "exists": true,
+        "size_bytes": 9206
+      },
+      {
+        "path": "v24_plot_gallery/PLOT_GALLERY.json",
+        "exists": true,
+        "size_bytes": 28854
+      }
+    ],
+    "cache_manifest": [
+      {
+        "path": "v24_notebook_regression_outputs/cache/CACHE_MANIFEST.json",
+        "exists": true,
+        "size_bytes": 2764
+      }
+    ],
+    "figure_regression_table": [
+      {
+        "path": "v24_notebook_regression_outputs/FIGURE_REGRESSION_TABLE.json",
+        "exists": true,
+        "size_bytes": 134291
+      }
+    ]
+  },
+  "missing_expected_artifacts": [],
+  "proceeding_with_rebuilds_under_outputs": false
+}

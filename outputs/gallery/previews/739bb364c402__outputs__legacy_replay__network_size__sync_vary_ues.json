@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/legacy_replay/network_size/sync_vary_ues.pdf",
+  "source_pdf_sha256": "cffa70d22a4dabfa0cd4998c36318a37432a6190198f646794d3eb06df545746",
+  "source_pdf_size_bytes": 17513,
+  "preview_paths": [
+    "previews/739bb364c402__outputs__legacy_replay__network_size__sync_vary_ues-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/739bb364c402__outputs__legacy_replay__network_size__sync_vary_ues.json",
+  "render_timestamp_utc": "2026-06-07T22:14:19.349118+00:00",
+  "render_status": "rendered",
+  "branch": "codex/legacy-figures-gallery-crlb-nlos",
+  "commit": "bd34891"
+}

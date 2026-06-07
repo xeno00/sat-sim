@@ -19,9 +19,13 @@ from typing import Any
 
 
 SAT_SIM_ROOT = Path(__file__).resolve().parents[1]
-GALLERY_ROOT = SAT_SIM_ROOT / "v24_plot_gallery"
+GALLERY_ROOT = SAT_SIM_ROOT / "outputs" / "gallery"
 PREVIEW_ROOT = GALLERY_ROOT / "previews"
 SOURCE_ROOTS = [
+    SAT_SIM_ROOT / "outputs" / "legacy_replay",
+    SAT_SIM_ROOT / "outputs" / "package_diagnostic",
+    SAT_SIM_ROOT / "outputs" / "manuscript_candidate",
+    SAT_SIM_ROOT / "outputs" / "human_review",
     SAT_SIM_ROOT / "v24_notebook_regression_outputs",
     SAT_SIM_ROOT / "v24_human_review_outputs",
     SAT_SIM_ROOT / "v24_manuscript_candidate_outputs",
@@ -38,6 +42,26 @@ def _sha256(path: Path) -> str:
     """Return SHA256 for a file."""
 
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _repo_rel(path: Path) -> str:
+    """Return a repo-relative path with URL-friendly separators."""
+
+    return path.relative_to(SAT_SIM_ROOT).as_posix()
+
+
+def _gallery_rel(path: Path) -> str:
+    """Return a gallery-relative path with URL-friendly separators."""
+
+    return path.relative_to(GALLERY_ROOT).as_posix()
+
+
+def _link_from_gallery(repo_relative_path: str) -> str:
+    """Return a link target from gallery files to a repo-relative path."""
+
+    if repo_relative_path.startswith("outputs/"):
+        return f"../{repo_relative_path.removeprefix('outputs/')}"
+    return f"../../{repo_relative_path}"
 
 
 def _git_value(args: list[str]) -> str | None:
@@ -95,7 +119,15 @@ def _find_pdfs() -> list[Path]:
 def _group_for(path: Path) -> str:
     """Classify a PDF into a gallery group."""
 
-    text = str(path.relative_to(SAT_SIM_ROOT)).replace("\\", "/").lower()
+    text = _repo_rel(path).lower()
+    if "outputs/legacy_replay/crlb_los" in text:
+        return "legacy CRLB replay"
+    if "outputs/legacy_replay/crlb_nlos" in text:
+        return "NLOS CRLB status"
+    if "outputs/legacy_replay/network_size" in text:
+        return "legacy network-size smoke"
+    if "outputs/legacy_replay/clock_sweep_full" in text:
+        return "legacy clock-sweep full"
     if "crlb_replay" in text:
         return "legacy CRLB replay"
     if "clock_sweep_replay_full" in text:
@@ -135,7 +167,7 @@ def _nearby_metadata(path: Path) -> list[str]:
         or "metadata" in item.name.lower()
         or "report" in item.name.lower()
     ]
-    return [str(item.relative_to(SAT_SIM_ROOT)) for item in sorted(candidates)]
+    return [_repo_rel(item) for item in sorted(candidates)]
 
 
 def _nearby_raw_data(path: Path) -> list[str]:
@@ -144,7 +176,7 @@ def _nearby_raw_data(path: Path) -> list[str]:
     candidates: list[Path] = []
     for pattern in ("*.csv", "*.npz"):
         candidates.extend(path.parent.glob(pattern))
-    return [str(item.relative_to(SAT_SIM_ROOT)) for item in sorted(candidates)]
+    return [_repo_rel(item) for item in sorted(candidates)]
 
 
 def _pdftoppm() -> str:
@@ -167,7 +199,7 @@ def _render_pdf(path: Path, *, force: bool) -> tuple[list[Path], dict[str, Any]]
     current_hash = _sha256(path)
     if not force and metadata_path.exists():
         existing = json.loads(metadata_path.read_text(encoding="utf-8"))
-        previews = [SAT_SIM_ROOT / item for item in existing.get("preview_paths", [])]
+        previews = [GALLERY_ROOT / item for item in existing.get("preview_paths", [])]
         if existing.get("source_pdf_sha256") == current_hash and all(item.exists() for item in previews):
             return previews, existing
 
@@ -183,12 +215,12 @@ def _render_pdf(path: Path, *, force: bool) -> tuple[list[Path], dict[str, Any]]
         )
     except subprocess.CalledProcessError as error:
         metadata = {
-            "source_pdf_path": str(path.relative_to(SAT_SIM_ROOT)),
+            "source_pdf_path": _repo_rel(path),
             "source_pdf_sha256": current_hash,
             "source_pdf_size_bytes": path.stat().st_size,
             "preview_paths": [],
             "preview_count": 0,
-            "metadata_path": str(metadata_path.relative_to(SAT_SIM_ROOT)),
+            "metadata_path": _gallery_rel(metadata_path),
             "render_timestamp_utc": datetime.now(timezone.utc).isoformat(),
             "render_status": "failed",
             "render_error": error.stderr or error.stdout or str(error),
@@ -199,12 +231,12 @@ def _render_pdf(path: Path, *, force: bool) -> tuple[list[Path], dict[str, Any]]
         return [], metadata
     previews = sorted(PREVIEW_ROOT.glob(f"{stem}-*.png"))
     metadata = {
-        "source_pdf_path": str(path.relative_to(SAT_SIM_ROOT)),
+        "source_pdf_path": _repo_rel(path),
         "source_pdf_sha256": current_hash,
         "source_pdf_size_bytes": path.stat().st_size,
-        "preview_paths": [str(item.relative_to(SAT_SIM_ROOT)) for item in previews],
+        "preview_paths": [_gallery_rel(item) for item in previews],
         "preview_count": len(previews),
-        "metadata_path": str(metadata_path.relative_to(SAT_SIM_ROOT)),
+        "metadata_path": _gallery_rel(metadata_path),
         "render_timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "render_status": "rendered",
         **_git_metadata(),
@@ -227,7 +259,7 @@ def _entry_for(path: Path, metadata: dict[str, Any], status_by_figure: dict[str,
     return {
         "figure_name": path.name,
         "group": group,
-        "source_pdf_path": str(path.relative_to(SAT_SIM_ROOT)),
+        "source_pdf_path": _repo_rel(path),
         "preview_paths": metadata["preview_paths"],
         "metadata_path": metadata["metadata_path"],
         "raw_data_paths": _nearby_raw_data(path),
@@ -242,6 +274,34 @@ def _entry_for(path: Path, metadata: dict[str, Any], status_by_figure: dict[str,
     }
 
 
+def _missing_target_entries(status_by_figure: dict[str, dict[str, Any]], rendered_figures: set[str]) -> list[dict[str, Any]]:
+    """Return status-only entries for target figures without rendered PDFs."""
+
+    entries: list[dict[str, Any]] = []
+    for figure_name, status in sorted(status_by_figure.items()):
+        if figure_name in rendered_figures:
+            continue
+        entries.append(
+            {
+                "figure_name": figure_name,
+                "group": "failed/not-reproduced figures",
+                "source_pdf_path": None,
+                "preview_paths": [],
+                "metadata_path": None,
+                "raw_data_paths": [],
+                "nearby_metadata_paths": [],
+                "status": status.get("status", "not_rendered"),
+                "manuscript_ready": bool(status.get("manuscript_ready", False)),
+                "warning": status.get("reason", "No eligible diagnostic PDF exists for this target figure."),
+                "render_status": "not_rendered",
+                "render_error": "No eligible diagnostic PDF exists for this target figure.",
+                "source_pdf_sha256": None,
+                "source_pdf_size_bytes": None,
+            }
+        )
+    return entries
+
+
 def _write_gallery(entries: list[dict[str, Any]]) -> dict[str, Any]:
     """Write JSON, Markdown, and HTML gallery files."""
 
@@ -250,7 +310,7 @@ def _write_gallery(entries: list[dict[str, Any]]) -> dict[str, Any]:
     payload = {
         "artifact_status": "non_final_plot_gallery",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "source_roots": [str(root.relative_to(SAT_SIM_ROOT)) for root in SOURCE_ROOTS],
+        "source_roots": [_repo_rel(root) for root in SOURCE_ROOTS],
         "entry_count": len(entries),
         "groups": groups,
         "entries": entries,
@@ -258,23 +318,47 @@ def _write_gallery(entries: list[dict[str, Any]]) -> dict[str, Any]:
     }
     (GALLERY_ROOT / "PLOT_GALLERY.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-    md_lines = ["# V24 Plot Gallery", "", "Non-final previews of generated/replayed diagnostic PDFs.", ""]
+    md_lines = [
+        "# V24 Plot Gallery",
+        "",
+        "## Executive Summary",
+        "This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.",
+        "",
+        f"- Generated entries: {len(entries)}",
+        f"- Generated at: {payload['generated_at_utc']}",
+        "",
+    ]
     for group in groups:
         md_lines.extend([f"## {group}", ""])
         for entry in [item for item in entries if item["group"] == group]:
+            source_line = (
+                f"- Source PDF: [{entry['source_pdf_path']}]({_link_from_gallery(entry['source_pdf_path'])})"
+                if entry["source_pdf_path"]
+                else "- Source PDF: `not rendered`"
+            )
             md_lines.extend(
                 [
                     f"### {entry['figure_name']}",
                     "",
                     f"- Status: `{entry['status']}`",
                     f"- Manuscript ready: `{entry['manuscript_ready']}`",
-                    f"- Source PDF: `{entry['source_pdf_path']}`",
+                    source_line,
                     f"- Warning: {entry['warning']}",
                     "",
                 ]
             )
             for preview in entry["preview_paths"]:
                 md_lines.append(f"![{entry['figure_name']}]({preview})")
+            if entry["metadata_path"]:
+                md_lines.append(f"- Preview metadata: [{entry['metadata_path']}]({entry['metadata_path']})")
+            if entry["raw_data_paths"]:
+                md_lines.append("- Raw data:")
+                for raw_path in entry["raw_data_paths"]:
+                    md_lines.append(f"  - [{raw_path}]({_link_from_gallery(raw_path)})")
+            if entry["nearby_metadata_paths"]:
+                md_lines.append("- Nearby metadata:")
+                for metadata_path in entry["nearby_metadata_paths"]:
+                    md_lines.append(f"  - [{metadata_path}]({_link_from_gallery(metadata_path)})")
             md_lines.append("")
     (GALLERY_ROOT / "PLOT_GALLERY.md").write_text("\n".join(md_lines) + "\n", encoding="utf-8")
 
@@ -295,9 +379,13 @@ def _write_gallery(entries: list[dict[str, Any]]) -> dict[str, Any]:
             html_parts.append(f"<p class='warn'>{html.escape(str(entry['warning']))}</p>")
             for preview in entry["preview_paths"]:
                 html_parts.append(f"<img src='{html.escape(preview)}' alt='{html.escape(entry['figure_name'])}'>")
-            html_parts.append(f"<p>Source: <code>{html.escape(entry['source_pdf_path'])}</code></p>")
+            if entry["source_pdf_path"]:
+                href = _link_from_gallery(entry["source_pdf_path"])
+                html_parts.append(f"<p>Source: <a href='{html.escape(href)}'>{html.escape(entry['source_pdf_path'])}</a></p>")
+            else:
+                html_parts.append("<p>Source: <code>not rendered</code></p>")
             if entry["raw_data_paths"]:
-                html_parts.append("<p>Raw data:<br>" + "<br>".join(f"<code>{html.escape(path)}</code>" for path in entry["raw_data_paths"]) + "</p>")
+                html_parts.append("<p>Raw data:<br>" + "<br>".join(f"<a href='{html.escape(_link_from_gallery(path))}'>{html.escape(path)}</a>" for path in entry["raw_data_paths"]) + "</p>")
             html_parts.append("</div>")
         html_parts.append("</div>")
     html_parts.append("</body></html>")
@@ -315,7 +403,8 @@ def render_gallery(*, force: bool = False) -> dict[str, Any]:
         previews, metadata = _render_pdf(pdf, force=force)
         entry = _entry_for(pdf, metadata, status_by_figure)
         entries.append(entry)
-        newly_rendered.extend(str(path.relative_to(SAT_SIM_ROOT)) for path in previews)
+        newly_rendered.extend(_gallery_rel(path) for path in previews)
+    entries.extend(_missing_target_entries(status_by_figure, {entry["figure_name"] for entry in entries}))
     payload = _write_gallery(entries)
     payload["preview_pngs"] = newly_rendered
     return payload
@@ -331,7 +420,7 @@ def main() -> int:
     args = _parse_args()
     payload = render_gallery(force=args.force)
     print(json.dumps({
-        "gallery": str((GALLERY_ROOT / "PLOT_GALLERY.html").relative_to(SAT_SIM_ROOT)),
+        "gallery": str((GALLERY_ROOT / "PLOT_GALLERY.html").relative_to(SAT_SIM_ROOT)).replace("\\", "/"),
         "entry_count": payload["entry_count"],
         "preview_count": sum(len(entry["preview_paths"]) for entry in payload["entries"]),
         "preview_pngs": payload["preview_pngs"],

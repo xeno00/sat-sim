@@ -271,6 +271,14 @@ Plot-gallery previews and validated cache/checkpointing for the full
 clock-sweep replay are implemented on branch `codex/plot-gallery-cache`; the
 latest cached full replay reports 7/7 cache hits and writes
 `v24_plot_gallery/PLOT_GALLERY.html`.
+Canonical legacy graph-package outputs are implemented on branch
+`codex/legacy-figures-gallery-crlb-nlos`. The branch verifies the merged base,
+creates `outputs/` as the human-review graph package root, fixes Markdown/HTML
+gallery rendering, regenerates LOS CRLB replay plots with corrected legends,
+writes an explicit NLOS CRLB failure report, produces a bounded
+legacy-compatible network-size smoke replay, marks package-native Fig. 4--7
+outputs as suspect, and writes cache/status/index reports. All outputs remain
+non-final and not manuscript-ready.
 
 ## Next task
 
@@ -311,3 +319,7 @@ See `docs/tasks/NEXT.md`.
   submission, and currently do not support manuscript replacement.
 - No manuscript text or response-letter text should be changed based on the
   current package-native Fig. 4--7 diagnostic or candidate outputs.
+- Canonical graph-package outputs now live under `outputs/`. The best current
+  visual-review artifacts are legacy-compatible replays, not V24-clean
+  manuscript figures. `outputs/reports/CURRENT_GRAPH_STATUS.md` is the current
+  source of truth for graph readiness and suspect outputs.
