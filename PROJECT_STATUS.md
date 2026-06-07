@@ -51,10 +51,9 @@ to `v24_diagnostics/crlb_geometry_diagnostics.json`. Next: plan a
 manuscript-relevant non-final CRLB candidate using the rank-feasibility results
 without generating manuscript figures.
 
-A manuscript-relevant non-final CRLB candidate diagnostic is implemented on the
-current task branch. It summarizes rank-feasibility cases into finite
-manuscript-ready cases and explicitly unavailable rank-deficient cases without
-generating figures.
+A manuscript-relevant non-final CRLB candidate diagnostic is implemented and
+merged. It summarizes rank-feasibility cases into finite manuscript-ready cases
+and explicitly unavailable rank-deficient cases without generating figures.
 
 ## Blocking risks
 
@@ -79,8 +78,7 @@ extraction helpers, package-native non-final CRLB mini-sweep runner/tests, and
 CRLB diagnostic hardening tests are implemented. Non-final diagnostic JSON
 exists under `v24_diagnostics/` with hardened CRLB status/reportability fields.
 The CRLB geometry diagnostic runner/tests are merged on `main`.
-The manuscript-relevant CRLB candidate runner/tests are implemented on the
-current branch and await review before merge.
+The manuscript-relevant CRLB candidate runner/tests are merged on `main`.
 
 ## Next task
 

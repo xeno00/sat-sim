@@ -1,24 +1,38 @@
-MODE: REVIEW_DIFF
+MODE: PLAN_ONLY
 
 This task may be executed via `RUN_CODEX.md`. Do not edit files unless the
 human explicitly approves implementation. Do not merge unless explicitly
 allowed.
 
-# Next Task: Review Manuscript CRLB Candidate Branch Before Merge
+# Next Task: Plan CRLB Figure Strategy From Non-Final Candidate
 
 ## Purpose
 
-Review the branch implementing the non-final manuscript-relevant CRLB candidate
-diagnostic before merge. Confirm it marks rank-deficient cases unavailable and
-only exposes finite bound values for manuscript-ready full-rank cases.
+Use the merged non-final manuscript CRLB candidate diagnostic to decide how the
+paper's CRLB-related figures should be handled. This is a planning task only:
+do not generate figures, edit the notebook, or modify manuscript files.
+
+## Context
+
+The package now has:
+
+- full-gauged V24 FIM and CRLB bound extraction;
+- rank-deficient manuscript-readiness guards;
+- fixed-parameter information-addition diagnostics;
+- growing-`N_s` diagnostics with explicit non-monotonic interpretation;
+- a manuscript-relevant non-final CRLB candidate JSON that marks
+  rank-deficient points unavailable and finite points manuscript-ready.
 
 ## Scope
 
-Inspect:
+Allowed files to inspect:
 
-- `scripts/diagnose_v24_manuscript_crlb_candidate.py`
-- `tests/test_manuscript_crlb_candidate.py`
 - `v24_diagnostics/manuscript_crlb_candidate.json`
+- `v24_diagnostics/crlb_geometry_diagnostics.json`
+- `v24_diagnostics/sweep_v24_crlb_ns.json`
+- `scripts/diagnose_v24_manuscript_crlb_candidate.py`
+- `scripts/diagnose_v24_crlb_geometry.py`
+- `scripts/sweep_v24_crlb.py`
 - `PROJECT_STATUS.md`
 - `docs/tasks/NEXT.md`
 
@@ -35,41 +49,42 @@ Do not edit:
 - existing manuscript result files
 - plotting code
 - figure-generation code
+- package source files
+- tests
 
-## Checks
+## Planning Questions
 
-1. Candidate output:
-   - diagnostic type is non-final;
-   - output note says it is not a manuscript figure or result sweep;
-   - unavailable policy is explicit.
-
-2. Rank-deficient handling:
-   - rank-deficient cases use `plot_value_status = unavailable_rank_deficient`;
-   - rank-deficient cases have null finite plot values;
-   - rank-deficient cases are not manuscript-ready.
-
-3. Full-rank handling:
-   - full-rank manuscript-ready cases use `plot_value_status = finite`;
-   - finite cases include average UE PEB and clock bounds;
-   - seconds conversion is correct.
-
-4. Summary:
-   - finite and unavailable case counts are present;
-   - minimal full-rank satellite counts are reported by user count and link
-     pattern.
-
-5. Tests:
-   - Run `powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'`
-     from the repository root.
+1. Which existing manuscript CRLB figures are most likely unsafe or need
+   replacement based on the V24 candidate diagnostics?
+2. Which diagnostic figure direction is scientifically safest:
+   - rank-feasibility heatmap;
+   - finite CRLB versus `N_s` with unavailable points marked;
+   - fixed-parameter measurement-addition CRLB curve;
+   - a table-only diagnostic summary?
+3. What must be true before final manuscript figure regeneration is approved?
+4. What package script/output should be implemented next as a non-final figure
+   candidate, still outside manuscript figure folders?
+5. What response/manuscript implications would need human approval if the CRLB
+   figure concept changes?
 
 ## Required Output
 
 Return:
 
-- PASS / FAIL / PASS WITH CAVEAT;
-- merge recommendation;
-- required fixes before merge, if any;
-- nonblocking caveats;
-- confirmation that manuscript, response-letter, bibliography, figure, PSFrag,
-  PDF, notebook, and final-result files were not edited.
+- PASS / PASS WITH CAVEAT / FAIL for using current non-final diagnostics as
+  figure-strategy input;
+- recommended CRLB figure strategy;
+- figures/results that remain unsafe;
+- exact non-final implementation task to approve next;
+- files that task should edit;
+- hard stop gates;
+- confirmation no files were edited.
+
+## Hard Constraints
+
+- Do not run notebook code.
+- Do not generate figures.
+- Do not run full sweeps.
+- Do not edit manuscript, response-letter, bibliography, figure, PSFrag,
+  generated PDF, notebook, package source, test, or result files.
 
