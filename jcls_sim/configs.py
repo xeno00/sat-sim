@@ -141,6 +141,133 @@ def tiny_v24_reproducibility_config(seed: int = 20260606) -> V24ScenarioConfig:
     )
 
 
+def downlink_links(num_users: int, num_satellites: int) -> tuple[tuple[int, int], ...]:
+    """Return all satellite-to-UE downlink links for V24 node indexing."""
+
+    if num_users < 1:
+        raise ValueError(f"num_users must be at least 1, got {num_users}.")
+    if num_satellites < 1:
+        raise ValueError(f"num_satellites must be at least 1, got {num_satellites}.")
+    satellite_node_ids = range(num_users + 1, num_users + num_satellites + 1)
+    return tuple(
+        (user_node_id, satellite_node_id)
+        for satellite_node_id in satellite_node_ids
+        for user_node_id in range(1, num_users + 1)
+    )
+
+
+def directed_sidelink_links(num_users: int) -> tuple[tuple[int, int], ...]:
+    """Return all directed UE-to-UE sidelink links."""
+
+    if num_users < 1:
+        raise ValueError(f"num_users must be at least 1, got {num_users}.")
+    return tuple(
+        (receiver_node_id, transmitter_node_id)
+        for receiver_node_id in range(1, num_users + 1)
+        for transmitter_node_id in range(1, num_users + 1)
+        if receiver_node_id != transmitter_node_id
+    )
+
+
+def minimal_sidelink_links(num_users: int) -> tuple[tuple[int, int], ...]:
+    """Return a simple directed UE chain for minimal sidelink diagnostics."""
+
+    if num_users < 1:
+        raise ValueError(f"num_users must be at least 1, got {num_users}.")
+    return tuple(
+        (receiver_node_id, receiver_node_id + 1)
+        for receiver_node_id in range(1, num_users)
+    )
+
+
+def v24_geometry_links(
+    num_users: int,
+    num_satellites: int,
+    link_pattern: str,
+) -> tuple[tuple[int, int], ...]:
+    """Return deterministic links for a named V24 CRLB diagnostic pattern."""
+
+    dl_links = downlink_links(num_users, num_satellites)
+    if link_pattern == "dl_only":
+        return dl_links
+    if link_pattern == "all_dl_minimal_sl":
+        return dl_links + minimal_sidelink_links(num_users)
+    if link_pattern == "all_dl_all_directed_sl":
+        return dl_links + directed_sidelink_links(num_users)
+    raise ValueError(
+        "link_pattern must be one of 'dl_only', 'all_dl_minimal_sl', "
+        f"or 'all_dl_all_directed_sl', got {link_pattern!r}."
+    )
+
+
+def v24_crlb_geometry_config(
+    num_users: int,
+    num_satellites: int,
+    seed: int,
+    *,
+    link_pattern: str = "all_dl_all_directed_sl",
+    range_std_dev_km: float = 0.03,
+) -> V24ScenarioConfig:
+    """Return a deterministic V24 CRLB geometry-diagnostic scenario."""
+
+    if num_users < 1:
+        raise ValueError(f"num_users must be at least 1, got {num_users}.")
+    if num_satellites < 2:
+        raise ValueError(f"num_satellites must be at least 2, got {num_satellites}.")
+    if range_std_dev_km <= 0.0:
+        raise ValueError(f"range_std_dev_km must be positive, got {range_std_dev_km}.")
+
+    rng = np.random.default_rng(int(seed))
+    user_angles = np.linspace(0.15, 2.0 * np.pi + 0.15, num_users, endpoint=False)
+    user_radii = 2.5 + 1.25 * np.arange(num_users, dtype=float)
+    ue_positions_km = np.column_stack(
+        [
+            user_radii * np.cos(user_angles),
+            0.8 * user_radii * np.sin(user_angles),
+            0.15 * np.arange(num_users, dtype=float),
+        ]
+    )
+    ue_positions_km += rng.normal(loc=0.0, scale=0.01, size=ue_positions_km.shape)
+
+    satellite_angles = np.linspace(0.0, 2.0 * np.pi, num_satellites, endpoint=False)
+    satellite_positions_km = np.column_stack(
+        [
+            10.0 * np.cos(satellite_angles),
+            8.0 * np.sin(satellite_angles),
+            20.0 + 2.0 * np.arange(num_satellites, dtype=float),
+        ]
+    )
+    satellite_positions_km += rng.normal(loc=0.0, scale=0.02, size=satellite_positions_km.shape)
+
+    ue_clock_offsets_km = np.linspace(0.08, -0.10, num_users, dtype=float)
+    ue_clock_offsets_km += rng.normal(loc=0.0, scale=0.003, size=num_users)
+    non_reference_satellite_clock_offsets_km = np.linspace(
+        0.18,
+        0.18 + 0.04 * (num_satellites - 2),
+        num_satellites - 1,
+        dtype=float,
+    )
+    non_reference_satellite_clock_offsets_km += rng.normal(
+        loc=0.0,
+        scale=0.003,
+        size=num_satellites - 1,
+    )
+    links = v24_geometry_links(num_users, num_satellites, link_pattern)
+
+    return V24ScenarioConfig(
+        scenario_name=f"v24_crlb_geometry_{link_pattern}_nu{num_users}_ns{num_satellites}",
+        num_users=int(num_users),
+        num_satellites=int(num_satellites),
+        seed=int(seed),
+        ue_positions_km=ue_positions_km,
+        satellite_positions_km=satellite_positions_km,
+        ue_clock_offsets_km=ue_clock_offsets_km,
+        non_reference_satellite_clock_offsets_km=non_reference_satellite_clock_offsets_km,
+        links=links,
+        range_std_devs_km=np.full(len(links), float(range_std_dev_km), dtype=float),
+    )
+
+
 def v24_crlb_mini_sweep_config(
     num_satellites: int,
     seed: int,

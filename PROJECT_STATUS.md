@@ -42,8 +42,13 @@ clock-parameter invariance, rank-deficient manuscript reportability, and
 fixed-parameter information-addition monotonicity. The CRLB diagnostic builders
 now include nullity, CRLB status, manuscript-readiness flags, and seconds-domain
 clock-bound conversions. Non-final CRLB diagnostic JSON files under
-`v24_diagnostics/` have been refreshed with the hardened schema. Next: design a
-better non-final CRLB diagnostic geometry before any manuscript figure rerun.
+`v24_diagnostics/` have been refreshed with the hardened schema.
+
+A better non-final CRLB geometry diagnostic is implemented on the current task
+branch. It separates fixed-parameter information addition, growing-`N_s`
+nuisance-clock behavior, and rank-feasibility checks, and writes deterministic
+non-final JSON to `v24_diagnostics/crlb_geometry_diagnostics.json`. Next:
+review the branch before merge.
 
 ## Blocking risks
 
@@ -67,6 +72,7 @@ package-level V24 reproducibility smoke runner, full-gauged CRLB bound
 extraction helpers, package-native non-final CRLB mini-sweep runner/tests, and
 CRLB diagnostic hardening tests are implemented. Non-final diagnostic JSON
 exists under `v24_diagnostics/` with hardened CRLB status/reportability fields.
+The CRLB geometry diagnostic runner/tests are implemented on the current branch.
 
 ## Next task
 

@@ -1,34 +1,26 @@
-MODE: PLAN_ONLY
+MODE: REVIEW_DIFF
 
-This task may be executed via `RUN_CODEX.md`. Use flexible subagents if useful.
-Do not edit files unless the human explicitly approves implementation. Do not
-merge unless explicitly allowed.
+This task may be executed via `RUN_CODEX.md`. Do not edit files unless the
+human explicitly approves implementation. Do not merge unless explicitly
+allowed.
 
-# Next Task: Design Better Non-Final CRLB Diagnostic Geometry
+# Next Task: Review CRLB Geometry Diagnostics Branch Before Merge
 
 ## Purpose
 
-Design the next package-native CRLB diagnostic before any manuscript figure
-rerun. The existing mini-sweep is useful for smoke testing, but it changes
-parameter dimension with `N_s`, uses tiny near-threshold geometries, and marks
-rank-deficient cases as diagnostic only. The next diagnostic should separate
-fixed-parameter information-addition behavior from changing-`N_s` nuisance-clock
-behavior.
+Review the branch implementing better non-final CRLB diagnostic geometry before
+it is merged. Confirm the diagnostics separate fixed-parameter information
+addition from growing-`N_s` nuisance-clock behavior and keep all outputs
+non-final.
 
 ## Scope
 
-Allowed files to inspect:
+Inspect:
 
-- `v24_diagnostics/smoke_v24_crlb.json`
-- `v24_diagnostics/sweep_v24_crlb_ns.json`
-- `scripts/smoke_v24_crlb.py`
-- `scripts/sweep_v24_crlb.py`
 - `jcls_sim/configs.py`
-- `jcls_sim/jacobian.py`
-- `jcls_sim/fim.py`
-- `jcls_sim/bounds.py`
-- `tests/test_bounds.py`
-- `tests/test_crlb_sweep.py`
+- `scripts/diagnose_v24_crlb_geometry.py`
+- `tests/test_crlb_diagnostics.py`
+- `v24_diagnostics/crlb_geometry_diagnostics.json`
 - `PROJECT_STATUS.md`
 - `docs/tasks/NEXT.md`
 
@@ -42,45 +34,46 @@ Do not edit:
 - PSFrag files
 - generated manuscript PDFs
 - generated figure PDFs/EPS/PNGs
-- existing result files
+- existing manuscript result files
 - plotting code
 - figure-generation code
-- package source files
-- tests
 
-## Planning Questions
+## Checks
 
-1. What fixed-parameter monotonic diagnostic should be implemented to verify
-   information addition without changing `N_theta`?
-2. What changing-`N_s` diagnostic geometry should be used to study satellite
-   availability while making nuisance-clock growth explicit?
-3. Should the design use:
-   - fixed satellite pool with nested subsets;
-   - fixed UE geometry;
-   - repeated random geometries with median/quantiles;
-   - rank-only observability checks;
-   - exclusion or explicit marking of rank-deficient cases?
-4. What metadata should each future diagnostic case report?
-5. Which current manuscript CRLB figures remain unsafe until this design is
-   implemented and reviewed?
+1. Fixed-parameter diagnostic:
+   - `Nu`, `Ns`, geometry, and parameter dimension remain fixed.
+   - Measurement count increases over nested subsets.
+   - Monotonicity is checked only for full-rank finite-CRLB cases.
+   - Rank-deficient cases remain diagnostic-only.
+
+2. Growing-`N_s` diagnostic:
+   - Metadata clearly says the sweep changes parameter dimension.
+   - Metadata says monotonic CRLB interpretation is not valid.
+   - Clock-bound seconds conversion is present.
+   - Rank-deficient cases are not manuscript-ready.
+
+3. Rank-feasibility grid:
+   - Grid includes `Nu`, `Ns`, link pattern, measurement count, parameter
+     dimension, rank, nullity, full-rank flag, CRLB status, and notes.
+
+4. JSON/output:
+   - Output lives only under `v24_diagnostics/`.
+   - No manuscript figures or final result files were generated.
+   - No large FIM/Jacobian matrices are written.
+
+5. Tests:
+   - Run `powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'`
+     from the repository root, or the documented bundled-Python unittest
+     fallback if the wrapper path is unavailable.
 
 ## Required Output
 
-Return a concise implementation plan with:
+Return:
 
-- PASS / PASS WITH CAVEAT / FAIL for current hardened diagnostics;
-- proposed diagnostic geometry;
-- proposed output JSON schema;
-- proposed tests;
-- expected runtime/scope;
-- stop gates;
-- exact files to edit in the next IMPLEMENT_APPROVED task;
-- confirmation that no files were edited in this PLAN_ONLY task.
+- PASS / FAIL / PASS WITH CAVEAT;
+- merge recommendation;
+- required fixes before merge, if any;
+- nonblocking caveats;
+- confirmation that manuscript, response-letter, bibliography, figure, PSFrag,
+  PDF, notebook, and final-result files were not edited.
 
-## Hard Constraints
-
-- Do not run notebook code.
-- Do not generate figures.
-- Do not run full sweeps.
-- Do not edit manuscript, response-letter, bibliography, figure, PSFrag,
-  generated PDF, notebook, package source, test, or result files.
