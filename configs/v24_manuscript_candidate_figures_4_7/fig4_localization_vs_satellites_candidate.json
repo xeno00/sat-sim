@@ -17,6 +17,10 @@
   "num_satellites_values": [4, 8],
   "clock_std_devs_ns": [1000.0],
   "refinement_epochs": 5,
+  "refinement_interval_s": 0.5,
+  "refinement_epoch_dt_s": 0.1,
+  "estimator_mode": "v24_three_stage_dynamic",
+  "process_noise_std_km": 0.00001,
   "reference_location": {
     "latitude_deg": 42.361145,
     "longitude_deg": -71.09085,
@@ -45,7 +49,7 @@
     "MIT Stata Center reference location with deterministic random UEs inside a 500 m disk.",
     "Starlink-like synthetic LEO geometry with a 30 degree minimum elevation mask.",
     "DL and SL range-domain sigmas are computed from free-space link budgets and the manuscript-style beta/SNR TOA formula.",
-    "Refined JCLS still fuses repeated independent measurement epochs over fixed geometry; dynamic SCI/SFI algorithm fidelity remains future work."
+    "Refined JCLS uses a package-native dynamic SCI/SFI information update with x=theta, F=I, Pi=I, and Q=process_noise_std_km^2 I."
   ],
-  "known_discrepancy_from_v24": "Manuscript-candidate geometry/noise path; algorithm fidelity is not yet manuscript-grade."
+  "known_discrepancy_from_v24": "Manuscript-candidate geometry/noise/algorithm path; synthetic satellite geometry and final human signoff remain unresolved."
 }

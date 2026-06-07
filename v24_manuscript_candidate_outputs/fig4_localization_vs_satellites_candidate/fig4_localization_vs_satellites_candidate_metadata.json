@@ -13,10 +13,10 @@
       "uses_sl": true
     },
     "refined_jcls": {
-      "bias_note": "Uses the coarse JCLS solution as initialization and fuses multiple independent measurement epochs over the configured refinement window.",
+      "bias_note": "Uses the coarse JCLS solution as initialization. Manuscript-candidate mode applies dynamic SCI/SFI information updates with explicit F, Q, and Pi; legacy diagnostic mode fuses repeated static-geometry epochs.",
       "label": "Refined JCLS, 0.5 s",
       "satellite_clocks": "non-reference satellite clocks estimated; first satellite fixed",
-      "state_estimated": "full V24 theta over repeated static-geometry measurement epochs",
+      "state_estimated": "full V24 theta; implementation selected by estimator_mode metadata",
       "ue_clocks": "estimated",
       "uses_multiple_satellite_dl": true,
       "uses_sl": true
@@ -7921,9 +7921,20 @@
     "jcls_sim.fim",
     "jcls_sim.metrics"
   ],
-  "commit_hash": "aa11d259fc2d89a87ddc119fca76395de7ec08c4",
+  "commit_hash": "2332db856ab03f987d43829f67e309f15656f186",
   "config_path": "configs/v24_manuscript_candidate_figures_4_7/fig4_localization_vs_satellites_candidate.json",
   "diagnostic_only": false,
+  "estimator_metadata": {
+    "diagnostic_static_repeated_fusion": "Legacy package diagnostic mode: coarse solution is used to initialize a static full-theta least-squares fit over repeated independent epochs.",
+    "v24_three_stage_dynamic": {
+      "process_noise_std_km": 1e-05,
+      "state_model": "x=theta, F=I, Pi=I, Q=process_noise_std_km^2 I",
+      "step1": "weighted GN UE-only DL localization with clock states fixed to zero",
+      "step2": "weighted LM over the full gauged V24 theta vector",
+      "step3": "dynamic SCI/SFI information-form update"
+    }
+  },
+  "estimator_mode": "v24_three_stage_dynamic",
   "figure_id": "fig4_localization_vs_satellites_candidate",
   "manuscript_directories_touched": false,
   "manuscript_ready": false,
@@ -7936,8 +7947,10 @@
   "overwrite_used": true,
   "range_std_dev_km": null,
   "raw_row_count": 72,
+  "refinement_epoch_dt_s": 0.1,
   "refinement_epochs": 5,
-  "runtime_seconds": 37.650505800003884,
+  "refinement_interval_s": 0.5,
+  "runtime_seconds": 5.615704399999231,
   "scenario_model": "manuscript_candidate_mit_stata_synthetic_leo",
   "summary_row_count": 24,
   "units": {

@@ -112,6 +112,16 @@ non-final, not-manuscript-ready flags. These outputs are closer to V24
 geometry/noise assumptions but are still not final manuscript figures because
 algorithm fidelity remains unresolved.
 
+A package-native V24 algorithm-fidelity path is implemented on branch
+`codex/v24-algorithm-fidelity`. It adds Step 1 weighted GN downlink-only
+coarse UE localization, Step 2 weighted LM over the full gauged V24 theta
+vector, and Step 3 dynamic SCI/SFI information-form refinement with explicit
+`F`, `Q`, and `Pi`. The manuscript-candidate Fig. 4--7 configs now use
+`estimator_mode = v24_three_stage_dynamic`, and candidate outputs under
+`v24_manuscript_candidate_outputs/` have been regenerated as non-final,
+not-manuscript-ready artifacts. Synthetic satellite geometry and final human
+signoff remain unresolved.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -149,6 +159,8 @@ are implemented and provenance-hardened on branch
 `codex/package-native-figures-4-7`.
 The manuscript-candidate geometry/noise runner/tests and non-final candidate
 outputs are implemented on branch `codex/manuscript-geometry-noise`.
+The package-native V24 algorithm-fidelity runner/tests and refreshed non-final
+candidate outputs are implemented on branch `codex/v24-algorithm-fidelity`.
 
 ## Next task
 
@@ -179,8 +191,8 @@ See `docs/tasks/NEXT.md`.
 - Manuscript-candidate Fig. 4--7 outputs exist under
   `v24_manuscript_candidate_outputs/`; these outputs use MIT/Stata-centered UE
   geometry, synthetic visible LEO satellites, and link-budget-derived DL/SL
-  sigmas, but still require algorithm-fidelity work before manuscript use.
+  sigmas, and the package-native V24 three-stage estimator path. They are still
+  non-final and not manuscript-ready because synthetic satellite geometry,
+  numerical behavior, and final human signoff remain unresolved.
 - No manuscript text or response-letter text should be changed based on the
-  current package-native Fig. 4--7 diagnostic outputs. The next substantive
-  sprint should address algorithm fidelity: full V24 three-stage estimation and
-  dynamic SCI/SFI refinement with `F`, `Q`, and `Pi`.
+  current package-native Fig. 4--7 diagnostic or candidate outputs.

@@ -75,6 +75,10 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
             "num_satellites_values": [4],
             "clock_std_devs_ns": [1000.0],
             "refinement_epochs": 1,
+            "refinement_interval_s": 0.5,
+            "refinement_epoch_dt_s": 0.5,
+            "estimator_mode": "v24_three_stage_dynamic",
+            "process_noise_std_km": 1e-5,
             "reference_location": {
                 "latitude_deg": 42.361145,
                 "longitude_deg": -71.09085,
@@ -177,6 +181,8 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
                 self.assertIn(config.get("artifact_profile", "diagnostic"), {"diagnostic", "manuscript_candidate"})
                 if config.get("artifact_profile") == "manuscript_candidate":
                     self.assertEqual(config["scenario_model"], "manuscript_candidate_mit_stata_synthetic_leo")
+                    self.assertEqual(config.get("estimator_mode"), "v24_three_stage_dynamic")
+                    self.assertIn("process_noise_std_km", config)
                     self.assertIn("reference_location", config)
                     self.assertIn("link_budget", config)
                 else:
@@ -370,6 +376,8 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         self.assertEqual(metadata["artifact_warning"], CANDIDATE_ARTIFACT_WARNING)
         self.assertEqual(metadata["artifact_kind"], "manuscript_candidate")
         self.assertEqual(metadata["scenario_model"], "manuscript_candidate_mit_stata_synthetic_leo")
+        self.assertEqual(metadata["estimator_mode"], "v24_three_stage_dynamic")
+        self.assertEqual(metadata["estimator_metadata"]["v24_three_stage_dynamic"]["state_model"], "x=theta, F=I, Pi=I, Q=process_noise_std_km^2 I")
         self.assertIn("case_metadata", metadata)
         self.assertIn("ue_coordinates", metadata["case_metadata"][0]["geometry"])
         self.assertIn("satellite_coordinates", metadata["case_metadata"][0]["geometry"])
@@ -379,6 +387,7 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         provenance = json.loads(result.provenance_json.read_text(encoding="utf-8"))
         self.assertEqual(provenance["provenance_type"], "package_native_v24_manuscript_candidate_figure_provenance")
         self.assertTrue(provenance["candidate_only"])
+        self.assertIn("candidate_outputs", provenance["command"])
 
     def test_baseline_definitions_are_explicit(self) -> None:
         self.assertFalse(BASELINE_DEFINITIONS["without_cooperation"]["uses_sl"])

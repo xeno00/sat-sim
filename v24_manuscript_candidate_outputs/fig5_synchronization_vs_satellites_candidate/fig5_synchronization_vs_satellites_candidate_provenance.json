@@ -5,14 +5,14 @@
     "MIT Stata Center reference location with deterministic random UEs inside a 500 m disk.",
     "Starlink-like synthetic LEO geometry with a 30 degree minimum elevation mask.",
     "Synchronization metrics are reference-relative and exclude the reference satellite clock.",
-    "Refined JCLS still fuses repeated independent measurement epochs over fixed geometry; dynamic SCI/SFI algorithm fidelity remains future work."
+    "Refined JCLS uses a package-native dynamic SCI/SFI information update with x=theta, F=I, Pi=I, and Q=process_noise_std_km^2 I."
   ],
   "candidate_only": true,
-  "command": "python scripts/run_v24_figures_4_7.py --config configs/v24_manuscript_candidate_figures_4_7/fig5_synchronization_vs_satellites_candidate.json --output-root v24_figure_outputs --overwrite",
+  "command": "python scripts/run_v24_figures_4_7.py --config configs/v24_manuscript_candidate_figures_4_7/fig5_synchronization_vs_satellites_candidate.json --output-root v24_manuscript_candidate_outputs --overwrite",
   "config_file": "configs/v24_manuscript_candidate_figures_4_7/fig5_synchronization_vs_satellites_candidate.json",
   "diagnostic_only": false,
   "figure_id": "fig5_synchronization_vs_satellites_candidate",
-  "known_discrepancy_from_v24": "Manuscript-candidate geometry/noise path; algorithm fidelity is not yet manuscript-grade.",
+  "known_discrepancy_from_v24": "Manuscript-candidate geometry/noise/algorithm path; synthetic satellite geometry and final human signoff remain unresolved.",
   "manuscript_figure": "Fig. 5",
   "manuscript_ready": false,
   "metadata_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_metadata.json",

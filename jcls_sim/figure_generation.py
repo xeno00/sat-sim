@@ -22,6 +22,12 @@ import matplotlib
 import numpy as np
 from scipy.optimize import least_squares
 
+from .algorithm import (
+    coarse_individual_localization,
+    dynamic_soft_information_refinement,
+    initial_covariance_from_linearization,
+    joint_lm_jcls,
+)
 from .bounds import manuscript_crlb_reportability_from_fim
 from .configs import V24ScenarioConfig, directed_sidelink_links, downlink_links
 from .constants import C_KM_PER_S
@@ -99,14 +105,15 @@ BASELINE_DEFINITIONS: dict[str, dict[str, Any]] = {
     },
     "refined_jcls": {
         "label": "Refined JCLS, 0.5 s",
-        "state_estimated": "full V24 theta over repeated static-geometry measurement epochs",
+        "state_estimated": "full V24 theta; implementation selected by estimator_mode metadata",
         "satellite_clocks": "non-reference satellite clocks estimated; first satellite fixed",
         "ue_clocks": "estimated",
         "uses_sl": True,
         "uses_multiple_satellite_dl": True,
         "bias_note": (
-            "Uses the coarse JCLS solution as initialization and fuses multiple "
-            "independent measurement epochs over the configured refinement window."
+            "Uses the coarse JCLS solution as initialization. Manuscript-candidate "
+            "mode applies dynamic SCI/SFI information updates with explicit F, Q, "
+            "and Pi; legacy diagnostic mode fuses repeated static-geometry epochs."
         ),
     },
 }
@@ -644,6 +651,154 @@ def run_single_trial(
     return rows
 
 
+def run_single_trial_v24_algorithm(
+    scenario: V24ScenarioConfig,
+    *,
+    trial_seed: int,
+    refinement_epochs: int,
+    noise_scale: float = 1.0,
+    process_noise_std_km: float = 1e-5,
+) -> list[dict[str, Any]]:
+    """Run manuscript-candidate V24 three-stage JCLS for one Monte Carlo trial."""
+
+    rng = np.random.default_rng(int(trial_seed))
+    measurements = [
+        _measurement_vector(scenario, rng, noise_scale=noise_scale)
+        for _ in range(max(1, int(refinement_epochs)))
+    ]
+    first_measurement = measurements[0]
+    true_positions = scenario.ue_positions_km
+    true_clocks = scenario.full_clock_dict_km()
+
+    rows: list[dict[str, Any]] = []
+
+    step1 = coarse_individual_localization(scenario, first_measurement)
+    step1_positions, _, _ = unpack_v24_theta(
+        step1.theta,
+        scenario.num_users,
+        scenario.num_satellites,
+    )
+    no_coop_clock_estimate = {node_id: 0.0 for node_id in true_clocks}
+    rows.append(
+        _with_algorithm_diagnostics(
+            _metric_row(
+                scenario,
+                "without_cooperation",
+                step1_positions,
+                no_coop_clock_estimate,
+                true_positions,
+                true_clocks,
+                success=step1.success,
+                cost=None,
+                nfev=None,
+                rank=_rank_diagnostics(scenario, 1),
+            ),
+            estimator_mode="v24_three_stage_dynamic",
+            algorithm_stage="step1_coarse_individual_dl_gn",
+            diagnostics=step1.diagnostics,
+            process_noise_std_km=process_noise_std_km,
+        )
+    )
+
+    step2 = joint_lm_jcls(scenario, first_measurement, step1.theta)
+    step2_positions, _, _ = unpack_v24_theta(
+        step2.theta,
+        scenario.num_users,
+        scenario.num_satellites,
+    )
+    rows.append(
+        _with_algorithm_diagnostics(
+            _metric_row(
+                scenario,
+                "coarse_jcls",
+                step2_positions,
+                _full_clock_dict_from_theta(step2.theta, scenario.num_users, scenario.num_satellites),
+                true_positions,
+                true_clocks,
+                success=step2.success,
+                cost=None,
+                nfev=step2.diagnostics.get("iteration_count"),
+                rank=_rank_diagnostics(scenario, 1),
+            ),
+            estimator_mode="v24_three_stage_dynamic",
+            algorithm_stage="step2_joint_lm_jcls",
+            diagnostics=step2.diagnostics,
+            process_noise_std_km=process_noise_std_km,
+        )
+    )
+
+    initial_covariance = initial_covariance_from_linearization(scenario, step2.theta)
+    step3 = dynamic_soft_information_refinement(
+        scenario,
+        measurements,
+        step2.theta,
+        initial_covariance=initial_covariance,
+        process_noise_std_km=process_noise_std_km,
+    )
+    step3_positions, _, _ = unpack_v24_theta(
+        step3.theta,
+        scenario.num_users,
+        scenario.num_satellites,
+    )
+    rows.append(
+        _with_algorithm_diagnostics(
+            _metric_row(
+                scenario,
+                "refined_jcls",
+                step3_positions,
+                _full_clock_dict_from_theta(step3.theta, scenario.num_users, scenario.num_satellites),
+                true_positions,
+                true_clocks,
+                success=step3.success,
+                cost=None,
+                nfev=step3.diagnostics.get("epoch_count"),
+                rank=_rank_diagnostics(scenario, max(1, int(refinement_epochs))),
+            ),
+            estimator_mode="v24_three_stage_dynamic",
+            algorithm_stage="step3_dynamic_sci_sfi_information_update",
+            diagnostics=step3.diagnostics,
+            process_noise_std_km=process_noise_std_km,
+        )
+    )
+    return rows
+
+
+def _with_algorithm_diagnostics(
+    row: dict[str, Any],
+    *,
+    estimator_mode: str,
+    algorithm_stage: str,
+    diagnostics: dict[str, Any],
+    process_noise_std_km: float,
+) -> dict[str, Any]:
+    """Attach compact algorithm-fidelity diagnostics to one metric row."""
+
+    epochs = diagnostics.get("epochs", [])
+    last_epoch = epochs[-1] if epochs else {}
+    row.update(
+        {
+            "estimator_mode": estimator_mode,
+            "algorithm_stage": algorithm_stage,
+            "algorithm_status": diagnostics.get("status") or last_epoch.get("status"),
+            "algorithm_iteration_count": diagnostics.get("iteration_count", diagnostics.get("epoch_count")),
+            "algorithm_accepted_steps": diagnostics.get("accepted_steps"),
+            "algorithm_residual_norm": diagnostics.get("residual_norm"),
+            "algorithm_step_norm": diagnostics.get("step_norm"),
+            "algorithm_final_innovation_norm": last_epoch.get("innovation_norm"),
+            "algorithm_posterior_covariance_trace": last_epoch.get("posterior_covariance_trace"),
+            "algorithm_jacobian_rank": diagnostics.get("rank", last_epoch.get("jacobian_rank")),
+            "algorithm_state_dim": diagnostics.get("state_dim"),
+            "algorithm_theta_dim": diagnostics.get("theta_dim"),
+            "algorithm_pi_shape": diagnostics.get("pi_shape"),
+            "algorithm_uses_innovation_z_minus_h_pred": diagnostics.get("uses_innovation_z_minus_h_pred"),
+            "algorithm_truth_centered_initialization": diagnostics.get("truth_centered_initialization", False),
+            "algorithm_reference_satellite_clock_in_state": diagnostics.get("reference_satellite_clock_in_state", False),
+            "algorithm_process_noise_std_km": float(process_noise_std_km),
+        }
+    )
+    return row
+
+
 def _metric_row(
     scenario: V24ScenarioConfig,
     baseline_id: str,
@@ -745,6 +900,8 @@ def run_figure_config(
     rows: list[dict[str, Any]] = []
     case_metadata: list[dict[str, Any]] = []
     case_values = _case_values(config)
+    estimator_mode = str(config.get("estimator_mode", "diagnostic_static_repeated_fusion"))
+    process_noise_std_km = float(config.get("process_noise_std_km", 1e-5))
     for case_index, case in enumerate(case_values):
         case_seed = int(config["base_seed"]) + 1009 * case_index
         scenario, metadata_for_case = _scenario_and_metadata_for_case(
@@ -756,11 +913,23 @@ def run_figure_config(
         case_metadata.append(metadata_for_case)
         for trial in range(int(config["monte_carlo_trials"])):
             trial_seed = case_seed + 7919 * (trial + 1)
-            trial_rows = run_single_trial(
-                scenario,
-                trial_seed=trial_seed,
-                refinement_epochs=int(config["refinement_epochs"]),
-            )
+            if estimator_mode == "v24_three_stage_dynamic":
+                trial_rows = run_single_trial_v24_algorithm(
+                    scenario,
+                    trial_seed=trial_seed,
+                    refinement_epochs=int(config["refinement_epochs"]),
+                    process_noise_std_km=process_noise_std_km,
+                )
+            elif estimator_mode == "diagnostic_static_repeated_fusion":
+                trial_rows = run_single_trial(
+                    scenario,
+                    trial_seed=trial_seed,
+                    refinement_epochs=int(config["refinement_epochs"]),
+                )
+                for trial_row in trial_rows:
+                    trial_row.update({"estimator_mode": estimator_mode})
+            else:
+                raise ValueError(f"Unsupported estimator_mode: {estimator_mode!r}.")
             for row in trial_rows:
                 row.update(
                     {
@@ -986,6 +1155,22 @@ def _metadata_payload(
         "base_seed": int(config["base_seed"]),
         "monte_carlo_trials": int(config["monte_carlo_trials"]),
         "refinement_epochs": int(config["refinement_epochs"]),
+        "refinement_interval_s": float(config.get("refinement_interval_s", 0.5)),
+        "refinement_epoch_dt_s": float(config.get("refinement_epoch_dt_s", 0.5 / int(config["refinement_epochs"]))),
+        "estimator_mode": str(config.get("estimator_mode", "diagnostic_static_repeated_fusion")),
+        "estimator_metadata": {
+            "diagnostic_static_repeated_fusion": (
+                "Legacy package diagnostic mode: coarse solution is used to initialize "
+                "a static full-theta least-squares fit over repeated independent epochs."
+            ),
+            "v24_three_stage_dynamic": {
+                "step1": "weighted GN UE-only DL localization with clock states fixed to zero",
+                "step2": "weighted LM over the full gauged V24 theta vector",
+                "step3": "dynamic SCI/SFI information-form update",
+                "state_model": "x=theta, F=I, Pi=I, Q=process_noise_std_km^2 I",
+                "process_noise_std_km": float(config.get("process_noise_std_km", 1e-5)),
+            },
+        },
         "range_std_dev_km": float(config["range_std_dev_km"]) if "range_std_dev_km" in config else None,
         "units": {
             "positions_internal": "km",
@@ -1019,6 +1204,7 @@ def _provenance_payload(config: dict[str, Any], metadata: dict[str, Any]) -> dic
 
     figure_id = str(config["figure_id"])
     flags, warning, artifact_kind = _artifact_policy(config)
+    output_root = str(Path(metadata["output_dir"]).parent).replace("\\", "/")
     return {
         "provenance_type": f"package_native_v24_{artifact_kind}_figure_provenance",
         **flags,
@@ -1028,7 +1214,7 @@ def _provenance_payload(config: dict[str, Any], metadata: dict[str, Any]) -> dic
         "manuscript_figure": config.get("manuscript_figure_label", figure_id),
         "command": (
             "python scripts/run_v24_figures_4_7.py "
-            f"--config {metadata['config_path']} --output-root v24_figure_outputs --overwrite"
+            f"--config {metadata['config_path']} --output-root {output_root} --overwrite"
         ),
         "config_file": metadata["config_path"],
         "raw_output_file": f"{metadata['output_dir']}/{figure_id}_raw.csv",
