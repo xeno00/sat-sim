@@ -1,33 +1,36 @@
-MODE: IMPLEMENT_APPROVED
+MODE: PLAN_ONLY
 
-This task may be executed via `RUN_CODEX.md`. Use flexible subagents only if
-useful. Commit and push task-scoped changes when complete. Do not merge unless
-explicitly allowed.
+This task may be executed via `RUN_CODEX.md`. Use flexible subagents if useful.
+Do not edit files unless the human explicitly approves implementation. Do not
+merge unless explicitly allowed.
 
-# Next Task: Refresh Hardened Non-Final CRLB Diagnostics
+# Next Task: Design Better Non-Final CRLB Diagnostic Geometry
 
 ## Purpose
 
-Regenerate the existing non-final CRLB diagnostic JSON files so they include the
-hardened rank/nullity and manuscript-reportability fields added by the CRLB
-diagnostic hardening pass. Do not generate manuscript figures.
+Design the next package-native CRLB diagnostic before any manuscript figure
+rerun. The existing mini-sweep is useful for smoke testing, but it changes
+parameter dimension with `N_s`, uses tiny near-threshold geometries, and marks
+rank-deficient cases as diagnostic only. The next diagnostic should separate
+fixed-parameter information-addition behavior from changing-`N_s` nuisance-clock
+behavior.
 
 ## Scope
 
-Allowed files to edit:
+Allowed files to inspect:
 
 - `v24_diagnostics/smoke_v24_crlb.json`
 - `v24_diagnostics/sweep_v24_crlb_ns.json`
-- `PROJECT_STATUS.md`
-- `docs/tasks/NEXT.md`
-
-Allowed files to inspect:
-
 - `scripts/smoke_v24_crlb.py`
 - `scripts/sweep_v24_crlb.py`
+- `jcls_sim/configs.py`
+- `jcls_sim/jacobian.py`
+- `jcls_sim/fim.py`
 - `jcls_sim/bounds.py`
 - `tests/test_bounds.py`
 - `tests/test_crlb_sweep.py`
+- `PROJECT_STATUS.md`
+- `docs/tasks/NEXT.md`
 
 Do not edit:
 
@@ -39,30 +42,40 @@ Do not edit:
 - PSFrag files
 - generated manuscript PDFs
 - generated figure PDFs/EPS/PNGs
+- existing result files
 - plotting code
 - figure-generation code
 - package source files
 - tests
 
-## Tasks
+## Planning Questions
 
-1. Run only the tiny non-final CRLB diagnostic writers with overwrite enabled:
-   - `scripts/smoke_v24_crlb.py`
-   - `scripts/sweep_v24_crlb.py`
-2. Confirm both JSON files include:
-   - `measurement_count`
-   - `unknown_count`
-   - `parameter_dim`
-   - `fim_rank`
-   - `fim_nullity`
-   - `covariance_method`
-   - `manuscript_crlb_status`
-   - `manuscript_bounds_defined`
-3. Confirm rank-deficient cases have `manuscript_crlb_status` set to
-   `undefined_rank_deficient` and manuscript-style bound values set to `null`.
-4. Run the sat-sim unit tests only.
-5. Update `PROJECT_STATUS.md` and replace `docs/tasks/NEXT.md` with the next
-   recommended PLAN_ONLY review task.
+1. What fixed-parameter monotonic diagnostic should be implemented to verify
+   information addition without changing `N_theta`?
+2. What changing-`N_s` diagnostic geometry should be used to study satellite
+   availability while making nuisance-clock growth explicit?
+3. Should the design use:
+   - fixed satellite pool with nested subsets;
+   - fixed UE geometry;
+   - repeated random geometries with median/quantiles;
+   - rank-only observability checks;
+   - exclusion or explicit marking of rank-deficient cases?
+4. What metadata should each future diagnostic case report?
+5. Which current manuscript CRLB figures remain unsafe until this design is
+   implemented and reviewed?
+
+## Required Output
+
+Return a concise implementation plan with:
+
+- PASS / PASS WITH CAVEAT / FAIL for current hardened diagnostics;
+- proposed diagnostic geometry;
+- proposed output JSON schema;
+- proposed tests;
+- expected runtime/scope;
+- stop gates;
+- exact files to edit in the next IMPLEMENT_APPROVED task;
+- confirmation that no files were edited in this PLAN_ONLY task.
 
 ## Hard Constraints
 
@@ -70,5 +83,4 @@ Do not edit:
 - Do not generate figures.
 - Do not run full sweeps.
 - Do not edit manuscript, response-letter, bibliography, figure, PSFrag,
-  generated PDF, notebook, package source, or test files.
-- Keep all outputs non-final under `v24_diagnostics/`.
+  generated PDF, notebook, package source, test, or result files.

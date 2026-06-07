@@ -162,7 +162,7 @@ def manuscript_crlb_reportability_from_fim(
     num_satellites: int,
     rcond: float = 1e-12,
 ) -> dict[str, bool | int | str]:
-    """Return whether V24 manuscript-style CRLB bounds are finite/reportable."""
+    """Return V24 CRLB diagnostic and manuscript-readiness metadata."""
 
     _validate_counts(num_users, num_satellites)
     fim_array = _validate_square_matrix(fim, "fim")
@@ -182,22 +182,28 @@ def manuscript_crlb_reportability_from_fim(
         clock_parameter_indices(num_users, num_satellites),
         rcond=rcond,
     )
-    manuscript_bounds_defined = full_rank or (position_estimable and clock_estimable)
+    is_manuscript_ready = full_rank
     if full_rank:
-        status = "finite_full_rank"
-    elif manuscript_bounds_defined:
-        status = "finite_estimable_subspace_rank_deficient"
+        status = "finite_crlb"
+        legacy_status = "finite_full_rank"
+    elif position_estimable and clock_estimable:
+        status = "human_review"
+        legacy_status = "finite_estimable_subspace_rank_deficient"
     else:
-        status = "undefined_rank_deficient"
+        status = "rank_deficient_diagnostic"
+        legacy_status = "undefined_rank_deficient"
     return {
         "dimension": expected_dim,
         "rank": rank,
         "nullity": nullity,
         "full_rank": full_rank,
+        "is_full_rank": full_rank,
         "ue_position_subspace_estimable": position_estimable,
         "clock_subspace_estimable": clock_estimable,
-        "manuscript_bounds_defined": manuscript_bounds_defined,
-        "manuscript_crlb_status": status,
+        "manuscript_bounds_defined": is_manuscript_ready,
+        "is_manuscript_ready": is_manuscript_ready,
+        "crlb_status": status,
+        "manuscript_crlb_status": legacy_status,
     }
 
 

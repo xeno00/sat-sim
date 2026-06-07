@@ -6,6 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
+from jcls_sim.constants import C_KM_PER_S
 from jcls_sim.gauge import expected_v24_parameter_dim
 from scripts.sweep_v24_crlb import (
     DEFAULT_SATELLITE_COUNTS,
@@ -62,14 +63,21 @@ class TestV24CrlbMiniSweep(unittest.TestCase):
             self.assertIn("covariance_condition_number", case)
             self.assertIn("fim_min_eigenvalue", case)
             self.assertIn(
-                case["manuscript_crlb_status"],
+                case["crlb_status"],
                 {
-                    "finite_full_rank",
-                    "finite_estimable_subspace_rank_deficient",
-                    "undefined_rank_deficient",
+                    "finite_crlb",
+                    "rank_deficient_diagnostic",
+                    "invalid",
+                    "human_review",
                 },
             )
+            self.assertIsInstance(case["is_full_rank"], bool)
+            self.assertIsInstance(case["is_manuscript_ready"], bool)
             self.assertIsInstance(case["manuscript_bounds_defined"], bool)
+            self.assertAlmostEqual(
+                case["average_clock_bound_s"],
+                case["average_clock_bound_km"] / C_KM_PER_S,
+            )
             self.assertIn("runtime_seconds", case)
 
     def test_bounds_are_finite_and_nonnegative(self) -> None:
@@ -91,15 +99,27 @@ class TestV24CrlbMiniSweep(unittest.TestCase):
 
         for case in payload["cases"]:
             if case["fim_nullity"] == 0:
+                self.assertTrue(case["is_full_rank"])
+                self.assertTrue(case["is_manuscript_ready"])
                 self.assertTrue(case["manuscript_bounds_defined"])
-                self.assertEqual(case["manuscript_crlb_status"], "finite_full_rank")
+                self.assertEqual(case["crlb_status"], "finite_crlb")
                 self.assertEqual(case["manuscript_average_ue_peb_km"], case["average_ue_peb_km"])
                 self.assertEqual(case["manuscript_average_clock_bound_km"], case["average_clock_bound_km"])
+                self.assertEqual(case["manuscript_average_clock_bound_s"], case["average_clock_bound_s"])
             else:
+                self.assertFalse(case["is_full_rank"])
+                self.assertFalse(case["is_manuscript_ready"])
                 self.assertFalse(case["manuscript_bounds_defined"])
-                self.assertEqual(case["manuscript_crlb_status"], "undefined_rank_deficient")
+                self.assertEqual(case["crlb_status"], "rank_deficient_diagnostic")
                 self.assertIsNone(case["manuscript_average_ue_peb_km"])
                 self.assertIsNone(case["manuscript_average_clock_bound_km"])
+                self.assertIsNone(case["manuscript_average_clock_bound_s"])
+
+    def test_payload_warns_that_ns_sweep_is_not_a_manuscript_curve(self) -> None:
+        payload = build_v24_crlb_sweep_diagnostics(base_seed=20260606)
+
+        self.assertIn("sweep_interpretation_warning", payload)
+        self.assertIn("not a manuscript CRLB curve", payload["sweep_interpretation_warning"])
 
     def test_json_writer_refuses_overwrite_by_default(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

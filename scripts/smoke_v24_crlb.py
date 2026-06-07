@@ -21,6 +21,7 @@ from jcls_sim.bounds import (
     manuscript_crlb_reportability_from_fim,
     per_user_peb_from_covariance,
 )
+from jcls_sim.constants import C_KM_PER_S
 from jcls_sim.configs import V24ScenarioConfig, tiny_v24_reproducibility_config
 from jcls_sim.fim import fim_rank, gaussian_fim_from_jacobian
 from jcls_sim.gauge import expected_v24_parameter_dim, reference_satellite_node_id
@@ -28,6 +29,19 @@ from jcls_sim.io import json_ready, write_json_diagnostic
 from jcls_sim.jacobian import analytic_toa_jacobian_km
 
 DEFAULT_OUTPUT_PATH = SAT_SIM_ROOT / "v24_diagnostics" / "smoke_v24_crlb.json"
+
+
+def _crlb_status_from_bounds(
+    reportability: dict[str, Any],
+    *bound_values: float,
+) -> tuple[str, bool]:
+    """Return diagnostic CRLB status and manuscript-readiness flag."""
+
+    values = np.asarray(bound_values, dtype=float)
+    if values.size == 0 or np.any(~np.isfinite(values)) or np.any(values < 0.0):
+        return "invalid", False
+    status = str(reportability["crlb_status"])
+    return status, bool(reportability["is_manuscript_ready"]) and status == "finite_crlb"
 
 
 def build_v24_crlb_diagnostics(config: V24ScenarioConfig | None = None) -> dict[str, Any]:
@@ -53,7 +67,6 @@ def build_v24_crlb_diagnostics(config: V24ScenarioConfig | None = None) -> dict[
     symmetric_fim = (fim + fim.T) / 2.0
     eigenvalues = np.linalg.eigvalsh(symmetric_fim)
     reference_node_id = reference_satellite_node_id(scenario.num_users)
-    manuscript_bounds_defined = bool(reportability["manuscript_bounds_defined"])
     average_ue_peb_km = average_ue_peb_from_covariance(
         covariance,
         scenario.num_users,
@@ -78,6 +91,11 @@ def build_v24_crlb_diagnostics(config: V24ScenarioConfig | None = None) -> dict[
             group="satellite_non_reference",
         ),
     }
+    crlb_status, is_manuscript_ready = _crlb_status_from_bounds(
+        reportability,
+        average_ue_peb_km,
+        average_clock_bound_km["all_non_reference"],
+    )
     return json_ready(
         {
             "diagnostic_type": "non_final_v24_full_gauged_crlb_smoke",
@@ -105,11 +123,17 @@ def build_v24_crlb_diagnostics(config: V24ScenarioConfig | None = None) -> dict[
             "covariance_condition_number": metadata["condition_number"],
             "average_ue_peb_km": average_ue_peb_km,
             "diagnostic_average_ue_peb_km": average_ue_peb_km,
-            "manuscript_average_ue_peb_km": average_ue_peb_km if manuscript_bounds_defined else None,
+            "manuscript_average_ue_peb_km": average_ue_peb_km if is_manuscript_ready else None,
             "manuscript_average_clock_bound_km": (
-                average_clock_bound_km["all_non_reference"] if manuscript_bounds_defined else None
+                average_clock_bound_km["all_non_reference"] if is_manuscript_ready else None
             ),
-            "manuscript_bounds_defined": manuscript_bounds_defined,
+            "manuscript_average_clock_bound_s": (
+                average_clock_bound_km["all_non_reference"] / C_KM_PER_S if is_manuscript_ready else None
+            ),
+            "manuscript_bounds_defined": is_manuscript_ready,
+            "is_full_rank": reportability["is_full_rank"],
+            "is_manuscript_ready": is_manuscript_ready,
+            "crlb_status": crlb_status,
             "manuscript_crlb_status": reportability["manuscript_crlb_status"],
             "ue_position_subspace_estimable": reportability["ue_position_subspace_estimable"],
             "clock_subspace_estimable": reportability["clock_subspace_estimable"],
@@ -120,6 +144,10 @@ def build_v24_crlb_diagnostics(config: V24ScenarioConfig | None = None) -> dict[
             ),
             "average_clock_bound_km": average_clock_bound_km,
             "diagnostic_average_clock_bound_km": average_clock_bound_km["all_non_reference"],
+            "average_clock_bound_s": {
+                key: value / C_KM_PER_S
+                for key, value in average_clock_bound_km.items()
+            },
             "clock_std_bounds_km": {
                 "all_non_reference": clock_std_bounds_from_covariance(
                     covariance,

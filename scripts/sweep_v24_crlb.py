@@ -20,6 +20,7 @@ from jcls_sim.bounds import (
     covariance_from_fim,
     manuscript_crlb_reportability_from_fim,
 )
+from jcls_sim.constants import C_KM_PER_S
 from jcls_sim.configs import V24ScenarioConfig, v24_crlb_mini_sweep_config
 from jcls_sim.fim import fim_rank, gaussian_fim_from_jacobian
 from jcls_sim.gauge import expected_v24_parameter_dim
@@ -37,6 +38,23 @@ LEGACY_STATIC_RISK_NOTES = (
     "Static inspection found post-hoc position/clock FIMs formed after column deletion.",
     "This package-native path extracts localization and clock bounds from the full gauged covariance.",
 )
+SWEEP_INTERPRETATION_WARNING = (
+    "This sweep changes parameter dimension with Ns and uses diagnostic "
+    "pseudoinverse values for rank-deficient cases; it is not a manuscript CRLB curve."
+)
+
+
+def _crlb_status_from_bounds(
+    reportability: dict[str, Any],
+    *bound_values: float,
+) -> tuple[str, bool]:
+    """Return diagnostic CRLB status and manuscript-readiness flag."""
+
+    values = np.asarray(bound_values, dtype=float)
+    if values.size == 0 or np.any(~np.isfinite(values)) or np.any(values < 0.0):
+        return "invalid", False
+    status = str(reportability["crlb_status"])
+    return status, bool(reportability["is_manuscript_ready"]) and status == "finite_crlb"
 
 
 def case_seed(base_seed: int, num_satellites: int) -> int:
@@ -82,7 +100,11 @@ def build_v24_crlb_sweep_case(
         config.num_users,
         config.num_satellites,
     )
-    manuscript_bounds_defined = bool(reportability["manuscript_bounds_defined"])
+    crlb_status, is_manuscript_ready = _crlb_status_from_bounds(
+        reportability,
+        average_ue_peb_km,
+        average_clock_bound_km,
+    )
 
     return json_ready(
         {
@@ -109,9 +131,14 @@ def build_v24_crlb_sweep_case(
             "diagnostic_average_clock_bound_km": average_clock_bound_km,
             "average_ue_peb_km": average_ue_peb_km,
             "average_clock_bound_km": average_clock_bound_km,
-            "manuscript_average_ue_peb_km": average_ue_peb_km if manuscript_bounds_defined else None,
-            "manuscript_average_clock_bound_km": average_clock_bound_km if manuscript_bounds_defined else None,
-            "manuscript_bounds_defined": manuscript_bounds_defined,
+            "average_clock_bound_s": average_clock_bound_km / C_KM_PER_S,
+            "manuscript_average_ue_peb_km": average_ue_peb_km if is_manuscript_ready else None,
+            "manuscript_average_clock_bound_km": average_clock_bound_km if is_manuscript_ready else None,
+            "manuscript_average_clock_bound_s": average_clock_bound_km / C_KM_PER_S if is_manuscript_ready else None,
+            "manuscript_bounds_defined": is_manuscript_ready,
+            "is_full_rank": reportability["is_full_rank"],
+            "is_manuscript_ready": is_manuscript_ready,
+            "crlb_status": crlb_status,
             "manuscript_crlb_status": reportability["manuscript_crlb_status"],
             "ue_position_subspace_estimable": reportability["ue_position_subspace_estimable"],
             "clock_subspace_estimable": reportability["clock_subspace_estimable"],
@@ -164,6 +191,7 @@ def build_v24_crlb_sweep_diagnostics(
             "reference_clock_convention": "first satellite node Nu+1 fixed at zero",
             "cases": cases,
             "legacy_static_risk_notes": list(LEGACY_STATIC_RISK_NOTES),
+            "sweep_interpretation_warning": SWEEP_INTERPRETATION_WARNING,
             "output_note": "diagnostic/non-final; not a manuscript figure or result sweep",
         }
     )

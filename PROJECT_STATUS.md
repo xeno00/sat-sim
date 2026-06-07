@@ -40,10 +40,10 @@ runner, tests, and non-final JSON diagnostic are implemented. CRLB diagnostic
 hardening helpers/tests are implemented: seconds-domain versus range-domain
 clock-parameter invariance, rank-deficient manuscript reportability, and
 fixed-parameter information-addition monotonicity. The CRLB diagnostic builders
-now include nullity and manuscript CRLB status fields, but persistent JSON
-diagnostics were not regenerated in the hardening task because only unit tests
-were requested. Next: refresh the non-final hardened CRLB diagnostic JSON files
-under `v24_diagnostics/`.
+now include nullity, CRLB status, manuscript-readiness flags, and seconds-domain
+clock-bound conversions. Non-final CRLB diagnostic JSON files under
+`v24_diagnostics/` have been refreshed with the hardened schema. Next: design a
+better non-final CRLB diagnostic geometry before any manuscript figure rerun.
 
 ## Blocking risks
 
@@ -66,8 +66,7 @@ Estimator correctness tests, deterministic end-to-end package smoke test,
 package-level V24 reproducibility smoke runner, full-gauged CRLB bound
 extraction helpers, package-native non-final CRLB mini-sweep runner/tests, and
 CRLB diagnostic hardening tests are implemented. Non-final diagnostic JSON
-exists under `v24_diagnostics/`, but the persistent JSON files still need to be
-refreshed with the hardened schema.
+exists under `v24_diagnostics/` with hardened CRLB status/reportability fields.
 
 ## Next task
 
@@ -80,8 +79,8 @@ See `docs/tasks/NEXT.md`.
   for figure-rerun work.
 - The package-native CRLB mini-sweep diagnostic exists at
   `v24_diagnostics/sweep_v24_crlb_ns.json`, but it is non-final, not a
-  manuscript figure, and should be refreshed with the hardened reportability
-  fields before the next CRLB review.
+  manuscript figure, and explicitly marks rank-deficient cases as
+  `rank_deficient_diagnostic`.
 - Synchronization sweeps likely need rerun after V24-gauge metric integration.
 - Localization sweeps are still under human/code-provenance review because the
   legacy solver state is overparameterized relative to V24.

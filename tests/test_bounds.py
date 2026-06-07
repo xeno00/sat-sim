@@ -173,8 +173,11 @@ class TestV24CrlbReportability(unittest.TestCase):
         self.assertEqual(reportability["rank"], dimension - 1)
         self.assertEqual(reportability["nullity"], 1)
         self.assertFalse(reportability["full_rank"])
+        self.assertFalse(reportability["is_full_rank"])
         self.assertFalse(reportability["clock_subspace_estimable"])
         self.assertFalse(reportability["manuscript_bounds_defined"])
+        self.assertFalse(reportability["is_manuscript_ready"])
+        self.assertEqual(reportability["crlb_status"], "rank_deficient_diagnostic")
         self.assertEqual(reportability["manuscript_crlb_status"], "undefined_rank_deficient")
 
     def test_full_rank_v24_fim_marks_manuscript_bounds_finite(self) -> None:
@@ -185,9 +188,12 @@ class TestV24CrlbReportability(unittest.TestCase):
         reportability = manuscript_crlb_reportability_from_fim(np.eye(dimension), num_users, num_satellites)
 
         self.assertTrue(reportability["full_rank"])
+        self.assertTrue(reportability["is_full_rank"])
         self.assertTrue(reportability["ue_position_subspace_estimable"])
         self.assertTrue(reportability["clock_subspace_estimable"])
         self.assertTrue(reportability["manuscript_bounds_defined"])
+        self.assertTrue(reportability["is_manuscript_ready"])
+        self.assertEqual(reportability["crlb_status"], "finite_crlb")
         self.assertEqual(reportability["manuscript_crlb_status"], "finite_full_rank")
 
     def test_seconds_and_range_clock_parameterizations_match_after_conversion(self) -> None:
