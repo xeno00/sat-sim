@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="680" viewBox="0 0 980 680">
+<style>
+text { font-family: Arial, Helvetica, sans-serif; fill: #1f2933; }
+.title { font-size: 18px; font-weight: 700; }
+.subtitle { font-size: 12px; fill: #52606d; }
+.axis { font-size: 11px; fill: #323f4b; }
+.small { font-size: 10px; fill: #52606d; }
+.note { font-size: 11px; fill: #7b341e; }
+</style>
+<text x="24.0" y="30.0" class="title" text-anchor="start">Finite V24 CRLB-vs-Ns Preview: UE PEB</text>
+<text x="24.0" y="50.0" class="subtitle" text-anchor="start">Non-final diagnostic preview. Crosses mark rank-deficient unavailable points.</text>
+<text x="24.0" y="70.0" class="note" text-anchor="start">Growing Ns changes parameter dimension; no monotonic trend is claimed.</text>
+<text x="24.0" y="95.0" class="title" text-anchor="start">Link pattern: all_dl_all_directed_sl</text>
+<line x1="80.0" y1="230.0" x2="820.0" y2="230.0" stroke="#9aa5b1" stroke-width="1" />
+<line x1="80.0" y1="120.0" x2="80.0" y2="230.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="24.0" y="130.0" class="small" text-anchor="start">log10 average UE PEB [km]</text>
+<line x1="80.0" y1="230.0" x2="80.0" y2="234.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="80.0" y="248.0" class="axis" text-anchor="middle">2</text>
+<line x1="203.3" y1="230.0" x2="203.3" y2="234.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="203.3" y="248.0" class="axis" text-anchor="middle">3</text>
+<line x1="326.7" y1="230.0" x2="326.7" y2="234.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="326.7" y="248.0" class="axis" text-anchor="middle">4</text>
+<line x1="450.0" y1="230.0" x2="450.0" y2="234.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="450.0" y="248.0" class="axis" text-anchor="middle">5</text>
+<line x1="573.3" y1="230.0" x2="573.3" y2="234.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="573.3" y="248.0" class="axis" text-anchor="middle">6</text>
+<line x1="696.7" y1="230.0" x2="696.7" y2="234.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="696.7" y="248.0" class="axis" text-anchor="middle">7</text>
+<line x1="820.0" y1="230.0" x2="820.0" y2="234.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="820.0" y="248.0" class="axis" text-anchor="middle">8</text>
+<text x="450.0" y="268.0" class="axis" text-anchor="middle">number of satellites, Ns</text>
+<path d="M76.0,219.0 L84.0,227.0 M84.0,219.0 L76.0,227.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M199.3,219.0 L207.3,227.0 M207.3,219.0 L199.3,227.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M322.7,219.0 L330.7,227.0 M330.7,219.0 L322.7,227.0" stroke="#b91c1c" stroke-width="1.8" />
+<circle cx="450.0" cy="166.4" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<line x1="450.0" y1="166.4" x2="573.3" y2="195.5" stroke="#1d4ed8" stroke-width="1" />
+<circle cx="573.3" cy="195.5" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<line x1="573.3" y1="195.5" x2="696.7" y2="200.6" stroke="#1d4ed8" stroke-width="1" />
+<circle cx="696.7" cy="200.6" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<line x1="696.7" y1="200.6" x2="820.0" y2="202.4" stroke="#1d4ed8" stroke-width="1" />
+<circle cx="820.0" cy="202.4" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<circle cx="844.0" cy="134.0" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<text x="856.0" y="138.0" class="axis" text-anchor="start">Nu=2</text>
+<path d="M76.0,219.0 L84.0,227.0 M84.0,219.0 L76.0,227.0" stroke="#b91c1c" stroke-width="1.8" />
+<circle cx="203.3" cy="200.5" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="203.3" y1="200.5" x2="326.7" y2="209.3" stroke="#047857" stroke-width="1" />
+<circle cx="326.7" cy="209.3" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="326.7" y1="209.3" x2="450.0" y2="213.3" stroke="#047857" stroke-width="1" />
+<circle cx="450.0" cy="213.3" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="450.0" y1="213.3" x2="573.3" y2="216.7" stroke="#047857" stroke-width="1" />
+<circle cx="573.3" cy="216.7" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="573.3" y1="216.7" x2="696.7" y2="219.9" stroke="#047857" stroke-width="1" />
+<circle cx="696.7" cy="219.9" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="696.7" y1="219.9" x2="820.0" y2="222.5" stroke="#047857" stroke-width="1" />
+<circle cx="820.0" cy="222.5" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<circle cx="844.0" cy="154.0" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<text x="856.0" y="158.0" class="axis" text-anchor="start">Nu=3</text>
+<path d="M76.0,219.0 L84.0,227.0 M84.0,219.0 L76.0,227.0" stroke="#b91c1c" stroke-width="1.8" />
+<circle cx="203.3" cy="208.9" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="203.3" y1="208.9" x2="326.7" y2="215.9" stroke="#9333ea" stroke-width="1" />
+<circle cx="326.7" cy="215.9" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="326.7" y1="215.9" x2="450.0" y2="220.2" stroke="#9333ea" stroke-width="1" />
+<circle cx="450.0" cy="220.2" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="450.0" y1="220.2" x2="573.3" y2="224.1" stroke="#9333ea" stroke-width="1" />
+<circle cx="573.3" cy="224.1" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="573.3" y1="224.1" x2="696.7" y2="227.4" stroke="#9333ea" stroke-width="1" />
+<circle cx="696.7" cy="227.4" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="696.7" y1="227.4" x2="820.0" y2="230.0" stroke="#9333ea" stroke-width="1" />
+<circle cx="820.0" cy="230.0" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<circle cx="844.0" cy="174.0" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<text x="856.0" y="178.0" class="axis" text-anchor="start">Nu=4</text>
+<text x="24.0" y="290.0" class="title" text-anchor="start">Link pattern: all_dl_minimal_sl</text>
+<line x1="80.0" y1="425.0" x2="820.0" y2="425.0" stroke="#9aa5b1" stroke-width="1" />
+<line x1="80.0" y1="315.0" x2="80.0" y2="425.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="24.0" y="325.0" class="small" text-anchor="start">log10 average UE PEB [km]</text>
+<line x1="80.0" y1="425.0" x2="80.0" y2="429.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="80.0" y="443.0" class="axis" text-anchor="middle">2</text>
+<line x1="203.3" y1="425.0" x2="203.3" y2="429.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="203.3" y="443.0" class="axis" text-anchor="middle">3</text>
+<line x1="326.7" y1="425.0" x2="326.7" y2="429.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="326.7" y="443.0" class="axis" text-anchor="middle">4</text>
+<line x1="450.0" y1="425.0" x2="450.0" y2="429.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="450.0" y="443.0" class="axis" text-anchor="middle">5</text>
+<line x1="573.3" y1="425.0" x2="573.3" y2="429.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="573.3" y="443.0" class="axis" text-anchor="middle">6</text>
+<line x1="696.7" y1="425.0" x2="696.7" y2="429.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="696.7" y="443.0" class="axis" text-anchor="middle">7</text>
+<line x1="820.0" y1="425.0" x2="820.0" y2="429.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="820.0" y="443.0" class="axis" text-anchor="middle">8</text>
+<text x="450.0" y="463.0" class="axis" text-anchor="middle">number of satellites, Ns</text>
+<path d="M76.0,414.0 L84.0,422.0 M84.0,414.0 L76.0,422.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M199.3,414.0 L207.3,422.0 M207.3,414.0 L199.3,422.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M322.7,414.0 L330.7,422.0 M330.7,414.0 L322.7,422.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M446.0,414.0 L454.0,422.0 M454.0,414.0 L446.0,422.0" stroke="#b91c1c" stroke-width="1.8" />
+<circle cx="573.3" cy="326.5" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<line x1="573.3" y1="326.5" x2="696.7" y2="346.1" stroke="#1d4ed8" stroke-width="1" />
+<circle cx="696.7" cy="346.1" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<line x1="696.7" y1="346.1" x2="820.0" y2="351.3" stroke="#1d4ed8" stroke-width="1" />
+<circle cx="820.0" cy="351.3" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<circle cx="844.0" cy="329.0" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<text x="856.0" y="333.0" class="axis" text-anchor="start">Nu=2</text>
+<path d="M76.0,414.0 L84.0,422.0 M84.0,414.0 L76.0,422.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M199.3,414.0 L207.3,422.0 M207.3,414.0 L199.3,422.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M322.7,414.0 L330.7,422.0 M330.7,414.0 L322.7,422.0" stroke="#b91c1c" stroke-width="1.8" />
+<circle cx="450.0" cy="367.3" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="450.0" y1="367.3" x2="573.3" y2="358.3" stroke="#047857" stroke-width="1" />
+<circle cx="573.3" cy="358.3" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="573.3" y1="358.3" x2="696.7" y2="365.2" stroke="#047857" stroke-width="1" />
+<circle cx="696.7" cy="365.2" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="696.7" y1="365.2" x2="820.0" y2="370.9" stroke="#047857" stroke-width="1" />
+<circle cx="820.0" cy="370.9" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<circle cx="844.0" cy="349.0" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<text x="856.0" y="353.0" class="axis" text-anchor="start">Nu=3</text>
+<path d="M76.0,414.0 L84.0,422.0 M84.0,414.0 L76.0,422.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M199.3,414.0 L207.3,422.0 M207.3,414.0 L199.3,422.0" stroke="#b91c1c" stroke-width="1.8" />
+<circle cx="326.7" cy="370.9" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="326.7" y1="370.9" x2="450.0" y2="380.3" stroke="#9333ea" stroke-width="1" />
+<circle cx="450.0" cy="380.3" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="450.0" y1="380.3" x2="573.3" y2="377.7" stroke="#9333ea" stroke-width="1" />
+<circle cx="573.3" cy="377.7" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="573.3" y1="377.7" x2="696.7" y2="383.2" stroke="#9333ea" stroke-width="1" />
+<circle cx="696.7" cy="383.2" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="696.7" y1="383.2" x2="820.0" y2="386.8" stroke="#9333ea" stroke-width="1" />
+<circle cx="820.0" cy="386.8" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<circle cx="844.0" cy="369.0" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<text x="856.0" y="373.0" class="axis" text-anchor="start">Nu=4</text>
+<text x="24.0" y="485.0" class="title" text-anchor="start">Link pattern: dl_only</text>
+<line x1="80.0" y1="620.0" x2="820.0" y2="620.0" stroke="#9aa5b1" stroke-width="1" />
+<line x1="80.0" y1="510.0" x2="80.0" y2="620.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="24.0" y="520.0" class="small" text-anchor="start">log10 average UE PEB [km]</text>
+<line x1="80.0" y1="620.0" x2="80.0" y2="624.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="80.0" y="638.0" class="axis" text-anchor="middle">2</text>
+<line x1="203.3" y1="620.0" x2="203.3" y2="624.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="203.3" y="638.0" class="axis" text-anchor="middle">3</text>
+<line x1="326.7" y1="620.0" x2="326.7" y2="624.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="326.7" y="638.0" class="axis" text-anchor="middle">4</text>
+<line x1="450.0" y1="620.0" x2="450.0" y2="624.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="450.0" y="638.0" class="axis" text-anchor="middle">5</text>
+<line x1="573.3" y1="620.0" x2="573.3" y2="624.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="573.3" y="638.0" class="axis" text-anchor="middle">6</text>
+<line x1="696.7" y1="620.0" x2="696.7" y2="624.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="696.7" y="638.0" class="axis" text-anchor="middle">7</text>
+<line x1="820.0" y1="620.0" x2="820.0" y2="624.0" stroke="#9aa5b1" stroke-width="1" />
+<text x="820.0" y="638.0" class="axis" text-anchor="middle">8</text>
+<text x="450.0" y="658.0" class="axis" text-anchor="middle">number of satellites, Ns</text>
+<path d="M76.0,609.0 L84.0,617.0 M84.0,609.0 L76.0,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M199.3,609.0 L207.3,617.0 M207.3,609.0 L199.3,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M322.7,609.0 L330.7,617.0 M330.7,609.0 L322.7,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M446.0,609.0 L454.0,617.0 M454.0,609.0 L446.0,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M569.3,609.0 L577.3,617.0 M577.3,609.0 L569.3,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<circle cx="696.7" cy="525.2" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<line x1="696.7" y1="525.2" x2="820.0" y2="528.1" stroke="#1d4ed8" stroke-width="1" />
+<circle cx="820.0" cy="528.1" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<circle cx="844.0" cy="524.0" r="4.0" fill="#1d4ed8" stroke="#1f2933" stroke-width="0.6" />
+<text x="856.0" y="528.0" class="axis" text-anchor="start">Nu=2</text>
+<path d="M76.0,609.0 L84.0,617.0 M84.0,609.0 L76.0,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M199.3,609.0 L207.3,617.0 M207.3,609.0 L199.3,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M322.7,609.0 L330.7,617.0 M330.7,609.0 L322.7,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M446.0,609.0 L454.0,617.0 M454.0,609.0 L446.0,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<circle cx="573.3" cy="539.9" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="573.3" y1="539.9" x2="696.7" y2="558.0" stroke="#047857" stroke-width="1" />
+<circle cx="696.7" cy="558.0" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<line x1="696.7" y1="558.0" x2="820.0" y2="564.6" stroke="#047857" stroke-width="1" />
+<circle cx="820.0" cy="564.6" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<circle cx="844.0" cy="544.0" r="4.0" fill="#047857" stroke="#1f2933" stroke-width="0.6" />
+<text x="856.0" y="548.0" class="axis" text-anchor="start">Nu=3</text>
+<path d="M76.0,609.0 L84.0,617.0 M84.0,609.0 L76.0,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M199.3,609.0 L207.3,617.0 M207.3,609.0 L199.3,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<path d="M322.7,609.0 L330.7,617.0 M330.7,609.0 L322.7,617.0" stroke="#b91c1c" stroke-width="1.8" />
+<circle cx="450.0" cy="510.0" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="450.0" y1="510.0" x2="573.3" y2="557.4" stroke="#9333ea" stroke-width="1" />
+<circle cx="573.3" cy="557.4" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="573.3" y1="557.4" x2="696.7" y2="569.1" stroke="#9333ea" stroke-width="1" />
+<circle cx="696.7" cy="569.1" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<line x1="696.7" y1="569.1" x2="820.0" y2="573.8" stroke="#9333ea" stroke-width="1" />
+<circle cx="820.0" cy="573.8" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<circle cx="844.0" cy="564.0" r="4.0" fill="#9333ea" stroke="#1f2933" stroke-width="0.6" />
+<text x="856.0" y="568.0" class="axis" text-anchor="start">Nu=4</text>
+</svg>

@@ -60,6 +60,12 @@ include rank-feasibility heatmap matrices, finite CRLB-vs-`N_s` series with
 unavailable masks, and fixed-parameter measurement-addition series. No figures
 are generated.
 
+Non-final CRLB preview SVGs are implemented on branch
+`codex/crlb-preview-candidates`. The previews read the merged candidate JSON and
+write diagnostic-only SVGs plus a manifest under `v24_diagnostics/crlb_preview/`.
+They are not manuscript figures and require human review before any figure
+workflow decision.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -85,6 +91,8 @@ exists under `v24_diagnostics/` with hardened CRLB status/reportability fields.
 The CRLB geometry diagnostic runner/tests are merged on `main`.
 The manuscript-relevant CRLB candidate runner/tests are merged on `main`.
 The non-final CRLB figure-candidate data runner/tests are merged on `main`.
+The non-final CRLB preview SVG runner/tests are implemented on branch
+`codex/crlb-preview-candidates` and await review before merge.
 
 ## Next task
 
@@ -93,9 +101,8 @@ See `docs/tasks/NEXT.md`.
 ## Figure-risk notes
 
 - CRLB localization and synchronization figures remain unsafe to trust until a
-  manuscript-relevant package-native CRLB candidate is planned, implemented as
-  non-final diagnostics, reviewed, and explicitly approved for figure-rerun
-  work.
+  manuscript-relevant package-native CRLB figure concept is reviewed from
+  non-final diagnostics/previews and explicitly approved for figure-rerun work.
 - The package-native CRLB mini-sweep diagnostic exists at
   `v24_diagnostics/sweep_v24_crlb_ns.json`, but it is non-final, not a
   manuscript figure, and explicitly marks rank-deficient cases as

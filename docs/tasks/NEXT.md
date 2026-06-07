@@ -1,34 +1,25 @@
-MODE: PLAN_ONLY
+MODE: REVIEW_DIFF
 
-This task may be executed via `RUN_CODEX.md`. Do not edit files unless the
-human explicitly approves implementation. Do not merge unless explicitly
-allowed.
+This task may be executed via `RUN_CODEX.md`. Do not edit files. Do not merge
+unless the human explicitly approves merge after review.
 
-# Next Task: Plan Human CRLB Figure Decision From Candidate Data
+# Next Task: Review CRLB Preview Candidate Branch Before Merge
 
 ## Purpose
 
-Use the merged non-final CRLB figure-candidate data to prepare a human decision
-plan for CRLB figure handling. This is still not a figure-generation task.
-
-## Context
-
-The package now produces non-final JSON data for:
-
-- rank-feasibility heatmap matrices;
-- finite CRLB-vs-`N_s` series with unavailable masks;
-- fixed-parameter measurement-addition series.
-
-The data are under `v24_diagnostics/` and are not manuscript figures.
+Review branch `codex/crlb-preview-candidates` before merge. The branch creates
+non-final SVG previews from already-merged CRLB figure-candidate JSON. The
+previews are diagnostic-only aids for human figure-concept review and are not
+manuscript figures.
 
 ## Scope
 
-Allowed files to inspect:
+Inspect:
 
-- `v24_diagnostics/crlb_figure_candidate_data.json`
-- `v24_diagnostics/manuscript_crlb_candidate.json`
-- `v24_diagnostics/crlb_geometry_diagnostics.json`
-- `scripts/prepare_v24_crlb_figure_candidate.py`
+- `scripts/preview_v24_crlb_figure_candidates.py`
+- `tests/test_crlb_preview_candidates.py`
+- `v24_diagnostics/crlb_preview/preview_manifest.json`
+- `v24_diagnostics/crlb_preview/*.svg`
 - `PROJECT_STATUS.md`
 - `docs/tasks/NEXT.md`
 
@@ -41,41 +32,48 @@ Do not edit:
 - Work-In-Progress figure files
 - PSFrag files
 - generated manuscript PDFs
-- generated figure PDFs/EPS/PNGs
+- generated manuscript figure PDFs/EPS/PNGs
 - existing manuscript result files
-- plotting code
-- figure-generation code
 - package source files
-- tests
+- existing diagnostics outside `v24_diagnostics/crlb_preview/`
 
-## Planning Questions
+## Checks
 
-1. Which CRLB figure concept should be proposed to the human team first?
-2. Which current manuscript CRLB figure(s) would each concept replace or
-   supplement?
-3. What exact caveats must accompany any CRLB-vs-`N_s` presentation?
-4. What non-final plotting/data-preview task, if any, should be approved next?
-5. What manuscript or response-letter changes would be needed if the CRLB
-   figure concept changes?
+1. Confirm the script reads existing CRLB candidate JSON and does not run the
+   notebook, full sweeps, or final figure-generation paths.
+2. Confirm preview outputs are written only under
+   `v24_diagnostics/crlb_preview/`.
+3. Confirm the manifest marks outputs as non-final, not manuscript figures, and
+   requiring human review.
+4. Confirm unavailable/rank-deficient CRLB points are visibly represented and
+   not silently converted into finite values.
+5. Confirm the growing-`N_s` preview does not imply monotonicity.
+6. Confirm the fixed-parameter preview states that monotonicity is checked only
+   after full rank.
+7. Confirm tests pass:
+
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
+   ```
+
+8. Confirm no manuscript, response-letter, bibliography, notebook, final figure,
+   or existing manuscript result files were touched.
 
 ## Required Output
 
 Return:
 
-- PASS / PASS WITH CAVEAT / FAIL for using the current candidate data as
-  decision input;
-- recommended figure decision path;
-- human-review questions;
-- exact next implementation task if preview plotting is approved;
-- files that task may edit;
-- stop gates;
-- confirmation no files were edited.
+- PASS / FAIL / PASS WITH CAVEAT;
+- merge recommendation;
+- required fixes before merge, if any;
+- nonblocking caveats;
+- confirmation out-of-scope files were untouched;
+- next recommended task after merge.
 
 ## Hard Constraints
 
-- Do not run notebook code.
-- Do not generate figures.
+- Do not edit files.
+- Do not generate manuscript figures.
 - Do not run full sweeps.
-- Do not edit manuscript, response-letter, bibliography, figure, PSFrag,
-  generated PDF, notebook, package source, test, or result files.
-
+- Do not run notebook code.
+- Do not merge unless explicitly approved after the review.
