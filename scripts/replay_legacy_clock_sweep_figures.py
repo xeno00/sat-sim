@@ -13,6 +13,7 @@ import csv
 import hashlib
 import json
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -35,6 +36,13 @@ OUTPUT_ROOT = (
     / "executed_legacy"
     / "clock_sweep_replay"
 )
+FULL_OUTPUT_ROOT = (
+    SAT_SIM_ROOT
+    / "v24_notebook_regression_outputs"
+    / "executed_legacy"
+    / "clock_sweep_replay_full"
+)
+EXECUTED_LEGACY_ROOT = SAT_SIM_ROOT / "v24_notebook_regression_outputs" / "executed_legacy"
 TARGET_FIGURES = ("pos_vary_clock.pdf", "sync_vary_clock.pdf")
 
 
@@ -161,7 +169,7 @@ def _find_existing_artifacts() -> list[dict[str, Any]]:
         matches = [
             path
             for path in REPO_ROOT.rglob(figure)
-            if OUTPUT_ROOT not in path.parents
+            if EXECUTED_LEGACY_ROOT not in path.parents
         ]
         artifacts.append(
             {
@@ -178,6 +186,34 @@ def _find_existing_artifacts() -> list[dict[str, Any]]:
             }
         )
     return artifacts
+
+
+def _generated_artifacts(output_root: Path) -> list[dict[str, Any]]:
+    """Return file metadata for replay-generated target PDFs."""
+
+    artifacts = []
+    for figure in TARGET_FIGURES:
+        path = output_root / figure
+        artifacts.append(
+            {
+                "figure": figure,
+                "path": str(path.relative_to(SAT_SIM_ROOT)),
+                "exists": path.exists(),
+                "size_bytes": path.stat().st_size if path.exists() else None,
+                "sha256": _hash_file(path),
+            }
+        )
+    return artifacts
+
+
+def _series_range(values: np.ndarray) -> dict[str, float | None]:
+    """Return finite min/max for a numeric diagnostic series."""
+
+    finite = np.asarray(values, dtype=float)
+    finite = finite[np.isfinite(finite)]
+    if finite.size == 0:
+        return {"min": None, "max": None}
+    return {"min": float(np.min(finite)), "max": float(np.max(finite))}
 
 
 def _legacy_plot(
@@ -463,6 +499,7 @@ def _write_summary_csv(path: Path, rows: list[dict[str, Any]]) -> None:
 def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT_ROOT) -> dict[str, Any]:
     """Replay the legacy clock-sweep figure pair in smoke or full mode."""
 
+    start_time = time.perf_counter()
     output_root.mkdir(parents=True, exist_ok=True)
     config = _mode_config(mode)
     np.random.seed(int(config["seed"]))
@@ -492,26 +529,31 @@ def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT
     il_pos_fitted = np.asarray(fit(clock_std_devs, il_pos, clock_std_devs), dtype=float)
     pos_y = gaussian_filter(np.vstack([il_pos_fitted, lm_pos, map_pos]), sigma=0.25)
     sync_y = gaussian_filter(np.vstack([il_sync, lm_sync, map_sync]), sigma=0.65) * 1.0e9
+    x_values_ns = clock_std_devs * 1.0e9
 
     labels = ["Without cooperation", "Coarse JCLS", "Refined JCLS, $.5\\,$ns"]
+    pos_xlabel = r"$\sigma_\delta \; [\mathrm{ns}]$"
+    pos_ylabel = r"Average UE position error $[\mathrm{m}]$"
     _legacy_plot(
-        clock_std_devs * 1.0e9,
+        x_values_ns,
         pos_y,
         labels,
-        xlabel=r"$\sigma_\delta \; [\mathrm{ns}]$",
-        ylabel=r"Average UE position error $[\mathrm{m}]$",
+        xlabel=pos_xlabel,
+        ylabel=pos_ylabel,
         output_path=output_root / "pos_vary_clock.pdf",
         log_x=True,
         log_y=True,
         y_ticks=[1.0e-2, 1.0e0, 1.0e2, 1.0e4],
     )
     sync_labels = ["Without cooperation", "Coarse JCLS", "Refined JCLS, $.5\\,$s"]
+    sync_xlabel = r"$\sigma_\delta \; [\mathrm{ns}]$"
+    sync_ylabel = r"Average synchronization error $[\mathrm{ns}]$"
     _legacy_plot(
-        clock_std_devs * 1.0e9,
+        x_values_ns,
         sync_y,
         sync_labels,
-        xlabel=r"$\sigma_\delta \; [\mathrm{ns}]$",
-        ylabel=r"Average synchronization error $[\mathrm{ns}]$",
+        xlabel=sync_xlabel,
+        ylabel=sync_ylabel,
         output_path=output_root / "sync_vary_clock.pdf",
         log_x=True,
         log_y=True,
@@ -533,6 +575,7 @@ def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT
         sync_plot_y_ns=sync_y,
     )
 
+    runtime_seconds = time.perf_counter() - start_time
     failures = [failure for row in rows for failure in row["failures"]]
     if failures:
         (output_root / "legacy_clock_sweep_failures.json").write_text(
@@ -554,13 +597,22 @@ def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT
             encoding="utf-8",
         )
 
+    status = "legacy_full_replayed_unverified_match" if mode == "full" else "legacy_replayed_unverified_match"
+    artifact_status = (
+        "non_final_legacy_clock_sweep_full_replay"
+        if mode == "full"
+        else "non_final_legacy_clock_sweep_replay"
+    )
+    comparison_status = "full_unverified_match" if mode == "full" else "unverified_match"
     report = {
-        "status": "legacy_replayed_unverified_match",
-        "artifact_status": "non_final_legacy_clock_sweep_replay",
+        "status": status,
+        "artifact_status": artifact_status,
         "legacy_replay": True,
         "manuscript_ready": False,
         "not_for_manuscript_submission": True,
         "mode": mode,
+        "full_mode_completed": mode == "full",
+        "runtime_seconds": runtime_seconds,
         "output_root": str(output_root.relative_to(SAT_SIM_ROOT)),
         "notebook_source_modified": False,
         "full_notebook_executed": False,
@@ -573,6 +625,7 @@ def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT
         "num_iterations": int(config["num_iterations"]),
         "num_users": int(config["num_users"]),
         "num_satellites": int(config["num_satellites"]),
+        "error_range": float(config["error_range"]),
         "executed_cells": executed_cells,
         "cells_functions_extracted": [
             "Node",
@@ -608,6 +661,44 @@ def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT
             "map_failures": sum(row["map_failure_count"] for row in rows),
             "map_global_fallback_count": sum(row["map_fallback_count"] for row in rows),
         },
+        "per_clock_std_results": rows,
+        "data_ranges": {
+            "clock_std_dev_ns": _series_range(x_values_ns),
+            "raw_position_error_m": {
+                "without_cooperation": _series_range(il_pos),
+                "coarse_jcls": _series_range(lm_pos),
+                "refined_jcls": _series_range(map_pos),
+            },
+            "raw_sync_error_s": {
+                "without_cooperation": _series_range(il_sync),
+                "coarse_jcls": _series_range(lm_sync),
+                "refined_jcls": _series_range(map_sync),
+            },
+            "plotted_position_error_m": {
+                "without_cooperation": _series_range(pos_y[0]),
+                "coarse_jcls": _series_range(pos_y[1]),
+                "refined_jcls": _series_range(pos_y[2]),
+            },
+            "plotted_sync_error_ns": {
+                "without_cooperation": _series_range(sync_y[0]),
+                "coarse_jcls": _series_range(sync_y[1]),
+                "refined_jcls": _series_range(sync_y[2]),
+            },
+        },
+        "plot_axis_labels": {
+            "pos_vary_clock.pdf": {
+                "xlabel": pos_xlabel,
+                "ylabel": pos_ylabel,
+                "xscale": "log",
+                "yscale": "log",
+            },
+            "sync_vary_clock.pdf": {
+                "xlabel": sync_xlabel,
+                "ylabel": sync_ylabel,
+                "xscale": "log",
+                "yscale": "log",
+            },
+        },
         "raw_outputs": {
             "raw_csv": str((output_root / "legacy_clock_sweep_raw.csv").relative_to(SAT_SIM_ROOT)),
             "summary_csv": str((output_root / "legacy_clock_sweep_summary.csv").relative_to(SAT_SIM_ROOT)),
@@ -618,8 +709,9 @@ def replay_legacy_clock_sweep(*, mode: str = "smoke", output_root: Path = OUTPUT
             str((output_root / "sync_vary_clock.pdf").relative_to(SAT_SIM_ROOT)),
         ],
         "existing_artifact_comparison": {
+            "replayed_artifacts": _generated_artifacts(output_root),
             "existing_artifacts": _find_existing_artifacts(),
-            "comparison_status": "unverified_match",
+            "comparison_status": comparison_status,
             "claim_match": False,
             "note": "Existing artifacts are inventoried but no visual/data equality is claimed.",
         },
@@ -667,20 +759,32 @@ def _update_figure_regression_table(report: dict[str, Any]) -> None:
     if not table_path.exists():
         return
     table = json.loads(table_path.read_text(encoding="utf-8"))
+    status = report["status"]
     for entry in table.get("target_figure_statuses", []):
         if entry.get("figure") in TARGET_FIGURES:
-            entry["status"] = "legacy_replayed_unverified_match"
+            entry["status"] = status
             entry["legacy_replay"] = True
+            entry["full_legacy_replay"] = report["mode"] == "full"
             entry["manuscript_ready"] = False
             entry["replayed_output_root"] = report["output_root"]
-            entry["reason"] = (
-                "Legacy notebook clock-sweep logic replayed in redirected diagnostics; "
-                "match is unverified and legacy caveats remain."
-            )
+            if report["mode"] == "full":
+                entry["reason"] = (
+                    "Full legacy notebook clock-sweep logic replayed in redirected diagnostics; "
+                    "match is unverified and legacy caveats remain."
+                )
+            else:
+                entry["reason"] = (
+                    "Legacy notebook clock-sweep logic replayed in redirected diagnostics; "
+                    "match is unverified and legacy caveats remain."
+                )
     table["clock_sweep_replay_report"] = str(
-        (OUTPUT_ROOT / "legacy_clock_sweep_metadata.json").relative_to(SAT_SIM_ROOT)
+        (Path(report["output_root"]) / "legacy_clock_sweep_metadata.json")
     )
-    table["reproduction_status"] = "legacy_clock_sweep_replayed_unverified_match"
+    table["reproduction_status"] = (
+        "legacy_clock_sweep_full_replayed_unverified_match"
+        if report["mode"] == "full"
+        else "legacy_clock_sweep_replayed_unverified_match"
+    )
     table_path.write_text(json.dumps(table, indent=2), encoding="utf-8")
 
     lines = [
@@ -719,15 +823,23 @@ def _write_top_level_report(report: dict[str, Any]) -> None:
 
     output_dir = SAT_SIM_ROOT / "v24_notebook_regression_outputs"
     payload = dict(report)
-    payload["report_type"] = "legacy_clock_sweep_replay_report"
-    json_path = output_dir / "LEGACY_CLOCK_SWEEP_REPLAY_REPORT.json"
-    md_path = output_dir / "LEGACY_CLOCK_SWEEP_REPLAY_REPORT.md"
+    if payload["mode"] == "full":
+        payload["report_type"] = "legacy_clock_sweep_full_replay_report"
+        json_path = output_dir / "LEGACY_CLOCK_SWEEP_FULL_REPLAY_REPORT.json"
+        md_path = output_dir / "LEGACY_CLOCK_SWEEP_FULL_REPLAY_REPORT.md"
+        title = "Legacy Clock-Sweep Full Replay Report"
+    else:
+        payload["report_type"] = "legacy_clock_sweep_replay_report"
+        json_path = output_dir / "LEGACY_CLOCK_SWEEP_REPLAY_REPORT.json"
+        md_path = output_dir / "LEGACY_CLOCK_SWEEP_REPLAY_REPORT.md"
+        title = "Legacy Clock-Sweep Replay Report"
     json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     md_lines = [
-        "# Legacy Clock-Sweep Replay Report",
+        f"# {title}",
         "",
         f"- Status: `{payload['status']}`",
         f"- Mode: `{payload['mode']}`",
+        f"- Runtime seconds: {payload['runtime_seconds']:.3f}",
         f"- Output root: `{payload['output_root']}`",
         f"- Manuscript ready: `{payload['manuscript_ready']}`",
         "",
@@ -756,19 +868,69 @@ def _parse_args() -> argparse.Namespace:
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--smoke", action="store_true", help="Run reduced deterministic smoke replay.")
     group.add_argument("--full", action="store_true", help="Run legacy-sized replay for human use.")
-    parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT)
+    parser.add_argument("--output-root", type=Path, default=None)
     return parser.parse_args()
+
+
+def _write_execution_failure(mode: str, output_root: Path, error: Exception) -> None:
+    """Write precise failure diagnostics for a failed replay."""
+
+    output_root.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "mode": mode,
+        "legacy_replay": True,
+        "manuscript_ready": False,
+        "not_for_manuscript_submission": True,
+        "artifact_status": "non_final_legacy_clock_sweep_replay_failure",
+        "status": "legacy_full_replay_failed" if mode == "full" else "legacy_replay_failed",
+        "error_type": type(error).__name__,
+        "error_message": str(error),
+        "output_root": str(output_root.relative_to(SAT_SIM_ROOT)),
+    }
+    (output_root / "legacy_clock_sweep_execution_failure.json").write_text(
+        json.dumps(payload, indent=2),
+        encoding="utf-8",
+    )
+    (output_root / "legacy_clock_sweep_execution_failure.md").write_text(
+        "\n".join(
+            [
+                "# Legacy Clock-Sweep Replay Execution Failure",
+                "",
+                f"- Mode: `{mode}`",
+                f"- Status: `{payload['status']}`",
+                f"- Error type: `{payload['error_type']}`",
+                f"- Error message: {payload['error_message']}",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
 
 
 def main() -> int:
     args = _parse_args()
     mode = "full" if args.full else "smoke"
-    if SAT_SIM_ROOT not in args.output_root.resolve().parents and args.output_root.resolve() != SAT_SIM_ROOT:
+    output_root = args.output_root or (FULL_OUTPUT_ROOT if mode == "full" else OUTPUT_ROOT)
+    if SAT_SIM_ROOT not in output_root.resolve().parents and output_root.resolve() != SAT_SIM_ROOT:
         raise ValueError("output-root must be inside sat-sim.")
-    report = replay_legacy_clock_sweep(mode=mode, output_root=args.output_root)
+    try:
+        report = replay_legacy_clock_sweep(mode=mode, output_root=output_root)
+    except Exception as error:
+        _write_execution_failure(mode, output_root, error)
+        raise
     _update_figure_regression_table(report)
     _write_top_level_report(report)
-    print(json.dumps({"status": report["status"], "mode": mode, "output_root": report["output_root"]}, indent=2))
+    print(
+        json.dumps(
+            {
+                "status": report["status"],
+                "mode": mode,
+                "runtime_seconds": report["runtime_seconds"],
+                "output_root": report["output_root"],
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

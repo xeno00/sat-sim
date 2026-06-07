@@ -26,6 +26,7 @@ Inspect:
 
 - `v24_notebook_regression_outputs/LEGACY_CRLB_REPLAY_REPORT.md`
 - `v24_notebook_regression_outputs/LEGACY_CLOCK_SWEEP_REPLAY_REPORT.md`
+- `v24_notebook_regression_outputs/LEGACY_CLOCK_SWEEP_FULL_REPLAY_REPORT.md`
 - `v24_notebook_regression_outputs/FIGURE_REGRESSION_TABLE.md`
 - `scripts/replay_legacy_crlb_figures.py`
 - `scripts/replay_legacy_clock_sweep_figures.py`

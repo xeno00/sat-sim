@@ -167,7 +167,9 @@ without replacement or human review.
 A safe legacy clock-sweep estimator replay is implemented on branch
 `codex/legacy-clock-sweep-replay`. It extracts selected notebook
 class/helper definitions and replays the cell 31/32 clock-standard-deviation
-logic in smoke mode into
+logic in smoke mode and full legacy mode. The full replay writes to
+`v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/`,
+separate from the smoke replay under
 `v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/`.
 The replay writes raw CSV, summary CSV, NPZ arrays, redirected PDFs for
 `pos_vary_clock.pdf` and `sync_vary_clock.pdf`, and metadata/final reports.
@@ -200,10 +202,10 @@ The artifacts are marked legacy replay, non-final, and not manuscript-ready.
 - Legacy CRLB replay is behavioral provenance only. It reproduces the notebook
   logic into a safe output folder, but the legacy all-clock/post-hoc bound path
   remains unsafe for V24 manuscript claims.
-- Legacy clock-sweep replay is smoke-mode behavioral provenance only. It
-  demonstrates executable replay of the estimator sweep logic, but truth-gated
-  LM/MAP behavior and all-clock synchronization metrics remain unsafe for V24
-  manuscript claims.
+- Legacy clock-sweep full replay is behavioral provenance only. It
+  demonstrates executable replay of the estimator sweep logic at the legacy
+  seven-point, 25-iteration setting, but truth-gated LM/MAP behavior and
+  all-clock synchronization metrics remain unsafe for V24 manuscript claims.
 
 ## Last completed task
 
@@ -248,7 +250,7 @@ Safe legacy CRLB replay artifacts are implemented on branch
 `sync_crlb_0dB_0dB.pdf`. The figures are replayed into diagnostics only and
 remain unverified matches/not manuscript-ready because of legacy all-clock and
 post-hoc slicing caveats.
-Safe legacy clock-sweep smoke replay artifacts are implemented on branch
+Safe legacy clock-sweep full replay artifacts are implemented on branch
 `codex/legacy-clock-sweep-replay` for `pos_vary_clock.pdf` and
 `sync_vary_clock.pdf`. The figures are replayed into diagnostics only and
 remain unverified matches/not manuscript-ready because of legacy truth-gated
