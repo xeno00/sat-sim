@@ -44,11 +44,12 @@ now include nullity, CRLB status, manuscript-readiness flags, and seconds-domain
 clock-bound conversions. Non-final CRLB diagnostic JSON files under
 `v24_diagnostics/` have been refreshed with the hardened schema.
 
-A better non-final CRLB geometry diagnostic is implemented on the current task
-branch. It separates fixed-parameter information addition, growing-`N_s`
-nuisance-clock behavior, and rank-feasibility checks, and writes deterministic
-non-final JSON to `v24_diagnostics/crlb_geometry_diagnostics.json`. Next:
-review the branch before merge.
+A better non-final CRLB geometry diagnostic is implemented and merged. It
+separates fixed-parameter information addition, growing-`N_s` nuisance-clock
+behavior, and rank-feasibility checks, and writes deterministic non-final JSON
+to `v24_diagnostics/crlb_geometry_diagnostics.json`. Next: plan a
+manuscript-relevant non-final CRLB candidate using the rank-feasibility results
+without generating manuscript figures.
 
 ## Blocking risks
 
@@ -72,7 +73,7 @@ package-level V24 reproducibility smoke runner, full-gauged CRLB bound
 extraction helpers, package-native non-final CRLB mini-sweep runner/tests, and
 CRLB diagnostic hardening tests are implemented. Non-final diagnostic JSON
 exists under `v24_diagnostics/` with hardened CRLB status/reportability fields.
-The CRLB geometry diagnostic runner/tests are implemented on the current branch.
+The CRLB geometry diagnostic runner/tests are merged on `main`.
 
 ## Next task
 
@@ -81,8 +82,9 @@ See `docs/tasks/NEXT.md`.
 ## Figure-risk notes
 
 - CRLB localization and synchronization figures remain unsafe to trust until a
-  package-native non-final CRLB mini-sweep is reviewed and explicitly approved
-  for figure-rerun work.
+  manuscript-relevant package-native CRLB candidate is planned, implemented as
+  non-final diagnostics, reviewed, and explicitly approved for figure-rerun
+  work.
 - The package-native CRLB mini-sweep diagnostic exists at
   `v24_diagnostics/sweep_v24_crlb_ns.json`, but it is non-final, not a
   manuscript figure, and explicitly marks rank-deficient cases as

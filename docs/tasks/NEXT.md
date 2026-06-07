@@ -1,26 +1,43 @@
-MODE: REVIEW_DIFF
+MODE: PLAN_ONLY
 
 This task may be executed via `RUN_CODEX.md`. Do not edit files unless the
 human explicitly approves implementation. Do not merge unless explicitly
 allowed.
 
-# Next Task: Review CRLB Geometry Diagnostics Branch Before Merge
+# Next Task: Plan Manuscript-Relevant Non-Final CRLB Candidate
 
 ## Purpose
 
-Review the branch implementing better non-final CRLB diagnostic geometry before
-it is merged. Confirm the diagnostics separate fixed-parameter information
-addition from growing-`N_s` nuisance-clock behavior and keep all outputs
-non-final.
+Use the package-native CRLB geometry diagnostics to design a manuscript-relevant
+non-final CRLB candidate before any figure rerun. The goal is to choose a
+scientifically defensible diagnostic direction, not to generate final
+manuscript figures.
+
+## Context
+
+The merged CRLB geometry diagnostic separates:
+
+- fixed-parameter information addition;
+- growing-`N_s` nuisance-clock behavior;
+- rank-feasibility checks.
+
+The fixed-parameter diagnostic provides the clean monotonicity sanity check.
+The growing-`N_s` diagnostic is useful context but is not a monotonic CRLB
+curve because `N_theta` changes. The rank-feasibility grid can identify
+full-rank regimes before any manuscript-style CRLB rerun.
 
 ## Scope
 
-Inspect:
+Allowed files to inspect:
 
-- `jcls_sim/configs.py`
-- `scripts/diagnose_v24_crlb_geometry.py`
-- `tests/test_crlb_diagnostics.py`
 - `v24_diagnostics/crlb_geometry_diagnostics.json`
+- `v24_diagnostics/sweep_v24_crlb_ns.json`
+- `scripts/diagnose_v24_crlb_geometry.py`
+- `scripts/sweep_v24_crlb.py`
+- `jcls_sim/configs.py`
+- `jcls_sim/bounds.py`
+- `tests/test_crlb_diagnostics.py`
+- `tests/test_crlb_sweep.py`
 - `PROJECT_STATUS.md`
 - `docs/tasks/NEXT.md`
 
@@ -37,43 +54,45 @@ Do not edit:
 - existing manuscript result files
 - plotting code
 - figure-generation code
+- package source files
+- tests
 
-## Checks
+## Planning Questions
 
-1. Fixed-parameter diagnostic:
-   - `Nu`, `Ns`, geometry, and parameter dimension remain fixed.
-   - Measurement count increases over nested subsets.
-   - Monotonicity is checked only for full-rank finite-CRLB cases.
-   - Rank-deficient cases remain diagnostic-only.
-
-2. Growing-`N_s` diagnostic:
-   - Metadata clearly says the sweep changes parameter dimension.
-   - Metadata says monotonic CRLB interpretation is not valid.
-   - Clock-bound seconds conversion is present.
-   - Rank-deficient cases are not manuscript-ready.
-
-3. Rank-feasibility grid:
-   - Grid includes `Nu`, `Ns`, link pattern, measurement count, parameter
-     dimension, rank, nullity, full-rank flag, CRLB status, and notes.
-
-4. JSON/output:
-   - Output lives only under `v24_diagnostics/`.
-   - No manuscript figures or final result files were generated.
-   - No large FIM/Jacobian matrices are written.
-
-5. Tests:
-   - Run `powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'`
-     from the repository root, or the documented bundled-Python unittest
-     fallback if the wrapper path is unavailable.
+1. Which candidate is most defensible for manuscript-relevant non-final CRLB
+   diagnostics?
+   - full-rank CRLB versus `N_s` with unavailable points marked;
+   - CRLB versus measurement subset size for fixed `Nu,Ns`;
+   - rank-feasibility heatmap over `Nu,Ns`;
+   - another small diagnostic derived from the rank grid.
+2. Which candidate best supports or replaces the existing CRLB manuscript
+   figures without overclaiming monotonicity?
+3. What full-rank regimes should be used, based on the current
+   `crlb_geometry_diagnostics.json`?
+4. What metadata must be carried forward so rank-deficient/unavailable points
+   cannot be mistaken for finite CRLB values?
+5. What implementation should be approved next, and what files should it edit?
 
 ## Required Output
 
 Return:
 
-- PASS / FAIL / PASS WITH CAVEAT;
-- merge recommendation;
-- required fixes before merge, if any;
-- nonblocking caveats;
-- confirmation that manuscript, response-letter, bibliography, figure, PSFrag,
-  PDF, notebook, and final-result files were not edited.
+- PASS / PASS WITH CAVEAT / FAIL for using the current geometry diagnostics as
+  planning input;
+- recommended manuscript-relevant non-final CRLB candidate;
+- rationale and scientific caveats;
+- exact proposed output JSON schema;
+- proposed tests;
+- expected runtime/scope;
+- stop gates;
+- exact files to edit in the next `IMPLEMENT_APPROVED` task;
+- confirmation that no files were edited in this `PLAN_ONLY` task.
+
+## Hard Constraints
+
+- Do not run notebook code.
+- Do not generate figures.
+- Do not run full sweeps.
+- Do not edit manuscript, response-letter, bibliography, figure, PSFrag,
+  generated PDF, notebook, package source, test, or result files.
 
