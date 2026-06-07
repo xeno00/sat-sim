@@ -1,0 +1,32 @@
+{
+  "artifact_status": "non_final_cache_manifest",
+  "cache_schema_version": "legacy-network-size-row-v1",
+  "events": [
+    {
+      "cache_key": "0f4c3b988e0b7acbdb50d5bcfe5889823aa0b5be02d79403a9ee567730f73fcd",
+      "num_satellites": 4,
+      "hit": false,
+      "fresh": false,
+      "invalidation_reason": "missing_cache_entry"
+    },
+    {
+      "cache_key": "e9d3e3927f2e22d9f1b9157dc4176b0b52bf1bd78c9bb4dbbdaaebf2b1bc4e5c",
+      "num_satellites": 8,
+      "hit": false,
+      "fresh": false,
+      "invalidation_reason": "missing_cache_entry"
+    },
+    {
+      "cache_key": "dfa1c676764fc05de71cd77ebbc4eea6e4858423e838516da317bc00931e4204",
+      "num_satellites": 12,
+      "hit": false,
+      "fresh": false,
+      "invalidation_reason": "missing_cache_entry"
+    }
+  ],
+  "fresh_hit_count": 0,
+  "miss_or_stale_count": 3,
+  "timestamp_utc": "2026-06-07T22:10:24Z",
+  "branch": "codex/legacy-figures-gallery-crlb-nlos",
+  "commit": "bd34891"
+}

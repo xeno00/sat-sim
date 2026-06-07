@@ -1,0 +1,62 @@
+{
+  "artifact_status": "current_graph_status",
+  "overall": "legacy-compatible graphs are best available for visual review; none are manuscript-ready",
+  "current_best_graphs": [
+    {
+      "name": "Corrected LOS localization CRLB replay",
+      "path": "outputs/legacy_replay/crlb_los/pos_crlb_0dB_0dB.pdf",
+      "status": "legacy replay, not V24-clean"
+    },
+    {
+      "name": "Corrected LOS synchronization CRLB replay",
+      "path": "outputs/legacy_replay/crlb_los/sync_crlb_0dB_0dB.pdf",
+      "status": "legacy replay, not V24-clean"
+    },
+    {
+      "name": "Full legacy clock-sweep localization replay",
+      "path": "outputs/legacy_replay/clock_sweep_full/pos_vary_clock.pdf",
+      "status": "legacy replay, unverified match"
+    },
+    {
+      "name": "Full legacy clock-sweep synchronization replay",
+      "path": "outputs/legacy_replay/clock_sweep_full/sync_vary_clock.pdf",
+      "status": "legacy replay, unverified match"
+    },
+    {
+      "name": "Legacy-compatible network-size localization smoke replay",
+      "path": "outputs/legacy_replay/network_size/pos_vary_ues.pdf",
+      "status": "bounded smoke legacy replay, unverified match"
+    },
+    {
+      "name": "Legacy-compatible network-size synchronization smoke replay",
+      "path": "outputs/legacy_replay/network_size/sync_vary_ues.pdf",
+      "status": "bounded smoke legacy replay, unverified match"
+    }
+  ],
+  "suspect_graphs": [
+    {
+      "path": "v24_human_review_outputs",
+      "reason": "package-native human-review Fig. 4--7 path can degrade at later JCLS stages; preserve as suspect diagnostics only"
+    },
+    {
+      "path": "v24_figure_outputs",
+      "reason": "package-native diagnostics are not legacy-compatible and not best available"
+    }
+  ],
+  "nlos_status": {
+    "artifact_status": "non_final_nlos_crlb_failure_report",
+    "status": "nlos_crlb_not_generated",
+    "manuscript_ready": false,
+    "los_nlos": "NLOS",
+    "failure_reason": "No executable legacy Rayleigh/NLOS CRLB path or package score-covariance NLOS FIM path exists in the current merged repository. Search found only Gaussian/Rician FIM helpers.",
+    "dl_sl_nlos_scope": "not generated",
+    "noise_fim_model": "none; generation blocked to avoid faking NLOS CRLB curves",
+    "output_root": "outputs/legacy_replay/crlb_nlos",
+    "required_next_step": "Implement and test a defensible NLOS score-covariance/FIM path before generating NLOS CRLB figures."
+  },
+  "warnings": [
+    "No graph is manuscript-ready.",
+    "Legacy CRLB is all-clock/post-hoc and not V24-clean.",
+    "Legacy estimator replays use truth-gated acceptance behavior and all-clock synchronization metrics."
+  ]
+}

@@ -1,0 +1,606 @@
+{
+  "artifact_status": "non_final_plot_gallery",
+  "generated_at_utc": "2026-06-07T22:23:35.388997+00:00",
+  "source_roots": [
+    "outputs/legacy_replay",
+    "outputs/package_diagnostic",
+    "outputs/manuscript_candidate",
+    "outputs/human_review",
+    "v24_notebook_regression_outputs",
+    "v24_human_review_outputs",
+    "v24_manuscript_candidate_outputs",
+    "v24_figure_outputs"
+  ],
+  "entry_count": 24,
+  "groups": [
+    "human-review",
+    "legacy CRLB replay",
+    "legacy clock-sweep full",
+    "legacy clock-sweep smoke",
+    "legacy network-size smoke",
+    "manuscript-candidate",
+    "package diagnostic"
+  ],
+  "entries": [
+    {
+      "figure_name": "pos_vary_clock.pdf",
+      "group": "legacy clock-sweep full",
+      "source_pdf_path": "outputs/legacy_replay/clock_sweep_full/pos_vary_clock.pdf",
+      "preview_paths": [
+        "previews/cb380ae83043__outputs__legacy_replay__clock_sweep_full__pos_vary_clock-1.png"
+      ],
+      "metadata_path": "previews/cb380ae83043__outputs__legacy_replay__clock_sweep_full__pos_vary_clock.json",
+      "raw_data_paths": [
+        "outputs/legacy_replay/clock_sweep_full/legacy_clock_sweep_arrays.npz",
+        "outputs/legacy_replay/clock_sweep_full/legacy_clock_sweep_raw.csv",
+        "outputs/legacy_replay/clock_sweep_full/legacy_clock_sweep_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/legacy_replay/clock_sweep_full/legacy_clock_sweep_metadata.json"
+      ],
+      "status": "legacy_full_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "49a45f1120cf8292f0ac9d32657d2441b573c1fae62f34cbf4aff59a1d42e628",
+      "source_pdf_size_bytes": 22759
+    },
+    {
+      "figure_name": "sync_vary_clock.pdf",
+      "group": "legacy clock-sweep full",
+      "source_pdf_path": "outputs/legacy_replay/clock_sweep_full/sync_vary_clock.pdf",
+      "preview_paths": [
+        "previews/92497dc25e31__outputs__legacy_replay__clock_sweep_full__sync_vary_clock-1.png"
+      ],
+      "metadata_path": "previews/92497dc25e31__outputs__legacy_replay__clock_sweep_full__sync_vary_clock.json",
+      "raw_data_paths": [
+        "outputs/legacy_replay/clock_sweep_full/legacy_clock_sweep_arrays.npz",
+        "outputs/legacy_replay/clock_sweep_full/legacy_clock_sweep_raw.csv",
+        "outputs/legacy_replay/clock_sweep_full/legacy_clock_sweep_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/legacy_replay/clock_sweep_full/legacy_clock_sweep_metadata.json"
+      ],
+      "status": "legacy_full_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "ae08a237944c1772f11ad9ada2453cec956dbdaef30d1ffeecfec75977a20604",
+      "source_pdf_size_bytes": 22497
+    },
+    {
+      "figure_name": "pos_crlb_0dB_0dB.pdf",
+      "group": "legacy CRLB replay",
+      "source_pdf_path": "outputs/legacy_replay/crlb_los/pos_crlb_0dB_0dB.pdf",
+      "preview_paths": [
+        "previews/48c2011e003c__outputs__legacy_replay__crlb_los__pos_crlb_0dB_0dB-1.png"
+      ],
+      "metadata_path": "previews/48c2011e003c__outputs__legacy_replay__crlb_los__pos_crlb_0dB_0dB.json",
+      "raw_data_paths": [
+        "outputs/legacy_replay/crlb_los/legacy_crlb_los_arrays.npz",
+        "outputs/legacy_replay/crlb_los/legacy_pos_plot_y_m.csv",
+        "outputs/legacy_replay/crlb_los/legacy_sync_plot_y_ns.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/legacy_replay/crlb_los/crlb_los_metadata.json"
+      ],
+      "status": "legacy_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy notebook CRLB logic replayed safely into diagnostics, but match to existing artifact is unverified and V24 caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "49edb7912c7346ffbc62ff6a9f31b59e74f27dd2e82801cdcd0687ea7d959892",
+      "source_pdf_size_bytes": 22330
+    },
+    {
+      "figure_name": "sync_crlb_0dB_0dB.pdf",
+      "group": "legacy CRLB replay",
+      "source_pdf_path": "outputs/legacy_replay/crlb_los/sync_crlb_0dB_0dB.pdf",
+      "preview_paths": [
+        "previews/368a9b0bcb73__outputs__legacy_replay__crlb_los__sync_crlb_0dB_0dB-1.png"
+      ],
+      "metadata_path": "previews/368a9b0bcb73__outputs__legacy_replay__crlb_los__sync_crlb_0dB_0dB.json",
+      "raw_data_paths": [
+        "outputs/legacy_replay/crlb_los/legacy_crlb_los_arrays.npz",
+        "outputs/legacy_replay/crlb_los/legacy_pos_plot_y_m.csv",
+        "outputs/legacy_replay/crlb_los/legacy_sync_plot_y_ns.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/legacy_replay/crlb_los/crlb_los_metadata.json"
+      ],
+      "status": "legacy_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy notebook CRLB logic replayed safely into diagnostics, but match to existing artifact is unverified and V24 caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "b4fbf9eb338a01a6ecc8c5fd256ba255ad5d8ea47ddf32cd37e135410b38caf7",
+      "source_pdf_size_bytes": 21490
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "legacy network-size smoke",
+      "source_pdf_path": "outputs/legacy_replay/network_size/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/6a76c72975e5__outputs__legacy_replay__network_size__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/6a76c72975e5__outputs__legacy_replay__network_size__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/legacy_replay/network_size/legacy_network_size_arrays.npz",
+        "outputs/legacy_replay/network_size/legacy_network_size_raw.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/legacy_replay/network_size/legacy_network_size_metadata.json"
+      ],
+      "status": "legacy_network_size_smoke_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "c2bdfae49aa831b42d88fef4ecb14f8e73311072dbfefb1d1193e20c8afb2c7b",
+      "source_pdf_size_bytes": 17447
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "legacy network-size smoke",
+      "source_pdf_path": "outputs/legacy_replay/network_size/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/739bb364c402__outputs__legacy_replay__network_size__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/739bb364c402__outputs__legacy_replay__network_size__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/legacy_replay/network_size/legacy_network_size_arrays.npz",
+        "outputs/legacy_replay/network_size/legacy_network_size_raw.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/legacy_replay/network_size/legacy_network_size_metadata.json"
+      ],
+      "status": "legacy_network_size_smoke_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "cffa70d22a4dabfa0cd4998c36318a37432a6190198f646794d3eb06df545746",
+      "source_pdf_size_bytes": 17513
+    },
+    {
+      "figure_name": "fig4_localization_vs_satellites.pdf",
+      "group": "package diagnostic",
+      "source_pdf_path": "v24_figure_outputs/fig4_localization_vs_satellites/fig4_localization_vs_satellites.pdf",
+      "preview_paths": [
+        "previews/af914d01c822__v24_figure_outputs__fig4_localization_vs_satellites__fig4_localization_vs_satellites-1.png"
+      ],
+      "metadata_path": "previews/af914d01c822__v24_figure_outputs__fig4_localization_vs_satellites__fig4_localization_vs_satellites.json",
+      "raw_data_paths": [
+        "v24_figure_outputs/fig4_localization_vs_satellites/fig4_localization_vs_satellites_raw.csv",
+        "v24_figure_outputs/fig4_localization_vs_satellites/fig4_localization_vs_satellites_raw.npz",
+        "v24_figure_outputs/fig4_localization_vs_satellites/fig4_localization_vs_satellites_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_figure_outputs/fig4_localization_vs_satellites/fig4_localization_vs_satellites_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "3bd704814e15c68c39b1aba0aed12a96d7e4b7b6c6aade39ef54bf9b76f7c50d",
+      "source_pdf_size_bytes": 24847
+    },
+    {
+      "figure_name": "fig5_synchronization_vs_satellites.pdf",
+      "group": "package diagnostic",
+      "source_pdf_path": "v24_figure_outputs/fig5_synchronization_vs_satellites/fig5_synchronization_vs_satellites.pdf",
+      "preview_paths": [
+        "previews/a2a4ac4f9ccd__v24_figure_outputs__fig5_synchronization_vs_satellites__fig5_synchronization_vs_satellites-1.png"
+      ],
+      "metadata_path": "previews/a2a4ac4f9ccd__v24_figure_outputs__fig5_synchronization_vs_satellites__fig5_synchronization_vs_satellites.json",
+      "raw_data_paths": [
+        "v24_figure_outputs/fig5_synchronization_vs_satellites/fig5_synchronization_vs_satellites_raw.csv",
+        "v24_figure_outputs/fig5_synchronization_vs_satellites/fig5_synchronization_vs_satellites_raw.npz",
+        "v24_figure_outputs/fig5_synchronization_vs_satellites/fig5_synchronization_vs_satellites_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_figure_outputs/fig5_synchronization_vs_satellites/fig5_synchronization_vs_satellites_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "d307e8d90271aafa4910cdf02592d1f9b9aa14a6cf946c2f78e0a75d77853457",
+      "source_pdf_size_bytes": 23755
+    },
+    {
+      "figure_name": "fig6_localization_vs_clock_std.pdf",
+      "group": "package diagnostic",
+      "source_pdf_path": "v24_figure_outputs/fig6_localization_vs_clock_std/fig6_localization_vs_clock_std.pdf",
+      "preview_paths": [
+        "previews/2049835fa675__v24_figure_outputs__fig6_localization_vs_clock_std__fig6_localization_vs_clock_std-1.png"
+      ],
+      "metadata_path": "previews/2049835fa675__v24_figure_outputs__fig6_localization_vs_clock_std__fig6_localization_vs_clock_std.json",
+      "raw_data_paths": [
+        "v24_figure_outputs/fig6_localization_vs_clock_std/fig6_localization_vs_clock_std_raw.csv",
+        "v24_figure_outputs/fig6_localization_vs_clock_std/fig6_localization_vs_clock_std_raw.npz",
+        "v24_figure_outputs/fig6_localization_vs_clock_std/fig6_localization_vs_clock_std_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_figure_outputs/fig6_localization_vs_clock_std/fig6_localization_vs_clock_std_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "573663d890fdbad1a10cc2562ab0d084d8ffe140a94a4ed27f50b1295660c17b",
+      "source_pdf_size_bytes": 20224
+    },
+    {
+      "figure_name": "fig7_synchronization_vs_clock_std.pdf",
+      "group": "package diagnostic",
+      "source_pdf_path": "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std.pdf",
+      "preview_paths": [
+        "previews/0835b288adef__v24_figure_outputs__fig7_synchronization_vs_clock_std__fig7_synchronization_vs_clock_std-1.png"
+      ],
+      "metadata_path": "previews/0835b288adef__v24_figure_outputs__fig7_synchronization_vs_clock_std__fig7_synchronization_vs_clock_std.json",
+      "raw_data_paths": [
+        "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std_raw.csv",
+        "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std_raw.npz",
+        "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_figure_outputs/fig7_synchronization_vs_clock_std/fig7_synchronization_vs_clock_std_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "92c09679b8677d7b3f0fb99a7b85406dd6c2b5c30063d2978ecdacd688e2c975",
+      "source_pdf_size_bytes": 19725
+    },
+    {
+      "figure_name": "fig4_localization_vs_satellites_human_review.pdf",
+      "group": "human-review",
+      "source_pdf_path": "v24_human_review_outputs/fig4_localization_vs_satellites_human_review/fig4_localization_vs_satellites_human_review.pdf",
+      "preview_paths": [
+        "previews/224479d29ab1__fig4_localization_vs_satellites_human_review__fig4_localization_vs_satellites_human_review-1.png"
+      ],
+      "metadata_path": "previews/224479d29ab1__fig4_localization_vs_satellites_human_review__fig4_localization_vs_satellites_human_review.json",
+      "raw_data_paths": [
+        "v24_human_review_outputs/fig4_localization_vs_satellites_human_review/fig4_localization_vs_satellites_human_review_raw.csv",
+        "v24_human_review_outputs/fig4_localization_vs_satellites_human_review/fig4_localization_vs_satellites_human_review_raw.npz",
+        "v24_human_review_outputs/fig4_localization_vs_satellites_human_review/fig4_localization_vs_satellites_human_review_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_human_review_outputs/fig4_localization_vs_satellites_human_review/fig4_localization_vs_satellites_human_review_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "f53447289ce434c358864569e19944919500d837134efaf10682d6c302a404c4",
+      "source_pdf_size_bytes": 25558
+    },
+    {
+      "figure_name": "fig5_synchronization_vs_satellites_human_review.pdf",
+      "group": "human-review",
+      "source_pdf_path": "v24_human_review_outputs/fig5_synchronization_vs_satellites_human_review/fig5_synchronization_vs_satellites_human_review.pdf",
+      "preview_paths": [
+        "previews/a425ac21260c__ynchronization_vs_satellites_human_review__fig5_synchronization_vs_satellites_human_review-1.png"
+      ],
+      "metadata_path": "previews/a425ac21260c__ynchronization_vs_satellites_human_review__fig5_synchronization_vs_satellites_human_review.json",
+      "raw_data_paths": [
+        "v24_human_review_outputs/fig5_synchronization_vs_satellites_human_review/fig5_synchronization_vs_satellites_human_review_raw.csv",
+        "v24_human_review_outputs/fig5_synchronization_vs_satellites_human_review/fig5_synchronization_vs_satellites_human_review_raw.npz",
+        "v24_human_review_outputs/fig5_synchronization_vs_satellites_human_review/fig5_synchronization_vs_satellites_human_review_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_human_review_outputs/fig5_synchronization_vs_satellites_human_review/fig5_synchronization_vs_satellites_human_review_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "2e3f30b25f3ad83479f9c6bbb0fd04b4e58e573cf94a081bcf9fc52af850e0cf",
+      "source_pdf_size_bytes": 25057
+    },
+    {
+      "figure_name": "fig6_localization_vs_clock_std_human_review.pdf",
+      "group": "human-review",
+      "source_pdf_path": "v24_human_review_outputs/fig6_localization_vs_clock_std_human_review/fig6_localization_vs_clock_std_human_review.pdf",
+      "preview_paths": [
+        "previews/af547fc3eef8____fig6_localization_vs_clock_std_human_review__fig6_localization_vs_clock_std_human_review-1.png"
+      ],
+      "metadata_path": "previews/af547fc3eef8____fig6_localization_vs_clock_std_human_review__fig6_localization_vs_clock_std_human_review.json",
+      "raw_data_paths": [
+        "v24_human_review_outputs/fig6_localization_vs_clock_std_human_review/fig6_localization_vs_clock_std_human_review_raw.csv",
+        "v24_human_review_outputs/fig6_localization_vs_clock_std_human_review/fig6_localization_vs_clock_std_human_review_raw.npz",
+        "v24_human_review_outputs/fig6_localization_vs_clock_std_human_review/fig6_localization_vs_clock_std_human_review_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_human_review_outputs/fig6_localization_vs_clock_std_human_review/fig6_localization_vs_clock_std_human_review_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "0397ae1c78cb28fdd9546c1ab23f304925282700ad70d64439d485df0be49cb0",
+      "source_pdf_size_bytes": 19910
+    },
+    {
+      "figure_name": "fig7_synchronization_vs_clock_std_human_review.pdf",
+      "group": "human-review",
+      "source_pdf_path": "v24_human_review_outputs/fig7_synchronization_vs_clock_std_human_review/fig7_synchronization_vs_clock_std_human_review.pdf",
+      "preview_paths": [
+        "previews/52c79bcf5a34___synchronization_vs_clock_std_human_review__fig7_synchronization_vs_clock_std_human_review-1.png"
+      ],
+      "metadata_path": "previews/52c79bcf5a34___synchronization_vs_clock_std_human_review__fig7_synchronization_vs_clock_std_human_review.json",
+      "raw_data_paths": [
+        "v24_human_review_outputs/fig7_synchronization_vs_clock_std_human_review/fig7_synchronization_vs_clock_std_human_review_raw.csv",
+        "v24_human_review_outputs/fig7_synchronization_vs_clock_std_human_review/fig7_synchronization_vs_clock_std_human_review_raw.npz",
+        "v24_human_review_outputs/fig7_synchronization_vs_clock_std_human_review/fig7_synchronization_vs_clock_std_human_review_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_human_review_outputs/fig7_synchronization_vs_clock_std_human_review/fig7_synchronization_vs_clock_std_human_review_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "23816d5adfbe7de0336a5bcb76dc91174d2ad4dbdb51e5c0fa8c6d188d54eddc",
+      "source_pdf_size_bytes": 19109
+    },
+    {
+      "figure_name": "fig4_localization_vs_satellites_candidate.pdf",
+      "group": "manuscript-candidate",
+      "source_pdf_path": "v24_manuscript_candidate_outputs/fig4_localization_vs_satellites_candidate/fig4_localization_vs_satellites_candidate.pdf",
+      "preview_paths": [
+        "previews/fbef1592a1fc__puts__fig4_localization_vs_satellites_candidate__fig4_localization_vs_satellites_candidate-1.png"
+      ],
+      "metadata_path": "previews/fbef1592a1fc__puts__fig4_localization_vs_satellites_candidate__fig4_localization_vs_satellites_candidate.json",
+      "raw_data_paths": [
+        "v24_manuscript_candidate_outputs/fig4_localization_vs_satellites_candidate/fig4_localization_vs_satellites_candidate_raw.csv",
+        "v24_manuscript_candidate_outputs/fig4_localization_vs_satellites_candidate/fig4_localization_vs_satellites_candidate_raw.npz",
+        "v24_manuscript_candidate_outputs/fig4_localization_vs_satellites_candidate/fig4_localization_vs_satellites_candidate_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_manuscript_candidate_outputs/fig4_localization_vs_satellites_candidate/fig4_localization_vs_satellites_candidate_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "ca0a620463e0d0d53ff60d4289ff44d3b08bea9e30fcfa157fa7aa616ee66e51",
+      "source_pdf_size_bytes": 24972
+    },
+    {
+      "figure_name": "fig5_synchronization_vs_satellites_candidate.pdf",
+      "group": "manuscript-candidate",
+      "source_pdf_path": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate.pdf",
+      "preview_paths": [
+        "previews/e83b75c3c709__fig5_synchronization_vs_satellites_candidate__fig5_synchronization_vs_satellites_candidate-1.png"
+      ],
+      "metadata_path": "previews/e83b75c3c709__fig5_synchronization_vs_satellites_candidate__fig5_synchronization_vs_satellites_candidate.json",
+      "raw_data_paths": [
+        "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_raw.csv",
+        "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_raw.npz",
+        "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "bcfee926c7f6e9d90bf63223bd74e4abf07171cf3cfce699ad0e0b722396d678",
+      "source_pdf_size_bytes": 24376
+    },
+    {
+      "figure_name": "fig6_localization_vs_clock_std_candidate.pdf",
+      "group": "manuscript-candidate",
+      "source_pdf_path": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate.pdf",
+      "preview_paths": [
+        "previews/58fc33a4140a__utputs__fig6_localization_vs_clock_std_candidate__fig6_localization_vs_clock_std_candidate-1.png"
+      ],
+      "metadata_path": "previews/58fc33a4140a__utputs__fig6_localization_vs_clock_std_candidate__fig6_localization_vs_clock_std_candidate.json",
+      "raw_data_paths": [
+        "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_raw.csv",
+        "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_raw.npz",
+        "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "e733be06de2868c6f4b5db3bd775303c484508c55e825c78b31bc1f1999d4f7a",
+      "source_pdf_size_bytes": 20491
+    },
+    {
+      "figure_name": "fig7_synchronization_vs_clock_std_candidate.pdf",
+      "group": "manuscript-candidate",
+      "source_pdf_path": "v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate.pdf",
+      "preview_paths": [
+        "previews/36e4b878d9e3____fig7_synchronization_vs_clock_std_candidate__fig7_synchronization_vs_clock_std_candidate-1.png"
+      ],
+      "metadata_path": "previews/36e4b878d9e3____fig7_synchronization_vs_clock_std_candidate__fig7_synchronization_vs_clock_std_candidate.json",
+      "raw_data_paths": [
+        "v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_raw.csv",
+        "v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_raw.npz",
+        "v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "c3e190533dba4be512015a38180220c7dd327c31ae246388c6f814dc2b968e8d",
+      "source_pdf_size_bytes": 19850
+    },
+    {
+      "figure_name": "pos_vary_clock.pdf",
+      "group": "legacy clock-sweep smoke",
+      "source_pdf_path": "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/pos_vary_clock.pdf",
+      "preview_paths": [
+        "previews/5404b494810f__v24_notebook_regression_outputs__executed_legacy__clock_sweep_replay__pos_vary_clock-1.png"
+      ],
+      "metadata_path": "previews/5404b494810f__v24_notebook_regression_outputs__executed_legacy__clock_sweep_replay__pos_vary_clock.json",
+      "raw_data_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_arrays.npz",
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_raw.csv",
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_metadata.json"
+      ],
+      "status": "legacy_full_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "6d27d790f0dd417053ba7ad102a5da272dad887d3f0e4612e9ec69ca41cca1d1",
+      "source_pdf_size_bytes": 22534
+    },
+    {
+      "figure_name": "sync_vary_clock.pdf",
+      "group": "legacy clock-sweep smoke",
+      "source_pdf_path": "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/sync_vary_clock.pdf",
+      "preview_paths": [
+        "previews/ad8ff758fd8f__v24_notebook_regression_outputs__executed_legacy__clock_sweep_replay__sync_vary_clock-1.png"
+      ],
+      "metadata_path": "previews/ad8ff758fd8f__v24_notebook_regression_outputs__executed_legacy__clock_sweep_replay__sync_vary_clock.json",
+      "raw_data_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_arrays.npz",
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_raw.csv",
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_metadata.json"
+      ],
+      "status": "legacy_full_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "bdfcfcf36759fbf5d2bfc266e6ec64a8d5996c8bcbd27f8d9fe0091f1e09f173",
+      "source_pdf_size_bytes": 22041
+    },
+    {
+      "figure_name": "pos_vary_clock.pdf",
+      "group": "legacy clock-sweep full",
+      "source_pdf_path": "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/pos_vary_clock.pdf",
+      "preview_paths": [
+        "previews/ac4301184086__v24_notebook_regression_outputs__executed_legacy__clock_sweep_replay_full__pos_vary_clock-1.png"
+      ],
+      "metadata_path": "previews/ac4301184086__v24_notebook_regression_outputs__executed_legacy__clock_sweep_replay_full__pos_vary_clock.json",
+      "raw_data_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/legacy_clock_sweep_arrays.npz",
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/legacy_clock_sweep_raw.csv",
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/legacy_clock_sweep_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/legacy_clock_sweep_metadata.json"
+      ],
+      "status": "legacy_full_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "49a45f1120cf8292f0ac9d32657d2441b573c1fae62f34cbf4aff59a1d42e628",
+      "source_pdf_size_bytes": 22759
+    },
+    {
+      "figure_name": "sync_vary_clock.pdf",
+      "group": "legacy clock-sweep full",
+      "source_pdf_path": "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/sync_vary_clock.pdf",
+      "preview_paths": [
+        "previews/d265162a62a3__v24_notebook_regression_outputs__executed_legacy__clock_sweep_replay_full__sync_vary_clock-1.png"
+      ],
+      "metadata_path": "previews/d265162a62a3__v24_notebook_regression_outputs__executed_legacy__clock_sweep_replay_full__sync_vary_clock.json",
+      "raw_data_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/legacy_clock_sweep_arrays.npz",
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/legacy_clock_sweep_raw.csv",
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/legacy_clock_sweep_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay_full/legacy_clock_sweep_metadata.json"
+      ],
+      "status": "legacy_full_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "ae08a237944c1772f11ad9ada2453cec956dbdaef30d1ffeecfec75977a20604",
+      "source_pdf_size_bytes": 22497
+    },
+    {
+      "figure_name": "pos_crlb_0dB_0dB.pdf",
+      "group": "legacy CRLB replay",
+      "source_pdf_path": "v24_notebook_regression_outputs/executed_legacy/crlb_replay/pos_crlb_0dB_0dB.pdf",
+      "preview_paths": [
+        "previews/086a67cac4d6__v24_notebook_regression_outputs__executed_legacy__crlb_replay__pos_crlb_0dB_0dB-1.png"
+      ],
+      "metadata_path": "previews/086a67cac4d6__v24_notebook_regression_outputs__executed_legacy__crlb_replay__pos_crlb_0dB_0dB.json",
+      "raw_data_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_crlb_replay_arrays.npz",
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_loc_mat_km2_per_user.csv",
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_pos_plot_y_m.csv",
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_sync_mat_km2_per_clock.csv",
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_sync_plot_y_ns.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_crlb_replay_metadata.json"
+      ],
+      "status": "legacy_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy notebook CRLB logic replayed safely into diagnostics, but match to existing artifact is unverified and V24 caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "1fdfb07b3bb9f9e13b7affef0b5b8735379ce9b4a540e2bfab6a92c06e987f13",
+      "source_pdf_size_bytes": 24138
+    },
+    {
+      "figure_name": "sync_crlb_0dB_0dB.pdf",
+      "group": "legacy CRLB replay",
+      "source_pdf_path": "v24_notebook_regression_outputs/executed_legacy/crlb_replay/sync_crlb_0dB_0dB.pdf",
+      "preview_paths": [
+        "previews/5f69840a390b__v24_notebook_regression_outputs__executed_legacy__crlb_replay__sync_crlb_0dB_0dB-1.png"
+      ],
+      "metadata_path": "previews/5f69840a390b__v24_notebook_regression_outputs__executed_legacy__crlb_replay__sync_crlb_0dB_0dB.json",
+      "raw_data_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_crlb_replay_arrays.npz",
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_loc_mat_km2_per_user.csv",
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_pos_plot_y_m.csv",
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_sync_mat_km2_per_clock.csv",
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_sync_plot_y_ns.csv"
+      ],
+      "nearby_metadata_paths": [
+        "v24_notebook_regression_outputs/executed_legacy/crlb_replay/legacy_crlb_replay_metadata.json"
+      ],
+      "status": "legacy_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy notebook CRLB logic replayed safely into diagnostics, but match to existing artifact is unverified and V24 caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "849d6c0a1e0279c2b75219293b23d0afc659148b02bbc74147a6ab2ea412c0e8",
+      "source_pdf_size_bytes": 23711
+    }
+  ],
+  "branch": "codex/legacy-figures-gallery-crlb-nlos",
+  "commit": "bd34891"
+}

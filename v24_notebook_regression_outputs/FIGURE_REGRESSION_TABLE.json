@@ -3030,7 +3030,7 @@
     }
   ],
   "report_type": "figure_regression_table",
-  "reproduction_status": "legacy_clock_sweep_full_replayed_unverified_match",
+  "reproduction_status": "legacy_network_size_smoke_replayed_unverified_match",
   "status": "complete_static_partial_regression",
   "artifact_status": "non_final_status_upgrade",
   "legacy_reproduction_status_schema": [
@@ -3045,15 +3045,23 @@
   "target_figure_statuses": [
     {
       "figure": "pos_vary_ues.pdf",
-      "status": "static_mapped_only",
+      "status": "legacy_network_size_smoke_replayed_unverified_match",
       "reproduced": false,
-      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+      "reason": "Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.",
+      "legacy_replay": true,
+      "bounded_smoke_replay": true,
+      "manuscript_ready": false,
+      "replayed_output_root": "outputs/legacy_replay/network_size"
     },
     {
       "figure": "sync_vary_ues.pdf",
-      "status": "static_mapped_only",
+      "status": "legacy_network_size_smoke_replayed_unverified_match",
       "reproduced": false,
-      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+      "reason": "Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.",
+      "legacy_replay": true,
+      "bounded_smoke_replay": true,
+      "manuscript_ready": false,
+      "replayed_output_root": "outputs/legacy_replay/network_size"
     },
     {
       "figure": "pos_vary_clock.pdf",
@@ -3096,5 +3104,6 @@
   ],
   "status_upgrade_note": "Existing static records are preserved. Target manuscript figures are not marked reproduced until their figure-generation cells are actually executed with redirected outputs.",
   "crlb_replay_report": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\legacy_crlb_replay_metadata.json",
-  "clock_sweep_replay_report": "v24_notebook_regression_outputs\\executed_legacy\\clock_sweep_replay_full\\legacy_clock_sweep_metadata.json"
+  "clock_sweep_replay_report": "v24_notebook_regression_outputs\\executed_legacy\\clock_sweep_replay_full\\legacy_clock_sweep_metadata.json",
+  "network_size_replay_report": "outputs/reports/LEGACY_NETWORK_SIZE_REPLAY_REPORT.json"
 }

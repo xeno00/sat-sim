@@ -1,0 +1,90 @@
+{
+  "artifact_status": "non_final_legacy_network_size_replay",
+  "status": "legacy_network_size_smoke_replayed_unverified_match",
+  "legacy_replay": true,
+  "manuscript_ready": false,
+  "not_for_manuscript_submission": true,
+  "output_root": "outputs/legacy_replay/network_size",
+  "runtime_seconds": 233.97453479998512,
+  "config": {
+    "mode": "network_size_smoke",
+    "num_satellites": [
+      4,
+      8,
+      12
+    ],
+    "num_users": 3,
+    "clock_std_dev": 5e-10,
+    "num_iterations": 2,
+    "error_range": 100.0,
+    "seed": 2042,
+    "estimator_mode": "legacy_il_lm_map_filter_iteration"
+  },
+  "executed_cells": [
+    {
+      "cell_index_zero_based": 7,
+      "cell_number_one_based": 8,
+      "name": "Node"
+    },
+    {
+      "cell_index_zero_based": 9,
+      "cell_number_one_based": 10,
+      "name": "User"
+    },
+    {
+      "cell_index_zero_based": 11,
+      "cell_number_one_based": 12,
+      "name": "Satellite"
+    },
+    {
+      "cell_index_zero_based": 13,
+      "cell_number_one_based": 14,
+      "name": "Datalink"
+    },
+    {
+      "cell_index_zero_based": 15,
+      "cell_number_one_based": 16,
+      "name": "Scenario"
+    },
+    {
+      "cell_index_zero_based": 17,
+      "cell_number_one_based": 18,
+      "name": "Optimizer"
+    },
+    {
+      "cell_index_zero_based": 25,
+      "cell_number_one_based": 26,
+      "name": "fit_helpers"
+    }
+  ],
+  "counts": {
+    "row_count": 3,
+    "cache_hit_count": 0,
+    "cache_miss_count": 3,
+    "total_fallback_events": 6,
+    "rows_with_failures": 0
+  },
+  "legacy_caveats": {
+    "bounded_smoke_replay_only": true,
+    "all_clock_symbolic_state": true,
+    "v24_gauging_absent": true,
+    "truth_error_acceptance_gates_used": true,
+    "legacy_sync_metric_averages_all_clock_symbols": true,
+    "not_claimed_to_match_manuscript_figures": true,
+    "first_user_row_without_cooperation_convention_not_used_in_this_smoke": true
+  },
+  "raw_outputs": {
+    "raw_csv": "outputs/legacy_replay/network_size/legacy_network_size_raw.csv",
+    "arrays_npz": "outputs/legacy_replay/network_size/legacy_network_size_arrays.npz"
+  },
+  "plot_outputs": [
+    "outputs/legacy_replay/network_size/pos_vary_ues.pdf",
+    "outputs/legacy_replay/network_size/sync_vary_ues.pdf"
+  ],
+  "cache_manifest": {
+    "json": "outputs/cache/CACHE_MANIFEST.json",
+    "md": "outputs/cache/CACHE_MANIFEST.md",
+    "fresh_hit_count": 0,
+    "miss_or_stale_count": 3
+  }
+}

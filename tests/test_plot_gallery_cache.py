@@ -1,4 +1,5 @@
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -7,7 +8,7 @@ from scripts import replay_legacy_clock_sweep_figures as replay
 
 
 ROOT = Path(__file__).resolve().parents[1]
-GALLERY_ROOT = ROOT / "v24_plot_gallery"
+GALLERY_ROOT = ROOT / "outputs" / "gallery"
 CACHE_ROOT = ROOT / "v24_notebook_regression_outputs" / "cache"
 
 
@@ -25,19 +26,29 @@ class TestPlotGalleryAndClockCache(unittest.TestCase):
 
         preview_count = 0
         for entry in gallery["entries"]:
-            self.assertNotIn("Work-In-Progress", entry["source_pdf_path"])
-            self.assertNotIn("GeneratePSFrag", entry["source_pdf_path"])
+            source_pdf_path = entry["source_pdf_path"]
+            if source_pdf_path is not None:
+                self.assertNotIn("\\", source_pdf_path)
+                self.assertNotIn("Work-In-Progress", source_pdf_path)
+                self.assertNotIn("GeneratePSFrag", source_pdf_path)
             for preview in entry["preview_paths"]:
                 preview_count += 1
-                path = ROOT / preview
+                self.assertNotIn("\\", preview)
+                path = GALLERY_ROOT / preview
                 self.assertTrue(path.exists(), preview)
                 self.assertGreater(path.stat().st_size, 0)
         self.assertGreater(preview_count, 0)
 
         html = (GALLERY_ROOT / "PLOT_GALLERY.html").read_text(encoding="utf-8")
         markdown = (GALLERY_ROOT / "PLOT_GALLERY.md").read_text(encoding="utf-8")
+        self.assertNotRegex(markdown, r"!\[[^\]]+\]\([^)]*\\")
+        self.assertNotRegex(html, r"<img[^>]+src=['\"][^'\"]*\\")
         self.assertIn(".png", html)
         self.assertIn(".png", markdown)
+        for image_path in re.findall(r"!\[[^\]]+\]\(([^)]+)\)", markdown):
+            self.assertTrue((GALLERY_ROOT / image_path).exists(), image_path)
+        for image_path in re.findall(r"<img[^>]+src=['\"]([^'\"]+)['\"]", html):
+            self.assertTrue((GALLERY_ROOT / image_path).exists(), image_path)
 
     def test_full_clock_replay_metadata_records_cache_hits(self) -> None:
         report = json.loads(

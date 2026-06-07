@@ -1,36 +1,36 @@
 MODE: PLAN_ONLY
 
-# Next Task: Plan Safe Legacy Network-Size Figure Replay
+# Next Task: Decide Full Legacy Replay Versus V24-Clean Figure Replacement
 
 ## Purpose
 
-Use the successful safe CRLB and clock-sweep replay artifacts to plan the next
-legacy figure-family replay. Do not implement yet and do not regenerate
-manuscript figures.
+Use the canonical graph package under `outputs/` to decide the next safe figure
+provenance step. Do not edit manuscript files and do not generate manuscript
+figures.
 
-Already replayed into diagnostics:
+Completed diagnostic/replay artifacts:
 
-- `pos_crlb_0dB_0dB.pdf`
-- `sync_crlb_0dB_0dB.pdf`
-- `pos_vary_clock.pdf`
-- `sync_vary_clock.pdf`
-
-The next candidate family is:
-
-- `pos_vary_ues.pdf`
-- `sync_vary_ues.pdf`
+- Corrected LOS CRLB legacy replay under `outputs/legacy_replay/crlb_los/`.
+- NLOS CRLB failure report under `outputs/reports/CRLB_NLOS_REPORT.md`.
+- Full legacy clock-sweep replay copied under
+  `outputs/legacy_replay/clock_sweep_full/`.
+- Bounded legacy-compatible network-size smoke replay under
+  `outputs/legacy_replay/network_size/`.
+- Canonical gallery under `outputs/gallery/`.
+- Current graph status under `outputs/reports/CURRENT_GRAPH_STATUS.md`.
 
 ## Scope
 
 Inspect:
 
-- `v24_notebook_regression_outputs/LEGACY_CRLB_REPLAY_REPORT.md`
-- `v24_notebook_regression_outputs/LEGACY_CLOCK_SWEEP_REPLAY_REPORT.md`
-- `v24_notebook_regression_outputs/LEGACY_CLOCK_SWEEP_FULL_REPLAY_REPORT.md`
+- `outputs/OUTPUT_INDEX.md`
+- `outputs/gallery/PLOT_GALLERY.md`
+- `outputs/reports/CURRENT_GRAPH_STATUS.md`
+- `outputs/reports/CRLB_LOS_REPLAY_REPORT.md`
+- `outputs/reports/CRLB_NLOS_REPORT.md`
+- `outputs/reports/LEGACY_NETWORK_SIZE_REPLAY_REPORT.md`
+- `outputs/cache/CACHE_MANIFEST.md`
 - `v24_notebook_regression_outputs/FIGURE_REGRESSION_TABLE.md`
-- `scripts/replay_legacy_crlb_figures.py`
-- `scripts/replay_legacy_clock_sweep_figures.py`
-- `JCLS_Simulation.ipynb` statically only
 
 Do not edit:
 
@@ -46,35 +46,24 @@ Do not edit:
 
 ## Required Analysis
 
-1. Identify exact notebook cells/functions needed for:
-   - `pos_vary_ues.pdf`
-   - `sync_vary_ues.pdf`
-2. Determine whether replay depends on:
-   - nonlinear estimator convergence,
-   - workspace variables from previous cells,
-   - oracle/truth-gated updates,
-   - smoothing/fitting/manual edits,
-   - random seeds or Monte Carlo loops.
-3. Decide whether a safe replay should:
-   - execute the original legacy network-size logic with reduced grid/trials;
-   - replay saved/static arrays if present;
-   - create a tiny deterministic smoke replay;
-   - or stop because a human decision is required.
-4. Propose output paths under
-   `v24_notebook_regression_outputs/executed_legacy/network_size_replay/`.
-5. Define tests and stop conditions.
+1. Decide whether a full legacy network-size replay is worth running next, given
+   the bounded smoke replay and runtime/caveats.
+2. Decide whether NLOS CRLB needs a model-design task before any graph can be
+   generated.
+3. Decide whether the canonical graph package is sufficient for human visual
+   review or needs more gallery/report polish.
+4. Identify which existing manuscript figures are most likely to need V24-clean
+   replacement rather than legacy replay provenance.
+5. Propose the smallest next implementation task.
 
 ## Expected Output
 
 Return a plan with:
 
-- network-size figure dependency map;
-- extraction/skipping rules;
-- runtime/seed risk;
-- output redirection strategy;
-- smallest next implementation task;
-- tests to add;
-- whether full legacy network-size replay is feasible.
+- full legacy replay recommendation;
+- V24-clean replacement recommendation;
+- NLOS CRLB model-design recommendation;
+- risk level;
+- exact allowed files for the next implementation task;
+- stop conditions and tests.
 
-Update `PROJECT_STATUS.md` and `docs/tasks/NEXT.md` only if the human approves a
-new implementation plan.
