@@ -102,6 +102,16 @@ diagnostic-only/non-final/not-manuscript-ready flags, overwrite protection, and
 output-root guardrails. If tests pass, the branch may be considered for merge as
 diagnostic scaffold infrastructure only, not as final figure provenance.
 
+A manuscript-candidate geometry/noise path is implemented on branch
+`codex/manuscript-geometry-noise`. It adds MIT Stata reference LLA/ECEF
+geometry, deterministic UE placement inside a 500 m disk, synthetic
+Starlink-like LEO satellite geometry with a 30 degree elevation mask, and
+separate DL/SL link-budget-derived range-domain sigmas. Candidate outputs are
+written under `v24_manuscript_candidate_outputs/` with candidate-only,
+non-final, not-manuscript-ready flags. These outputs are closer to V24
+geometry/noise assumptions but are still not final manuscript figures because
+algorithm fidelity remains unresolved.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -137,6 +147,8 @@ JSON/CSV/NPZ outputs are implemented on branch `codex/crlb-decision-sprint`.
 The package-native V24 Fig. 4--7 diagnostic runner/tests and non-final outputs
 are implemented and provenance-hardened on branch
 `codex/package-native-figures-4-7`.
+The manuscript-candidate geometry/noise runner/tests and non-final candidate
+outputs are implemented on branch `codex/manuscript-geometry-noise`.
 
 ## Next task
 
@@ -164,7 +176,11 @@ See `docs/tasks/NEXT.md`.
   geometry and flat range-domain noise, are intentionally not forced to match
   the legacy notebook, and require human technical review before any manuscript
   figure replacement decision.
+- Manuscript-candidate Fig. 4--7 outputs exist under
+  `v24_manuscript_candidate_outputs/`; these outputs use MIT/Stata-centered UE
+  geometry, synthetic visible LEO satellites, and link-budget-derived DL/SL
+  sigmas, but still require algorithm-fidelity work before manuscript use.
 - No manuscript text or response-letter text should be changed based on the
   current package-native Fig. 4--7 diagnostic outputs. The next substantive
-  sprint after merge should address manuscript-grade geometry/noise or
-  algorithm fidelity.
+  sprint should address algorithm fidelity: full V24 three-stage estimation and
+  dynamic SCI/SFI refinement with `F`, `Q`, and `Pi`.

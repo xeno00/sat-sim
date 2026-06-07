@@ -259,6 +259,39 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
             for forbidden in forbidden_fragments:
                 self.assertNotIn(forbidden, text)
 
+    def test_checked_in_candidate_outputs_have_candidate_schema(self) -> None:
+        output_root = Path("v24_manuscript_candidate_outputs")
+        expected_figures = {
+            "fig4_localization_vs_satellites_candidate",
+            "fig5_synchronization_vs_satellites_candidate",
+            "fig6_localization_vs_clock_std_candidate",
+            "fig7_synchronization_vs_clock_std_candidate",
+        }
+
+        self.assertTrue(output_root.exists())
+        self.assertEqual({path.name for path in output_root.iterdir() if path.is_dir()}, expected_figures)
+        combined = json.loads((output_root / "figure_provenance_table.json").read_text(encoding="utf-8"))
+        self.assertFalse(combined["diagnostic_only"])
+        self.assertTrue(combined["candidate_only"])
+        self.assertFalse(combined["manuscript_ready"])
+        self.assertEqual(combined["artifact_warning"], CANDIDATE_ARTIFACT_WARNING)
+        self.assertEqual(len(combined["rows"]), 4)
+
+        for figure_id in expected_figures:
+            with self.subTest(figure_id=figure_id):
+                figure_dir = output_root / figure_id
+                metadata = json.loads((figure_dir / f"{figure_id}_metadata.json").read_text(encoding="utf-8"))
+                provenance = json.loads((figure_dir / f"{figure_id}_provenance.json").read_text(encoding="utf-8"))
+                self.assertFalse(metadata["diagnostic_only"])
+                self.assertTrue(metadata["candidate_only"])
+                self.assertFalse(metadata["manuscript_ready"])
+                self.assertEqual(metadata["artifact_warning"], CANDIDATE_ARTIFACT_WARNING)
+                self.assertIn("case_metadata", metadata)
+                self.assertIn("geometry", metadata["case_metadata"][0])
+                self.assertIn("link_noise", metadata["case_metadata"][0])
+                self.assertEqual(provenance["provenance_type"], "package_native_v24_manuscript_candidate_figure_provenance")
+                self.assertTrue(provenance["candidate_only"])
+
     def test_output_root_guard_rejects_unsafe_locations(self) -> None:
         unsafe_roots = [
             Path("..") / "outside",

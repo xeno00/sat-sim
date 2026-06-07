@@ -3,25 +3,26 @@ MODE: REVIEW_DIFF
 This task may be executed via `RUN_CODEX.md`. Do not edit files. Do not merge
 unless the human explicitly approves merge after review.
 
-# Next Task: Review Package-Native Fig. 4--7 Diagnostics Before Merge
+# Next Task: Review Manuscript-Candidate Geometry/Noise Branch Before Merge
 
 ## Purpose
 
-Review branch `codex/package-native-figures-4-7` before merge. The branch adds
-package-native, deterministic, non-final diagnostic generation for the V24
-manuscript Fig. 4--7 families. The branch should be considered for merge only
-as diagnostic scaffold infrastructure, not as final manuscript figure
-provenance.
+Review branch `codex/manuscript-geometry-noise` before merge. The branch adds a
+manuscript-candidate geometry/noise path for V24 Fig. 4--7 families while
+leaving algorithm fidelity for a later sprint.
 
 ## Scope
 
 Inspect:
 
-- `configs/v24_figures_4_7/*.json`
+- `jcls_sim/geometry.py`
+- `jcls_sim/noise.py`
 - `jcls_sim/figure_generation.py`
-- `scripts/run_v24_figures_4_7.py`
+- `configs/v24_manuscript_candidate_figures_4_7/*.json`
+- `tests/test_geometry.py`
+- `tests/test_noise.py`
 - `tests/test_figure_generation.py`
-- `v24_figure_outputs/**`
+- `v24_manuscript_candidate_outputs/**`
 - `PROJECT_STATUS.md`
 - `docs/tasks/NEXT.md`
 
@@ -39,43 +40,27 @@ Do not edit:
 
 ## Checks
 
-1. Confirm all outputs are non-final and stored only under `v24_figure_outputs/`.
-2. Confirm no notebook execution or notebook imports are used.
-3. Confirm no manuscript/response/bibliography/Work-In-Progress figure outputs
-   are touched.
-4. Confirm checked-in configs are deterministic and include seeds, trials,
-   units, and assumptions.
-5. Confirm the baselines are explicitly defined:
-   - Without cooperation: per-UE DL-only localization, no clock estimation.
-   - Coarse JCLS: full V24 theta, one measurement epoch.
-   - Refined JCLS: full V24 theta initialized from coarse and fused over
-     repeated static-geometry epochs.
-6. Confirm metadata/provenance JSON includes commit/config/seed/trials/units/
-   runtime/code path and notebook/manuscript-output flags.
-7. Confirm all metadata/provenance/table paths are repo-relative and contain no
-   machine-specific absolute paths.
-8. Confirm all metadata/provenance/table payloads include:
-   - `diagnostic_only: true`
+1. Confirm UE geometry is deterministic, MIT/Stata-centered, and inside a 500 m
+   disk.
+2. Confirm LLA/ECEF units are sane and positions are stored internally in km.
+3. Confirm synthetic LEO satellite geometry is clearly labeled, applies a
+   30 degree elevation mask, records visible/requested/selected satellites, and
+   is interface-compatible with later TLE/SGP4 replacement.
+4. Confirm DL/SL link-budget sigmas use configured frequencies, bandwidths,
+   powers, gains, FSPL, noise power, SNR, and the beta/SNR TOA formula.
+5. Confirm range-domain sigmas are in km and metrics remain meters/seconds/ns as
+   appropriate.
+6. Confirm metadata records UE LLA/ECEF coordinates, satellite IDs/elevations/
+   ranges/ECEF coordinates, link assumptions, SNR ranges, and sigma ranges.
+7. Confirm candidate outputs are under `v24_manuscript_candidate_outputs/` and
+   include:
+   - `diagnostic_only: false`
+   - `candidate_only: true`
    - `non_final: true`
    - `manuscript_ready: false`
    - `not_for_manuscript_submission: true`
-   - a human-readable diagnostic warning.
-9. Confirm output-root guardrails reject Work-In-Progress, PSFrag, notebook/
-   legacy, parent traversal, and outside-repository output roots unless the
-   documented developer-only unsafe override is used.
-10. Confirm overwrite behavior is conservative by default and requires
-   `--overwrite` for existing outputs.
-11. Confirm synchronization plots display nanoseconds while raw stored metrics
-   remain seconds.
-12. Confirm raw CSV, summary CSV, NPZ, PDF, metadata JSON, provenance JSON, and
-   combined provenance table are present.
-13. Confirm tests pass:
-
-   ```powershell
-   powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
-   ```
-
-   or from the parent repository root:
+8. Confirm existing hardened diagnostic outputs remain diagnostic-only.
+9. Confirm tests pass:
 
    ```powershell
    powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'
@@ -83,14 +68,11 @@ Do not edit:
 
 ## Known Caveats To Verify Are Explicit
 
-- The outputs use synthetic deterministic static geometry, not legacy TLE or
-  notebook geometry.
-- The outputs use flat range-domain standard deviations, not the legacy
-  link-budget-derived sigma model.
-- The refined JCLS baseline is repeated-epoch static-geometry fusion, not a
-  full dynamic EKF/F/Q/Pi reproduction.
-- The configs intentionally do not force package-native curves to match legacy
-  notebook curves.
+- Satellite geometry is synthetic Starlink-like LEO, not TLE/SGP4 yet.
+- Candidate outputs are not manuscript-grade.
+- Algorithm fidelity remains incomplete: refined JCLS is repeated static-epoch
+  fusion, not full dynamic SCI/SFI with `F`, `Q`, and `Pi`.
+- No manuscript text should be changed based on these outputs.
 
 ## Required Output
 
@@ -101,12 +83,4 @@ Return:
 - required fixes before merge, if any;
 - nonblocking caveats;
 - confirmation out-of-scope files were untouched;
-- next recommended task after merge.
-
-## Hard Constraints
-
-- Do not edit files.
-- Do not run notebook code.
-- Do not generate manuscript figures.
-- Do not run full sweeps.
-- Do not merge unless explicitly approved after review.
+- next recommended task after merge, expected to be algorithm fidelity.
