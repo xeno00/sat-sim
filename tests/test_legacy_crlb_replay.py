@@ -59,8 +59,6 @@ class TestLegacyCrlbReplay(unittest.TestCase):
         for figure in [
             "pos_vary_ues.pdf",
             "sync_vary_ues.pdf",
-            "pos_vary_clock.pdf",
-            "sync_vary_clock.pdf",
         ]:
             self.assertEqual(status_by_figure[figure]["status"], "static_mapped_only")
 

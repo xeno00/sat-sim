@@ -3030,7 +3030,7 @@
     }
   ],
   "report_type": "figure_regression_table",
-  "reproduction_status": "legacy_crlb_replayed_unverified_match",
+  "reproduction_status": "legacy_clock_sweep_replayed_unverified_match",
   "status": "complete_static_partial_regression",
   "artifact_status": "non_final_status_upgrade",
   "legacy_reproduction_status_schema": [
@@ -3057,15 +3057,21 @@
     },
     {
       "figure": "pos_vary_clock.pdf",
-      "status": "static_mapped_only",
+      "status": "legacy_replayed_unverified_match",
       "reproduced": false,
-      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+      "reason": "Legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "legacy_replay": true,
+      "manuscript_ready": false,
+      "replayed_output_root": "v24_notebook_regression_outputs\\executed_legacy\\clock_sweep_replay"
     },
     {
       "figure": "sync_vary_clock.pdf",
-      "status": "static_mapped_only",
+      "status": "legacy_replayed_unverified_match",
       "reproduced": false,
-      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+      "reason": "Legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "legacy_replay": true,
+      "manuscript_ready": false,
+      "replayed_output_root": "v24_notebook_regression_outputs\\executed_legacy\\clock_sweep_replay"
     },
     {
       "figure": "pos_crlb_0dB_0dB.pdf",
@@ -3087,5 +3093,6 @@
     }
   ],
   "status_upgrade_note": "Existing static records are preserved. Target manuscript figures are not marked reproduced until their figure-generation cells are actually executed with redirected outputs.",
-  "crlb_replay_report": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\legacy_crlb_replay_metadata.json"
+  "crlb_replay_report": "v24_notebook_regression_outputs\\executed_legacy\\crlb_replay\\legacy_crlb_replay_metadata.json",
+  "clock_sweep_replay_report": "v24_notebook_regression_outputs\\executed_legacy\\clock_sweep_replay\\legacy_clock_sweep_metadata.json"
 }
