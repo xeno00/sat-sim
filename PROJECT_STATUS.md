@@ -97,6 +97,10 @@ explicit baseline semantics for without-cooperation, coarse JCLS, and refined
 JCLS, and writes deterministic non-final raw CSV, summary CSV, NPZ, PDF,
 metadata JSON, and provenance JSON outputs under `v24_figure_outputs/`. The
 outputs are provenance/diagnostic artifacts only and are not manuscript figures.
+The diagnostic artifacts are hardened with repo-relative paths, explicit
+diagnostic-only/non-final/not-manuscript-ready flags, overwrite protection, and
+output-root guardrails. If tests pass, the branch may be considered for merge as
+diagnostic scaffold infrastructure only, not as final figure provenance.
 
 ## Blocking risks
 
@@ -131,7 +135,8 @@ branch `codex/crlb-decision-sprint`.
 The CRLB figure-family regression diagnostic runner/tests and non-final
 JSON/CSV/NPZ outputs are implemented on branch `codex/crlb-decision-sprint`.
 The package-native V24 Fig. 4--7 diagnostic runner/tests and non-final outputs
-are implemented on branch `codex/package-native-figures-4-7`.
+are implemented and provenance-hardened on branch
+`codex/package-native-figures-4-7`.
 
 ## Next task
 
@@ -159,3 +164,7 @@ See `docs/tasks/NEXT.md`.
   geometry and flat range-domain noise, are intentionally not forced to match
   the legacy notebook, and require human technical review before any manuscript
   figure replacement decision.
+- No manuscript text or response-letter text should be changed based on the
+  current package-native Fig. 4--7 diagnostic outputs. The next substantive
+  sprint after merge should address manuscript-grade geometry/noise or
+  algorithm fidelity.

@@ -1,4 +1,5 @@
 {
+  "artifact_warning": "Diagnostic-only package-native output; not a manuscript-grade reproduction and not for TAES submission.",
   "base_seed": 20260707,
   "baselines": {
     "coarse_jcls": {
@@ -36,18 +37,23 @@
     "jcls_sim.fim",
     "jcls_sim.metrics"
   ],
-  "commit_hash": "78d50924ce5b82f5af1a753512cad731848c8c03",
-  "config_path": "C:/Users/James/MIT Dropbox/James Morrison/Academics/MIT/WINSLab/WINS Manuscripts/Morrison, J/SCL-NTN-TAES-2025/sat-sim/configs/v24_figures_4_7/fig7_synchronization_vs_clock_std.json",
+  "commit_hash": "c20cd87beda780d1821eb8266676acb3b4f502a8",
+  "config_path": "configs/v24_figures_4_7/fig7_synchronization_vs_clock_std.json",
+  "diagnostic_only": true,
   "figure_id": "fig7_synchronization_vs_clock_std",
   "manuscript_directories_touched": false,
+  "manuscript_ready": false,
   "metadata_type": "package_native_v24_figure_metadata",
   "monte_carlo_trials": 10,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
   "notebook_used": false,
   "output_dir": "v24_figure_outputs/fig7_synchronization_vs_clock_std",
+  "overwrite_used": true,
   "range_std_dev_km": 0.03,
   "raw_row_count": 150,
   "refinement_epochs": 5,
-  "runtime_seconds": 45.6428665999847,
+  "runtime_seconds": 43.95429150000564,
   "summary_row_count": 15,
   "units": {
     "clock_offsets_internal": "range-domain km",

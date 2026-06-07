@@ -9,7 +9,9 @@ unless the human explicitly approves merge after review.
 
 Review branch `codex/package-native-figures-4-7` before merge. The branch adds
 package-native, deterministic, non-final diagnostic generation for the V24
-manuscript Fig. 4--7 families.
+manuscript Fig. 4--7 families. The branch should be considered for merge only
+as diagnostic scaffold infrastructure, not as final manuscript figure
+provenance.
 
 ## Scope
 
@@ -50,11 +52,24 @@ Do not edit:
      repeated static-geometry epochs.
 6. Confirm metadata/provenance JSON includes commit/config/seed/trials/units/
    runtime/code path and notebook/manuscript-output flags.
-7. Confirm synchronization plots display nanoseconds while raw stored metrics
+7. Confirm all metadata/provenance/table paths are repo-relative and contain no
+   machine-specific absolute paths.
+8. Confirm all metadata/provenance/table payloads include:
+   - `diagnostic_only: true`
+   - `non_final: true`
+   - `manuscript_ready: false`
+   - `not_for_manuscript_submission: true`
+   - a human-readable diagnostic warning.
+9. Confirm output-root guardrails reject Work-In-Progress, PSFrag, notebook/
+   legacy, parent traversal, and outside-repository output roots unless the
+   documented developer-only unsafe override is used.
+10. Confirm overwrite behavior is conservative by default and requires
+   `--overwrite` for existing outputs.
+11. Confirm synchronization plots display nanoseconds while raw stored metrics
    remain seconds.
-8. Confirm raw CSV, summary CSV, NPZ, PDF, metadata JSON, provenance JSON, and
+12. Confirm raw CSV, summary CSV, NPZ, PDF, metadata JSON, provenance JSON, and
    combined provenance table are present.
-9. Confirm tests pass:
+13. Confirm tests pass:
 
    ```powershell
    powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
