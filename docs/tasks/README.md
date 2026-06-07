@@ -18,6 +18,16 @@ queue task. After each substantial implementation task, update
 `PROJECT_STATUS.md` and replace `docs/tasks/NEXT.md` with the next recommended
 task. Do not start the next task automatically.
 
+## Python dependencies
+
+Do not add virtual-environment or bootstrap machinery unless the human
+explicitly asks. Use the selected Python runtime directly. If a standard
+scientific package needed by the task is missing, install the minimal package
+set into that same runtime with `python -m pip install ...`, rerun the import
+check, and report the exact install command. Current standard test dependencies
+are `numpy`, `scipy`, and `matplotlib`. Stop and ask before installing packages
+outside the standard scientific Python stack.
+
 ## Modes
 
 - `MODE: PLAN_ONLY`: inspect and plan; do not edit files.

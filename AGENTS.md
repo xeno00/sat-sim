@@ -191,6 +191,15 @@ Out-of-scope files untouched:
   powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'
   ```
 
+- Do not create `.venv`, bootstrap, Poetry, Conda, Pipenv, or pyproject
+  dependency machinery unless the human explicitly asks.
+- Use the selected Python runtime directly. If standard scientific Python
+  packages required by the current task are missing, install only the minimal
+  needed packages into that same runtime using `python -m pip install ...`.
+- Current standard test dependencies are `numpy`, `scipy`, and `matplotlib`.
+- Report the exact install command used. Do not silently install large or
+  unusual packages; stop and ask before installing packages outside the
+  standard scientific Python stack.
 - If running tests manually, use `python -m unittest discover -s tests` from the
   `sat-sim` root.
 - Do not run full sweeps unless explicitly approved.

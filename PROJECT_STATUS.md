@@ -11,6 +11,11 @@ may be used when helpful. Parallel edit-capable work requires Git
 branch/worktree isolation, explicit file ownership, and coordinator-owned
 integration/merge decisions.
 
+Python tests use the active Python runtime directly. The workflow intentionally
+does not create virtual environments or bootstrap scripts; if standard
+scientific test packages are missing, Codex installs the minimal needed
+packages into the selected runtime and reports the command.
+
 ## Manuscript relationship
 
 The V24 manuscript and response letter live outside this repository and are

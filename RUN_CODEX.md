@@ -97,16 +97,36 @@ Preferred test command:
 powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'
 ```
 
+Python dependency policy:
+
+- Do not add virtual-environment machinery unless the human explicitly asks.
+- First use the selected Python runtime.
+- If required standard scientific packages are missing, install only the
+  minimal missing standard packages into that same runtime with
+  `python -m pip install ...`, then rerun the import check and tests.
+- For now, the standard test dependencies are `numpy`, `scipy`, and
+  `matplotlib`.
+- Report the exact install command used.
+- Do not silently install large or unusual packages. Stop and ask before
+  installing packages outside the standard scientific Python stack.
+
 Manual fallback:
 
 ```powershell
 python -m unittest discover -s tests
 ```
 
-If default `python` lacks NumPy, use the bundled runtime:
+If default `python` is unavailable, use the bundled runtime:
 
 ```powershell
 & 'C:\Users\James\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' -m unittest discover -s tests
+```
+
+If the bundled runtime is selected and dependencies are missing, install into
+that runtime, for example:
+
+```powershell
+& 'C:\Users\James\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' -m pip install numpy scipy matplotlib
 ```
 
 Do not run full sweeps or generate final manuscript figures unless explicitly
