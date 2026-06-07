@@ -36,9 +36,14 @@ synchronization bounds with post-hoc clock-column slicing.
 
 Full-gauged bound extraction helpers and a non-final CRLB diagnostic smoke path
 are implemented and tested. The package-native non-final CRLB mini-sweep
-runner, tests, and non-final JSON diagnostic are implemented. Next: review the
-mini-sweep diagnostic trends and decide whether to implement package-native
-non-final CRLB diagnostic curves.
+runner, tests, and non-final JSON diagnostic are implemented. CRLB diagnostic
+hardening helpers/tests are implemented: seconds-domain versus range-domain
+clock-parameter invariance, rank-deficient manuscript reportability, and
+fixed-parameter information-addition monotonicity. The CRLB diagnostic builders
+now include nullity and manuscript CRLB status fields, but persistent JSON
+diagnostics were not regenerated in the hardening task because only unit tests
+were requested. Next: refresh the non-final hardened CRLB diagnostic JSON files
+under `v24_diagnostics/`.
 
 ## Blocking risks
 
@@ -50,6 +55,8 @@ non-final CRLB diagnostic curves.
 - Legacy CRLB figure pipelines delete clock columns and form separate FIMs;
   package helpers now avoid this, but the legacy notebook has not been
   refactored and manuscript figures have not been rerun.
+- Rank-deficient CRLB cases must not be treated as finite manuscript-style
+  bounds unless the relevant subspace is proven estimable.
 - Figures may need rerun after the V24-gauge code path is integrated into
   reproducible scripts.
 
@@ -57,8 +64,10 @@ non-final CRLB diagnostic curves.
 
 Estimator correctness tests, deterministic end-to-end package smoke test,
 package-level V24 reproducibility smoke runner, full-gauged CRLB bound
-extraction helpers, and package-native non-final CRLB mini-sweep runner/tests
-are implemented. Non-final diagnostic JSON exists under `v24_diagnostics/`.
+extraction helpers, package-native non-final CRLB mini-sweep runner/tests, and
+CRLB diagnostic hardening tests are implemented. Non-final diagnostic JSON
+exists under `v24_diagnostics/`, but the persistent JSON files still need to be
+refreshed with the hardened schema.
 
 ## Next task
 
@@ -70,8 +79,9 @@ See `docs/tasks/NEXT.md`.
   package-native non-final CRLB mini-sweep is reviewed and explicitly approved
   for figure-rerun work.
 - The package-native CRLB mini-sweep diagnostic exists at
-  `v24_diagnostics/sweep_v24_crlb_ns.json`, but it is non-final and not a
-  manuscript figure.
+  `v24_diagnostics/sweep_v24_crlb_ns.json`, but it is non-final, not a
+  manuscript figure, and should be refreshed with the hardened reportability
+  fields before the next CRLB review.
 - Synchronization sweeps likely need rerun after V24-gauge metric integration.
 - Localization sweeps are still under human/code-provenance review because the
   legacy solver state is overparameterized relative to V24.

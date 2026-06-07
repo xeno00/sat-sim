@@ -86,6 +86,121 @@ def covariance_from_fim(
     return covariance, metadata
 
 
+def _indices_from_slice(parameter_slice: slice, dimension: int) -> list[int]:
+    """Return explicit indices selected by a slice."""
+
+    return list(range(*parameter_slice.indices(dimension)))
+
+
+def ue_position_parameter_indices(num_users: int) -> list[int]:
+    """Return all UE position parameter indices in V24 theta order."""
+
+    if num_users < 1:
+        raise ValueError(f"num_users must be at least 1, got {num_users}.")
+    return list(range(3 * num_users))
+
+
+def clock_parameter_indices(
+    num_users: int,
+    num_satellites: int,
+    group: str = "all_non_reference",
+) -> list[int]:
+    """Return clock parameter indices for a selected V24 clock group."""
+
+    expected_dim = expected_v24_parameter_dim(num_users, num_satellites)
+    if group == "all_non_reference":
+        selected_slice = clock_block_slice(num_users, num_satellites)
+    elif group == "ue":
+        selected_slice = ue_clock_block_slice(num_users, num_satellites)
+    elif group == "satellite_non_reference":
+        selected_slice = non_reference_satellite_clock_block_slice(num_users, num_satellites)
+    else:
+        raise ValueError(
+            "group must be one of 'all_non_reference', 'ue', "
+            f"or 'satellite_non_reference', got {group!r}."
+        )
+    indices = _indices_from_slice(selected_slice, expected_dim)
+    if not indices:
+        raise ValueError(f"group={group!r} selected no clock parameters.")
+    return indices
+
+
+def subspace_is_estimable_from_fim(
+    fim: np.ndarray,
+    parameter_indices: list[int] | tuple[int, ...] | np.ndarray,
+    rcond: float = 1e-12,
+    component_tol: float | None = None,
+) -> bool:
+    """Return whether selected coordinates avoid the FIM nullspace."""
+
+    fim_array = _validate_square_matrix(fim, "fim")
+    if rcond <= 0.0:
+        raise ValueError(f"rcond must be positive, got {rcond}.")
+    indices = np.asarray(parameter_indices, dtype=int)
+    if indices.ndim != 1 or indices.size == 0:
+        raise ValueError("parameter_indices must be a nonempty one-dimensional sequence.")
+    dimension = fim_array.shape[0]
+    if np.any(indices < 0) or np.any(indices >= dimension):
+        raise ValueError(f"parameter_indices must be in [0, {dimension - 1}].")
+
+    singular_values = np.linalg.svd(fim_array, compute_uv=False)
+    rank = int(np.sum(singular_values > rcond))
+    nullity = dimension - rank
+    if nullity == 0:
+        return True
+
+    _, _, vh = np.linalg.svd(fim_array, full_matrices=True)
+    nullspace = vh[rank:].T
+    selected_nullspace = nullspace[indices, :]
+    tolerance = component_tol if component_tol is not None else max(rcond, np.finfo(float).eps * dimension)
+    return bool(np.linalg.norm(selected_nullspace, ord="fro") <= tolerance)
+
+
+def manuscript_crlb_reportability_from_fim(
+    fim: np.ndarray,
+    num_users: int,
+    num_satellites: int,
+    rcond: float = 1e-12,
+) -> dict[str, bool | int | str]:
+    """Return whether V24 manuscript-style CRLB bounds are finite/reportable."""
+
+    _validate_counts(num_users, num_satellites)
+    fim_array = _validate_square_matrix(fim, "fim")
+    expected_dim = expected_v24_parameter_dim(num_users, num_satellites)
+    if fim_array.shape != (expected_dim, expected_dim):
+        raise ValueError(f"fim must have shape ({expected_dim}, {expected_dim}), got {fim_array.shape}.")
+    rank = int(np.linalg.matrix_rank(fim_array, tol=rcond))
+    nullity = expected_dim - rank
+    full_rank = nullity == 0
+    position_estimable = subspace_is_estimable_from_fim(
+        fim_array,
+        ue_position_parameter_indices(num_users),
+        rcond=rcond,
+    )
+    clock_estimable = subspace_is_estimable_from_fim(
+        fim_array,
+        clock_parameter_indices(num_users, num_satellites),
+        rcond=rcond,
+    )
+    manuscript_bounds_defined = full_rank or (position_estimable and clock_estimable)
+    if full_rank:
+        status = "finite_full_rank"
+    elif manuscript_bounds_defined:
+        status = "finite_estimable_subspace_rank_deficient"
+    else:
+        status = "undefined_rank_deficient"
+    return {
+        "dimension": expected_dim,
+        "rank": rank,
+        "nullity": nullity,
+        "full_rank": full_rank,
+        "ue_position_subspace_estimable": position_estimable,
+        "clock_subspace_estimable": clock_estimable,
+        "manuscript_bounds_defined": manuscript_bounds_defined,
+        "manuscript_crlb_status": status,
+    }
+
+
 def ue_position_block_indices(num_users: int) -> list[slice]:
     """Return per-UE 3D position block slices in V24 theta order."""
 

@@ -18,6 +18,7 @@ from jcls_sim.bounds import (
     average_clock_bound_from_covariance,
     average_ue_peb_from_covariance,
     covariance_from_fim,
+    manuscript_crlb_reportability_from_fim,
 )
 from jcls_sim.configs import V24ScenarioConfig, v24_crlb_mini_sweep_config
 from jcls_sim.fim import fim_rank, gaussian_fim_from_jacobian
@@ -63,9 +64,25 @@ def build_v24_crlb_sweep_case(
     )
     fim = gaussian_fim_from_jacobian(jacobian, config.range_std_devs_km)
     covariance, metadata = covariance_from_fim(fim)
+    reportability = manuscript_crlb_reportability_from_fim(
+        fim,
+        config.num_users,
+        config.num_satellites,
+    )
     symmetric_fim = (fim + fim.T) / 2.0
     eigenvalues = np.linalg.eigvalsh(symmetric_fim)
     runtime_seconds = time.perf_counter() - start if measure_runtime else 0.0
+    average_ue_peb_km = average_ue_peb_from_covariance(
+        covariance,
+        config.num_users,
+        config.num_satellites,
+    )
+    average_clock_bound_km = average_clock_bound_from_covariance(
+        covariance,
+        config.num_users,
+        config.num_satellites,
+    )
+    manuscript_bounds_defined = bool(reportability["manuscript_bounds_defined"])
 
     return json_ready(
         {
@@ -78,24 +95,26 @@ def build_v24_crlb_sweep_case(
                 config.num_satellites,
             ),
             "measurement_count": len(config.links),
+            "unknown_count": int(theta.shape[0]),
             "range_std_devs_km": config.range_std_devs_km,
             "links": [list(link) for link in config.links],
             "fim_shape": list(fim.shape),
             "fim_rank": fim_rank(fim),
+            "fim_nullity": int(reportability["nullity"]),
             "fim_min_eigenvalue": float(np.min(eigenvalues)),
             "covariance_method": metadata["method"],
             "covariance_rank": int(np.linalg.matrix_rank(covariance)),
             "covariance_condition_number": metadata["condition_number"],
-            "average_ue_peb_km": average_ue_peb_from_covariance(
-                covariance,
-                config.num_users,
-                config.num_satellites,
-            ),
-            "average_clock_bound_km": average_clock_bound_from_covariance(
-                covariance,
-                config.num_users,
-                config.num_satellites,
-            ),
+            "diagnostic_average_ue_peb_km": average_ue_peb_km,
+            "diagnostic_average_clock_bound_km": average_clock_bound_km,
+            "average_ue_peb_km": average_ue_peb_km,
+            "average_clock_bound_km": average_clock_bound_km,
+            "manuscript_average_ue_peb_km": average_ue_peb_km if manuscript_bounds_defined else None,
+            "manuscript_average_clock_bound_km": average_clock_bound_km if manuscript_bounds_defined else None,
+            "manuscript_bounds_defined": manuscript_bounds_defined,
+            "manuscript_crlb_status": reportability["manuscript_crlb_status"],
+            "ue_position_subspace_estimable": reportability["ue_position_subspace_estimable"],
+            "clock_subspace_estimable": reportability["clock_subspace_estimable"],
             "average_ue_clock_bound_km": average_clock_bound_from_covariance(
                 covariance,
                 config.num_users,

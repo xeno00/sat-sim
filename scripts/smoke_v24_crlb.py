@@ -18,6 +18,7 @@ from jcls_sim.bounds import (
     average_ue_peb_from_covariance,
     clock_std_bounds_from_covariance,
     covariance_from_fim,
+    manuscript_crlb_reportability_from_fim,
     per_user_peb_from_covariance,
 )
 from jcls_sim.configs import V24ScenarioConfig, tiny_v24_reproducibility_config
@@ -44,9 +45,39 @@ def build_v24_crlb_diagnostics(config: V24ScenarioConfig | None = None) -> dict[
     )
     fim = gaussian_fim_from_jacobian(jacobian, scenario.range_std_devs_km)
     covariance, metadata = covariance_from_fim(fim)
+    reportability = manuscript_crlb_reportability_from_fim(
+        fim,
+        scenario.num_users,
+        scenario.num_satellites,
+    )
     symmetric_fim = (fim + fim.T) / 2.0
     eigenvalues = np.linalg.eigvalsh(symmetric_fim)
     reference_node_id = reference_satellite_node_id(scenario.num_users)
+    manuscript_bounds_defined = bool(reportability["manuscript_bounds_defined"])
+    average_ue_peb_km = average_ue_peb_from_covariance(
+        covariance,
+        scenario.num_users,
+        scenario.num_satellites,
+    )
+    average_clock_bound_km = {
+        "all_non_reference": average_clock_bound_from_covariance(
+            covariance,
+            scenario.num_users,
+            scenario.num_satellites,
+        ),
+        "ue": average_clock_bound_from_covariance(
+            covariance,
+            scenario.num_users,
+            scenario.num_satellites,
+            group="ue",
+        ),
+        "satellite_non_reference": average_clock_bound_from_covariance(
+            covariance,
+            scenario.num_users,
+            scenario.num_satellites,
+            group="satellite_non_reference",
+        ),
+    }
     return json_ready(
         {
             "diagnostic_type": "non_final_v24_full_gauged_crlb_smoke",
@@ -64,41 +95,31 @@ def build_v24_crlb_diagnostics(config: V24ScenarioConfig | None = None) -> dict[
                 scenario.num_satellites,
             ),
             "measurement_count": len(scenario.links),
+            "unknown_count": int(theta.shape[0]),
             "fim_shape": list(fim.shape),
             "fim_rank": fim_rank(fim),
+            "fim_nullity": int(reportability["nullity"]),
             "fim_min_eigenvalue": float(np.min(eigenvalues)),
             "covariance_method": metadata["method"],
             "covariance_rank": metadata["rank"],
             "covariance_condition_number": metadata["condition_number"],
-            "average_ue_peb_km": average_ue_peb_from_covariance(
-                covariance,
-                scenario.num_users,
-                scenario.num_satellites,
+            "average_ue_peb_km": average_ue_peb_km,
+            "diagnostic_average_ue_peb_km": average_ue_peb_km,
+            "manuscript_average_ue_peb_km": average_ue_peb_km if manuscript_bounds_defined else None,
+            "manuscript_average_clock_bound_km": (
+                average_clock_bound_km["all_non_reference"] if manuscript_bounds_defined else None
             ),
+            "manuscript_bounds_defined": manuscript_bounds_defined,
+            "manuscript_crlb_status": reportability["manuscript_crlb_status"],
+            "ue_position_subspace_estimable": reportability["ue_position_subspace_estimable"],
+            "clock_subspace_estimable": reportability["clock_subspace_estimable"],
             "per_user_peb_km": per_user_peb_from_covariance(
                 covariance,
                 scenario.num_users,
                 scenario.num_satellites,
             ),
-            "average_clock_bound_km": {
-                "all_non_reference": average_clock_bound_from_covariance(
-                    covariance,
-                    scenario.num_users,
-                    scenario.num_satellites,
-                ),
-                "ue": average_clock_bound_from_covariance(
-                    covariance,
-                    scenario.num_users,
-                    scenario.num_satellites,
-                    group="ue",
-                ),
-                "satellite_non_reference": average_clock_bound_from_covariance(
-                    covariance,
-                    scenario.num_users,
-                    scenario.num_satellites,
-                    group="satellite_non_reference",
-                ),
-            },
+            "average_clock_bound_km": average_clock_bound_km,
+            "diagnostic_average_clock_bound_km": average_clock_bound_km["all_non_reference"],
             "clock_std_bounds_km": {
                 "all_non_reference": clock_std_bounds_from_covariance(
                     covariance,

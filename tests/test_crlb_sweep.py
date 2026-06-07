@@ -54,11 +54,22 @@ class TestV24CrlbMiniSweep(unittest.TestCase):
             self.assertEqual(case["expected_parameter_dim"], expected_dim)
             self.assertEqual(case["fim_shape"], [expected_dim, expected_dim])
             self.assertEqual(case["measurement_count"], 2 * num_satellites + 1)
+            self.assertEqual(case["unknown_count"], expected_dim)
             self.assertIsInstance(case["fim_rank"], int)
+            self.assertEqual(case["fim_nullity"], expected_dim - case["fim_rank"])
             self.assertIn(case["covariance_method"], {"inverse", "pinv"})
             self.assertIsInstance(case["covariance_rank"], int)
             self.assertIn("covariance_condition_number", case)
             self.assertIn("fim_min_eigenvalue", case)
+            self.assertIn(
+                case["manuscript_crlb_status"],
+                {
+                    "finite_full_rank",
+                    "finite_estimable_subspace_rank_deficient",
+                    "undefined_rank_deficient",
+                },
+            )
+            self.assertIsInstance(case["manuscript_bounds_defined"], bool)
             self.assertIn("runtime_seconds", case)
 
     def test_bounds_are_finite_and_nonnegative(self) -> None:
@@ -74,6 +85,21 @@ class TestV24CrlbMiniSweep(unittest.TestCase):
             for key in bound_keys:
                 self.assertTrue(np.isfinite(case[key]), msg=f"{key} was not finite")
                 self.assertGreaterEqual(case[key], 0.0, msg=f"{key} was negative")
+
+    def test_rank_deficient_cases_are_not_manuscript_reportable(self) -> None:
+        payload = build_v24_crlb_sweep_diagnostics(base_seed=20260606)
+
+        for case in payload["cases"]:
+            if case["fim_nullity"] == 0:
+                self.assertTrue(case["manuscript_bounds_defined"])
+                self.assertEqual(case["manuscript_crlb_status"], "finite_full_rank")
+                self.assertEqual(case["manuscript_average_ue_peb_km"], case["average_ue_peb_km"])
+                self.assertEqual(case["manuscript_average_clock_bound_km"], case["average_clock_bound_km"])
+            else:
+                self.assertFalse(case["manuscript_bounds_defined"])
+                self.assertEqual(case["manuscript_crlb_status"], "undefined_rank_deficient")
+                self.assertIsNone(case["manuscript_average_ue_peb_km"])
+                self.assertIsNone(case["manuscript_average_clock_bound_km"])
 
     def test_json_writer_refuses_overwrite_by_default(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

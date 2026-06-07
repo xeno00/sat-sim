@@ -1,31 +1,33 @@
-MODE: PLAN_ONLY
+MODE: IMPLEMENT_APPROVED
 
-This task may be executed via `RUN_CODEX.md`. Use flexible subagents if useful.
-Use branch/worktree isolation for any parallel edit-capable work. Create a
-file-ownership table before edits. Commit and push task-scoped changes when
-complete. Do not merge unless explicitly allowed.
+This task may be executed via `RUN_CODEX.md`. Use flexible subagents only if
+useful. Commit and push task-scoped changes when complete. Do not merge unless
+explicitly allowed.
 
-# Next Task: Review Package-Native CRLB Mini-Sweep Diagnostics
+# Next Task: Refresh Hardened Non-Final CRLB Diagnostics
 
 ## Purpose
 
-Review the non-final package-native CRLB mini-sweep diagnostic trends and decide
-whether the next implementation step should be package-native non-final CRLB
-diagnostic curves. Do not generate final manuscript figures.
+Regenerate the existing non-final CRLB diagnostic JSON files so they include the
+hardened rank/nullity and manuscript-reportability fields added by the CRLB
+diagnostic hardening pass. Do not generate manuscript figures.
 
 ## Scope
 
-Allowed files to inspect:
+Allowed files to edit:
 
+- `v24_diagnostics/smoke_v24_crlb.json`
 - `v24_diagnostics/sweep_v24_crlb_ns.json`
-- `scripts/sweep_v24_crlb.py`
-- `jcls_sim/configs.py`
-- `jcls_sim/jacobian.py`
-- `jcls_sim/fim.py`
-- `jcls_sim/bounds.py`
-- `tests/test_crlb_sweep.py`
 - `PROJECT_STATUS.md`
 - `docs/tasks/NEXT.md`
+
+Allowed files to inspect:
+
+- `scripts/smoke_v24_crlb.py`
+- `scripts/sweep_v24_crlb.py`
+- `jcls_sim/bounds.py`
+- `tests/test_bounds.py`
+- `tests/test_crlb_sweep.py`
 
 Do not edit:
 
@@ -37,43 +39,36 @@ Do not edit:
 - PSFrag files
 - generated manuscript PDFs
 - generated figure PDFs/EPS/PNGs
-- existing result files
 - plotting code
 - figure-generation code
+- package source files
+- tests
 
-## Review Questions
+## Tasks
 
-1. Does the mini-sweep JSON contain one case for each `N_s in [2, 3, 4, 5, 6]`?
-2. Are the reported dimensions consistent with `4*Nu + Ns - 1`?
-3. Are FIM ranks, covariance methods, and condition numbers reported clearly?
-4. Are the reported PEB and clock-bound metrics finite and nonnegative?
-5. Do the trends look plausible enough for a non-final diagnostic, or do they
-   suggest a package bug or geometry-design issue?
-6. Which cases remain rank-deficient, and is that expected for the tiny
-   diagnostic geometry?
-7. Are the static legacy-risk notes adequate for provenance tracking?
-8. What would be the safest next implementation task if diagnostic curves are
-   warranted?
-
-## Required Output
-
-Return a concise plan/audit report with:
-
-- PASS / PASS WITH CAVEAT / FAIL for the mini-sweep diagnostic;
-- a small table of `N_s`, dimension, rank, covariance method, average UE PEB,
-  and average clock bound;
-- blocking issues, if any;
-- nonblocking caveats;
-- whether existing manuscript CRLB figures remain unsafe to trust;
-- recommended next task;
-- proposed replacement contents for `PROJECT_STATUS.md` and `docs/tasks/NEXT.md`
-  if the human approves moving forward.
+1. Run only the tiny non-final CRLB diagnostic writers with overwrite enabled:
+   - `scripts/smoke_v24_crlb.py`
+   - `scripts/sweep_v24_crlb.py`
+2. Confirm both JSON files include:
+   - `measurement_count`
+   - `unknown_count`
+   - `parameter_dim`
+   - `fim_rank`
+   - `fim_nullity`
+   - `covariance_method`
+   - `manuscript_crlb_status`
+   - `manuscript_bounds_defined`
+3. Confirm rank-deficient cases have `manuscript_crlb_status` set to
+   `undefined_rank_deficient` and manuscript-style bound values set to `null`.
+4. Run the sat-sim unit tests only.
+5. Update `PROJECT_STATUS.md` and replace `docs/tasks/NEXT.md` with the next
+   recommended PLAN_ONLY review task.
 
 ## Hard Constraints
 
-- Do not edit files in this task.
 - Do not run notebook code.
 - Do not generate figures.
 - Do not run full sweeps.
-- Do not update status/task files during this `PLAN_ONLY` review unless the
-  human explicitly asks for implementation.
+- Do not edit manuscript, response-letter, bibliography, figure, PSFrag,
+  generated PDF, notebook, package source, or test files.
+- Keep all outputs non-final under `v24_diagnostics/`.
