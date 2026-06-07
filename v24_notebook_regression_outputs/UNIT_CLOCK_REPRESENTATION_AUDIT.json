@@ -1,0 +1,22 @@
+{
+  "blocking": true,
+  "findings": [
+    "Manuscript primarily writes range/time model in meters and seconds with c multiplying clock differences.",
+    "Notebook stores positions in km and converts seconds to km via 3e8/1000 in Node clock_offset_km.",
+    "Package stores positions in km and clock states as range-equivalent km; plotting converts position to m and clocks to seconds/ns.",
+    "Notebook covariance code contains both covariance and inverse-covariance patterns; Sigma_z naming is not consistently trustworthy."
+  ],
+  "questions": [
+    "Verify no sqrt(clock_std_dev_km) sampling remains in active notebook figure path.",
+    "Verify no double c multiplication between Datalink noise, state clocks, and plotting.",
+    "Decide whether Sigma_z in old GN/LM code is covariance or precision in each cell."
+  ],
+  "report_type": "unit_clock_representation_audit",
+  "status": "complete_static_blocking_audit",
+  "tests_to_add": [
+    "m/seconds model equals km/range-equivalent model after conversion",
+    "clock std seconds -> km -> seconds round trip",
+    "unique clocks detect sign inversion",
+    "standard deviations are squared exactly once when forming R_z"
+  ]
+}

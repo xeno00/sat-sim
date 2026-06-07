@@ -1,0 +1,231 @@
+{
+  "assigned_role": "Manuscript System Model Agent",
+  "branch_worktree": "codex/notebook-manuscript-regression-sprint in sat-sim",
+  "files_inspected": [
+    "AGENTS.md",
+    "RUN_CODEX.md",
+    "PROJECT_STATUS.md",
+    "docs/tasks/NEXT.md",
+    "docs/tasks/QUEUE.md",
+    "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 539-648 and 874-976",
+    "jcls_sim/gauge.py",
+    "jcls_sim/parameters.py",
+    "jcls_sim/measurements.py",
+    "jcls_sim/jacobian.py",
+    "jcls_sim/fim.py",
+    "jcls_sim/configs.py"
+  ],
+  "files_changed": [
+    "v24_notebook_regression_outputs/subagent_reports/A_manuscript_system_model.md",
+    "v24_notebook_regression_outputs/subagent_reports/A_manuscript_system_model.json"
+  ],
+  "tests_checks_run": [
+    "Static inspection only; no notebook execution, manuscript build, code tests, or simulations were run."
+  ],
+  "result": "Completed read-only manuscript Section II mapping and wrote the requested report pair.",
+  "risks": [
+    "The ordered-link sign convention is the main regression risk.",
+    "The manuscript indexes h_{i,j} as node i transmitting to UE j, while package code stores links as (receiver_node_id, transmitter_node_id).",
+    "The code and manuscript are consistent only when this mapping is applied explicitly.",
+    "The manuscript uses meter/time-domain notation, while package modules use kilometer/range-equivalent clock variables."
+  ],
+  "recommended_next_action": "Require every notebook/package measurement row to carry explicit receiver_node_id, transmitter_node_id, link_type, and range-domain units before comparing against V24 manuscript equations.",
+  "scope_boundary_encountered": "No manuscript, notebook, package code, test, figure, or existing result-output files were edited or executed.",
+  "manuscript_objects": [
+    {
+      "object": "N_z",
+      "manuscript_definition": "N_DL + N_SL = N_u N_s + (N_u^2 - N_u).",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 571-579",
+      "expected_code_counterpart": "len(config.links) in V24ScenarioConfig.validate; link builders in jcls_sim/configs.py",
+      "audit_note": "Directed SL count implies all ordered UE-to-UE links except self-links."
+    },
+    {
+      "object": "DL graph",
+      "manuscript_definition": "Each satellite broadcasts downlink reference signals to each UE.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 566-569 and 571-574",
+      "expected_code_counterpart": "downlink_links(num_users, num_satellites) returns (user_node_id, satellite_node_id).",
+      "audit_note": "Code tuple is receiver first and transmitter second."
+    },
+    {
+      "object": "SL graph",
+      "manuscript_definition": "UEs form a terrestrial ad hoc mesh; directed count is N_u^2 - N_u.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 568 and 571-577",
+      "expected_code_counterpart": "directed_sidelink_links(num_users) returns all (receiver, transmitter) UE pairs with receiver not equal transmitter.",
+      "audit_note": "Matches count when all directed links are used; minimal_sidelink_links is a reduced diagnostic graph."
+    },
+    {
+      "object": "z",
+      "manuscript_definition": "RV{z} in R^{N_z}; one measurement per signal; measurement-agnostic and may contain heterogeneous measurements.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 593 and 619-623",
+      "expected_code_counterpart": "Observed arrays computed as z = h_theta + noise in package runners, in km.",
+      "audit_note": "Manuscript writes meters; package diagnostics use kilometers."
+    },
+    {
+      "object": "h(theta)",
+      "manuscript_definition": "Stacked parameterized range model V{h}(theta) in R^{N_z}.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 607-615",
+      "expected_code_counterpart": "toa_range_vector_from_theta_km(theta, links, satellite_positions_km, num_users, num_satellites)",
+      "audit_note": "Code row order is the supplied links order; manuscript stack order is by receiving UE j."
+    },
+    {
+      "object": "h_{i,j}",
+      "manuscript_definition": "Measurement from node i to UE j in meters: ||p_i-p_j|| + c(delta_i-delta_j), with delta_{Nu+1}=0.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex line 606",
+      "expected_code_counterpart": "toa_range_model_km(receiver_node_id, transmitter_node_id, ...) = range + transmitter_clock - receiver_clock.",
+      "audit_note": "Equivalent if manuscript (i,j) maps to code (receiver=j, transmitter=i) and clock variables are range-equivalent km."
+    },
+    {
+      "object": "theta",
+      "manuscript_definition": "[p_u^T, delta_u^T, delta_s^T]^T in R^{N_theta}.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 594-604",
+      "expected_code_counterpart": "pack_v24_theta, unpack_v24_theta, v24_parameter_names",
+      "audit_note": "Code order matches positions, UE clocks, and non-reference satellite clocks."
+    },
+    {
+      "object": "N_theta",
+      "manuscript_definition": "4 N_u + N_s - 1.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex line 594",
+      "expected_code_counterpart": "expected_v24_parameter_dim(num_users, num_satellites)",
+      "audit_note": "Matches."
+    },
+    {
+      "object": "reference clock",
+      "manuscript_definition": "First satellite is the reference clock; delta_{Nu+1} is fixed at zero.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 594 and 606",
+      "expected_code_counterpart": "reference_satellite_node_id(num_users) = Nu + 1; full_clock_dict_km sets this node to 0.0.",
+      "audit_note": "Matches V24 gauge."
+    },
+    {
+      "object": "UE clocks",
+      "manuscript_definition": "delta_u = [delta_1, ..., delta_Nu]^T.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 598-599",
+      "expected_code_counterpart": "ue_clock_offsets_km and ue_clock_param_names",
+      "audit_note": "Manuscript clock offsets are time-domain in c delta; code stores range-equivalent offsets."
+    },
+    {
+      "object": "non-reference satellite clocks",
+      "manuscript_definition": "delta_s = [delta_{Nu+2}, ..., delta_{Nu+Ns}]^T.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 600-601",
+      "expected_code_counterpart": "non_reference_satellite_clock_offsets_km and non_reference_satellite_clock_param_names",
+      "audit_note": "Matches exclusion of the first satellite."
+    },
+    {
+      "object": "R_z",
+      "manuscript_definition": "Cov(z) = E[n n^T]; for LOS/Rician Gaussian approximation, R_z = diag(sigma^2).",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex lines 624-640 and 946-954",
+      "expected_code_counterpart": "range_covariance_from_std_devs_km(range_std_devs_km)",
+      "audit_note": "Matches diagonal Gaussian/Rician case in range-domain km units."
+    },
+    {
+      "object": "sigma",
+      "manuscript_definition": "Positive range-domain standard deviations, with entries selected according to link conditions.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex line 640 and line 954",
+      "expected_code_counterpart": "range_std_devs_km validated per link in V24ScenarioConfig.validate",
+      "audit_note": "Code supports per-link values but does not by itself encode LOS/NLOS likelihood class."
+    },
+    {
+      "object": "units",
+      "manuscript_definition": "Range measurements are in meters; scalar pseudorange z = c tau_hat; delay-domain densities map to range-domain through c.",
+      "source": "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex line 606 and lines 876-907",
+      "expected_code_counterpart": "Package variables use _km; clock offsets are range-equivalent km.",
+      "audit_note": "Clock seconds/nanoseconds must be converted through speed of light before comparing to theta/code clocks."
+    }
+  ],
+  "expected_code_counterparts": [
+    {
+      "manuscript_concept": "Node ids",
+      "package_representation": "UEs 1..Nu; satellites Nu+1..Nu+Ns",
+      "required_invariant": "Reference satellite node id is exactly Nu+1."
+    },
+    {
+      "manuscript_concept": "theta layout",
+      "package_representation": "pack_v24_theta(ue_positions_km, ue_clock_offsets_km, non_reference_satellite_clock_offsets_km)",
+      "required_invariant": "No reference satellite clock column is present."
+    },
+    {
+      "manuscript_concept": "h(theta) rows",
+      "package_representation": "toa_range_vector_from_theta_km(theta, links, satellite_positions_km, Nu, Ns)",
+      "required_invariant": "Link order defines row order and must be documented."
+    },
+    {
+      "manuscript_concept": "DL links",
+      "package_representation": "(receiver_ue_id, transmitter_satellite_id)",
+      "required_invariant": "Equivalent to manuscript satellite-to-UE DL only if transmitter is the satellite."
+    },
+    {
+      "manuscript_concept": "SL links",
+      "package_representation": "(receiver_ue_id, transmitter_ue_id) directed pairs",
+      "required_invariant": "Full manuscript graph uses all ordered UE pairs except self-links."
+    },
+    {
+      "manuscript_concept": "clock sign",
+      "package_representation": "range + transmitter_clock - receiver_clock",
+      "required_invariant": "Equivalent to manuscript line 606 under transmitter-to-receiver interpretation."
+    },
+    {
+      "manuscript_concept": "R_z",
+      "package_representation": "diag(range_std_devs_km**2)",
+      "required_invariant": "Only the diagonal Gaussian/Rician covariance model is represented by this helper."
+    }
+  ],
+  "ambiguities": [
+    {
+      "topic": "ordered-link notation",
+      "detail": "Manuscript line 606 says measurement from node i to UE j and uses c(delta_i-delta_j). Code functions use (receiver_node_id, transmitter_node_id) and compute transmitter - receiver.",
+      "impact": "Consistent only if manuscript h_{i,j} maps to code link (j, i)."
+    },
+    {
+      "topic": "AGENTS.md sign shorthand",
+      "detail": "sat-sim/AGENTS.md summarizes h_{i,j} as ||p_i-p_j|| + c(delta_j-delta_i).",
+      "impact": "This can be consistent with code if i is receiver and j is transmitter, but it differs from the manuscript's transmitter-to-receiver indexing prose."
+    },
+    {
+      "topic": "heterogeneous measurements",
+      "detail": "Section II allows z to contain heterogeneous measurements, while inspected package helpers are range-domain TOA/Gaussian-centric.",
+      "impact": "Regression artifacts should not imply the package currently covers every heterogeneous likelihood allowed by manuscript prose."
+    },
+    {
+      "topic": "row ordering",
+      "detail": "Manuscript stacks h_j by receiving UE; code evaluates rows in supplied link order.",
+      "impact": "Comparisons require explicit row metadata."
+    },
+    {
+      "topic": "units",
+      "detail": "Manuscript equations use meters and time-domain clock offsets through c delta; package code uses km and range-equivalent clock offsets.",
+      "impact": "Synchronization metrics and FIM/Jacobian scaling can be wrong if conversion is skipped."
+    }
+  ],
+  "mismatches": [
+    {
+      "risk": "Silent link-order reversal",
+      "severity": "high",
+      "evidence": "Manuscript line 606 uses transmitter-to-receiver prose; code links are receiver/transmitter tuples.",
+      "consequence": "Reversing receiver and transmitter flips the clock-bias sign while leaving Euclidean range unchanged."
+    },
+    {
+      "risk": "Time-domain versus range-equivalent clocks",
+      "severity": "high",
+      "evidence": "Manuscript writes c(delta_i-delta_j); code clock variables are _km and Jacobian clock derivatives are +/-1.",
+      "consequence": "Directly comparing clock values without speed-of-light and km/m conversion can corrupt synchronization metrics or FIM scaling."
+    },
+    {
+      "risk": "Full directed SL graph versus reduced diagnostics",
+      "severity": "medium",
+      "evidence": "Manuscript count is N_u^2-N_u; code also has minimal_sidelink_links.",
+      "consequence": "Using minimal SL diagnostics as manuscript-equivalent would understate measurement count and observability."
+    },
+    {
+      "risk": "Gaussian covariance outside LOS/Rician case",
+      "severity": "medium",
+      "evidence": "Section II distinguishes LOS/Rician Gaussian covariance from NLOS density convolution.",
+      "consequence": "CRLB/FIM diagnostics using diag(sigma^2) should be labeled Gaussian/Rician or approximate."
+    },
+    {
+      "risk": "Implicit row order",
+      "severity": "medium",
+      "evidence": "Manuscript stacks by UE; code stacks according to supplied links.",
+      "consequence": "Notebook/package regression can falsely pass or fail if rows are compared without link metadata."
+    }
+  ],
+  "bottom_line": "The inspected package modules have the right V24 gauge, parameter dimension, theta layout, diagonal range covariance, and receiver/transmitter range model needed to represent Section II. The main care points are sign-convention naming and units: code links are (receiver, transmitter) and code clocks are range-equivalent kilometers, whereas the manuscript describes a transmission from node i to UE j and writes clock offsets through c delta."
+}

@@ -1,0 +1,82 @@
+{
+  "algorithm_steps": [
+    {
+      "expected_notebook_counterpart": "Optimizer.il_step / async_gn_step / gn_step preconditioning",
+      "intended_role": "reduced/clockless coarse localization",
+      "manuscript_location": "Section IV-D Step 1",
+      "mathematical_object": "GN/WNLS compact norm",
+      "relation": "conceptually direct but notebook may use reduced state tricks"
+    },
+    {
+      "expected_notebook_counterpart": "Optimizer.lm_step",
+      "intended_role": "full system model with clocks",
+      "manuscript_location": "Section IV-D Step 2",
+      "mathematical_object": "LM objective over theta",
+      "relation": "direct in concept; all-clock/gauged and Sigma_z handling require audit"
+    },
+    {
+      "expected_notebook_counterpart": "Optimizer.ekf_step / map filter cells",
+      "intended_role": "dynamic refinement",
+      "manuscript_location": "Section IV-D Step 3",
+      "mathematical_object": "SCI/SFI information-form EKF",
+      "relation": "approximate; notebook contains multiple covariance variants and process-noise constants"
+    }
+  ],
+  "figures": [
+    {
+      "claim": "localization CRLB improves with network size",
+      "figure": "Fig. 2",
+      "requires_code_support": "full gauged FIM/CRLB or justified legacy equivalent"
+    },
+    {
+      "claim": "sync CRLB decreases with users and can increase with satellites",
+      "figure": "Fig. 3",
+      "requires_code_support": "clock-bound extraction from correctly gauged covariance"
+    },
+    {
+      "claim": "JCLS localization improves over noncooperative TOA",
+      "figure": "Fig. 4",
+      "requires_code_support": "legacy/package algorithm regression"
+    },
+    {
+      "claim": "refined JCLS sync after 0.5 s",
+      "figure": "Fig. 5",
+      "requires_code_support": "dynamic refinement and sync metric regression"
+    },
+    {
+      "claim": "localization vs clock-offset std",
+      "figure": "Fig. 6",
+      "requires_code_support": "clock sweep and baseline semantics"
+    },
+    {
+      "claim": "sync vs clock-offset std",
+      "figure": "Fig. 7",
+      "requires_code_support": "clock sweep and sync metric semantics"
+    }
+  ],
+  "report_type": "manuscript_algorithm_map",
+  "status": "complete_static",
+  "system_model": [
+    {
+      "expected_notebook_counterpart": "Scenario symbolic/free-symbol state vector",
+      "implementation_relation": "approximately/differently",
+      "location": "Section II",
+      "object": "theta",
+      "role": "joint UE position and non-reference clock parameter vector"
+    },
+    {
+      "expected_notebook_counterpart": "Datalink measurement/query functions",
+      "implementation_relation": "must verify ordered-link and clock sign",
+      "location": "Section II",
+      "object": "h_{i,j}",
+      "role": "TOA/range measurement model"
+    },
+    {
+      "expected_notebook_counterpart": "Scenario.get_measurement_covariance / Sigma_z",
+      "implementation_relation": "notebook naming sometimes uses covariance where precision appears expected",
+      "location": "Section II/FIM",
+      "object": "R_z",
+      "role": "measurement covariance from range-domain noise"
+    }
+  ]
+}

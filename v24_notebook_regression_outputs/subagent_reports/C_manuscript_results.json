@@ -1,0 +1,164 @@
+{
+  "status": "complete",
+  "assigned_role": "Subagent C - Manuscript Results Agent",
+  "inspection_scope": ["../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex"],
+  "scope_note": "C1 retry inspected only the V24 manuscript source around the CRLB captions and Section V. Code, notebook, outputs, and figure files were not inspected.",
+  "files_changed": [
+    "v24_notebook_regression_outputs/subagent_reports/C_manuscript_results.md",
+    "v24_notebook_regression_outputs/subagent_reports/C_manuscript_results.json"
+  ],
+  "tests_checks_run": [],
+  "blocked": false,
+  "blocker": null,
+  "figure_assumptions": [
+    {
+      "figure": "Fig. 2",
+      "label": "fig:pos_crlb",
+      "figure_file": "Figures/GeneratePSFrag/pos_crlb_0dB_0dB.pdf",
+      "axis_sweep": "Network size; exact plotted axes not fully specified in inspected caption.",
+      "metric": "CRLB for average 3D UE localization error",
+      "baselines": ["theoretical CRLB only"],
+      "assumptions": ["0 dB SNR", "Rician DL and SL"],
+      "claims_needing_code_support": [
+        "Additional nodes improve the bound on average UE localization error.",
+        "The CRLB path uses the intended Rician DL/SL and 0 dB assumptions.",
+        "The localization-bound averaging matches the manuscript metric."
+      ],
+      "line_refs": [1199, 1206, 1268]
+    },
+    {
+      "figure": "Fig. 3",
+      "label": "fig:sync_crlb",
+      "figure_file": "Figures/GeneratePSFrag/sync_crlb_0dB_0dB.pdf",
+      "axis_sweep": "Network size; discussion distinguishes added users and added satellite links.",
+      "metric": "CRLB for average node synchronization",
+      "baselines": ["theoretical CRLB only"],
+      "assumptions": ["0 dB SNR", "Rician DL and SL"],
+      "claims_needing_code_support": [
+        "Average synchronization CRLB decreases as users are added.",
+        "Average synchronization CRLB increases with additional satellite links.",
+        "Additional users enhance clock-offset estimation.",
+        "Synchronization averaging handles the reference clock/gauge consistently."
+      ],
+      "line_refs": [1214, 1215, 1268]
+    },
+    {
+      "figure": "Fig. 4",
+      "label": "fig:pos_sats",
+      "figure_file": "Figures/GeneratePSFrag/pos_vary_ues.pdf",
+      "axis_sweep": "x-axis: number of satellites N_s; series: different numbers of cooperating UEs",
+      "metric": "Average 3D UE localization error after 0.5 s",
+      "baselines": [
+        "conventional non-cooperative TOA downlink localization",
+        "JCLS for cooperating UE configurations",
+        "single-UE case uses conventional TOA"
+      ],
+      "assumptions": [
+        "MIT Stata stationary terrestrial UEs",
+        "Starlink-like LEO orbits",
+        "UEs in 500 m radius circle",
+        "minimum elevation angle 30 deg",
+        "DL 2.2 GHz, 20 MHz, 55 dBm, 20 dB gain",
+        "UE/SL 5.9 GHz, 40 MHz, 20 dBm, 3 dB antenna gain",
+        "noise variance from TOA CRLB",
+        "short interval x=theta and F=I",
+        "fixed UE and non-reference satellite clock offsets over 500 ms",
+        "sigma_delta=1 us",
+        "Monte Carlo measurement-noise averaging",
+        "N_s <= 15 is upper-end availability sensitivity"
+      ],
+      "claims_needing_code_support": [
+        "JCLS achieves average localization errors consistently below 1 m across all considered configurations.",
+        "Increasing satellites improves localization initially but saturates.",
+        "Increasing cooperating UEs yields sustained performance gains.",
+        "Largest networks reach about 10 cm average localization error."
+      ],
+      "line_refs": [1733, 1739, 1744, 1746, 1757, 1761, 1779, 1780, 1781, 1782, 1789, 1792, 1794]
+    },
+    {
+      "figure": "Fig. 5",
+      "label": "fig:sync_sats",
+      "figure_file": "Figures/GeneratePSFrag/sync_vary_ues.pdf",
+      "axis_sweep": "x-axis: number of satellites N_s; series: different numbers of cooperating UEs",
+      "metric": "Average node synchronization error after 0.5 s",
+      "baselines": ["same configurations as Fig. 4", "discussion compares cooperation to non-cooperative TOA localization"],
+      "assumptions": ["same global Section V assumptions as Fig. 4", "fixed node geometry and connectivity", "Monte Carlo measurement-noise averaging"],
+      "claims_needing_code_support": [
+        "Synchronization improves more slowly than localization.",
+        "Synchronization exhibits earlier saturation.",
+        "Increasing N_u from 5 to 7 yields about 20 ns marginal improvement.",
+        "Cooperation significantly improves synchronization relative to non-cooperative TOA.",
+        "Increasing cooperating UEs beyond moderate size provides limited additional benefit."
+      ],
+      "line_refs": [1806, 1809, 1816, 1817]
+    },
+    {
+      "figure": "Fig. 6",
+      "label": "fig:pos_clocks",
+      "figure_file": "Figures/GeneratePSFrag/pos_vary_clock.pdf",
+      "axis_sweep": "x-axis: clock-offset standard deviation sigma_delta",
+      "metric": "Average 3D UE localization error",
+      "baselines": ["conventional TOA without network clock-offset estimation", "coarse JCLS", "refined JCLS after 500 ms"],
+      "assumptions": ["N_u=3 cooperating UEs", "N_s=10 satellites", "clock offsets generated using swept sigma_delta", "stationary short-interval Section V assumptions"],
+      "claims_needing_code_support": [
+        "Conventional TOA localization rapidly degrades as sigma_delta increases.",
+        "JCLS substantially mitigates clock-offset sensitivity.",
+        "Refined JCLS maintains low localization error over a broad sigma_delta range.",
+        "At very large sigma_delta, localization error increases for both JCLS stages.",
+        "JCLS enables accurate localization where conventional TOA fails."
+      ],
+      "line_refs": [1821, 1822, 1823, 1824, 1831, 1834]
+    },
+    {
+      "figure": "Fig. 7",
+      "label": "fig:sync_clocks",
+      "figure_file": "Figures/GeneratePSFrag/sync_vary_clock.pdf",
+      "axis_sweep": "x-axis: clock-offset standard deviation sigma_delta",
+      "metric": "Average node synchronization error",
+      "baselines": ["conventional TOA-based localization", "coarse JCLS", "refined JCLS after 500 ms"],
+      "assumptions": ["N_u=3 cooperating UEs", "N_s=10 satellites", "evaluated after 500 ms for each JCLS stage", "clock offsets generated using swept sigma_delta"],
+      "claims_needing_code_support": [
+        "Synchronization error increases with sigma_delta for all methods.",
+        "Coarse and refined JCLS consistently outperform conventional TOA.",
+        "Refined JCLS achieves the lowest synchronization error across the entire sigma_delta range.",
+        "Tens-to-hundreds of ns clock-error reductions can yield orders-of-magnitude localization accuracy improvements."
+      ],
+      "line_refs": [1843, 1844, 1845, 1897, 1900]
+    }
+  ],
+  "baseline_definitions": [
+    {
+      "name": "Conventional non-cooperative TOA localization",
+      "definition": "Uses LEO satellite downlinks and does not estimate network clock offsets; single-UE cases use this because they cannot exploit cooperation.",
+      "line_refs": [1779, 1782, 1822]
+    },
+    {
+      "name": "Coarse JCLS",
+      "definition": "A proposed-framework stage reported in the clock-sweep figures before refined JCLS; implementation details are not defined in the inspected Section V passage.",
+      "line_refs": [1822, 1845]
+    },
+    {
+      "name": "Refined JCLS",
+      "definition": "Refinement-stage result evaluated after 500 ms / 0.5 s; 500 ms is a fixed short-observation interval, not steady state or formal convergence time.",
+      "line_refs": [1746, 1747, 1748, 1822, 1844]
+    },
+    {
+      "name": "CRLB figures",
+      "definition": "Theoretical bound figures rather than achieved estimator baselines.",
+      "line_refs": [1206, 1215, 1268]
+    }
+  ],
+  "global_section_v_assumptions": [
+    "Stationary terrestrial UEs near MIT Stata Center; not aerial-UE or UAV-specific simulations.",
+    "UE locations are random within a 500 m radius circle.",
+    "Minimum elevation angle is 30 deg.",
+    "Satellite orbits correspond to the Starlink constellation.",
+    "DL settings are 2.2 GHz, 20 MHz bandwidth, 55 dBm transmit power, and 20 dB gain.",
+    "UE/SL settings are 5.9 GHz, 40 MHz bandwidth, 20 dBm transmit power, and 3 dB antenna gain.",
+    "Ranging noise variance follows sigma_m^2 = c^2/(8(pi beta)^2 gamma).",
+    "Short-interval dynamic specialization uses x^(n)=theta^(n) and F=I.",
+    "UE and non-reference satellite clock offsets are fixed over the 500 ms interval.",
+    "The 500 ms interval is not steady state or formal convergence time.",
+    "The N_s <= 15 sweep is an upper-end availability/sensitivity case."
+  ]
+}
