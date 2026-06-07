@@ -28,7 +28,6 @@ from .algorithm import (
     initial_covariance_from_linearization,
     joint_lm_jcls,
 )
-from .bounds import manuscript_crlb_reportability_from_fim
 from .configs import V24ScenarioConfig, directed_sidelink_links, downlink_links
 from .constants import C_KM_PER_S
 from .fim import gaussian_fim_from_jacobian
@@ -534,7 +533,7 @@ def _estimate_full_jcls(
 
 
 def _rank_diagnostics(scenario: V24ScenarioConfig, epoch_count: int) -> dict[str, Any]:
-    """Return FIM rank diagnostics for a repeated-epoch measurement set."""
+    """Return full-JCLS scenario rank diagnostics for a repeated-epoch measurement set."""
 
     links = list(scenario.links) * int(epoch_count)
     sigmas = np.tile(scenario.range_std_devs_km, int(epoch_count))
@@ -546,19 +545,25 @@ def _rank_diagnostics(scenario: V24ScenarioConfig, epoch_count: int) -> dict[str
         scenario.num_satellites,
     )
     fim = gaussian_fim_from_jacobian(jac, sigmas)
-    reportability = manuscript_crlb_reportability_from_fim(
-        fim,
-        scenario.num_users,
-        scenario.num_satellites,
-    )
+    weighted_jac = jac / sigmas[:, np.newaxis]
+    rank = int(np.linalg.matrix_rank(weighted_jac))
+    parameter_dim = expected_v24_parameter_dim(scenario.num_users, scenario.num_satellites)
+    nullity = parameter_dim - rank
+    is_full_rank = nullity == 0
     return {
-        "fim_rank": int(reportability["rank"]),
-        "fim_nullity": int(reportability["nullity"]),
-        "parameter_dim": expected_v24_parameter_dim(scenario.num_users, scenario.num_satellites),
-        "measurement_count": len(links),
-        "is_full_rank": bool(reportability["is_full_rank"]),
-        "crlb_status": str(reportability["crlb_status"]),
-        "condition_number": float(np.linalg.cond(fim)) if fim.size else math.inf,
+        "full_jcls_scenario_fim_rank": rank,
+        "full_jcls_scenario_fim_nullity": nullity,
+        "full_jcls_scenario_parameter_dim": parameter_dim,
+        "parameter_dim": parameter_dim,
+        "full_jcls_scenario_measurement_count": len(links),
+        "full_jcls_scenario_is_full_rank": bool(is_full_rank),
+        "full_jcls_scenario_crlb_status": "finite_crlb" if is_full_rank else "rank_deficient_diagnostic",
+        "full_jcls_scenario_condition_number": float(np.linalg.cond(fim)) if fim.size else math.inf,
+        "rank_metadata_scope": "full_jcls_scenario_not_baseline_observability",
+        "rank_metadata_note": (
+            "Rank diagnostics use the full gauged V24 theta and scenario links for the "
+            "selected epoch count; they are not baseline-specific observability claims."
+        ),
     }
 
 
@@ -734,6 +739,8 @@ def run_single_trial_v24_algorithm(
         step2.theta,
         initial_covariance=initial_covariance,
         process_noise_std_km=process_noise_std_km,
+        upstream_success=step2.success,
+        upstream_status=str(step2.diagnostics.get("status")),
     )
     step3_positions, _, _ = unpack_v24_theta(
         step3.theta,
@@ -780,8 +787,15 @@ def _with_algorithm_diagnostics(
             "estimator_mode": estimator_mode,
             "algorithm_stage": algorithm_stage,
             "algorithm_status": diagnostics.get("status") or last_epoch.get("status"),
+            "algorithm_converged": diagnostics.get("converged"),
+            "algorithm_numerical_failure": diagnostics.get("numerical_failure"),
+            "algorithm_iteration_limit_reached": diagnostics.get("iteration_limit_reached"),
+            "algorithm_update_completed": diagnostics.get("update_completed"),
+            "algorithm_upstream_success": diagnostics.get("upstream_success"),
+            "algorithm_upstream_status": diagnostics.get("upstream_status"),
             "algorithm_iteration_count": diagnostics.get("iteration_count", diagnostics.get("epoch_count")),
             "algorithm_accepted_steps": diagnostics.get("accepted_steps"),
+            "algorithm_final_damping": diagnostics.get("final_damping"),
             "algorithm_residual_norm": diagnostics.get("residual_norm"),
             "algorithm_step_norm": diagnostics.get("step_norm"),
             "algorithm_final_innovation_norm": last_epoch.get("innovation_norm"),
@@ -1024,10 +1038,11 @@ def summarize_rows(rows: list[dict[str, Any]], *, metric_field: str) -> list[dic
                 "trial_count": int(values.size),
                 "success_rate": success_rate,
                 "failure_rate": 1.0 - success_rate,
-                "min_fim_rank": int(min(row["fim_rank"] for row in group_rows)),
-                "max_fim_nullity": int(max(row["fim_nullity"] for row in group_rows)),
-                "all_full_rank": bool(all(row["is_full_rank"] for row in group_rows)),
-                "max_condition_number": float(max(row["condition_number"] for row in group_rows)),
+                "min_full_jcls_scenario_fim_rank": int(min(row["full_jcls_scenario_fim_rank"] for row in group_rows)),
+                "max_full_jcls_scenario_fim_nullity": int(max(row["full_jcls_scenario_fim_nullity"] for row in group_rows)),
+                "all_full_jcls_scenario_full_rank": bool(all(row["full_jcls_scenario_is_full_rank"] for row in group_rows)),
+                "max_full_jcls_scenario_condition_number": float(max(row["full_jcls_scenario_condition_number"] for row in group_rows)),
+                "rank_metadata_scope": "full_jcls_scenario_not_baseline_observability",
             }
         )
     return summaries
@@ -1055,8 +1070,8 @@ def _write_npz(path: Path, rows: list[dict[str, Any]]) -> None:
         x_value=np.asarray([row["x_value"] for row in rows], dtype=float),
         num_users=np.asarray([row["num_users"] for row in rows], dtype=int),
         num_satellites=np.asarray([row["num_satellites"] for row in rows], dtype=int),
-        fim_rank=np.asarray([row["fim_rank"] for row in rows], dtype=int),
-        fim_nullity=np.asarray([row["fim_nullity"] for row in rows], dtype=int),
+        full_jcls_scenario_fim_rank=np.asarray([row["full_jcls_scenario_fim_rank"] for row in rows], dtype=int),
+        full_jcls_scenario_fim_nullity=np.asarray([row["full_jcls_scenario_fim_nullity"] for row in rows], dtype=int),
         success=np.asarray([row["success"] for row in rows], dtype=bool),
         baseline_id=np.asarray([row["baseline_id"] for row in rows]),
     )
@@ -1171,6 +1186,15 @@ def _metadata_payload(
                 "process_noise_std_km": float(config.get("process_noise_std_km", 1e-5)),
             },
         },
+        "rank_metadata": {
+            "scope": "full_jcls_scenario_not_baseline_observability",
+            "note": (
+                "Rank fields named full_jcls_scenario_* are computed for the full "
+                "gauged V24 theta and the scenario links used by the selected epoch "
+                "count. They are not baseline-specific observability claims."
+            ),
+            "baseline_specific_rank_pending": True,
+        },
         "range_std_dev_km": float(config["range_std_dev_km"]) if "range_std_dev_km" in config else None,
         "units": {
             "positions_internal": "km",
@@ -1222,6 +1246,7 @@ def _provenance_payload(config: dict[str, Any], metadata: dict[str, Any]) -> dic
         "summary_output_file": f"{metadata['output_dir']}/{figure_id}_summary.csv",
         "plot_output_file": f"{metadata['output_dir']}/{figure_id}.pdf",
         "metadata_file": f"{metadata['output_dir']}/{figure_id}_metadata.json",
+        "rank_metadata": metadata.get("rank_metadata"),
         "test_coverage": [
             "tests/test_figure_generation.py",
             "tests/test_estimators.py",

@@ -138,9 +138,46 @@ class TestV24AlgorithmStages(unittest.TestCase):
 
         self.assertEqual(result.theta.shape, (expected_v24_parameter_dim(2, 6),))
         self.assertTrue(result.success)
+        self.assertTrue(result.diagnostics["converged"])
         self.assertTrue(result.diagnostics["uses_precision_weighting"])
         self.assertFalse(result.diagnostics["reference_satellite_clock_in_state"])
         self.assertLess(np.linalg.norm(result.theta - truth), np.linalg.norm(initial - truth))
+
+    def test_step2_accepted_steps_without_convergence_are_not_success(self) -> None:
+        scenario = _joint_scenario()
+        truth = scenario.theta()
+        z = toa_range_vector_from_theta_km(
+            truth,
+            scenario.links,
+            scenario.satellite_positions_km,
+            scenario.num_users,
+            scenario.num_satellites,
+        )
+        initial = truth + np.linspace(0.01, -0.01, truth.size)
+
+        result = joint_lm_jcls(scenario, z, initial, max_iterations=1, tolerance=0.0)
+
+        self.assertFalse(result.success)
+        self.assertFalse(result.diagnostics["converged"])
+        self.assertEqual(result.diagnostics["status"], "updated_not_converged")
+        self.assertGreater(result.diagnostics["accepted_steps"], 0)
+        self.assertTrue(result.diagnostics["iteration_limit_reached"])
+
+    def test_step2_rank_deficient_problem_is_not_success(self) -> None:
+        scenario = _single_user_dl_scenario(num_satellites=4)
+        z = toa_range_vector_from_theta_km(
+            scenario.theta(),
+            scenario.links,
+            scenario.satellite_positions_km,
+            scenario.num_users,
+            scenario.num_satellites,
+        )
+
+        result = joint_lm_jcls(scenario, z, scenario.theta())
+
+        self.assertFalse(result.success)
+        self.assertEqual(result.diagnostics["status"], "rank_deficient")
+        self.assertFalse(result.diagnostics["converged"])
 
     def test_step3_dynamic_update_uses_f_q_pi_and_innovation(self) -> None:
         scenario = _joint_scenario()
@@ -165,6 +202,8 @@ class TestV24AlgorithmStages(unittest.TestCase):
 
         self.assertTrue(result.success)
         self.assertEqual(result.diagnostics["state_model"], "theta_identity_state")
+        self.assertEqual(result.diagnostics["status"], "updated")
+        self.assertTrue(result.diagnostics["converged"])
         self.assertEqual(result.diagnostics["pi_shape"], [truth.size, truth.size])
         self.assertTrue(result.diagnostics["uses_innovation_z_minus_h_pred"])
         self.assertFalse(result.diagnostics["truth_derived_covariance"])
@@ -172,6 +211,49 @@ class TestV24AlgorithmStages(unittest.TestCase):
         self.assertEqual(result.covariance.shape, (truth.size, truth.size))
         self.assertTrue(np.all(np.isfinite(result.theta)))
         self.assertTrue(np.all(np.isfinite(result.covariance)))
+
+    def test_step3_propagates_upstream_nonconvergence(self) -> None:
+        scenario = _joint_scenario()
+        truth = scenario.theta()
+        z = toa_range_vector_from_theta_km(
+            truth,
+            scenario.links,
+            scenario.satellite_positions_km,
+            scenario.num_users,
+            scenario.num_satellites,
+        )
+        initial = truth + np.linspace(0.02, -0.02, truth.size)
+
+        result = dynamic_soft_information_refinement(
+            scenario,
+            [z],
+            initial,
+            initial_covariance=0.1 * np.eye(truth.size),
+            upstream_success=False,
+            upstream_status="updated_not_converged",
+        )
+
+        self.assertFalse(result.success)
+        self.assertEqual(result.diagnostics["status"], "updated_upstream_not_converged")
+        self.assertTrue(result.diagnostics["update_completed"])
+        self.assertEqual(result.diagnostics["upstream_status"], "updated_not_converged")
+
+    def test_step3_skips_update_for_upstream_failure(self) -> None:
+        scenario = _joint_scenario()
+        truth = scenario.theta()
+
+        result = dynamic_soft_information_refinement(
+            scenario,
+            [],
+            truth,
+            upstream_success=False,
+            upstream_status="rank_deficient",
+        )
+
+        self.assertFalse(result.success)
+        self.assertEqual(result.diagnostics["status"], "not_updated_upstream_failed")
+        self.assertFalse(result.diagnostics["update_completed"])
+        self.assertEqual(result.diagnostics["epoch_count"], 0)
 
 
 if __name__ == "__main__":

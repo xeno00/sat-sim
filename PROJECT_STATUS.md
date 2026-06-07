@@ -122,6 +122,14 @@ vector, and Step 3 dynamic SCI/SFI information-form refinement with explicit
 not-manuscript-ready artifacts. Synthetic satellite geometry and final human
 signoff remain unresolved.
 
+A status/rank honesty hardening pass is implemented on branch
+`codex/v24-algorithm-fidelity`. Step 2 no longer reports success merely because
+an LM step was accepted, Step 3 propagates upstream non-convergence/failure, and
+candidate raw/summary outputs use conservative success semantics. Figure-run
+rank metadata has been relabeled as `full_jcls_scenario_*` to avoid implying
+baseline-specific observability. Baseline-specific rank diagnostics remain a
+pending task.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -161,6 +169,9 @@ The manuscript-candidate geometry/noise runner/tests and non-final candidate
 outputs are implemented on branch `codex/manuscript-geometry-noise`.
 The package-native V24 algorithm-fidelity runner/tests and refreshed non-final
 candidate outputs are implemented on branch `codex/v24-algorithm-fidelity`.
+Status/rank honesty hardening for that branch is implemented and candidate
+outputs have been refreshed again with conservative success semantics and
+`full_jcls_scenario_*` rank fields.
 
 ## Next task
 
@@ -193,6 +204,7 @@ See `docs/tasks/NEXT.md`.
   geometry, synthetic visible LEO satellites, and link-budget-derived DL/SL
   sigmas, and the package-native V24 three-stage estimator path. They are still
   non-final and not manuscript-ready because synthetic satellite geometry,
+  estimator robustness/initialization, baseline-specific observability,
   numerical behavior, and final human signoff remain unresolved.
 - No manuscript text or response-letter text should be changed based on the
   current package-native Fig. 4--7 diagnostic or candidate outputs.

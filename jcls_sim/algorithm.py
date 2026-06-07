@@ -199,6 +199,9 @@ def joint_lm_jcls(
     residual_norm = np.inf
     rank = 0
     condition_number = np.inf
+    converged = False
+    numerical_failure = False
+    iteration = 0
     for iteration in range(1, max_iterations + 1):
         prediction = toa_range_vector_from_theta_km(
             theta,
@@ -216,14 +219,30 @@ def joint_lm_jcls(
             scenario.num_satellites,
         )
         rank = int(np.linalg.matrix_rank(jac))
+        theta_dim = expected_v24_parameter_dim(scenario.num_users, scenario.num_satellites)
+        if rank < theta_dim:
+            status = "rank_deficient"
+            break
         normal, rhs = weighted_normal_equations(jac, residual, sigmas, damping=damping)
         condition_number = float(np.linalg.cond(normal))
+        if not np.all(np.isfinite(normal)) or not np.all(np.isfinite(rhs)):
+            status = "failed"
+            numerical_failure = True
+            break
         current_cost = weighted_cost(residual, sigmas)
         try:
             step = np.linalg.solve(normal, rhs)
         except np.linalg.LinAlgError:
             step = np.linalg.pinv(normal) @ rhs
+        if not np.all(np.isfinite(step)):
+            status = "failed"
+            numerical_failure = True
+            break
         candidate = theta + step
+        if not np.all(np.isfinite(candidate)):
+            status = "failed"
+            numerical_failure = True
+            break
         candidate_residual = z_array - toa_range_vector_from_theta_km(
             candidate,
             scenario.links,
@@ -232,6 +251,10 @@ def joint_lm_jcls(
             scenario.num_satellites,
         )
         candidate_cost = weighted_cost(candidate_residual, sigmas)
+        if not np.isfinite(candidate_cost):
+            status = "failed"
+            numerical_failure = True
+            break
         accepted = bool(candidate_cost <= current_cost)
         damping_history.append(float(damping))
         if accepted:
@@ -242,6 +265,7 @@ def joint_lm_jcls(
             residual_norm = float(np.linalg.norm(candidate_residual / sigmas))
             if step_norm < tolerance:
                 status = "converged"
+                converged = True
                 break
         else:
             damping = min(damping * 10.0, 1e12)
@@ -261,16 +285,22 @@ def joint_lm_jcls(
                 / sigmas
             )
         )
+        if accepted_steps > 0:
+            status = "updated_not_converged"
 
     return EstimatorResult(
         theta=theta,
-        success=status == "converged" or accepted_steps > 0,
+        success=converged,
         diagnostics={
             "stage": "step2_joint_lm_jcls",
             "status": status,
+            "converged": converged,
+            "numerical_failure": numerical_failure,
+            "iteration_limit_reached": status in {"max_iterations", "updated_not_converged"},
             "iteration_count": iteration,
             "accepted_steps": accepted_steps,
             "damping_history": damping_history,
+            "final_damping": float(damping),
             "residual_norm": residual_norm,
             "step_norm": step_norm,
             "rank": rank,
@@ -313,6 +343,8 @@ def dynamic_soft_information_refinement(
     initial_covariance: np.ndarray | None = None,
     state_model: V24StateModel | None = None,
     process_noise_std_km: float = 1e-5,
+    upstream_success: bool = True,
+    upstream_status: str | None = None,
 ) -> EstimatorResult:
     """Run Step 3 dynamic SCI/SFI refinement with F, Q, Pi, and information updates."""
 
@@ -322,6 +354,33 @@ def dynamic_soft_information_refinement(
     x = np.asarray(initial_theta, dtype=float).copy()
     if x.shape != (model.f_matrix.shape[0],):
         raise ValueError("initial_theta/state has incompatible shape.")
+    upstream_status_value = upstream_status or ("converged" if upstream_success else "unknown")
+    if not upstream_success and upstream_status_value in {"rank_deficient", "failed"}:
+        return EstimatorResult(
+            theta=model.pi_matrix @ x,
+            success=False,
+            covariance=initial_covariance,
+            diagnostics={
+                "stage": "step3_dynamic_sci_sfi_information_update",
+                "status": "not_updated_upstream_failed",
+                "converged": False,
+                "numerical_failure": False,
+                "update_completed": False,
+                "upstream_success": bool(upstream_success),
+                "upstream_status": upstream_status_value,
+                "state_model": model.model_name,
+                "state_dim": int(model.f_matrix.shape[0]),
+                "theta_dim": int(theta_dim),
+                "f_matrix": model.f_matrix.tolist(),
+                "q_covariance_diag": np.diag(model.q_covariance).tolist(),
+                "pi_shape": list(model.pi_matrix.shape),
+                "process_noise_std_km": float(process_noise_std_km),
+                "epoch_count": 0,
+                "epochs": [],
+                "uses_innovation_z_minus_h_pred": True,
+                "truth_derived_covariance": False,
+            },
+        )
     p = (
         np.asarray(initial_covariance, dtype=float).copy()
         if initial_covariance is not None
@@ -331,6 +390,8 @@ def dynamic_soft_information_refinement(
         raise ValueError("initial_covariance has incompatible shape.")
 
     epoch_diagnostics = []
+    update_completed = True
+    numerical_failure = False
     for epoch_index, z in enumerate(measurements, start=1):
         x_pred = model.f_matrix @ x
         p_pred = model.f_matrix @ p @ model.f_matrix.T + model.q_covariance
@@ -351,14 +412,23 @@ def dynamic_soft_information_refinement(
         )
         jac_x = jac_theta @ model.pi_matrix
         innovation = np.asarray(z, dtype=float) - h_pred
-        x, p = information_form_ekf_update(
-            x_pred,
-            p_pred,
-            h_pred,
-            jac_x,
-            np.asarray(z, dtype=float),
-            scenario.range_std_devs_km,
-        )
+        try:
+            x, p = information_form_ekf_update(
+                x_pred,
+                p_pred,
+                h_pred,
+                jac_x,
+                np.asarray(z, dtype=float),
+                scenario.range_std_devs_km,
+            )
+        except (ValueError, np.linalg.LinAlgError):
+            update_completed = False
+            numerical_failure = True
+            break
+        if not np.all(np.isfinite(x)) or not np.all(np.isfinite(p)):
+            update_completed = False
+            numerical_failure = True
+            break
         epoch_diagnostics.append(
             {
                 "epoch": epoch_index,
@@ -370,12 +440,27 @@ def dynamic_soft_information_refinement(
             }
         )
     theta = model.pi_matrix @ x
+    if numerical_failure:
+        status = "failed_numerical"
+    elif not upstream_success:
+        status = "updated_upstream_not_converged"
+    elif epoch_diagnostics and all(record["jacobian_rank"] == 0 for record in epoch_diagnostics):
+        status = "rank_deficient_or_uninformative"
+    else:
+        status = "updated"
+    success = status == "updated"
     return EstimatorResult(
         theta=theta,
-        success=True,
+        success=success,
         covariance=p,
         diagnostics={
             "stage": "step3_dynamic_sci_sfi_information_update",
+            "status": status,
+            "converged": success,
+            "numerical_failure": numerical_failure,
+            "update_completed": update_completed,
+            "upstream_success": bool(upstream_success),
+            "upstream_status": upstream_status_value,
             "state_model": model.model_name,
             "state_dim": int(model.f_matrix.shape[0]),
             "theta_dim": int(theta_dim),

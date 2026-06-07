@@ -1,3 +1,4 @@
+import csv
 import json
 import shutil
 import subprocess
@@ -378,6 +379,8 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         self.assertEqual(metadata["scenario_model"], "manuscript_candidate_mit_stata_synthetic_leo")
         self.assertEqual(metadata["estimator_mode"], "v24_three_stage_dynamic")
         self.assertEqual(metadata["estimator_metadata"]["v24_three_stage_dynamic"]["state_model"], "x=theta, F=I, Pi=I, Q=process_noise_std_km^2 I")
+        self.assertEqual(metadata["rank_metadata"]["scope"], "full_jcls_scenario_not_baseline_observability")
+        self.assertTrue(metadata["rank_metadata"]["baseline_specific_rank_pending"])
         self.assertIn("case_metadata", metadata)
         self.assertIn("ue_coordinates", metadata["case_metadata"][0]["geometry"])
         self.assertIn("satellite_coordinates", metadata["case_metadata"][0]["geometry"])
@@ -388,6 +391,7 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         self.assertEqual(provenance["provenance_type"], "package_native_v24_manuscript_candidate_figure_provenance")
         self.assertTrue(provenance["candidate_only"])
         self.assertIn("candidate_outputs", provenance["command"])
+        self.assertEqual(provenance["rank_metadata"]["scope"], "full_jcls_scenario_not_baseline_observability")
 
     def test_baseline_definitions_are_explicit(self) -> None:
         self.assertFalse(BASELINE_DEFINITIONS["without_cooperation"]["uses_sl"])
@@ -415,11 +419,33 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         }
 
         self.assertEqual(rows["coarse_jcls"]["parameter_dim"], expected_v24_parameter_dim(2, 6))
-        self.assertTrue(rows["coarse_jcls"]["is_full_rank"])
+        self.assertTrue(rows["coarse_jcls"]["full_jcls_scenario_is_full_rank"])
         self.assertLess(rows["coarse_jcls"]["position_error_mean_m"], 1e-5)
         self.assertLess(rows["coarse_jcls"]["sync_error_mean_s"], 1e-14)
         self.assertLess(rows["refined_jcls"]["position_error_mean_m"], 1e-5)
         self.assertLess(rows["refined_jcls"]["sync_error_mean_s"], 1e-14)
+
+    def test_candidate_rows_use_conservative_success_and_scoped_rank_metadata(self) -> None:
+        result = run_figure_config(self._tiny_candidate_config(), self.temp_dir / "candidate_outputs")
+        with result.raw_csv.open(newline="", encoding="utf-8") as handle:
+            raw_rows = list(csv.DictReader(handle))
+        with result.summary_csv.open(newline="", encoding="utf-8") as handle:
+            summary_rows = list(csv.DictReader(handle))
+
+        self.assertGreater(len(raw_rows), 0)
+        for row in raw_rows:
+            self.assertNotIn("fim_rank", row)
+            self.assertNotIn("is_full_rank", row)
+            self.assertIn("full_jcls_scenario_fim_rank", row)
+            self.assertEqual(row["rank_metadata_scope"], "full_jcls_scenario_not_baseline_observability")
+            if row["baseline_id"] in {"coarse_jcls", "refined_jcls"} and row["algorithm_converged"] == "False":
+                self.assertEqual(row["success"], "False")
+
+        for row in summary_rows:
+            self.assertNotIn("min_fim_rank", row)
+            self.assertNotIn("all_full_rank", row)
+            self.assertIn("min_full_jcls_scenario_fim_rank", row)
+            self.assertEqual(row["rank_metadata_scope"], "full_jcls_scenario_not_baseline_observability")
 
     def test_single_ue_has_no_sidelinks(self) -> None:
         scenario = _scenario_for_case(

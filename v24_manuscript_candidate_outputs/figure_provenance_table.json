@@ -22,7 +22,7 @@
       "npz_output_file": "v24_manuscript_candidate_outputs/fig4_localization_vs_satellites_candidate/fig4_localization_vs_satellites_candidate_raw.npz",
       "plot_output_file": "v24_manuscript_candidate_outputs/fig4_localization_vs_satellites_candidate/fig4_localization_vs_satellites_candidate.pdf",
       "raw_output_file": "v24_manuscript_candidate_outputs/fig4_localization_vs_satellites_candidate/fig4_localization_vs_satellites_candidate_raw.csv",
-      "runtime_seconds": 5.615704399999231,
+      "runtime_seconds": 5.095917400001781,
       "summary_output_file": "v24_manuscript_candidate_outputs/fig4_localization_vs_satellites_candidate/fig4_localization_vs_satellites_candidate_summary.csv"
     },
     {
@@ -39,7 +39,7 @@
       "npz_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_raw.npz",
       "plot_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate.pdf",
       "raw_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_raw.csv",
-      "runtime_seconds": 4.583570899994811,
+      "runtime_seconds": 4.9626616000023205,
       "summary_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_summary.csv"
     },
     {
@@ -56,7 +56,7 @@
       "npz_output_file": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_raw.npz",
       "plot_output_file": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate.pdf",
       "raw_output_file": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_raw.csv",
-      "runtime_seconds": 2.88681669998914,
+      "runtime_seconds": 3.0042031000193674,
       "summary_output_file": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate/fig6_localization_vs_clock_std_candidate_summary.csv"
     },
     {
@@ -73,7 +73,7 @@
       "npz_output_file": "v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_raw.npz",
       "plot_output_file": "v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate.pdf",
       "raw_output_file": "v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_raw.csv",
-      "runtime_seconds": 2.9759289999783505,
+      "runtime_seconds": 4.183649100014009,
       "summary_output_file": "v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_summary.csv"
     }
   ]

@@ -3981,7 +3981,7 @@
     "jcls_sim.fim",
     "jcls_sim.metrics"
   ],
-  "commit_hash": "2332db856ab03f987d43829f67e309f15656f186",
+  "commit_hash": "7a11a7ee7ec6a8a608d78c043bc5e3fbad39358d",
   "config_path": "configs/v24_manuscript_candidate_figures_4_7/fig6_localization_vs_clock_std_candidate.json",
   "diagnostic_only": false,
   "estimator_metadata": {
@@ -4006,11 +4006,16 @@
   "output_dir": "v24_manuscript_candidate_outputs/fig6_localization_vs_clock_std_candidate",
   "overwrite_used": true,
   "range_std_dev_km": null,
+  "rank_metadata": {
+    "baseline_specific_rank_pending": true,
+    "note": "Rank fields named full_jcls_scenario_* are computed for the full gauged V24 theta and the scenario links used by the selected epoch count. They are not baseline-specific observability claims.",
+    "scope": "full_jcls_scenario_not_baseline_observability"
+  },
   "raw_row_count": 45,
   "refinement_epoch_dt_s": 0.1,
   "refinement_epochs": 5,
   "refinement_interval_s": 0.5,
-  "runtime_seconds": 2.88681669998914,
+  "runtime_seconds": 3.0042031000193674,
   "scenario_model": "manuscript_candidate_mit_stata_synthetic_leo",
   "summary_row_count": 15,
   "units": {

@@ -21,6 +21,11 @@
   "npz_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_raw.npz",
   "plot_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate.pdf",
   "provenance_type": "package_native_v24_manuscript_candidate_figure_provenance",
+  "rank_metadata": {
+    "baseline_specific_rank_pending": true,
+    "note": "Rank fields named full_jcls_scenario_* are computed for the full gauged V24 theta and the scenario links used by the selected epoch count. They are not baseline-specific observability claims.",
+    "scope": "full_jcls_scenario_not_baseline_observability"
+  },
   "raw_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_raw.csv",
   "summary_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_summary.csv",
   "test_coverage": [
