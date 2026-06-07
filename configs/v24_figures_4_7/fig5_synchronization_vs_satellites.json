@@ -1,0 +1,26 @@
+{
+  "figure_id": "fig5_synchronization_vs_satellites",
+  "manuscript_figure_label": "Fig. 5",
+  "title": "Package-native Fig. 5: synchronization vs satellites",
+  "sweep_type": "satellite_count",
+  "metric_field": "sync_error_mean_s",
+  "plot_metric_scale": 1000000000.0,
+  "plot_metric_unit": "ns",
+  "x_label": "Number of satellites, Ns",
+  "y_label": "Average synchronization error [ns]",
+  "log_y": true,
+  "base_seed": 20260705,
+  "monte_carlo_trials": 8,
+  "num_users_values": [1, 3, 5],
+  "num_satellites_values": [4, 6, 8, 10],
+  "clock_std_devs_ns": [1000.0],
+  "range_std_dev_km": 0.03,
+  "refinement_epochs": 5,
+  "assumptions": [
+    "Synthetic deterministic static geometry, not legacy TLE propagation.",
+    "Synchronization is measured relative to the first satellite reference clock.",
+    "The reference satellite clock is excluded from the synchronization average.",
+    "Refined JCLS fuses repeated independent measurement epochs over a fixed static geometry."
+  ],
+  "known_discrepancy_from_v24": "Package-native provenance is intentionally not forced to match legacy notebook curves."
+}

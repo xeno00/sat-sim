@@ -91,6 +91,13 @@ localization and synchronization CRLB figure families. The diagnostic uses the
 V24 full-gauged FIM/bounds path only and masks rank-deficient/non-ready cases
 instead of emitting finite manuscript-style values.
 
+A package-native V24 Fig. 4--7 diagnostic runner is implemented on branch
+`codex/package-native-figures-4-7`. It uses package modules only, defines
+explicit baseline semantics for without-cooperation, coarse JCLS, and refined
+JCLS, and writes deterministic non-final raw CSV, summary CSV, NPZ, PDF,
+metadata JSON, and provenance JSON outputs under `v24_figure_outputs/`. The
+outputs are provenance/diagnostic artifacts only and are not manuscript figures.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -123,6 +130,8 @@ The static legacy notebook provenance audit runner/tests are implemented on
 branch `codex/crlb-decision-sprint`.
 The CRLB figure-family regression diagnostic runner/tests and non-final
 JSON/CSV/NPZ outputs are implemented on branch `codex/crlb-decision-sprint`.
+The package-native V24 Fig. 4--7 diagnostic runner/tests and non-final outputs
+are implemented on branch `codex/package-native-figures-4-7`.
 
 ## Next task
 
@@ -145,3 +154,8 @@ See `docs/tasks/NEXT.md`.
   legacy solver state is overparameterized relative to V24.
 - Do not rerun manuscript figures until the package-level runner and notebook
   bridge/refactor path are tested and explicitly approved.
+- Package-native Fig. 4--7 diagnostic outputs exist under
+  `v24_figure_outputs/`; these outputs use synthetic deterministic static
+  geometry and flat range-domain noise, are intentionally not forced to match
+  the legacy notebook, and require human technical review before any manuscript
+  figure replacement decision.
