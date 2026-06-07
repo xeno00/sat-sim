@@ -1,18 +1,23 @@
-MODE: IMPLEMENT_APPROVED
+MODE: REVIEW_DIFF
 
-This task may be executed via `RUN_CODEX.md`. Keep it diagnostic-only. Do not
-run notebook code, full sweeps, or manuscript figure generation.
+This task may be executed via `RUN_CODEX.md`. Do not edit files. Do not merge
+unless the human explicitly approves merge after review.
 
-# Next Task: Implement Legacy Notebook Provenance Audit
+# Next Task: Review CRLB Decision Sprint Branch Before Merge
 
 ## Purpose
 
-Create a read-only provenance audit for `JCLS_Simulation.ipynb` that maps
-legacy figure/CRLB-related notebook cells to V24 package-native risk flags
-without executing the notebook or changing any result files.
+Review branch `codex/crlb-decision-sprint` before merge. The branch adds
+diagnostic-only CRLB figure decision planning and static legacy notebook
+provenance audit outputs.
 
-## Allowed Edit Files
+## Scope
 
+Inspect:
+
+- `scripts/plan_v24_crlb_figure_decision.py`
+- `tests/test_crlb_figure_decision_plan.py`
+- `v24_diagnostics/crlb_figure_decision_plan.json`
 - `scripts/audit_legacy_notebook_provenance.py`
 - `tests/test_legacy_notebook_provenance.py`
 - `v24_diagnostics/legacy_notebook_provenance_audit.json`
@@ -20,44 +25,49 @@ without executing the notebook or changing any result files.
 - `docs/tasks/NEXT.md`
 - `docs/tasks/QUEUE.md`
 
-## Read-Only Files
+Do not edit:
 
 - `JCLS_Simulation.ipynb`
-- `v24_diagnostics/crlb_figure_decision_plan.json`
-- package modules/tests as needed for context
+- manuscript files
+- response-letter files
+- bibliography files
+- Work-In-Progress figure files
+- PSFrag files
+- generated manuscript PDFs
+- generated manuscript figure PDFs/EPS/PNGs
+- existing manuscript result files
+- package source files
 
-## Goals
+## Checks
 
-1. Parse the notebook JSON as text/data only; do not execute it.
-2. Identify cells containing CRLB/FIM/bound keywords, figure-output/save
-   keywords, legacy all-clock/gauge-risk keywords, and synchronization-metric
-   keywords.
-3. Produce a compact non-final JSON audit under `v24_diagnostics/` with cell
-   indices, matched keyword categories, risk level, and a short excerpt.
-4. Flag whether legacy CRLB/figure cells are likely unsafe until package-native
-   V24 paths replace them.
-5. Add tests using a small synthetic notebook fixture so tests do not depend on
-   exact legacy notebook contents.
+1. Confirm diagnostics are non-final and stored only under `v24_diagnostics/`.
+2. Confirm no notebook execution is used.
+3. Confirm no manuscript/response/bibliography/figure outputs are touched.
+4. Confirm the decision plan recommends rank feasibility first and treats
+   finite CRLB-vs-`N_s` as secondary with the growing-parameter caveat.
+5. Confirm the notebook audit flags CRLB/FIM + gauge/all-clock risk cells and
+   reports the legacy CRLB paths as unsafe until package-native replacement.
+6. Confirm tests pass:
+
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'
+   ```
+
+## Required Output
+
+Return:
+
+- PASS / PASS WITH CAVEAT / FAIL;
+- merge recommendation;
+- required fixes before merge, if any;
+- nonblocking caveats;
+- confirmation out-of-scope files were untouched;
+- next recommended task after merge.
 
 ## Hard Constraints
 
-- Do not edit `JCLS_Simulation.ipynb`.
+- Do not edit files.
 - Do not run notebook code.
-- Do not generate figures.
+- Do not generate manuscript figures.
 - Do not run full sweeps.
-- Do not edit manuscript, response-letter, bibliography, Work-In-Progress
-  figures, PSFrag files, generated manuscript PDFs, or existing manuscript
-  result outputs.
-
-## Expected Tests
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'
-```
-
-## Stop Gates
-
-- Notebook execution is needed.
-- The audit requires changing notebook/result/figure files.
-- Tests fail and the fix is not obvious/safely scoped.
-- The audit needs human scientific judgment to classify a cell.
+- Do not merge unless explicitly approved after review.

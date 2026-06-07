@@ -72,6 +72,13 @@ consider, and flags legacy CRLB-vs-satellite-count and localization/
 synchronization CRLB panels as likely needing package-native rerun or
 replacement before final confidence.
 
+A static legacy notebook provenance audit is implemented on branch
+`codex/crlb-decision-sprint`. It parses `JCLS_Simulation.ipynb` without
+executing it, identifies CRLB/FIM, figure-output, gauge/all-clock,
+synchronization-metric, and workspace-persistence cells, and writes a non-final
+audit under `v24_diagnostics/legacy_notebook_provenance_audit.json`. The audit
+flags the legacy notebook CRLB paths as unsafe until package-native replacement.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -100,6 +107,8 @@ The non-final CRLB figure-candidate data runner/tests are merged on `main`.
 The non-final CRLB preview SVG runner/tests are merged on `main`.
 The non-final CRLB figure decision-plan runner/tests are implemented on branch
 `codex/crlb-decision-sprint`.
+The static legacy notebook provenance audit runner/tests are implemented on
+branch `codex/crlb-decision-sprint`.
 
 ## Next task
 

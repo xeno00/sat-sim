@@ -94,7 +94,8 @@ May run expensive simulations: no
 
 ## 3. Legacy notebook bridge audit
 
-Status: active next implementation target. See `docs/tasks/NEXT.md`.
+Status: implemented on branch `codex/crlb-decision-sprint`; awaiting
+read-only review before merge. See `docs/tasks/NEXT.md`.
 
 Mode: `PLAN_ONLY` / `REVIEW_DIFF`
 
