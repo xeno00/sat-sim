@@ -1,0 +1,33 @@
+{
+  "artifact_kind": "manuscript_candidate",
+  "artifact_warning": "Manuscript-candidate package-native output; geometry/noise assumptions are closer to V24 but algorithm fidelity and final human signoff are still required before TAES submission.",
+  "assumptions": [
+    "MIT Stata Center reference location with deterministic random UEs inside a 500 m disk.",
+    "Starlink-like synthetic LEO geometry with a 30 degree minimum elevation mask.",
+    "Synchronization metrics are reference-relative and exclude the reference satellite clock.",
+    "Refined JCLS still fuses repeated independent measurement epochs over fixed geometry; dynamic SCI/SFI algorithm fidelity remains future work."
+  ],
+  "candidate_only": true,
+  "command": "python scripts/run_v24_figures_4_7.py --config configs/v24_manuscript_candidate_figures_4_7/fig5_synchronization_vs_satellites_candidate.json --output-root v24_figure_outputs --overwrite",
+  "config_file": "configs/v24_manuscript_candidate_figures_4_7/fig5_synchronization_vs_satellites_candidate.json",
+  "diagnostic_only": false,
+  "figure_id": "fig5_synchronization_vs_satellites_candidate",
+  "known_discrepancy_from_v24": "Manuscript-candidate geometry/noise path; algorithm fidelity is not yet manuscript-grade.",
+  "manuscript_figure": "Fig. 5",
+  "manuscript_ready": false,
+  "metadata_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_metadata.json",
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "npz_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_raw.npz",
+  "plot_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate.pdf",
+  "provenance_type": "package_native_v24_manuscript_candidate_figure_provenance",
+  "raw_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_raw.csv",
+  "summary_output_file": "v24_manuscript_candidate_outputs/fig5_synchronization_vs_satellites_candidate/fig5_synchronization_vs_satellites_candidate_summary.csv",
+  "test_coverage": [
+    "tests/test_figure_generation.py",
+    "tests/test_estimators.py",
+    "tests/test_measurements.py",
+    "tests/test_jacobian.py",
+    "tests/test_metrics.py"
+  ]
+}
