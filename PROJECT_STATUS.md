@@ -55,10 +55,10 @@ A manuscript-relevant non-final CRLB candidate diagnostic is implemented and
 merged. It summarizes rank-feasibility cases into finite manuscript-ready cases
 and explicitly unavailable rank-deficient cases without generating figures.
 
-Non-final CRLB figure-candidate data are implemented on the current task
-branch. The data include rank-feasibility heatmap matrices, finite CRLB-vs-`N_s`
-series with unavailable masks, and fixed-parameter measurement-addition series.
-No figures are generated.
+Non-final CRLB figure-candidate data are implemented and merged. The data
+include rank-feasibility heatmap matrices, finite CRLB-vs-`N_s` series with
+unavailable masks, and fixed-parameter measurement-addition series. No figures
+are generated.
 
 ## Blocking risks
 
@@ -84,8 +84,7 @@ CRLB diagnostic hardening tests are implemented. Non-final diagnostic JSON
 exists under `v24_diagnostics/` with hardened CRLB status/reportability fields.
 The CRLB geometry diagnostic runner/tests are merged on `main`.
 The manuscript-relevant CRLB candidate runner/tests are merged on `main`.
-The non-final CRLB figure-candidate data runner/tests are implemented on the
-current branch and await review before merge.
+The non-final CRLB figure-candidate data runner/tests are merged on `main`.
 
 ## Next task
 
