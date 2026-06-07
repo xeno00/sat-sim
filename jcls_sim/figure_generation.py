@@ -27,9 +27,11 @@ from .configs import V24ScenarioConfig, directed_sidelink_links, downlink_links
 from .constants import C_KM_PER_S
 from .fim import gaussian_fim_from_jacobian
 from .gauge import expected_v24_parameter_dim, reference_satellite_node_id
+from .geometry import GroundReference, manuscript_candidate_geometry
 from .io import json_ready
 from .jacobian import analytic_toa_jacobian_km, toa_range_vector_from_theta_km
 from .metrics import clock_error_relative_to_reference, position_error_m
+from .noise import LinkBudgetConfig, range_sigmas_for_links
 from .parameters import pack_v24_theta, unpack_v24_theta
 
 matplotlib.use("Agg")
@@ -39,6 +41,18 @@ SAT_SIM_ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT_WARNING = "Diagnostic-only package-native output; not a manuscript-grade reproduction and not for TAES submission."
 DIAGNOSTIC_ARTIFACT_FLAGS = {
     "diagnostic_only": True,
+    "candidate_only": False,
+    "non_final": True,
+    "manuscript_ready": False,
+    "not_for_manuscript_submission": True,
+}
+CANDIDATE_ARTIFACT_WARNING = (
+    "Manuscript-candidate package-native output; geometry/noise assumptions are closer to V24 "
+    "but algorithm fidelity and final human signoff are still required before TAES submission."
+)
+CANDIDATE_ARTIFACT_FLAGS = {
+    "diagnostic_only": False,
+    "candidate_only": True,
     "non_final": True,
     "manuscript_ready": False,
     "not_for_manuscript_submission": True,
@@ -125,7 +139,6 @@ def load_figure_config(config_path: str | Path) -> dict[str, Any]:
         "num_users_values",
         "num_satellites_values",
         "clock_std_devs_ns",
-        "range_std_dev_km",
         "refinement_epochs",
     }
     missing = sorted(required - set(config))
@@ -136,12 +149,16 @@ def load_figure_config(config_path: str | Path) -> dict[str, Any]:
         raise ValueError("monte_carlo_trials must be at least 1.")
     if int(config["base_seed"]) < 0:
         raise ValueError("base_seed must be nonnegative.")
-    if float(config["range_std_dev_km"]) <= 0.0:
-        raise ValueError("range_std_dev_km must be positive.")
     if int(config["refinement_epochs"]) < 1:
         raise ValueError("refinement_epochs must be at least 1.")
     if str(config["metric_field"]) not in {"position_error_mean_m", "sync_error_mean_s"}:
         raise ValueError(f"Unsupported metric_field: {config['metric_field']!r}.")
+    if str(config.get("scenario_model", "diagnostic_static_flat_noise")) == "manuscript_candidate_mit_stata_synthetic_leo":
+        for field in ("reference_location", "ue_disk_radius_m", "minimum_elevation_deg", "link_budget"):
+            if field not in config:
+                raise ValueError(f"Manuscript-candidate config is missing field: {field}.")
+    elif float(config.get("range_std_dev_km", 0.0)) <= 0.0:
+        raise ValueError("range_std_dev_km must be positive for diagnostic flat-noise configs.")
     return config
 
 
@@ -256,6 +273,117 @@ def _scenario_for_case(
         links=links,
         range_std_devs_km=np.full(len(links), float(range_std_dev_km), dtype=float),
     )
+
+
+def _link_budget_from_config(config: dict[str, Any]) -> LinkBudgetConfig:
+    """Return manuscript-candidate link-budget config from figure config."""
+
+    values = dict(config.get("link_budget", {}))
+    return LinkBudgetConfig(**values)
+
+
+def _reference_from_config(config: dict[str, Any]) -> GroundReference:
+    """Return manuscript-candidate ground reference from figure config."""
+
+    reference = dict(config["reference_location"])
+    return GroundReference(
+        latitude_deg=float(reference["latitude_deg"]),
+        longitude_deg=float(reference["longitude_deg"]),
+        altitude_m=float(reference.get("altitude_m", 0.0)),
+    )
+
+
+def _manuscript_candidate_scenario_for_case(
+    *,
+    config: dict[str, Any],
+    num_users: int,
+    num_satellites: int,
+    seed: int,
+    clock_std_ns: float,
+) -> tuple[V24ScenarioConfig, dict[str, Any]]:
+    """Return a V24 scenario using manuscript-candidate geometry and link sigmas."""
+
+    geometry = manuscript_candidate_geometry(
+        num_users=num_users,
+        num_satellites=num_satellites,
+        seed=seed,
+        reference=_reference_from_config(config),
+        ue_radius_m=float(config["ue_disk_radius_m"]),
+        minimum_elevation_deg=float(config["minimum_elevation_deg"]),
+        satellite_pool_size=int(config.get("satellite_pool_size", max(24, num_satellites))),
+        satellite_altitude_km=float(config.get("satellite_altitude_km", 550.0)),
+    )
+    clock_std_km = float(clock_std_ns) * 1e-9 * C_KM_PER_S
+    rng = np.random.default_rng(int(seed) + 7919)
+    ue_clocks = rng.normal(0.0, clock_std_km, size=num_users)
+    non_reference_satellite_clocks = rng.normal(0.0, clock_std_km, size=num_satellites - 1)
+    links = _all_links(num_users, num_satellites)
+    sigmas, link_records, link_summary = range_sigmas_for_links(
+        ue_positions_km=geometry.ue_positions_km,
+        satellite_positions_km=geometry.satellite_positions_km,
+        links=links,
+        num_users=num_users,
+        config=_link_budget_from_config(config),
+    )
+    scenario = V24ScenarioConfig(
+        scenario_name=f"manuscript_candidate_nu{num_users}_ns{num_satellites}_clock{clock_std_ns:g}ns",
+        num_users=num_users,
+        num_satellites=num_satellites,
+        seed=int(seed),
+        ue_positions_km=geometry.ue_positions_km,
+        satellite_positions_km=geometry.satellite_positions_km,
+        ue_clock_offsets_km=ue_clocks,
+        non_reference_satellite_clock_offsets_km=non_reference_satellite_clocks,
+        links=links,
+        range_std_devs_km=sigmas,
+    )
+    return scenario, {
+        "case_seed": int(seed),
+        "num_users": int(num_users),
+        "num_satellites": int(num_satellites),
+        "clock_std_ns": float(clock_std_ns),
+        "clock_std_range_km": float(clock_std_km),
+        "geometry": geometry.metadata,
+        "link_noise": {
+            "summary": link_summary,
+            "links": link_records,
+        },
+    }
+
+
+def _scenario_and_metadata_for_case(
+    *,
+    config: dict[str, Any],
+    case: dict[str, Any],
+    seed: int,
+) -> tuple[V24ScenarioConfig, dict[str, Any]]:
+    """Return scenario plus case metadata for a config/case pair."""
+
+    scenario_model = str(config.get("scenario_model", "diagnostic_static_flat_noise"))
+    if scenario_model == "manuscript_candidate_mit_stata_synthetic_leo":
+        return _manuscript_candidate_scenario_for_case(
+            config=config,
+            num_users=case["num_users"],
+            num_satellites=case["num_satellites"],
+            seed=seed,
+            clock_std_ns=case["clock_std_ns"],
+        )
+
+    scenario = _scenario_for_case(
+        num_users=case["num_users"],
+        num_satellites=case["num_satellites"],
+        seed=seed,
+        clock_std_ns=case["clock_std_ns"],
+        range_std_dev_km=float(config["range_std_dev_km"]),
+    )
+    return scenario, {
+        "case_seed": int(seed),
+        "num_users": int(case["num_users"]),
+        "num_satellites": int(case["num_satellites"]),
+        "clock_std_ns": float(case["clock_std_ns"]),
+        "scenario_model": "diagnostic_static_flat_noise",
+        "flat_range_std_dev_km": float(config["range_std_dev_km"]),
+    }
 
 
 def _initial_theta(scenario: V24ScenarioConfig, rng: np.random.Generator) -> np.ndarray:
@@ -615,16 +743,17 @@ def run_figure_config(
 
     start = time.perf_counter()
     rows: list[dict[str, Any]] = []
+    case_metadata: list[dict[str, Any]] = []
     case_values = _case_values(config)
     for case_index, case in enumerate(case_values):
         case_seed = int(config["base_seed"]) + 1009 * case_index
-        scenario = _scenario_for_case(
-            num_users=case["num_users"],
-            num_satellites=case["num_satellites"],
+        scenario, metadata_for_case = _scenario_and_metadata_for_case(
+            config=config,
+            case=case,
             seed=case_seed,
-            clock_std_ns=case["clock_std_ns"],
-            range_std_dev_km=float(config["range_std_dev_km"]),
         )
+        metadata_for_case.update({"case_index": case_index, "x_value": case["x_value"], "series_value": case["series_value"]})
+        case_metadata.append(metadata_for_case)
         for trial in range(int(config["monte_carlo_trials"])):
             trial_seed = case_seed + 7919 * (trial + 1)
             trial_rows = run_single_trial(
@@ -642,7 +771,7 @@ def run_figure_config(
                         "x_value": case["x_value"],
                         "series_value": case["series_value"],
                         "clock_std_ns": case["clock_std_ns"],
-                        "range_std_dev_km": float(config["range_std_dev_km"]),
+                        "range_std_dev_km": float(config["range_std_dev_km"]) if "range_std_dev_km" in config else None,
                     }
                 )
                 rows.append(row)
@@ -668,6 +797,7 @@ def run_figure_config(
         summary_rows=summary_rows,
         runtime_s=runtime_s,
         overwrite_used=overwrite,
+        case_metadata=case_metadata,
     )
     metadata_json.write_text(json.dumps(json_ready(metadata), indent=2, sort_keys=True) + "\n", encoding="utf-8")
     provenance_json.write_text(
@@ -838,21 +968,25 @@ def _metadata_payload(
     summary_rows: list[dict[str, Any]],
     runtime_s: float,
     overwrite_used: bool,
+    case_metadata: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """Return figure metadata for provenance."""
 
+    flags, warning, artifact_kind = _artifact_policy(config)
     return {
         "metadata_type": "package_native_v24_figure_metadata",
-        **DIAGNOSTIC_ARTIFACT_FLAGS,
-        "artifact_warning": ARTIFACT_WARNING,
+        **flags,
+        "artifact_warning": warning,
+        "artifact_kind": artifact_kind,
         "figure_id": config["figure_id"],
+        "scenario_model": config.get("scenario_model", "diagnostic_static_flat_noise"),
         "commit_hash": _git_commit_hash(),
         "config_path": repo_relative_path(config_path),
         "output_dir": repo_relative_path(output_dir),
         "base_seed": int(config["base_seed"]),
         "monte_carlo_trials": int(config["monte_carlo_trials"]),
         "refinement_epochs": int(config["refinement_epochs"]),
-        "range_std_dev_km": float(config["range_std_dev_km"]),
+        "range_std_dev_km": float(config["range_std_dev_km"]) if "range_std_dev_km" in config else None,
         "units": {
             "positions_internal": "km",
             "clock_offsets_internal": "range-domain km",
@@ -866,6 +1000,7 @@ def _metadata_payload(
         "runtime_seconds": float(runtime_s),
         "raw_row_count": len(rows),
         "summary_row_count": len(summary_rows),
+        "case_metadata": case_metadata,
         "baselines": BASELINE_DEFINITIONS,
         "code_path": [
             "jcls_sim.figure_generation",
@@ -883,10 +1018,12 @@ def _provenance_payload(config: dict[str, Any], metadata: dict[str, Any]) -> dic
     """Return manuscript figure provenance mapping for one figure."""
 
     figure_id = str(config["figure_id"])
+    flags, warning, artifact_kind = _artifact_policy(config)
     return {
-        "provenance_type": "package_native_v24_diagnostic_figure_provenance",
-        **DIAGNOSTIC_ARTIFACT_FLAGS,
-        "artifact_warning": ARTIFACT_WARNING,
+        "provenance_type": f"package_native_v24_{artifact_kind}_figure_provenance",
+        **flags,
+        "artifact_warning": warning,
+        "artifact_kind": artifact_kind,
         "figure_id": figure_id,
         "manuscript_figure": config.get("manuscript_figure_label", figure_id),
         "command": (
@@ -912,3 +1049,14 @@ def _provenance_payload(config: dict[str, Any], metadata: dict[str, Any]) -> dic
             "Package-native deterministic provenance; not forced to match legacy notebook curves.",
         ),
     }
+
+
+def _artifact_policy(config: dict[str, Any]) -> tuple[dict[str, bool], str, str]:
+    """Return artifact flags, warning, and kind for a figure config."""
+
+    profile = str(config.get("artifact_profile", "diagnostic"))
+    if profile == "diagnostic":
+        return DIAGNOSTIC_ARTIFACT_FLAGS, ARTIFACT_WARNING, "diagnostic"
+    if profile == "manuscript_candidate":
+        return CANDIDATE_ARTIFACT_FLAGS, CANDIDATE_ARTIFACT_WARNING, "manuscript_candidate"
+    raise ValueError(f"Unsupported artifact_profile: {profile!r}.")

@@ -12,6 +12,7 @@ from jcls_sim.constants import C_KM_PER_S
 from jcls_sim.figure_generation import (
     BASELINE_DEFINITIONS,
     ARTIFACT_WARNING,
+    CANDIDATE_ARTIFACT_WARNING,
     _scenario_for_case,
     load_figure_config,
     run_figure_config,
@@ -51,6 +52,57 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
             "known_discrepancy_from_v24": "unit-test config",
         }
         path = self.temp_dir / "tiny_config.json"
+        path.write_text(json.dumps(config), encoding="utf-8")
+        return path
+
+    def _tiny_candidate_config(self) -> Path:
+        config = {
+            "figure_id": "test_fig_candidate_tiny",
+            "manuscript_figure_label": "test candidate",
+            "artifact_profile": "manuscript_candidate",
+            "scenario_model": "manuscript_candidate_mit_stata_synthetic_leo",
+            "title": "Tiny manuscript-candidate test",
+            "sweep_type": "satellite_count",
+            "metric_field": "position_error_mean_m",
+            "plot_metric_scale": 1.0,
+            "plot_metric_unit": "m",
+            "x_label": "Ns",
+            "y_label": "error [m]",
+            "log_y": True,
+            "base_seed": 23456,
+            "monte_carlo_trials": 1,
+            "num_users_values": [1],
+            "num_satellites_values": [4],
+            "clock_std_devs_ns": [1000.0],
+            "refinement_epochs": 1,
+            "reference_location": {
+                "latitude_deg": 42.361145,
+                "longitude_deg": -71.09085,
+                "altitude_m": 20.0,
+            },
+            "ue_disk_radius_m": 500.0,
+            "minimum_elevation_deg": 30.0,
+            "satellite_pool_size": 12,
+            "satellite_altitude_km": 550.0,
+            "link_budget": {
+                "dl_frequency_hz": 2.2e9,
+                "dl_bandwidth_hz": 20.0e6,
+                "dl_transmit_power_dbm": 55.0,
+                "dl_transmit_antenna_gain_db": 20.0,
+                "dl_receive_antenna_gain_db": 3.0,
+                "sl_frequency_hz": 5.9e9,
+                "sl_bandwidth_hz": 40.0e6,
+                "sl_transmit_power_dbm": 20.0,
+                "sl_transmit_antenna_gain_db": 3.0,
+                "sl_receive_antenna_gain_db": 3.0,
+                "noise_density_dbm_per_hz": -174.0,
+                "receiver_noise_figure_db": 5.0,
+                "implementation_loss_db": 0.0,
+            },
+            "assumptions": ["unit-test candidate config"],
+            "known_discrepancy_from_v24": "unit-test candidate config",
+        }
+        path = self.temp_dir / "tiny_candidate_config.json"
         path.write_text(json.dumps(config), encoding="utf-8")
         return path
 
@@ -108,9 +160,10 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         self.assertFalse(Path(provenance["raw_output_file"]).is_absolute())
 
     def test_checked_in_configs_have_required_schema(self) -> None:
-        config_dir = Path("configs/v24_figures_4_7")
+        config_paths = list(Path("configs/v24_figures_4_7").glob("*.json"))
+        config_paths += list(Path("configs/v24_manuscript_candidate_figures_4_7").glob("*.json"))
 
-        for path in sorted(config_dir.glob("*.json")):
+        for path in sorted(config_paths):
             with self.subTest(config=path.name):
                 config = load_figure_config(path)
                 self.assertIn(config["sweep_type"], {"satellite_count", "clock_std"})
@@ -120,7 +173,14 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
                 self.assertIn("plot_metric_unit", config)
                 self.assertIn("assumptions", config)
                 self.assertIn("known_discrepancy_from_v24", config)
-                self.assertIn("not forced to match legacy notebook curves", config["known_discrepancy_from_v24"])
+                self.assertGreater(len(config["assumptions"]), 0)
+                self.assertIn(config.get("artifact_profile", "diagnostic"), {"diagnostic", "manuscript_candidate"})
+                if config.get("artifact_profile") == "manuscript_candidate":
+                    self.assertEqual(config["scenario_model"], "manuscript_candidate_mit_stata_synthetic_leo")
+                    self.assertIn("reference_location", config)
+                    self.assertIn("link_budget", config)
+                else:
+                    self.assertIn("not forced to match legacy notebook curves", config["known_discrepancy_from_v24"])
                 if config["metric_field"] == "sync_error_mean_s":
                     self.assertEqual(config["plot_metric_scale"], 1_000_000_000.0)
                     self.assertEqual(config["plot_metric_unit"], "ns")
@@ -219,6 +279,11 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
 
         self.assertEqual(safe, Path("v24_figure_outputs"))
 
+    def test_output_root_guard_accepts_candidate_root(self) -> None:
+        safe = validate_output_root(Path("v24_manuscript_candidate_outputs"))
+
+        self.assertEqual(safe, Path("v24_manuscript_candidate_outputs"))
+
     def test_developer_override_allows_external_root(self) -> None:
         external = Path(tempfile.gettempdir()) / "external_v24_figures"
 
@@ -260,6 +325,27 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         self.assertEqual(combined["artifact_warning"], ARTIFACT_WARNING)
         self.assertEqual(len(combined["rows"]), 1)
         self.assertFalse(Path(combined["rows"][0]["config_file"]).is_absolute())
+
+    def test_candidate_config_writes_candidate_metadata(self) -> None:
+        result = run_figure_config(self._tiny_candidate_config(), self.temp_dir / "candidate_outputs")
+
+        metadata = json.loads(result.metadata_json.read_text(encoding="utf-8"))
+        self.assertFalse(metadata["diagnostic_only"])
+        self.assertTrue(metadata["candidate_only"])
+        self.assertTrue(metadata["non_final"])
+        self.assertFalse(metadata["manuscript_ready"])
+        self.assertEqual(metadata["artifact_warning"], CANDIDATE_ARTIFACT_WARNING)
+        self.assertEqual(metadata["artifact_kind"], "manuscript_candidate")
+        self.assertEqual(metadata["scenario_model"], "manuscript_candidate_mit_stata_synthetic_leo")
+        self.assertIn("case_metadata", metadata)
+        self.assertIn("ue_coordinates", metadata["case_metadata"][0]["geometry"])
+        self.assertIn("satellite_coordinates", metadata["case_metadata"][0]["geometry"])
+        self.assertIn("link_noise", metadata["case_metadata"][0])
+        self.assertIn("dl_range_sigma_m_min", metadata["case_metadata"][0]["link_noise"]["summary"])
+
+        provenance = json.loads(result.provenance_json.read_text(encoding="utf-8"))
+        self.assertEqual(provenance["provenance_type"], "package_native_v24_manuscript_candidate_figure_provenance")
+        self.assertTrue(provenance["candidate_only"])
 
     def test_baseline_definitions_are_explicit(self) -> None:
         self.assertFalse(BASELINE_DEFINITIONS["without_cooperation"]["uses_sl"])

@@ -19,6 +19,7 @@ if str(SAT_SIM_ROOT) not in sys.path:
 from jcls_sim.figure_generation import run_figure_config  # noqa: E402
 from jcls_sim.figure_generation import (  # noqa: E402
     ARTIFACT_WARNING,
+    CANDIDATE_ARTIFACT_WARNING,
     DIAGNOSTIC_ARTIFACT_FLAGS,
     validate_output_root,
 )
@@ -73,9 +74,33 @@ def _write_combined_provenance(output_root: Path, results: list) -> tuple[Path, 
 
     output_root.mkdir(parents=True, exist_ok=True)
     rows = []
+    table_flags = None
+    table_warning = None
+    table_kind = None
     for result in results:
         provenance = json.loads(result.provenance_json.read_text(encoding="utf-8"))
         metadata = json.loads(result.metadata_json.read_text(encoding="utf-8"))
+        flags = {
+            "diagnostic_only": bool(provenance["diagnostic_only"]),
+            "candidate_only": bool(provenance["candidate_only"]),
+            "non_final": bool(provenance["non_final"]),
+            "manuscript_ready": bool(provenance["manuscript_ready"]),
+            "not_for_manuscript_submission": bool(provenance["not_for_manuscript_submission"]),
+        }
+        if table_flags is None:
+            table_flags = flags
+            table_warning = provenance["artifact_warning"]
+            table_kind = provenance["artifact_kind"]
+        elif flags != table_flags:
+            table_flags = {
+                "diagnostic_only": False,
+                "candidate_only": False,
+                "non_final": True,
+                "manuscript_ready": False,
+                "not_for_manuscript_submission": True,
+            }
+            table_warning = f"Mixed artifact profiles. {ARTIFACT_WARNING} {CANDIDATE_ARTIFACT_WARNING}"
+            table_kind = "mixed"
         rows.append(
             {
                 "figure_id": result.figure_id,
@@ -99,9 +124,10 @@ def _write_combined_provenance(output_root: Path, results: list) -> tuple[Path, 
     json_path = output_root / "figure_provenance_table.json"
     md_path = output_root / "figure_provenance_table.md"
     payload = {
-        "provenance_table_type": "package_native_v24_diagnostic_figure_provenance_table",
-        **DIAGNOSTIC_ARTIFACT_FLAGS,
-        "artifact_warning": ARTIFACT_WARNING,
+        "provenance_table_type": f"package_native_v24_{table_kind}_figure_provenance_table",
+        **(table_flags or DIAGNOSTIC_ARTIFACT_FLAGS),
+        "artifact_warning": table_warning or ARTIFACT_WARNING,
+        "artifact_kind": table_kind or "diagnostic",
         "rows": rows,
     }
     json_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -109,7 +135,7 @@ def _write_combined_provenance(output_root: Path, results: list) -> tuple[Path, 
     header = [
         "# Package-Native V24 Fig. 4--7 Diagnostic Provenance",
         "",
-        f"Warning: {ARTIFACT_WARNING}",
+        f"Warning: {payload['artifact_warning']}",
         "",
         "| Figure | Config | Raw CSV | Summary CSV | PDF | Metadata | Trials | Seed | Notebook used | Manuscript dirs touched |",
         "|---|---|---|---|---|---|---:|---:|---|---|",
