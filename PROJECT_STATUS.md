@@ -130,6 +130,16 @@ rank metadata has been relabeled as `full_jcls_scenario_*` to avoid implying
 baseline-specific observability. Baseline-specific rank diagnostics remain a
 pending task.
 
+A human-review Fig. 4--7 sprint is implemented on branch
+`codex/human-ready-figures-sprint`. It adds deterministic non-truth-centered
+multistart initialization, permits rank-deficient damped Step 2 updates only as
+non-successful initializers, records Step 3 covariance-trace diagnostics, adds
+baseline-specific observability/rank fields, and writes human-review package
+outputs under `v24_human_review_outputs/`. The human-review report marks all
+four figure families as review-only and not manuscript-ready because JCLS
+success rates remain low, one-UE full-JCLS cases are unobservable, and refined
+JCLS can still underperform the no-cooperation baseline.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -144,6 +154,9 @@ pending task.
   bounds unless the relevant subspace is proven estimable.
 - Figures may need rerun after the V24-gauge code path is integrated into
   reproducible scripts.
+- Human-review Fig. 4--7 outputs currently conflict with the manuscript
+  narrative in several regimes and must not be used as final manuscript
+  figures without estimator/model redesign and human technical signoff.
 
 ## Last completed task
 
@@ -172,6 +185,10 @@ candidate outputs are implemented on branch `codex/v24-algorithm-fidelity`.
 Status/rank honesty hardening for that branch is implemented and candidate
 outputs have been refreshed again with conservative success semantics and
 `full_jcls_scenario_*` rank fields.
+Human-review Fig. 4--7 package outputs, provenance, and
+`HUMAN_REVIEW_REPORT.md/.json` are implemented on branch
+`codex/human-ready-figures-sprint`; the report currently recommends review-only
+status rather than manuscript consideration.
 
 ## Next task
 
@@ -204,7 +221,11 @@ See `docs/tasks/NEXT.md`.
   geometry, synthetic visible LEO satellites, and link-budget-derived DL/SL
   sigmas, and the package-native V24 three-stage estimator path. They are still
   non-final and not manuscript-ready because synthetic satellite geometry,
-  estimator robustness/initialization, baseline-specific observability,
-  numerical behavior, and final human signoff remain unresolved.
+  estimator robustness, numerical behavior, and final human signoff remain
+  unresolved.
+- Human-review Fig. 4--7 outputs exist under `v24_human_review_outputs/`. They
+  include PDFs, raw/summary CSV, NPZ, metadata, provenance, and a top-level
+  human-review report. The outputs are candidate-only, non-final, not for
+  submission, and currently do not support manuscript replacement.
 - No manuscript text or response-letter text should be changed based on the
   current package-native Fig. 4--7 diagnostic or candidate outputs.

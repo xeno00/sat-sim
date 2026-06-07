@@ -24,6 +24,8 @@ from scipy.optimize import least_squares
 
 from .algorithm import (
     coarse_individual_localization,
+    deterministic_position_initialization,
+    deterministic_position_initialization_candidates,
     dynamic_soft_information_refinement,
     initial_covariance_from_linearization,
     joint_lm_jcls,
@@ -57,6 +59,18 @@ CANDIDATE_ARTIFACT_WARNING = (
 )
 CANDIDATE_ARTIFACT_FLAGS = {
     "diagnostic_only": False,
+    "candidate_only": True,
+    "non_final": True,
+    "manuscript_ready": False,
+    "not_for_manuscript_submission": True,
+}
+HUMAN_REVIEW_ARTIFACT_WARNING = (
+    "Human-review-ready package-native output. Not manuscript-ready and not for TAES "
+    "submission until human signoff and manuscript integration review."
+)
+HUMAN_REVIEW_ARTIFACT_FLAGS = {
+    "diagnostic_only": False,
+    "human_review_ready": True,
     "candidate_only": True,
     "non_final": True,
     "manuscript_ready": False,
@@ -395,11 +409,12 @@ def _scenario_and_metadata_for_case(
 def _initial_theta(scenario: V24ScenarioConfig, rng: np.random.Generator) -> np.ndarray:
     """Return deterministic perturbed initial theta for full JCLS estimators."""
 
-    position_perturbation = rng.normal(0.0, 0.08, size=scenario.ue_positions_km.shape)
+    del rng
+    initial_positions = deterministic_position_initialization(scenario)
     ue_clock_init = np.zeros(scenario.num_users, dtype=float)
     sat_clock_init = np.zeros(scenario.num_satellites - 1, dtype=float)
     return pack_v24_theta(
-        scenario.ue_positions_km + position_perturbation,
+        initial_positions,
         ue_clock_init,
         sat_clock_init,
     )
@@ -452,15 +467,16 @@ def _estimate_without_cooperation(
 ) -> np.ndarray:
     """Estimate UE positions independently from downlinks while ignoring clocks."""
 
+    del rng
     estimated_positions = []
     links = list(scenario.links)
+    initialization_candidates = deterministic_position_initialization_candidates(scenario)
     for user_id in range(1, scenario.num_users + 1):
         row_indices = [
             index
             for index, (receiver_node_id, transmitter_node_id) in enumerate(links)
             if receiver_node_id == user_id and transmitter_node_id > scenario.num_users
         ]
-        x0 = scenario.ue_positions_km[user_id - 1] + rng.normal(0.0, 0.12, size=3)
         satellite_positions = scenario.satellite_positions_km
 
         def residual(position: np.ndarray) -> np.ndarray:
@@ -471,8 +487,14 @@ def _estimate_without_cooperation(
                 values.append((np.linalg.norm(position - satellite_position) - z[row_index]) / scenario.range_std_devs_km[row_index])
             return np.asarray(values, dtype=float)
 
-        result = least_squares(residual, x0, method="trf", max_nfev=200)
-        estimated_positions.append(result.x)
+        best_x = initialization_candidates[0][user_id - 1]
+        best_cost = math.inf
+        for candidate_positions in initialization_candidates:
+            result = least_squares(residual, candidate_positions[user_id - 1], method="trf", max_nfev=200)
+            if float(result.cost) < best_cost:
+                best_x = result.x
+                best_cost = float(result.cost)
+        estimated_positions.append(best_x)
     return np.asarray(estimated_positions, dtype=float)
 
 
@@ -567,6 +589,113 @@ def _rank_diagnostics(scenario: V24ScenarioConfig, epoch_count: int) -> dict[str
     }
 
 
+def _condition_number_from_weighted_jacobian(weighted_jac: np.ndarray, rank: int) -> float:
+    """Return a finite/full-rank condition number or infinity otherwise."""
+
+    if weighted_jac.size == 0 or rank < weighted_jac.shape[1]:
+        return math.inf
+    return float(np.linalg.cond(weighted_jac.T @ weighted_jac))
+
+
+def _without_cooperation_observability(scenario: V24ScenarioConfig) -> dict[str, Any]:
+    """Return baseline-specific rank diagnostics for independent DL-only localization."""
+
+    links = list(scenario.links)
+    total_measurements = 0
+    total_rank = 0
+    user_records = []
+    for user_id in range(1, scenario.num_users + 1):
+        rows = []
+        sigmas = []
+        position = deterministic_position_initialization(scenario)[user_id - 1]
+        for row_index, (receiver, transmitter) in enumerate(links):
+            if receiver != user_id or transmitter <= scenario.num_users:
+                continue
+            satellite_position = scenario.satellite_positions_km[transmitter - scenario.num_users - 1]
+            diff = position - satellite_position
+            range_km = float(np.linalg.norm(diff))
+            if range_km <= 0.0:
+                continue
+            rows.append(diff / range_km)
+            sigmas.append(float(scenario.range_std_devs_km[row_index]))
+        jac = np.asarray(rows, dtype=float)
+        sigma_array = np.asarray(sigmas, dtype=float)
+        rank = int(np.linalg.matrix_rank(jac)) if jac.size else 0
+        weighted_jac = jac / sigma_array[:, np.newaxis] if jac.size else np.empty((0, 3))
+        user_records.append(
+            {
+                "user_id": user_id,
+                "measurement_count": int(len(rows)),
+                "state_dim": 3,
+                "rank": rank,
+                "nullity": 3 - rank,
+                "is_full_rank": rank == 3,
+                "condition_number": _condition_number_from_weighted_jacobian(weighted_jac, rank),
+            }
+        )
+        total_measurements += len(rows)
+        total_rank += rank
+    state_dim = 3 * scenario.num_users
+    nullity = state_dim - total_rank
+    return {
+        "baseline_observability_scope": "without_cooperation_independent_dl_position_blocks",
+        "baseline_observability_measurement_count": int(total_measurements),
+        "baseline_observability_state_dim": int(state_dim),
+        "baseline_observability_rank": int(total_rank),
+        "baseline_observability_nullity": int(nullity),
+        "baseline_observability_is_full_rank": bool(nullity == 0),
+        "baseline_observability_condition_number": float(max((record["condition_number"] for record in user_records), default=math.inf)),
+        "baseline_observability_reportable": bool(nullity == 0),
+        "baseline_observability_records": user_records,
+    }
+
+
+def _full_theta_observability(
+    scenario: V24ScenarioConfig,
+    *,
+    baseline_id: str,
+    epoch_count: int,
+) -> dict[str, Any]:
+    """Return baseline-specific rank diagnostics for a full V24-theta baseline."""
+
+    links = list(scenario.links) * int(epoch_count)
+    sigmas = np.tile(scenario.range_std_devs_km, int(epoch_count))
+    jac = analytic_toa_jacobian_km(
+        scenario.theta(),
+        links,
+        scenario.satellite_positions_km,
+        scenario.num_users,
+        scenario.num_satellites,
+    )
+    weighted_jac = jac / sigmas[:, np.newaxis]
+    rank = int(np.linalg.matrix_rank(weighted_jac))
+    state_dim = expected_v24_parameter_dim(scenario.num_users, scenario.num_satellites)
+    nullity = state_dim - rank
+    return {
+        "baseline_observability_scope": f"{baseline_id}_full_gauged_v24_theta",
+        "baseline_observability_measurement_count": int(len(links)),
+        "baseline_observability_state_dim": int(state_dim),
+        "baseline_observability_rank": int(rank),
+        "baseline_observability_nullity": int(nullity),
+        "baseline_observability_is_full_rank": bool(nullity == 0),
+        "baseline_observability_condition_number": _condition_number_from_weighted_jacobian(weighted_jac, rank),
+        "baseline_observability_reportable": bool(nullity == 0),
+    }
+
+
+def _baseline_observability_diagnostics(
+    scenario: V24ScenarioConfig,
+    baseline_id: str,
+    *,
+    epoch_count: int,
+) -> dict[str, Any]:
+    """Return observability diagnostics scoped to one plotted baseline."""
+
+    if baseline_id == "without_cooperation":
+        return _without_cooperation_observability(scenario)
+    return _full_theta_observability(scenario, baseline_id=baseline_id, epoch_count=epoch_count)
+
+
 def run_single_trial(
     scenario: V24ScenarioConfig,
     *,
@@ -599,7 +728,7 @@ def run_single_trial(
             success=True,
             cost=None,
             nfev=None,
-            rank=_rank_diagnostics(scenario, 1),
+            rank={**_rank_diagnostics(scenario, 1), **_baseline_observability_diagnostics(scenario, "without_cooperation", epoch_count=1)},
         )
     )
 
@@ -625,7 +754,7 @@ def run_single_trial(
             success=coarse_success,
             cost=coarse_cost,
             nfev=coarse_nfev,
-            rank=_rank_diagnostics(scenario, 1),
+            rank={**_rank_diagnostics(scenario, 1), **_baseline_observability_diagnostics(scenario, "coarse_jcls", epoch_count=1)},
         )
     )
 
@@ -650,7 +779,10 @@ def run_single_trial(
             success=refined_success,
             cost=refined_cost,
             nfev=refined_nfev,
-            rank=_rank_diagnostics(scenario, max(1, int(refinement_epochs))),
+            rank={
+                **_rank_diagnostics(scenario, max(1, int(refinement_epochs))),
+                **_baseline_observability_diagnostics(scenario, "refined_jcls", epoch_count=max(1, int(refinement_epochs))),
+            },
         )
     )
     return rows
@@ -696,7 +828,7 @@ def run_single_trial_v24_algorithm(
                 success=step1.success,
                 cost=None,
                 nfev=None,
-                rank=_rank_diagnostics(scenario, 1),
+                rank={**_rank_diagnostics(scenario, 1), **_baseline_observability_diagnostics(scenario, "without_cooperation", epoch_count=1)},
             ),
             estimator_mode="v24_three_stage_dynamic",
             algorithm_stage="step1_coarse_individual_dl_gn",
@@ -723,7 +855,7 @@ def run_single_trial_v24_algorithm(
                 success=step2.success,
                 cost=None,
                 nfev=step2.diagnostics.get("iteration_count"),
-                rank=_rank_diagnostics(scenario, 1),
+                rank={**_rank_diagnostics(scenario, 1), **_baseline_observability_diagnostics(scenario, "coarse_jcls", epoch_count=1)},
             ),
             estimator_mode="v24_three_stage_dynamic",
             algorithm_stage="step2_joint_lm_jcls",
@@ -759,7 +891,10 @@ def run_single_trial_v24_algorithm(
                 success=step3.success,
                 cost=None,
                 nfev=step3.diagnostics.get("epoch_count"),
-                rank=_rank_diagnostics(scenario, max(1, int(refinement_epochs))),
+                rank={
+                    **_rank_diagnostics(scenario, max(1, int(refinement_epochs))),
+                    **_baseline_observability_diagnostics(scenario, "refined_jcls", epoch_count=max(1, int(refinement_epochs))),
+                },
             ),
             estimator_mode="v24_three_stage_dynamic",
             algorithm_stage="step3_dynamic_sci_sfi_information_update",
@@ -1043,6 +1178,16 @@ def summarize_rows(rows: list[dict[str, Any]], *, metric_field: str) -> list[dic
                 "all_full_jcls_scenario_full_rank": bool(all(row["full_jcls_scenario_is_full_rank"] for row in group_rows)),
                 "max_full_jcls_scenario_condition_number": float(max(row["full_jcls_scenario_condition_number"] for row in group_rows)),
                 "rank_metadata_scope": "full_jcls_scenario_not_baseline_observability",
+                "baseline_observability_scope": group_rows[0].get("baseline_observability_scope"),
+                "min_baseline_observability_rank": int(min(row["baseline_observability_rank"] for row in group_rows)),
+                "max_baseline_observability_nullity": int(max(row["baseline_observability_nullity"] for row in group_rows)),
+                "baseline_observability_state_dim": int(group_rows[0]["baseline_observability_state_dim"]),
+                "baseline_observability_measurement_count": int(group_rows[0]["baseline_observability_measurement_count"]),
+                "all_baseline_observability_full_rank": bool(all(row["baseline_observability_is_full_rank"] for row in group_rows)),
+                "all_baseline_observability_reportable": bool(all(row["baseline_observability_reportable"] for row in group_rows)),
+                "max_baseline_observability_condition_number": float(
+                    max(row["baseline_observability_condition_number"] for row in group_rows)
+                ),
             }
         )
     return summaries
@@ -1072,6 +1217,8 @@ def _write_npz(path: Path, rows: list[dict[str, Any]]) -> None:
         num_satellites=np.asarray([row["num_satellites"] for row in rows], dtype=int),
         full_jcls_scenario_fim_rank=np.asarray([row["full_jcls_scenario_fim_rank"] for row in rows], dtype=int),
         full_jcls_scenario_fim_nullity=np.asarray([row["full_jcls_scenario_fim_nullity"] for row in rows], dtype=int),
+        baseline_observability_rank=np.asarray([row["baseline_observability_rank"] for row in rows], dtype=int),
+        baseline_observability_nullity=np.asarray([row["baseline_observability_nullity"] for row in rows], dtype=int),
         success=np.asarray([row["success"] for row in rows], dtype=bool),
         baseline_id=np.asarray([row["baseline_id"] for row in rows]),
     )
@@ -1187,13 +1334,14 @@ def _metadata_payload(
             },
         },
         "rank_metadata": {
-            "scope": "full_jcls_scenario_not_baseline_observability",
+            "scope": "full_jcls_scenario_plus_baseline_specific_observability",
             "note": (
                 "Rank fields named full_jcls_scenario_* are computed for the full "
                 "gauged V24 theta and the scenario links used by the selected epoch "
-                "count. They are not baseline-specific observability claims."
+                "count. Fields named baseline_observability_* are scoped to each plotted "
+                "baseline and should be used when judging whether a curve is reportable."
             ),
-            "baseline_specific_rank_pending": True,
+            "baseline_specific_rank_pending": False,
         },
         "range_std_dev_km": float(config["range_std_dev_km"]) if "range_std_dev_km" in config else None,
         "units": {
@@ -1247,6 +1395,10 @@ def _provenance_payload(config: dict[str, Any], metadata: dict[str, Any]) -> dic
         "plot_output_file": f"{metadata['output_dir']}/{figure_id}.pdf",
         "metadata_file": f"{metadata['output_dir']}/{figure_id}_metadata.json",
         "rank_metadata": metadata.get("rank_metadata"),
+        "baseline_observability_note": (
+            "Raw and summary outputs include baseline_observability_* fields for "
+            "without-cooperation, coarse JCLS, and refined JCLS."
+        ),
         "test_coverage": [
             "tests/test_figure_generation.py",
             "tests/test_estimators.py",
@@ -1270,4 +1422,6 @@ def _artifact_policy(config: dict[str, Any]) -> tuple[dict[str, bool], str, str]
         return DIAGNOSTIC_ARTIFACT_FLAGS, ARTIFACT_WARNING, "diagnostic"
     if profile == "manuscript_candidate":
         return CANDIDATE_ARTIFACT_FLAGS, CANDIDATE_ARTIFACT_WARNING, "manuscript_candidate"
+    if profile == "human_review":
+        return HUMAN_REVIEW_ARTIFACT_FLAGS, HUMAN_REVIEW_ARTIFACT_WARNING, "human_review"
     raise ValueError(f"Unsupported artifact_profile: {profile!r}.")

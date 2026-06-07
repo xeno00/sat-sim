@@ -176,8 +176,9 @@ class TestV24AlgorithmStages(unittest.TestCase):
         result = joint_lm_jcls(scenario, z, scenario.theta())
 
         self.assertFalse(result.success)
-        self.assertEqual(result.diagnostics["status"], "rank_deficient")
+        self.assertEqual(result.diagnostics["status"], "rank_deficient_updated")
         self.assertFalse(result.diagnostics["converged"])
+        self.assertTrue(result.diagnostics["rank_deficient_seen"])
 
     def test_step3_dynamic_update_uses_f_q_pi_and_innovation(self) -> None:
         scenario = _joint_scenario()

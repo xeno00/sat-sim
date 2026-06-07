@@ -14,6 +14,7 @@ from jcls_sim.figure_generation import (
     BASELINE_DEFINITIONS,
     ARTIFACT_WARNING,
     CANDIDATE_ARTIFACT_WARNING,
+    HUMAN_REVIEW_ARTIFACT_WARNING,
     _scenario_for_case,
     load_figure_config,
     run_figure_config,
@@ -167,6 +168,7 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
     def test_checked_in_configs_have_required_schema(self) -> None:
         config_paths = list(Path("configs/v24_figures_4_7").glob("*.json"))
         config_paths += list(Path("configs/v24_manuscript_candidate_figures_4_7").glob("*.json"))
+        config_paths += list(Path("configs/v24_human_review_figures_4_7").glob("*.json"))
 
         for path in sorted(config_paths):
             with self.subTest(config=path.name):
@@ -179,8 +181,8 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
                 self.assertIn("assumptions", config)
                 self.assertIn("known_discrepancy_from_v24", config)
                 self.assertGreater(len(config["assumptions"]), 0)
-                self.assertIn(config.get("artifact_profile", "diagnostic"), {"diagnostic", "manuscript_candidate"})
-                if config.get("artifact_profile") == "manuscript_candidate":
+                self.assertIn(config.get("artifact_profile", "diagnostic"), {"diagnostic", "manuscript_candidate", "human_review"})
+                if config.get("artifact_profile") in {"manuscript_candidate", "human_review"}:
                     self.assertEqual(config["scenario_model"], "manuscript_candidate_mit_stata_synthetic_leo")
                     self.assertEqual(config.get("estimator_mode"), "v24_three_stage_dynamic")
                     self.assertIn("process_noise_std_km", config)
@@ -379,8 +381,8 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         self.assertEqual(metadata["scenario_model"], "manuscript_candidate_mit_stata_synthetic_leo")
         self.assertEqual(metadata["estimator_mode"], "v24_three_stage_dynamic")
         self.assertEqual(metadata["estimator_metadata"]["v24_three_stage_dynamic"]["state_model"], "x=theta, F=I, Pi=I, Q=process_noise_std_km^2 I")
-        self.assertEqual(metadata["rank_metadata"]["scope"], "full_jcls_scenario_not_baseline_observability")
-        self.assertTrue(metadata["rank_metadata"]["baseline_specific_rank_pending"])
+        self.assertEqual(metadata["rank_metadata"]["scope"], "full_jcls_scenario_plus_baseline_specific_observability")
+        self.assertFalse(metadata["rank_metadata"]["baseline_specific_rank_pending"])
         self.assertIn("case_metadata", metadata)
         self.assertIn("ue_coordinates", metadata["case_metadata"][0]["geometry"])
         self.assertIn("satellite_coordinates", metadata["case_metadata"][0]["geometry"])
@@ -391,7 +393,29 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         self.assertEqual(provenance["provenance_type"], "package_native_v24_manuscript_candidate_figure_provenance")
         self.assertTrue(provenance["candidate_only"])
         self.assertIn("candidate_outputs", provenance["command"])
-        self.assertEqual(provenance["rank_metadata"]["scope"], "full_jcls_scenario_not_baseline_observability")
+        self.assertEqual(provenance["rank_metadata"]["scope"], "full_jcls_scenario_plus_baseline_specific_observability")
+
+    def test_human_review_config_writes_human_review_metadata(self) -> None:
+        config = json.loads(self._tiny_candidate_config().read_text(encoding="utf-8"))
+        config["figure_id"] = "test_fig_human_review_tiny"
+        config["artifact_profile"] = "human_review"
+        config_path = self.temp_dir / "tiny_human_review_config.json"
+        config_path.write_text(json.dumps(config), encoding="utf-8")
+
+        result = run_figure_config(config_path, self.temp_dir / "human_review_outputs")
+        metadata = json.loads(result.metadata_json.read_text(encoding="utf-8"))
+        provenance = json.loads(result.provenance_json.read_text(encoding="utf-8"))
+
+        self.assertFalse(metadata["diagnostic_only"])
+        self.assertTrue(metadata["human_review_ready"])
+        self.assertTrue(metadata["candidate_only"])
+        self.assertTrue(metadata["non_final"])
+        self.assertFalse(metadata["manuscript_ready"])
+        self.assertTrue(metadata["not_for_manuscript_submission"])
+        self.assertEqual(metadata["artifact_warning"], HUMAN_REVIEW_ARTIFACT_WARNING)
+        self.assertEqual(metadata["artifact_kind"], "human_review")
+        self.assertEqual(provenance["provenance_type"], "package_native_v24_human_review_figure_provenance")
+        self.assertTrue(provenance["human_review_ready"])
 
     def test_baseline_definitions_are_explicit(self) -> None:
         self.assertFalse(BASELINE_DEFINITIONS["without_cooperation"]["uses_sl"])
@@ -438,6 +462,8 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
             self.assertNotIn("is_full_rank", row)
             self.assertIn("full_jcls_scenario_fim_rank", row)
             self.assertEqual(row["rank_metadata_scope"], "full_jcls_scenario_not_baseline_observability")
+            self.assertIn("baseline_observability_rank", row)
+            self.assertIn("baseline_observability_scope", row)
             if row["baseline_id"] in {"coarse_jcls", "refined_jcls"} and row["algorithm_converged"] == "False":
                 self.assertEqual(row["success"], "False")
 
@@ -446,6 +472,8 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
             self.assertNotIn("all_full_rank", row)
             self.assertIn("min_full_jcls_scenario_fim_rank", row)
             self.assertEqual(row["rank_metadata_scope"], "full_jcls_scenario_not_baseline_observability")
+            self.assertIn("min_baseline_observability_rank", row)
+            self.assertIn("all_baseline_observability_reportable", row)
 
     def test_single_ue_has_no_sidelinks(self) -> None:
         scenario = _scenario_for_case(

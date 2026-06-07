@@ -1,29 +1,30 @@
-MODE: REVIEW_DIFF
+MODE: PLAN_ONLY
 
-This task may be executed via `RUN_CODEX.md`. Do not edit files. Do not merge
-unless the human explicitly approves merge after review.
-
-# Next Task: Review Hardened V24 Algorithm-Fidelity Branch Before Merge
+# Next Task: Plan Estimator/Model Redesign After Human-Review Fig. 4--7 Sprint
 
 ## Purpose
 
-Review branch `codex/v24-algorithm-fidelity` after the status/rank honesty
-hardening pass. The branch adds a package-native V24 three-stage algorithm path
-for manuscript-candidate Fig. 4--7 diagnostics while preserving non-final
-candidate-output boundaries.
+Use the human-review outputs under `v24_human_review_outputs/` to plan the next
+package-native estimator/model step. Do not implement yet.
+
+The current human-review outputs are useful provenance artifacts, but they are
+not manuscript-ready. The report marks all four figure families as
+review-only/not for submission because JCLS convergence is weak, one-UE full
+JCLS cases are unobservable, and refined JCLS can underperform the
+no-cooperation baseline.
 
 ## Scope
 
 Inspect:
 
+- `v24_human_review_outputs/HUMAN_REVIEW_REPORT.md`
+- `v24_human_review_outputs/HUMAN_REVIEW_REPORT.json`
+- `v24_human_review_outputs/**/summary.csv`
+- `v24_human_review_outputs/**/metadata.json`
 - `jcls_sim/algorithm.py`
 - `jcls_sim/figure_generation.py`
-- `configs/v24_manuscript_candidate_figures_4_7/*.json`
 - `tests/test_algorithm.py`
 - `tests/test_figure_generation.py`
-- `v24_manuscript_candidate_outputs/**`
-- `PROJECT_STATUS.md`
-- `docs/tasks/NEXT.md`
 
 Do not edit:
 
@@ -37,66 +38,34 @@ Do not edit:
 - generated manuscript figure PDFs/EPS/PNGs
 - existing manuscript result files
 
-## Checks
+## Required Analysis
 
-1. Confirm Step 1 uses DL-only weighted GN for individual UE coarse
-   localization and does not use truth-centered initialization.
-2. Confirm Step 2 uses weighted LM over the full gauged V24 theta vector with
-   precision weighting and no reference-satellite clock state.
-3. Confirm Step 2 success is conservative:
-   - `success=True` only for `status = converged`;
-   - accepted-but-not-converged cases report `updated_not_converged`;
-   - rank-deficient or numerical-failure cases are not successes.
-4. Confirm Step 3 uses dynamic SCI/SFI information-form updates with explicit
-   `F`, `Q`, and `Pi`, and uses the innovation `z - h_pred`.
-5. Confirm Step 3 propagates upstream Step 2 status:
-   - upstream non-convergence is visible in raw output;
-   - upstream rank deficiency/failure does not become an unconditional success.
-6. Confirm candidate configs use `estimator_mode = v24_three_stage_dynamic`
-   and record `process_noise_std_km`, refinement interval, and epoch spacing.
-7. Confirm candidate metadata/provenance reports the estimator mode, state model
-   `x=theta`, `F=I`, `Pi=I`, `Q=process_noise_std_km^2 I`, and retains:
-   - `candidate_only: true`
-   - `non_final: true`
-   - `manuscript_ready: false`
-   - `not_for_manuscript_submission: true`
-8. Confirm rank metadata is honest:
-   - raw/summary outputs do not use ambiguous `fim_rank` or `is_full_rank`
-     fields for figure baselines;
-   - rank fields are named `full_jcls_scenario_*`;
-   - metadata/provenance explains these are not baseline-specific
-     observability claims.
-9. Confirm generated candidate outputs remain under
-   `v24_manuscript_candidate_outputs/` only.
-10. Confirm no manuscript, response-letter, bibliography, notebook, PSFrag,
-    Work-In-Progress figure, generated manuscript PDF, or existing manuscript
-    result files were edited.
-11. Confirm tests pass:
+1. Identify which figure families fail due to:
+   - unobservable one-UE/full-JCLS cases;
+   - poor Step 2 convergence;
+   - weak conditioning;
+   - dynamic model limitations;
+   - synthetic geometry/noise assumptions.
+2. Decide whether the next implementation should prioritize:
+   - non-leaky priors/regularization for clocks and Step 1 positions;
+   - scaled trust-region optimization;
+   - augmented velocity/clock-drift state;
+   - full-rank figure-case filtering/masking;
+   - a different manuscript figure concept;
+   - TLE/SGP4 geometry upgrade.
+3. Propose the smallest next code-only task with tests.
+4. State whether any existing manuscript Fig. 4--7 should be considered unsafe.
 
-   ```powershell
-   powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
-   ```
+## Expected Output
 
-## Known Caveats To Verify Are Explicit
+Return a plan with:
 
-- Candidate outputs are not manuscript-grade.
-- Satellite geometry is still synthetic Starlink-like LEO, not TLE/SGP4.
-- The default dynamic model is currently `x=theta`, `F=I`, `Pi=I`, and diagonal
-  `Q`; it is a package-native fidelity step, not a final physical dynamics
-  model.
-- Baseline-specific observability/rank diagnostics remain pending.
-- Estimator robustness/initialization remains the main blocker before any
-  manuscript-grade rerun.
-- No manuscript text should be changed based on these outputs.
+- failure-mode matrix by figure and baseline;
+- recommended next implementation task;
+- files likely affected;
+- tests to add;
+- stop conditions;
+- whether human technical decision is required.
 
-## Required Output
-
-Return:
-
-- PASS / PASS WITH CAVEAT / FAIL;
-- merge recommendation;
-- required fixes before merge, if any;
-- nonblocking caveats;
-- confirmation out-of-scope files were untouched;
-- next recommended task after merge, expected to address estimator robustness
-  and baseline-specific observability.
+Update `PROJECT_STATUS.md` and `docs/tasks/NEXT.md` only if the human approves a
+new implementation plan.

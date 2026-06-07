@@ -21,6 +21,7 @@ from jcls_sim.figure_generation import (  # noqa: E402
     ARTIFACT_WARNING,
     CANDIDATE_ARTIFACT_WARNING,
     DIAGNOSTIC_ARTIFACT_FLAGS,
+    HUMAN_REVIEW_ARTIFACT_WARNING,
     validate_output_root,
 )
 
@@ -82,6 +83,7 @@ def _write_combined_provenance(output_root: Path, results: list) -> tuple[Path, 
         metadata = json.loads(result.metadata_json.read_text(encoding="utf-8"))
         flags = {
             "diagnostic_only": bool(provenance["diagnostic_only"]),
+            "human_review_ready": bool(provenance.get("human_review_ready", False)),
             "candidate_only": bool(provenance["candidate_only"]),
             "non_final": bool(provenance["non_final"]),
             "manuscript_ready": bool(provenance["manuscript_ready"]),
@@ -94,12 +96,13 @@ def _write_combined_provenance(output_root: Path, results: list) -> tuple[Path, 
         elif flags != table_flags:
             table_flags = {
                 "diagnostic_only": False,
+                "human_review_ready": False,
                 "candidate_only": False,
                 "non_final": True,
                 "manuscript_ready": False,
                 "not_for_manuscript_submission": True,
             }
-            table_warning = f"Mixed artifact profiles. {ARTIFACT_WARNING} {CANDIDATE_ARTIFACT_WARNING}"
+            table_warning = f"Mixed artifact profiles. {ARTIFACT_WARNING} {CANDIDATE_ARTIFACT_WARNING} {HUMAN_REVIEW_ARTIFACT_WARNING}"
             table_kind = "mixed"
         rows.append(
             {

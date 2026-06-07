@@ -69,7 +69,46 @@ def deterministic_position_initialization(scenario: V24ScenarioConfig) -> np.nda
         base = mean_satellite / norm * 6371.0
         offsets = np.linspace(-0.15, 0.15, scenario.num_users)
         return np.vstack([base + np.array([offset, -offset, 0.0]) for offset in offsets])
-    return np.zeros((scenario.num_users, 3), dtype=float)
+    angles = np.linspace(0.0, 2.0 * np.pi, scenario.num_users, endpoint=False)
+    radius = 0.1
+    return np.column_stack(
+        [
+            radius * np.cos(angles),
+            radius * np.sin(angles),
+            np.zeros(scenario.num_users, dtype=float),
+        ]
+    )
+
+
+def deterministic_position_initialization_candidates(scenario: V24ScenarioConfig) -> list[np.ndarray]:
+    """Return deterministic non-truth-centered UE position initialization candidates."""
+
+    base = deterministic_position_initialization(scenario)
+    if scenario.num_users < 1:
+        raise ValueError("num_users must be at least 1.")
+    reference = base[0]
+    radial_norm = float(np.linalg.norm(reference))
+    if radial_norm > 1000.0:
+        up = reference / radial_norm
+        trial_axis = np.array([0.0, 0.0, 1.0], dtype=float)
+        if abs(float(np.dot(up, trial_axis))) > 0.9:
+            trial_axis = np.array([0.0, 1.0, 0.0], dtype=float)
+        east = np.cross(trial_axis, up)
+        east = east / np.linalg.norm(east)
+        north = np.cross(up, east)
+    else:
+        east = np.array([1.0, 0.0, 0.0], dtype=float)
+        north = np.array([0.0, 1.0, 0.0], dtype=float)
+    shifts = [
+        np.zeros(3, dtype=float),
+        0.25 * east,
+        -0.25 * east,
+        0.25 * north,
+        -0.25 * north,
+        0.5 * (east + north),
+        -0.5 * (east + north),
+    ]
+    return [base + shift for shift in shifts]
 
 
 def coarse_individual_localization(
@@ -81,7 +120,8 @@ def coarse_individual_localization(
 ) -> EstimatorResult:
     """Run Step 1 weighted GN UE localization from DL measurements only."""
 
-    positions = deterministic_position_initialization(scenario)
+    initialization_candidates = deterministic_position_initialization_candidates(scenario)
+    positions = initialization_candidates[0].copy()
     z_array = np.asarray(z, dtype=float)
     links = list(scenario.links)
     user_diagnostics = []
@@ -105,15 +145,53 @@ def coarse_individual_localization(
             )
             continue
 
-        position = positions[user_id - 1].copy()
-        status = "max_iterations"
-        rank = 0
-        residual_norm = np.inf
-        step_norm = np.inf
-        for iteration in range(1, max_iterations + 1):
+        best_position = positions[user_id - 1].copy()
+        best_status = "max_iterations"
+        best_rank = 0
+        best_residual_norm = np.inf
+        best_step_norm = np.inf
+        best_iteration = 0
+        best_candidate_index = 0
+        candidate_records = []
+        for candidate_index, candidate_positions in enumerate(initialization_candidates):
+            position = candidate_positions[user_id - 1].copy()
+            status = "max_iterations"
+            rank = 0
+            residual_norm = np.inf
+            step_norm = np.inf
+            iteration = 0
+            for iteration in range(1, max_iterations + 1):
+                predictions = []
+                jacobian_rows = []
+                sigmas = []
+                for row_index in row_indices:
+                    _receiver, transmitter = links[row_index]
+                    satellite_position = scenario.satellite_positions_km[transmitter - scenario.num_users - 1]
+                    diff = position - satellite_position
+                    range_km = float(np.linalg.norm(diff))
+                    if range_km <= 0.0:
+                        raise ValueError("Degenerate zero range in coarse localization.")
+                    predictions.append(range_km)
+                    jacobian_rows.append(diff / range_km)
+                    sigmas.append(float(scenario.range_std_devs_km[row_index]))
+                residual = z_array[row_indices] - np.asarray(predictions, dtype=float)
+                jac = np.asarray(jacobian_rows, dtype=float)
+                rank = int(np.linalg.matrix_rank(jac))
+                residual_norm = float(np.linalg.norm(residual / np.asarray(sigmas, dtype=float)))
+                if rank < 3:
+                    status = "rank_deficient_dl_geometry"
+                    break
+                normal, rhs = weighted_normal_equations(jac, residual, np.asarray(sigmas, dtype=float))
+                try:
+                    step = np.linalg.solve(normal, rhs)
+                except np.linalg.LinAlgError:
+                    step = np.linalg.pinv(normal) @ rhs
+                step_norm = float(np.linalg.norm(step))
+                position = position + step
+                if step_norm < tolerance:
+                    status = "converged"
+                    break
             predictions = []
-            jacobian_rows = []
-            sigmas = []
             for row_index in row_indices:
                 _receiver, transmitter = links[row_index]
                 satellite_position = scenario.satellite_positions_km[transmitter - scenario.num_users - 1]
@@ -122,35 +200,40 @@ def coarse_individual_localization(
                 if range_km <= 0.0:
                     raise ValueError("Degenerate zero range in coarse localization.")
                 predictions.append(range_km)
-                jacobian_rows.append(diff / range_km)
-                sigmas.append(float(scenario.range_std_devs_km[row_index]))
+            sigmas = np.asarray([float(scenario.range_std_devs_km[row_index]) for row_index in row_indices], dtype=float)
             residual = z_array[row_indices] - np.asarray(predictions, dtype=float)
-            jac = np.asarray(jacobian_rows, dtype=float)
-            rank = int(np.linalg.matrix_rank(jac))
             residual_norm = float(np.linalg.norm(residual / np.asarray(sigmas, dtype=float)))
-            if rank < 3:
-                status = "rank_deficient_dl_geometry"
-                break
-            normal, rhs = weighted_normal_equations(jac, residual, np.asarray(sigmas, dtype=float))
-            try:
-                step = np.linalg.solve(normal, rhs)
-            except np.linalg.LinAlgError:
-                step = np.linalg.pinv(normal) @ rhs
-            step_norm = float(np.linalg.norm(step))
-            position = position + step
-            if step_norm < tolerance:
-                status = "converged"
-                break
-        positions[user_id - 1] = position
+            candidate_records.append(
+                {
+                    "candidate_index": candidate_index,
+                    "status": status,
+                    "iteration_count": iteration,
+                    "rank": rank,
+                    "residual_norm": residual_norm,
+                    "step_norm": step_norm,
+                }
+            )
+            if residual_norm < best_residual_norm:
+                best_position = position
+                best_status = status
+                best_rank = rank
+                best_residual_norm = residual_norm
+                best_step_norm = step_norm
+                best_iteration = iteration
+                best_candidate_index = candidate_index
+        positions[user_id - 1] = best_position
         user_diagnostics.append(
             {
                 "user_id": user_id,
-                "success": status == "converged",
-                "status": status,
-                "iteration_count": iteration if row_indices else 0,
-                "rank": rank,
-                "residual_norm": residual_norm,
-                "step_norm": step_norm,
+                "success": best_status == "converged",
+                "status": best_status,
+                "iteration_count": best_iteration if row_indices else 0,
+                "rank": best_rank,
+                "residual_norm": best_residual_norm,
+                "step_norm": best_step_norm,
+                "best_initialization_candidate": best_candidate_index,
+                "initialization_candidate_count": len(initialization_candidates),
+                "candidate_records": candidate_records,
             }
         )
 
@@ -164,7 +247,8 @@ def coarse_individual_localization(
         success=all(record["success"] for record in user_diagnostics),
         diagnostics={
             "stage": "step1_coarse_individual_dl_gn",
-            "initialization_strategy": "deterministic_satellite_mean_earth_surface_or_origin",
+            "initialization_strategy": "deterministic_multistart_satellite_mean_earth_surface_or_origin",
+            "initialization_candidate_count": len(initialization_candidates),
             "truth_centered_initialization": False,
             "users": user_diagnostics,
         },
@@ -201,6 +285,7 @@ def joint_lm_jcls(
     condition_number = np.inf
     converged = False
     numerical_failure = False
+    rank_deficient_seen = False
     iteration = 0
     for iteration in range(1, max_iterations + 1):
         prediction = toa_range_vector_from_theta_km(
@@ -221,8 +306,7 @@ def joint_lm_jcls(
         rank = int(np.linalg.matrix_rank(jac))
         theta_dim = expected_v24_parameter_dim(scenario.num_users, scenario.num_satellites)
         if rank < theta_dim:
-            status = "rank_deficient"
-            break
+            rank_deficient_seen = True
         normal, rhs = weighted_normal_equations(jac, residual, sigmas, damping=damping)
         condition_number = float(np.linalg.cond(normal))
         if not np.all(np.isfinite(normal)) or not np.all(np.isfinite(rhs)):
@@ -264,8 +348,8 @@ def joint_lm_jcls(
             step_norm = float(np.linalg.norm(step))
             residual_norm = float(np.linalg.norm(candidate_residual / sigmas))
             if step_norm < tolerance:
-                status = "converged"
-                converged = True
+                status = "rank_deficient_updated" if rank_deficient_seen else "converged"
+                converged = not rank_deficient_seen
                 break
         else:
             damping = min(damping * 10.0, 1e12)
@@ -286,7 +370,7 @@ def joint_lm_jcls(
             )
         )
         if accepted_steps > 0:
-            status = "updated_not_converged"
+            status = "rank_deficient_updated" if rank_deficient_seen else "updated_not_converged"
 
     return EstimatorResult(
         theta=theta,
@@ -304,6 +388,7 @@ def joint_lm_jcls(
             "residual_norm": residual_norm,
             "step_norm": step_norm,
             "rank": rank,
+            "rank_deficient_seen": bool(rank_deficient_seen),
             "condition_number": condition_number,
             "reference_satellite_clock_in_state": False,
             "uses_precision_weighting": True,
@@ -395,6 +480,7 @@ def dynamic_soft_information_refinement(
     for epoch_index, z in enumerate(measurements, start=1):
         x_pred = model.f_matrix @ x
         p_pred = model.f_matrix @ p @ model.f_matrix.T + model.q_covariance
+        predicted_trace = float(np.trace(p_pred))
         theta_pred = model.pi_matrix @ x_pred
         h_pred = toa_range_vector_from_theta_km(
             theta_pred,
@@ -433,7 +519,9 @@ def dynamic_soft_information_refinement(
             {
                 "epoch": epoch_index,
                 "innovation_norm": float(np.linalg.norm(innovation / scenario.range_std_devs_km)),
+                "predicted_covariance_trace": predicted_trace,
                 "posterior_covariance_trace": float(np.trace(p)),
+                "covariance_trace_reduction": predicted_trace - float(np.trace(p)),
                 "posterior_covariance_condition_number": float(np.linalg.cond(p)),
                 "jacobian_rank": int(np.linalg.matrix_rank(jac_x)),
                 "status": "updated",
