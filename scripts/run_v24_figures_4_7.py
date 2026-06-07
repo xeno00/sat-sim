@@ -17,6 +17,11 @@ if str(SAT_SIM_ROOT) not in sys.path:
     sys.path.insert(0, str(SAT_SIM_ROOT))
 
 from jcls_sim.figure_generation import run_figure_config  # noqa: E402
+from jcls_sim.figure_generation import (  # noqa: E402
+    ARTIFACT_WARNING,
+    DIAGNOSTIC_ARTIFACT_FLAGS,
+    validate_output_root,
+)
 
 
 DEFAULT_CONFIG_DIR = SAT_SIM_ROOT / "configs" / "v24_figures_4_7"
@@ -50,7 +55,16 @@ def _parse_args() -> argparse.Namespace:
         help="Run all checked-in Fig. 4--7 configs.",
     )
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
-    parser.add_argument("--no-overwrite", action="store_true")
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Permit replacement of existing diagnostic output files.",
+    )
+    parser.add_argument(
+        "--allow-unsafe-output-root",
+        action="store_true",
+        help="Developer-only override for writing outside repo-local diagnostic output roots.",
+    )
     return parser.parse_args()
 
 
@@ -84,9 +98,19 @@ def _write_combined_provenance(output_root: Path, results: list) -> tuple[Path, 
 
     json_path = output_root / "figure_provenance_table.json"
     md_path = output_root / "figure_provenance_table.md"
-    json_path.write_text(json.dumps(rows, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    payload = {
+        "provenance_table_type": "package_native_v24_diagnostic_figure_provenance_table",
+        **DIAGNOSTIC_ARTIFACT_FLAGS,
+        "artifact_warning": ARTIFACT_WARNING,
+        "rows": rows,
+    }
+    json_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     header = [
+        "# Package-Native V24 Fig. 4--7 Diagnostic Provenance",
+        "",
+        f"Warning: {ARTIFACT_WARNING}",
+        "",
         "| Figure | Config | Raw CSV | Summary CSV | PDF | Metadata | Trials | Seed | Notebook used | Manuscript dirs touched |",
         "|---|---|---|---|---|---|---:|---:|---|---|",
     ]
@@ -119,12 +143,23 @@ def main() -> int:
     if not configs:
         raise SystemExit("Provide --config <path> or --all.")
 
+    output_root = validate_output_root(
+        args.output_root,
+        allow_unsafe_output_root=args.allow_unsafe_output_root,
+    )
+    if output_root.exists() and any(output_root.iterdir()) and not args.overwrite:
+        raise SystemExit(
+            f"Refusing to overwrite existing non-empty diagnostic output root: {output_root}. "
+            "Use --overwrite to replace diagnostic outputs."
+        )
+
     results = []
     for config in configs:
         result = run_figure_config(
             config,
-            args.output_root,
-            overwrite=not args.no_overwrite,
+            output_root,
+            overwrite=args.overwrite,
+            allow_unsafe_output_root=args.allow_unsafe_output_root,
         )
         results.append(result)
         print(f"{result.figure_id}:")
@@ -134,7 +169,7 @@ def main() -> int:
         print(f"  pdf: {result.pdf}")
         print(f"  metadata: {result.metadata_json}")
         print(f"  provenance: {result.provenance_json}")
-    json_path, md_path = _write_combined_provenance(args.output_root, results)
+    json_path, md_path = _write_combined_provenance(output_root, results)
     print("combined provenance:")
     print(f"  json: {json_path}")
     print(f"  markdown: {md_path}")

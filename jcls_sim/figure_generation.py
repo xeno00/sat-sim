@@ -11,6 +11,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import re
 import subprocess
 import time
 from dataclasses import dataclass
@@ -33,6 +34,30 @@ from .parameters import pack_v24_theta, unpack_v24_theta
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+
+SAT_SIM_ROOT = Path(__file__).resolve().parents[1]
+ARTIFACT_WARNING = "Diagnostic-only package-native output; not a manuscript-grade reproduction and not for TAES submission."
+DIAGNOSTIC_ARTIFACT_FLAGS = {
+    "diagnostic_only": True,
+    "non_final": True,
+    "manuscript_ready": False,
+    "not_for_manuscript_submission": True,
+}
+UNSAFE_OUTPUT_ROOT_PARTS = {
+    "work-in-progress",
+    "psfrag",
+    "generatepsfrag",
+    "jcls_simulation",
+    "jcls_simulation.ipynb",
+    "legacy",
+    "notebook",
+    "manuscript",
+    "response",
+    "response-letter",
+    "bibliography",
+}
+WINDOWS_RESERVED_FILENAMES = {"CON", "PRN", "AUX", "NUL", *(f"COM{index}" for index in range(1, 10)), *(f"LPT{index}" for index in range(1, 10))}
+FIGURE_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]*$")
 
 
 BASELINE_DEFINITIONS: dict[str, dict[str, Any]] = {
@@ -106,9 +131,70 @@ def load_figure_config(config_path: str | Path) -> dict[str, Any]:
     missing = sorted(required - set(config))
     if missing:
         raise ValueError(f"Figure config {path} is missing field(s): {missing}.")
+    validate_figure_id(str(config["figure_id"]))
     if int(config["monte_carlo_trials"]) < 1:
         raise ValueError("monte_carlo_trials must be at least 1.")
+    if int(config["base_seed"]) < 0:
+        raise ValueError("base_seed must be nonnegative.")
+    if float(config["range_std_dev_km"]) <= 0.0:
+        raise ValueError("range_std_dev_km must be positive.")
+    if int(config["refinement_epochs"]) < 1:
+        raise ValueError("refinement_epochs must be at least 1.")
+    if str(config["metric_field"]) not in {"position_error_mean_m", "sync_error_mean_s"}:
+        raise ValueError(f"Unsupported metric_field: {config['metric_field']!r}.")
     return config
+
+
+def validate_figure_id(figure_id: str) -> str:
+    """Validate and return a path-safe figure identifier."""
+
+    if not FIGURE_ID_PATTERN.fullmatch(figure_id):
+        raise ValueError(
+            "figure_id must be a path-safe identifier containing only letters, "
+            "numbers, underscores, and hyphens."
+        )
+    if figure_id.upper() in WINDOWS_RESERVED_FILENAMES:
+        raise ValueError(f"figure_id uses a Windows reserved filename: {figure_id!r}.")
+    lowered = figure_id.lower()
+    if any(part in lowered for part in ("work-in-progress", "psfrag", "jcls_simulation", "notebook", "legacy")):
+        raise ValueError(f"figure_id contains an unsafe provenance term: {figure_id!r}.")
+    return figure_id
+
+
+def repo_relative_path(path: str | Path) -> str:
+    """Return a repository-relative path string for paths under ``sat-sim``."""
+
+    resolved = Path(path).resolve()
+    try:
+        return resolved.relative_to(SAT_SIM_ROOT).as_posix()
+    except ValueError as exc:
+        raise ValueError(f"Path is outside sat-sim and cannot be recorded as repo-relative: {path}") from exc
+
+
+def validate_output_root(output_root: str | Path, *, allow_unsafe_output_root: bool = False) -> Path:
+    """Validate and return an output root for diagnostic-only figure artifacts."""
+
+    path = Path(output_root)
+    if not allow_unsafe_output_root and any(part == ".." for part in path.parts):
+        raise ValueError(f"Refusing output root with parent-directory traversal: {output_root}")
+
+    resolved = path.resolve()
+    if allow_unsafe_output_root:
+        return path
+
+    try:
+        resolved.relative_to(SAT_SIM_ROOT)
+    except ValueError as exc:
+        raise ValueError(
+            "Refusing output root outside sat-sim. Use a repo-local diagnostic output root "
+            "or the developer-only unsafe override."
+        ) from exc
+
+    lowered_parts = {part.lower() for part in resolved.parts}
+    unsafe_parts = sorted(lowered_parts & UNSAFE_OUTPUT_ROOT_PARTS)
+    if unsafe_parts:
+        raise ValueError(f"Refusing unsafe diagnostic output root containing {unsafe_parts}: {output_root}")
+    return path
 
 
 def _all_links(num_users: int, num_satellites: int) -> tuple[tuple[int, int], ...]:
@@ -508,15 +594,23 @@ def run_figure_config(
     config_path: str | Path,
     output_root: str | Path,
     *,
-    overwrite: bool = True,
+    overwrite: bool = False,
+    allow_unsafe_output_root: bool = False,
 ) -> FigureRunResult:
     """Run one package-native Fig. 4--7 config and write all outputs."""
 
     config = load_figure_config(config_path)
     figure_id = str(config["figure_id"])
-    output_dir = Path(output_root) / figure_id
-    if output_dir.exists() and not overwrite:
-        raise FileExistsError(f"Refusing to overwrite existing output directory: {output_dir}")
+    safe_output_root = validate_output_root(
+        output_root,
+        allow_unsafe_output_root=allow_unsafe_output_root,
+    )
+    output_dir = safe_output_root / figure_id
+    if output_dir.exists() and any(output_dir.iterdir()) and not overwrite:
+        raise FileExistsError(
+            f"Refusing to overwrite existing non-empty diagnostic output directory: {output_dir}. "
+            "Pass overwrite=True or use the CLI --overwrite flag."
+        )
     output_dir.mkdir(parents=True, exist_ok=True)
 
     start = time.perf_counter()
@@ -573,6 +667,7 @@ def run_figure_config(
         rows=rows,
         summary_rows=summary_rows,
         runtime_s=runtime_s,
+        overwrite_used=overwrite,
     )
     metadata_json.write_text(json.dumps(json_ready(metadata), indent=2, sort_keys=True) + "\n", encoding="utf-8")
     provenance_json.write_text(
@@ -742,15 +837,18 @@ def _metadata_payload(
     rows: list[dict[str, Any]],
     summary_rows: list[dict[str, Any]],
     runtime_s: float,
+    overwrite_used: bool,
 ) -> dict[str, Any]:
     """Return figure metadata for provenance."""
 
     return {
         "metadata_type": "package_native_v24_figure_metadata",
+        **DIAGNOSTIC_ARTIFACT_FLAGS,
+        "artifact_warning": ARTIFACT_WARNING,
         "figure_id": config["figure_id"],
         "commit_hash": _git_commit_hash(),
-        "config_path": str(config_path.as_posix()),
-        "output_dir": str(output_dir.as_posix()),
+        "config_path": repo_relative_path(config_path),
+        "output_dir": repo_relative_path(output_dir),
         "base_seed": int(config["base_seed"]),
         "monte_carlo_trials": int(config["monte_carlo_trials"]),
         "refinement_epochs": int(config["refinement_epochs"]),
@@ -764,6 +862,7 @@ def _metadata_payload(
             "plot_metric_scale": float(config.get("plot_metric_scale", 1.0)),
             "plot_metric_unit": config.get("plot_metric_unit", config.get("metric_unit", "raw")),
         },
+        "overwrite_used": bool(overwrite_used),
         "runtime_seconds": float(runtime_s),
         "raw_row_count": len(rows),
         "summary_row_count": len(summary_rows),
@@ -785,10 +884,15 @@ def _provenance_payload(config: dict[str, Any], metadata: dict[str, Any]) -> dic
 
     figure_id = str(config["figure_id"])
     return {
-        "provenance_type": "package_native_v24_manuscript_figure_provenance",
+        "provenance_type": "package_native_v24_diagnostic_figure_provenance",
+        **DIAGNOSTIC_ARTIFACT_FLAGS,
+        "artifact_warning": ARTIFACT_WARNING,
         "figure_id": figure_id,
         "manuscript_figure": config.get("manuscript_figure_label", figure_id),
-        "command": f"python scripts/run_v24_figures_4_7.py --config {metadata['config_path']}",
+        "command": (
+            "python scripts/run_v24_figures_4_7.py "
+            f"--config {metadata['config_path']} --output-root v24_figure_outputs --overwrite"
+        ),
         "config_file": metadata["config_path"],
         "raw_output_file": f"{metadata['output_dir']}/{figure_id}_raw.csv",
         "npz_output_file": f"{metadata['output_dir']}/{figure_id}_raw.npz",

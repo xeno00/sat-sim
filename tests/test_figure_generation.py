@@ -1,5 +1,6 @@
 import json
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -10,9 +11,13 @@ import numpy as np
 from jcls_sim.constants import C_KM_PER_S
 from jcls_sim.figure_generation import (
     BASELINE_DEFINITIONS,
+    ARTIFACT_WARNING,
     _scenario_for_case,
+    load_figure_config,
     run_figure_config,
     run_single_trial,
+    validate_figure_id,
+    validate_output_root,
 )
 from jcls_sim.gauge import expected_v24_parameter_dim, relative_clock_dict
 from jcls_sim.metrics import position_error_m
@@ -20,7 +25,7 @@ from jcls_sim.metrics import position_error_m
 
 class TestPackageNativeFigureGeneration(unittest.TestCase):
     def setUp(self) -> None:
-        self.temp_dir = Path(tempfile.mkdtemp(prefix="v24_figure_generation_test_"))
+        self.temp_dir = Path(tempfile.mkdtemp(prefix=".tmp_v24_figure_generation_test_", dir=Path.cwd()))
 
     def tearDown(self) -> None:
         shutil.rmtree(self.temp_dir, ignore_errors=True)
@@ -49,6 +54,16 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         path.write_text(json.dumps(config), encoding="utf-8")
         return path
 
+    def _json_strings(self, value):
+        if isinstance(value, str):
+            yield value
+        elif isinstance(value, dict):
+            for nested in value.values():
+                yield from self._json_strings(nested)
+        elif isinstance(value, list):
+            for nested in value:
+                yield from self._json_strings(nested)
+
     def test_tiny_config_writes_complete_output_package(self) -> None:
         result = run_figure_config(self._tiny_config(), self.temp_dir / "outputs")
 
@@ -64,9 +79,17 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
             self.assertGreater(path.stat().st_size, 0)
 
         metadata = json.loads(result.metadata_json.read_text(encoding="utf-8"))
+        self.assertTrue(metadata["diagnostic_only"])
+        self.assertTrue(metadata["non_final"])
+        self.assertFalse(metadata["manuscript_ready"])
+        self.assertTrue(metadata["not_for_manuscript_submission"])
+        self.assertEqual(metadata["artifact_warning"], ARTIFACT_WARNING)
         self.assertFalse(metadata["notebook_used"])
         self.assertFalse(metadata["manuscript_directories_touched"])
         self.assertEqual(metadata["monte_carlo_trials"], 1)
+        self.assertFalse(metadata["overwrite_used"])
+        self.assertFalse(Path(metadata["config_path"]).is_absolute())
+        self.assertFalse(Path(metadata["output_dir"]).is_absolute())
         self.assertIn("without_cooperation", metadata["baselines"])
         self.assertIn("coarse_jcls", metadata["baselines"])
         self.assertIn("refined_jcls", metadata["baselines"])
@@ -74,8 +97,169 @@ class TestPackageNativeFigureGeneration(unittest.TestCase):
         self.assertEqual(metadata["units"]["plot_metric_unit"], "raw")
 
         provenance = json.loads(result.provenance_json.read_text(encoding="utf-8"))
+        self.assertTrue(provenance["diagnostic_only"])
+        self.assertTrue(provenance["non_final"])
+        self.assertFalse(provenance["manuscript_ready"])
+        self.assertTrue(provenance["not_for_manuscript_submission"])
+        self.assertEqual(provenance["artifact_warning"], ARTIFACT_WARNING)
         self.assertIn("run_v24_figures_4_7.py", provenance["command"])
         self.assertIn("test_figure_generation", provenance["test_coverage"][0])
+        self.assertFalse(Path(provenance["config_file"]).is_absolute())
+        self.assertFalse(Path(provenance["raw_output_file"]).is_absolute())
+
+    def test_checked_in_configs_have_required_schema(self) -> None:
+        config_dir = Path("configs/v24_figures_4_7")
+
+        for path in sorted(config_dir.glob("*.json")):
+            with self.subTest(config=path.name):
+                config = load_figure_config(path)
+                self.assertIn(config["sweep_type"], {"satellite_count", "clock_std"})
+                self.assertIsInstance(config["base_seed"], int)
+                self.assertGreaterEqual(config["monte_carlo_trials"], 1)
+                self.assertIn("plot_metric_scale", config)
+                self.assertIn("plot_metric_unit", config)
+                self.assertIn("assumptions", config)
+                self.assertIn("known_discrepancy_from_v24", config)
+                self.assertIn("not forced to match legacy notebook curves", config["known_discrepancy_from_v24"])
+                if config["metric_field"] == "sync_error_mean_s":
+                    self.assertEqual(config["plot_metric_scale"], 1_000_000_000.0)
+                    self.assertEqual(config["plot_metric_unit"], "ns")
+                else:
+                    self.assertEqual(config["plot_metric_unit"], "m")
+
+    def test_unsafe_figure_ids_are_rejected(self) -> None:
+        unsafe_ids = [
+            "",
+            ".",
+            "../Work-In-Progress/x",
+            "fig4/../../PSFrag/x",
+            "fig4\\PSFrag",
+            "fig 4",
+            "CON",
+            "legacy_fig4",
+        ]
+
+        for figure_id in unsafe_ids:
+            with self.subTest(figure_id=figure_id):
+                with self.assertRaises(ValueError):
+                    validate_figure_id(figure_id)
+
+    def test_checked_in_outputs_have_hardened_schema(self) -> None:
+        output_root = Path("v24_figure_outputs")
+        forbidden_fragments = ["C:/", "C:\\", "Users/James", "Users\\James", "MIT Dropbox"]
+        expected_figures = {
+            "fig4_localization_vs_satellites",
+            "fig5_synchronization_vs_satellites",
+            "fig6_localization_vs_clock_std",
+            "fig7_synchronization_vs_clock_std",
+        }
+
+        self.assertTrue(output_root.exists())
+        self.assertEqual(
+            {path.name for path in output_root.iterdir() if path.is_dir()},
+            expected_figures,
+        )
+        self.assertTrue((output_root / "figure_provenance_table.json").exists())
+        self.assertTrue((output_root / "figure_provenance_table.md").exists())
+
+        for figure_id in expected_figures:
+            with self.subTest(figure_id=figure_id):
+                figure_dir = output_root / figure_id
+                expected_files = {
+                    f"{figure_id}.pdf",
+                    f"{figure_id}_metadata.json",
+                    f"{figure_id}_provenance.json",
+                    f"{figure_id}_raw.csv",
+                    f"{figure_id}_raw.npz",
+                    f"{figure_id}_summary.csv",
+                }
+                self.assertEqual({path.name for path in figure_dir.iterdir()}, expected_files)
+
+                metadata = json.loads((figure_dir / f"{figure_id}_metadata.json").read_text(encoding="utf-8"))
+                provenance = json.loads((figure_dir / f"{figure_id}_provenance.json").read_text(encoding="utf-8"))
+                for payload in (metadata, provenance):
+                    self.assertTrue(payload["diagnostic_only"])
+                    self.assertTrue(payload["non_final"])
+                    self.assertFalse(payload["manuscript_ready"])
+                    self.assertTrue(payload["not_for_manuscript_submission"])
+                    self.assertEqual(payload["artifact_warning"], ARTIFACT_WARNING)
+                    for text in self._json_strings(payload):
+                        for forbidden in forbidden_fragments:
+                            self.assertNotIn(forbidden, text)
+                self.assertEqual(provenance["provenance_type"], "package_native_v24_diagnostic_figure_provenance")
+                self.assertTrue(provenance["config_file"].startswith("configs/v24_figures_4_7/"))
+                self.assertTrue(provenance["raw_output_file"].startswith("v24_figure_outputs/"))
+
+        combined = json.loads((output_root / "figure_provenance_table.json").read_text(encoding="utf-8"))
+        self.assertEqual(combined["provenance_table_type"], "package_native_v24_diagnostic_figure_provenance_table")
+        self.assertTrue(combined["diagnostic_only"])
+        self.assertFalse(combined["manuscript_ready"])
+        self.assertEqual(len(combined["rows"]), 4)
+        for text in self._json_strings(combined):
+            for forbidden in forbidden_fragments:
+                self.assertNotIn(forbidden, text)
+
+    def test_output_root_guard_rejects_unsafe_locations(self) -> None:
+        unsafe_roots = [
+            Path("..") / "outside",
+            Path("Work-In-Progress") / "Figures",
+            Path("PSFrag") / "figures",
+            Path("legacy") / "outputs",
+            Path("notebook") / "outputs",
+            Path(tempfile.gettempdir()) / "external_v24_figures",
+        ]
+
+        for unsafe_root in unsafe_roots:
+            with self.subTest(root=str(unsafe_root)):
+                with self.assertRaises(ValueError):
+                    validate_output_root(unsafe_root)
+
+    def test_output_root_guard_accepts_default_diagnostic_root(self) -> None:
+        safe = validate_output_root(Path("v24_figure_outputs"))
+
+        self.assertEqual(safe, Path("v24_figure_outputs"))
+
+    def test_developer_override_allows_external_root(self) -> None:
+        external = Path(tempfile.gettempdir()) / "external_v24_figures"
+
+        self.assertEqual(validate_output_root(external, allow_unsafe_output_root=True), external)
+
+    def test_no_overwrite_and_explicit_overwrite_behavior(self) -> None:
+        config_path = self._tiny_config()
+        output_root = self.temp_dir / "overwrite_outputs"
+
+        run_figure_config(config_path, output_root)
+        with self.assertRaises(FileExistsError):
+            run_figure_config(config_path, output_root)
+        metadata = json.loads(
+            run_figure_config(config_path, output_root, overwrite=True).metadata_json.read_text(encoding="utf-8")
+        )
+        self.assertTrue(metadata["overwrite_used"])
+
+    def test_cli_writes_combined_provenance_table(self) -> None:
+        config_path = self._tiny_config()
+        output_root = self.temp_dir / "cli_outputs"
+
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "scripts/run_v24_figures_4_7.py",
+                "--config",
+                str(config_path),
+                "--output-root",
+                str(output_root),
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        self.assertIn("combined provenance", completed.stdout)
+        combined = json.loads((output_root / "figure_provenance_table.json").read_text(encoding="utf-8"))
+        self.assertTrue(combined["diagnostic_only"])
+        self.assertFalse(combined["manuscript_ready"])
+        self.assertEqual(combined["artifact_warning"], ARTIFACT_WARNING)
+        self.assertEqual(len(combined["rows"]), 1)
+        self.assertFalse(Path(combined["rows"][0]["config_file"]).is_absolute())
 
     def test_baseline_definitions_are_explicit(self) -> None:
         self.assertFalse(BASELINE_DEFINITIONS["without_cooperation"]["uses_sl"])
