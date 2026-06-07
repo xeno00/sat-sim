@@ -5,10 +5,13 @@ This is the executable workflow entrypoint for code/simulation tasks in
 
 Before running a task, read:
 
-1. `AGENTS.md`
-2. `PROJECT_STATUS.md`
-3. `docs/tasks/QUEUE.md` if present
-4. `docs/tasks/NEXT.md`
+1. `sat-sim/AGENTS.md`
+2. `sat-sim/PROJECT_STATUS.md`
+3. `sat-sim/docs/tasks/QUEUE.md` if present
+4. `sat-sim/docs/tasks/NEXT.md`
+
+If already working from the `sat-sim` directory, these are the same files
+without the `sat-sim/` prefix.
 
 ## Single-task mode
 
@@ -91,6 +94,12 @@ Stop for:
 Preferred test command:
 
 ```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'
+```
+
+Manual fallback:
+
+```powershell
 python -m unittest discover -s tests
 ```
 
@@ -102,3 +111,14 @@ If default `python` lacks NumPy, use the bundled runtime:
 
 Do not run full sweeps or generate final manuscript figures unless explicitly
 approved.
+
+## Cleanup expectations
+
+- Remove only transient artifacts created by the current task, such as
+  `__pycache__`, `.pytest_cache`, temporary files, temporary render folders, and
+  temporary job-name outputs.
+- Retain source files, tests, scripts, intentional diagnostics, intentional
+  result outputs, and any files explicitly requested by the task.
+- Do not delete manuscript files, generated manuscript PDFs, figure outputs,
+  notebook files, or archived/baseline data.
+- Report cleanup performed in the final response.

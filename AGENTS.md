@@ -109,6 +109,25 @@ commits/pushes, merge decisions, and updates to `PROJECT_STATUS.md`,
 
 Subagents must not independently merge to the target branch.
 
+## Git lifecycle for code tasks
+
+- Branch before implementation edits when the task is larger than a trivial
+  documentation/status update.
+- Prefer Git worktrees for parallel edit-capable work:
+
+  ```powershell
+  git worktree add ../worktrees/<task-name> -b codex/<task-name>
+  ```
+
+- Keep commits task-scoped and intentional.
+- Run the requested tests/checks before committing whenever the task changes
+  code, tests, scripts, or diagnostics.
+- Push task branches or approved direct commits when possible.
+- Merge only when the current task, `docs/tasks/QUEUE.md`, or direct human
+  instruction explicitly allows it.
+- Never force-push without explicit approval.
+- Report branch, commit, push, and merge state in the final response.
+
 ### File ownership table
 
 Before parallel work begins, create:
@@ -166,8 +185,14 @@ Out-of-scope files untouched:
 
 ## Testing and cleanup
 
-- Prefer `python -m unittest discover -s tests` or the repository test script
-  specified in `RUN_CODEX.md`.
+- Prefer the repository test script:
+
+  ```powershell
+  powershell -NoProfile -ExecutionPolicy Bypass -File '.\scripts\test_sat_sim.ps1'
+  ```
+
+- If running tests manually, use `python -m unittest discover -s tests` from the
+  `sat-sim` root.
 - Do not run full sweeps unless explicitly approved.
 - Remove transient artifacts created by the task when safe:
   `__pycache__`, `.pytest_cache`, temporary files, and clearly temporary
