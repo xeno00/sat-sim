@@ -1,30 +1,32 @@
 MODE: PLAN_ONLY
 
-# Next Task: Plan Estimator/Model Redesign After Human-Review Fig. 4--7 Sprint
+# Next Task: Plan Safe Legacy Figure-Cell Replay After Executable Notebook Audit
 
 ## Purpose
 
-Use the human-review outputs under `v24_human_review_outputs/` to plan the next
-package-native estimator/model step. Do not implement yet.
+Use the executable notebook regression-audit outputs under
+`v24_notebook_regression_outputs/` to plan the smallest safe legacy figure-cell
+replay path. Do not implement yet and do not regenerate manuscript figures.
 
-The current human-review outputs are useful provenance artifacts, but they are
-not manuscript-ready. The report marks all four figure families as
-review-only/not for submission because JCLS convergence is weak, one-UE full
-JCLS cases are unobservable, and refined JCLS can underperform the
-no-cooperation baseline.
+The current audit verifies deterministic row-order and unit/clock compatibility
+for tiny fixtures, and the extracted-class smoke harness can instantiate the
+legacy classes and run tiny model/Jacobian/LM/EKF checks. Full notebook figure
+reproduction has not been performed.
 
 ## Scope
 
 Inspect:
 
-- `v24_human_review_outputs/HUMAN_REVIEW_REPORT.md`
-- `v24_human_review_outputs/HUMAN_REVIEW_REPORT.json`
-- `v24_human_review_outputs/**/summary.csv`
-- `v24_human_review_outputs/**/metadata.json`
-- `jcls_sim/algorithm.py`
-- `jcls_sim/figure_generation.py`
-- `tests/test_algorithm.py`
-- `tests/test_figure_generation.py`
+- `v24_notebook_regression_outputs/EXECUTABLE_NOTEBOOK_REGRESSION_REPORT.md`
+- `v24_notebook_regression_outputs/EXECUTABLE_NOTEBOOK_REGRESSION_REPORT.json`
+- `v24_notebook_regression_outputs/NOTEBOOK_DATALINK_LINE_AUDIT.md`
+- `v24_notebook_regression_outputs/NOTEBOOK_MEASUREMENT_ORDER_AUDIT.md`
+- `v24_notebook_regression_outputs/UNIT_CLOCK_EXECUTABLE_FIXTURE.md`
+- `v24_notebook_regression_outputs/executed_legacy/legacy_notebook_smoke.json`
+- `v24_notebook_regression_outputs/FIGURE_REGRESSION_TABLE.md`
+- `scripts/run_legacy_notebook_smoke.py`
+- `scripts/audit_notebook_measurements.py`
+- `JCLS_Simulation.ipynb` statically only
 
 Do not edit:
 
@@ -40,32 +42,42 @@ Do not edit:
 
 ## Required Analysis
 
-1. Identify which figure families fail due to:
-   - unobservable one-UE/full-JCLS cases;
-   - poor Step 2 convergence;
-   - weak conditioning;
-   - dynamic model limitations;
-   - synthetic geometry/noise assumptions.
-2. Decide whether the next implementation should prioritize:
-   - non-leaky priors/regularization for clocks and Step 1 positions;
-   - scaled trust-region optimization;
-   - augmented velocity/clock-drift state;
-   - full-rank figure-case filtering/masking;
-   - a different manuscript figure concept;
-   - TLE/SGP4 geometry upgrade.
-3. Propose the smallest next code-only task with tests.
-4. State whether any existing manuscript Fig. 4--7 should be considered unsafe.
+1. Identify the exact notebook cells/functions needed to replay only:
+   - `pos_vary_ues.pdf`
+   - `sync_vary_ues.pdf`
+   - `pos_vary_clock.pdf`
+   - `sync_vary_clock.pdf`
+   - `pos_crlb_0dB_0dB.pdf`
+   - `sync_crlb_0dB_0dB.pdf`
+2. Identify every side effect that must be skipped or redirected:
+   - Colab setup,
+   - package installs,
+   - workspace pickle load/save,
+   - `plt.show`,
+   - manuscript figure folders,
+   - existing result outputs.
+3. Decide whether the first implementation should replay:
+   - one tiny deterministic optimizer smoke case;
+   - one tiny CRLB figure-family smoke case;
+   - one target figure script with one Monte Carlo trial;
+   - or only extract callable figure functions and stop.
+4. Propose an output root under
+   `v24_notebook_regression_outputs/executed_legacy/` that cannot overwrite
+   manuscript or legacy outputs.
+5. State whether human approval is required before executing any target figure
+   cell.
 
 ## Expected Output
 
 Return a plan with:
 
-- failure-mode matrix by figure and baseline;
-- recommended next implementation task;
-- files likely affected;
+- figure-cell dependency map;
+- required extraction/skipping rules;
+- output redirection strategy;
+- smallest next implementation task;
 - tests to add;
 - stop conditions;
-- whether human technical decision is required.
+- whether full notebook figure reproduction is now feasible.
 
 Update `PROJECT_STATUS.md` and `docs/tasks/NEXT.md` only if the human approves a
 new implementation plan.

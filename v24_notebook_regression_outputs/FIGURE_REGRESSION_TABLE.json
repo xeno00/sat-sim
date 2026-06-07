@@ -3030,6 +3030,55 @@
     }
   ],
   "report_type": "figure_regression_table",
-  "reproduction_status": "legacy notebook not executed; existing artifacts inventoried; package outputs mapped",
-  "status": "complete_static_partial_regression"
+  "reproduction_status": "static_mapped_only",
+  "status": "complete_static_partial_regression",
+  "artifact_status": "non_final_status_upgrade",
+  "legacy_reproduction_status_schema": [
+    "static_mapped_only",
+    "executable_smoke_passed",
+    "reproduced",
+    "failed_execution",
+    "blocked_colab_workspace",
+    "blocked_missing_seed",
+    "blocked_legacy_oracle_gate"
+  ],
+  "target_figure_statuses": [
+    {
+      "figure": "pos_vary_ues.pdf",
+      "status": "static_mapped_only",
+      "reproduced": false,
+      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+    },
+    {
+      "figure": "sync_vary_ues.pdf",
+      "status": "static_mapped_only",
+      "reproduced": false,
+      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+    },
+    {
+      "figure": "pos_vary_clock.pdf",
+      "status": "static_mapped_only",
+      "reproduced": false,
+      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+    },
+    {
+      "figure": "sync_vary_clock.pdf",
+      "status": "static_mapped_only",
+      "reproduced": false,
+      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+    },
+    {
+      "figure": "pos_crlb_0dB_0dB.pdf",
+      "status": "static_mapped_only",
+      "reproduced": false,
+      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+    },
+    {
+      "figure": "sync_crlb_0dB_0dB.pdf",
+      "status": "static_mapped_only",
+      "reproduced": false,
+      "reason": "Original notebook figure-generation path was not executed; only line-level measurement and tiny smoke fixtures were audited."
+    }
+  ],
+  "status_upgrade_note": "Existing static records are preserved. Target manuscript figures are not marked reproduced until their figure-generation cells are actually executed with redirected outputs."
 }

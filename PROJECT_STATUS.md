@@ -140,6 +140,18 @@ four figure families as review-only and not manuscript-ready because JCLS
 success rates remain low, one-UE full-JCLS cases are unobservable, and refined
 JCLS can still underperform the no-cooperation baseline.
 
+An executable notebook regression audit is implemented on branch
+`codex/notebook-regression-execution-audit`. It turns the prior static forensic
+bridge into line-level notebook Datalink/measurement audits, deterministic
+hand/notebook/package row-order fixtures, unit/clock executable fixtures, and a
+safe extracted-class notebook smoke harness under
+`v24_notebook_regression_outputs/executed_legacy/`. The audit verifies that the
+legacy notebook and package share receiver/transmitter row ordering and
+`range + transmitter_clock - receiver_clock` sign when package links are
+supplied in notebook `get_links()` order. It also verifies the km/range-clock
+representation against meters/seconds after a single speed-of-light
+conversion. Full notebook figure reproduction is still not performed.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -157,6 +169,10 @@ JCLS can still underperform the no-cooperation baseline.
 - Human-review Fig. 4--7 outputs currently conflict with the manuscript
   narrative in several regimes and must not be used as final manuscript
   figures without estimator/model redesign and human technical signoff.
+- Legacy notebook ordered-link and unit/clock conventions are now verified
+  compatible with the package for deterministic tiny fixtures, but the legacy
+  notebook still keeps all clock parameters and uses mixed covariance/precision
+  optimizer notation.
 
 ## Last completed task
 
@@ -189,6 +205,13 @@ Human-review Fig. 4--7 package outputs, provenance, and
 `HUMAN_REVIEW_REPORT.md/.json` are implemented on branch
 `codex/human-ready-figures-sprint`; the report currently recommends review-only
 status rather than manuscript consideration.
+Executable notebook regression-audit artifacts are implemented on branch
+`codex/notebook-regression-execution-audit`: line-level Datalink/Scenario
+audits, deterministic row-order and unit fixtures, a safe extracted-class
+legacy smoke harness, and upgraded figure-regression statuses. Ordered-link and
+unit/clock representation are no longer blocking unresolved; they are verified
+compatible for the audited tiny fixtures. Full figure reproduction remains
+not done.
 
 ## Next task
 
