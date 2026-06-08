@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
 import shutil
 import sys
 import time
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -32,6 +34,8 @@ BASELINE_ROOT = SAT_SIM_ROOT / "outputs" / "migration_baseline" / "legacy_behavi
 LADDER_ROOT = SAT_SIM_ROOT / "outputs" / "migration_ladder"
 REPORTS = SAT_SIM_ROOT / "outputs" / "reports"
 MIGRATION_CACHE_ROOT = SAT_SIM_ROOT / "outputs" / "cache" / "migration_ladder"
+HEARTBEAT_PATH = MIGRATION_CACHE_ROOT / "RUN_HEARTBEAT.json"
+ROW_STATUS_PATH = MIGRATION_CACHE_ROOT / "ROW_STATUS.jsonl"
 SOURCE_NETWORK_ROOT = SAT_SIM_ROOT / "outputs" / "legacy_replay" / "network_size_medium"
 SOURCE_CLOCK_ROOT = SAT_SIM_ROOT / "outputs" / "legacy_replay" / "clock_sweep_full"
 MIGRATION_CACHE_SCHEMA_VERSION = "controlled-migration-ladder-v1"
@@ -53,6 +57,38 @@ STEP_C_COVARIANCE_DAMPING = 1.0e-8
 STEP_C_PROCESS_COVARIANCE_SCALE = 1.0e2
 
 
+@dataclass(frozen=True)
+class LadderRunOptions:
+    """Runtime controls for bounded migration-ladder execution."""
+
+    steps: tuple[str, ...] = ()
+    include_medium: bool = False
+    tiny_only: bool = True
+    max_rows: int | None = None
+    max_substeps: int | None = None
+    timeout_seconds_per_row: float | None = None
+    timeout_seconds_total: float | None = None
+    resume: bool = False
+    dry_run: bool = False
+    list_planned_work: bool = False
+    stop_after_first_degradation: bool = False
+    use_cache: bool = False
+
+    @property
+    def bounded(self) -> bool:
+        """Return whether this run is intentionally bounded/noncanonical."""
+
+        return bool(
+            self.max_rows is not None
+            or self.max_substeps is not None
+            or self.timeout_seconds_per_row is not None
+            or self.timeout_seconds_total is not None
+            or self.dry_run
+            or self.stop_after_first_degradation
+            or self.steps
+        )
+
+
 def _sha256(path: Path) -> str:
     """Return SHA256 for a file."""
 
@@ -63,6 +99,189 @@ def _repo_rel(path: Path) -> str:
     """Return repo-relative POSIX path."""
 
     return path.relative_to(SAT_SIM_ROOT).as_posix()
+
+
+def _grid_points(grid: str) -> list[tuple[int, int]]:
+    """Return planned ``(num_users, num_satellites)`` rows for a grid."""
+
+    if grid == "tiny":
+        users = [1, 3]
+        satellites = [4, 8]
+    elif grid == "medium":
+        users = [1, 3, 5, 7]
+        satellites = [4, 8, 12]
+    else:
+        raise ValueError(f"unknown grid: {grid}")
+    return [(user, sat) for user in users for sat in satellites]
+
+
+def _selected_grids(options: LadderRunOptions) -> list[str]:
+    """Return grids allowed by runtime options."""
+
+    if options.tiny_only or not options.include_medium:
+        return ["tiny"]
+    return ["tiny", "medium"]
+
+
+def _selected_steps(options: LadderRunOptions) -> list[MigrationStep]:
+    """Return migration steps selected by runtime options."""
+
+    available = migration_ladder_steps()[1:]
+    if options.steps:
+        requested = set(options.steps)
+        selected = [step for step in available if step.name in requested]
+        missing = sorted(requested - {step.name for step in selected})
+        if missing:
+            raise ValueError(f"unknown migration step(s): {', '.join(missing)}")
+    else:
+        selected = available
+    if options.max_substeps is not None:
+        selected = selected[: max(0, options.max_substeps)]
+    return selected
+
+
+def _planned_work(options: LadderRunOptions) -> list[dict[str, Any]]:
+    """Return the exact rows planned for execution."""
+
+    rows = []
+    for step in _selected_steps(options):
+        for grid in _selected_grids(options):
+            if grid == "medium" and step.name.startswith("step_c3"):
+                # C3 covariance candidates at medium scale require explicit single-step selection.
+                if not options.steps:
+                    continue
+            for row_number, (num_users, num_satellites) in enumerate(_grid_points(grid), start=1):
+                rows.append(
+                    {
+                        "step": step.name,
+                        "grid": grid,
+                        "num_users": num_users,
+                        "num_satellites": num_satellites,
+                        "row_number_within_grid": row_number,
+                    }
+                )
+    if options.max_rows is not None:
+        rows = rows[: max(0, options.max_rows)]
+    return rows
+
+
+def _group_planned_work(planned: list[dict[str, Any]]) -> dict[tuple[str, str], list[tuple[int, int]]]:
+    """Group planned rows by step and grid."""
+
+    grouped: dict[tuple[str, str], list[tuple[int, int]]] = {}
+    for item in planned:
+        grouped.setdefault((item["step"], item["grid"]), []).append((item["num_users"], item["num_satellites"]))
+    return grouped
+
+
+def _print_planned_work(planned: list[dict[str, Any]], options: LadderRunOptions) -> None:
+    """Print planned work before executing."""
+
+    payload = {
+        "artifact_status": "non_final_migration_ladder_planned_work",
+        "row_count": len(planned),
+        "tiny_only": options.tiny_only,
+        "include_medium": options.include_medium,
+        "max_rows": options.max_rows,
+        "max_substeps": options.max_substeps,
+        "dry_run": options.dry_run,
+        "planned_rows": planned,
+    }
+    print(json.dumps(payload, indent=2))
+
+
+def _heartbeat_payload(
+    *,
+    status: str,
+    current_substep: str | None,
+    current_grid_point: dict[str, Any] | None,
+    row_number: int,
+    total_rows: int,
+    started_monotonic: float,
+    process_start_time_utc: str,
+    last_completed_output: str | None,
+) -> dict[str, Any]:
+    """Return heartbeat payload for long ladder runs."""
+
+    elapsed = max(0.0, time.monotonic() - started_monotonic)
+    remaining = max(0, total_rows - row_number)
+    return {
+        "artifact_status": "non_final_migration_ladder_heartbeat",
+        "status": status,
+        "current_substep": current_substep,
+        "current_grid_point": current_grid_point,
+        "row_number": int(row_number),
+        "elapsed_time_seconds": elapsed,
+        "estimated_remaining_rows": int(remaining),
+        "last_completed_output": last_completed_output,
+        "process_start_time_utc": process_start_time_utc,
+        "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    }
+
+
+def _write_heartbeat(payload: dict[str, Any]) -> None:
+    """Write heartbeat JSON."""
+
+    HEARTBEAT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    HEARTBEAT_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+def _write_row_status(event: dict[str, Any]) -> None:
+    """Append one row-level status event."""
+
+    ROW_STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    event = dict(event)
+    event["timestamp_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    with ROW_STATUS_PATH.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(event, sort_keys=True) + "\n")
+
+
+def _execution_metadata(
+    *,
+    planned_rows: int,
+    executed_rows: int,
+    status: str,
+    options: LadderRunOptions,
+    output_grid: str,
+) -> dict[str, Any]:
+    """Return execution metadata used to prevent partial outputs being treated as valid."""
+
+    complete = status == "complete" and executed_rows == planned_rows
+    return {
+        "status": status,
+        "complete": bool(complete),
+        "planned_rows": int(planned_rows),
+        "executed_rows": int(executed_rows),
+        "partial": not complete,
+        "output_grid": output_grid,
+        "max_rows": options.max_rows,
+        "max_substeps": options.max_substeps,
+        "timeout_seconds_per_row": options.timeout_seconds_per_row,
+        "timeout_seconds_total": options.timeout_seconds_total,
+        "resume": options.resume,
+        "dry_run": options.dry_run,
+        "stop_after_first_degradation": options.stop_after_first_degradation,
+        "use_cache": options.use_cache,
+        "bounded": options.bounded,
+        "canonical_cache_valid": bool(complete and not options.bounded),
+    }
+
+
+def _cache_payload_status(metadata: dict[str, Any]) -> str:
+    """Return cache status. Partial/interrupted rows are never valid cache."""
+
+    execution = metadata.get("execution", {})
+    if execution and not execution.get("complete", False):
+        return "partial"
+    if execution and execution.get("bounded", False):
+        return "bounded_noncanonical"
+    return "complete"
+
+
+def _should_stop_after_degradation(report: dict[str, Any], options: LadderRunOptions) -> bool:
+    """Return whether the stop-after-first-degradation guard should stop execution."""
+
+    return bool(options.stop_after_first_degradation and report.get("health", {}).get("performance_degraded_vs_previous"))
 
 
 def _read_rows() -> list[dict[str, Any]]:
@@ -693,48 +912,147 @@ def _scenario_result_step_b(
     return row
 
 
-def _run_step_b_rows(grid: str) -> list[dict[str, Any]]:
+def _run_step_b_rows(
+    grid: str,
+    *,
+    points: list[tuple[int, int]] | None = None,
+    run_context: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     """Run Step B rows for the requested tiny or medium grid."""
 
     config = _mode_config("medium")
-    if grid == "tiny":
-        users = [1, 3]
-        satellites = [4, 8]
-    elif grid == "medium":
-        users = [1, 3, 5, 7]
-        satellites = [4, 8, 12]
-    else:
-        raise ValueError(f"unknown Step B grid: {grid}")
+    selected_points = points if points is not None else _grid_points(grid)
     np.random.seed(int(config["seed"]))
     namespace, _executed_cells = _execute_legacy_namespace()
     _install_residual_lm_acceptance(namespace)
     rows = []
-    for user in users:
-        for sat in satellites:
-            rows.append(_scenario_result_step_b(namespace=namespace, config=config, num_users=user, num_satellites=sat))
+    for point_index, (user, sat) in enumerate(selected_points, start=1):
+        if run_context is not None:
+            _write_row_status(
+                {
+                    "event": "row_start",
+                    "step": STEP_B_NAME,
+                    "grid": grid,
+                    "num_users": user,
+                    "num_satellites": sat,
+                    "row_number": run_context["row_counter"] + 1,
+                    "total_rows": run_context["total_rows"],
+                }
+            )
+            _write_heartbeat(
+                _heartbeat_payload(
+                    status="running",
+                    current_substep=STEP_B_NAME,
+                    current_grid_point={"grid": grid, "num_users": user, "num_satellites": sat},
+                    row_number=run_context["row_counter"],
+                    total_rows=run_context["total_rows"],
+                    started_monotonic=run_context["started_monotonic"],
+                    process_start_time_utc=run_context["process_start_time_utc"],
+                    last_completed_output=run_context.get("last_completed_output"),
+                )
+            )
+        row_started = time.monotonic()
+        row = _scenario_result_step_b(namespace=namespace, config=config, num_users=user, num_satellites=sat)
+        row_duration = time.monotonic() - row_started
+        if run_context is not None:
+            run_context["row_counter"] += 1
+            run_context["last_completed_output"] = f"{STEP_B_NAME}:{grid}:{user}:{sat}"
+            status = "complete"
+            if run_context.get("timeout_seconds_per_row") is not None and row_duration > float(run_context["timeout_seconds_per_row"]):
+                status = "timeout_after_row"
+                run_context["interrupted"] = True
+                run_context["interruption_reason"] = "timeout_seconds_per_row"
+                row["execution_status"] = status
+            _write_row_status(
+                {
+                    "event": "row_end",
+                    "step": STEP_B_NAME,
+                    "grid": grid,
+                    "num_users": user,
+                    "num_satellites": sat,
+                    "row_number": run_context["row_counter"],
+                    "total_rows": run_context["total_rows"],
+                    "duration_seconds": row_duration,
+                    "status": status,
+                    "point_index": point_index,
+                }
+            )
+        rows.append(row)
+        if run_context is not None and run_context.get("interrupted"):
+            break
     return rows
 
 
-def _run_diagnosis_rows(step: MigrationStep, grid: str) -> list[dict[str, Any]]:
+def _run_diagnosis_rows(
+    step: MigrationStep,
+    grid: str,
+    *,
+    points: list[tuple[int, int]] | None = None,
+    run_context: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     """Run one Step C diagnosis variant for the requested grid."""
 
     config = _mode_config("medium")
-    if grid == "tiny":
-        users = [1, 3]
-        satellites = [4, 8]
-    elif grid == "medium":
-        users = [1, 3, 5, 7]
-        satellites = [4, 8, 12]
-    else:
-        raise ValueError(f"unknown diagnosis grid: {grid}")
+    selected_points = points if points is not None else _grid_points(grid)
     np.random.seed(int(config["seed"]))
     namespace, _executed_cells = _execute_legacy_namespace()
     _install_residual_lm_acceptance(namespace)
     _install_map_diagnosis(namespace, step)
     rows = []
-    for user in users:
-        for sat in satellites:
-            rows.append(_scenario_result_step_b(namespace=namespace, config=config, num_users=user, num_satellites=sat))
+    for point_index, (user, sat) in enumerate(selected_points, start=1):
+        if run_context is not None:
+            _write_row_status(
+                {
+                    "event": "row_start",
+                    "step": step.name,
+                    "grid": grid,
+                    "num_users": user,
+                    "num_satellites": sat,
+                    "row_number": run_context["row_counter"] + 1,
+                    "total_rows": run_context["total_rows"],
+                }
+            )
+            _write_heartbeat(
+                _heartbeat_payload(
+                    status="running",
+                    current_substep=step.name,
+                    current_grid_point={"grid": grid, "num_users": user, "num_satellites": sat},
+                    row_number=run_context["row_counter"],
+                    total_rows=run_context["total_rows"],
+                    started_monotonic=run_context["started_monotonic"],
+                    process_start_time_utc=run_context["process_start_time_utc"],
+                    last_completed_output=run_context.get("last_completed_output"),
+                )
+            )
+        row_started = time.monotonic()
+        row = _scenario_result_step_b(namespace=namespace, config=config, num_users=user, num_satellites=sat)
+        row_duration = time.monotonic() - row_started
+        if run_context is not None:
+            run_context["row_counter"] += 1
+            run_context["last_completed_output"] = f"{step.name}:{grid}:{user}:{sat}"
+            status = "complete"
+            if run_context.get("timeout_seconds_per_row") is not None and row_duration > float(run_context["timeout_seconds_per_row"]):
+                status = "timeout_after_row"
+                run_context["interrupted"] = True
+                run_context["interruption_reason"] = "timeout_seconds_per_row"
+                row["execution_status"] = status
+            _write_row_status(
+                {
+                    "event": "row_end",
+                    "step": step.name,
+                    "grid": grid,
+                    "num_users": user,
+                    "num_satellites": sat,
+                    "row_number": run_context["row_counter"],
+                    "total_rows": run_context["total_rows"],
+                    "duration_seconds": row_duration,
+                    "status": status,
+                    "point_index": point_index,
+                }
+            )
+        rows.append(row)
+        if run_context is not None and run_context.get("interrupted"):
+            break
     return rows
 
 
@@ -1049,7 +1367,7 @@ def _write_cache(step: MigrationStep, grid: str, rows: list[dict[str, Any]], met
     cache_dir.mkdir(parents=True, exist_ok=True)
     row_hash = hashlib.sha256(json.dumps(rows, sort_keys=True).encode("utf-8")).hexdigest()
     payload = {
-        "status": "complete",
+        "status": _cache_payload_status(metadata),
         "cache_key": key,
         "identity": identity,
         "raw_result_hash": row_hash,
@@ -1108,10 +1426,19 @@ def _write_baseline_freeze(rows: list[dict[str, Any]]) -> dict[str, Any]:
     return report
 
 
-def _write_step(step: MigrationStep, grid: str, rows: list[dict[str, Any]], previous_health: dict[str, Any] | None) -> dict[str, Any]:
+def _write_step(
+    step: MigrationStep,
+    grid: str,
+    rows: list[dict[str, Any]],
+    previous_health: dict[str, Any] | None,
+    *,
+    execution: dict[str, Any] | None = None,
+    output_grid: str | None = None,
+) -> dict[str, Any]:
     """Write outputs for one migration step and grid."""
 
-    output_root = LADDER_ROOT / step.name / grid
+    output_grid = output_grid or grid
+    output_root = LADDER_ROOT / step.name / output_grid
     plot_outputs = _plot(rows, output_root)
     csvs = _write_csvs(rows, output_root)
     arrays = _write_npz(rows, output_root)
@@ -1120,6 +1447,7 @@ def _write_step(step: MigrationStep, grid: str, rows: list[dict[str, Any]], prev
         "artifact_status": "non_final_controlled_migration_step",
         "step": step.to_dict(),
         "grid": grid,
+        "output_grid": output_grid,
         "status": health["status"],
         "manuscript_ready": False,
         "lm_acceptance_mode": step.acceptance_mode,
@@ -1132,6 +1460,13 @@ def _write_step(step: MigrationStep, grid: str, rows: list[dict[str, Any]], prev
         "lm_acceptance_diagnostics": _lm_acceptance_summary(rows),
         "map_update_diagnostics": _map_update_summary(rows),
         "change_vs_previous": None,
+        "execution": execution or _execution_metadata(
+            planned_rows=len(rows),
+            executed_rows=len(rows),
+            status="complete",
+            options=LadderRunOptions(),
+            output_grid=output_grid,
+        ),
     }
     if step.name != STEP_B_NAME:
         metadata["lm_acceptance_diagnostics"]["truth_state_used_for_lm_acceptance"] = True
@@ -1557,7 +1892,7 @@ def _write_step_c_diagnosis_report() -> dict[str, Any] | None:
     return payload
 
 
-def _write_cache_manifest(cache_entries: list[dict[str, Any]]) -> None:
+def _write_cache_manifest(cache_entries: list[dict[str, Any]], *, stem: str = "CACHE_MANIFEST") -> None:
     """Write migration cache manifest."""
 
     MIGRATION_CACHE_ROOT.mkdir(parents=True, exist_ok=True)
@@ -1569,7 +1904,7 @@ def _write_cache_manifest(cache_entries: list[dict[str, Any]]) -> None:
         "fresh_hit_count": 0,
         "miss_or_stale_count": len(cache_entries),
     }
-    (MIGRATION_CACHE_ROOT / "CACHE_MANIFEST.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    (MIGRATION_CACHE_ROOT / f"{stem}.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     md = [
         "# Migration Ladder Cache Manifest",
         "",
@@ -1580,10 +1915,10 @@ def _write_cache_manifest(cache_entries: list[dict[str, Any]]) -> None:
     ]
     for entry in cache_entries:
         md.append(f"| `{entry['step']}` | `{entry['grid']}` | `{entry['cache_key'][:12]}` | [{entry['cache_path']}](../../{entry['cache_path']}) |")
-    (MIGRATION_CACHE_ROOT / "CACHE_MANIFEST.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    (MIGRATION_CACHE_ROOT / f"{stem}.md").write_text("\n".join(md) + "\n", encoding="utf-8")
 
 
-def _write_ladder_report(step_reports: list[dict[str, Any]], baseline: dict[str, Any]) -> dict[str, Any]:
+def _write_ladder_report(step_reports: list[dict[str, Any]], baseline: dict[str, Any], *, stem: str = "CONTROLLED_MIGRATION_LADDER") -> dict[str, Any]:
     """Write top-level controlled migration ladder report."""
 
     REPORTS.mkdir(parents=True, exist_ok=True)
@@ -1607,7 +1942,7 @@ def _write_ladder_report(step_reports: list[dict[str, Any]], baseline: dict[str,
         "stop_rule_triggered": first_degraded is not None,
         "manuscript_ready": False,
     }
-    (REPORTS / "CONTROLLED_MIGRATION_LADDER.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    (REPORTS / f"{stem}.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
     md = [
         "# Controlled Migration Ladder",
         "",
@@ -1640,76 +1975,215 @@ def _write_ladder_report(step_reports: list[dict[str, Any]], baseline: dict[str,
         "## Caveat",
         "This ladder uses the current legacy medium replay rows as the frozen behavior source. It does not make manuscript-ready claims and does not execute the original notebook.",
     ]
-    (REPORTS / "CONTROLLED_MIGRATION_LADDER.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    (REPORTS / f"{stem}.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     return payload
 
 
-def run_ladder() -> dict[str, Any]:
-    """Run the implemented controlled migration ladder."""
+def run_ladder(options: LadderRunOptions | None = None) -> dict[str, Any]:
+    """Run the controlled migration ladder using safe bounded defaults."""
 
-    rows = _read_rows()
-    baseline = _write_baseline_freeze(rows)
+    options = options or LadderRunOptions()
+    planned = _planned_work(options)
+    _print_planned_work(planned, options)
+    if options.dry_run:
+        return {
+            "artifact_status": "non_final_controlled_migration_ladder_dry_run",
+            "row_count": len(planned),
+            "planned_rows": planned,
+            "manuscript_ready": False,
+        }
+
+    all_rows = _read_rows()
+    baseline = _write_baseline_freeze(all_rows)
+    grouped = _group_planned_work(planned)
+    step_by_name = {step.name: step for step in migration_ladder_steps()[1:]}
     step_reports = []
     cache_entries = []
     previous_by_grid: dict[str, dict[str, Any] | None] = {"tiny": None, "medium": None}
-    for step in migration_ladder_steps()[1:]:
-        for grid in ["tiny", "medium"]:
-            if step.name == STEP_B_NAME:
-                if grid == "medium":
-                    tiny_report = next(
-                        (report for report in step_reports if report["step"]["name"] == STEP_B_NAME and report["grid"] == "tiny"),
-                        None,
-                    )
-                    if tiny_report is not None and tiny_report["health"].get("catastrophic_failure"):
-                        continue
-                grid_rows = _run_step_b_rows(grid)
-            elif step.name in STEP_C_DIAGNOSIS_NAMES:
-                if grid == "medium":
-                    tiny_report = next(
-                        (report for report in step_reports if report["step"]["name"] == step.name and report["grid"] == "tiny"),
-                        None,
-                    )
-                    if tiny_report is not None and tiny_report["health"].get("catastrophic_failure"):
-                        continue
-                grid_rows = _run_diagnosis_rows(step, grid)
-            else:
-                grid_rows = _filter_rows(rows, grid)
-            report = _write_step(step, grid, grid_rows, previous_by_grid[grid])
-            previous_by_grid[grid] = report["health"]
-            step_reports.append(report)
-            cache_entries.append({"step": step.name, "grid": grid, **report["cache"]})
-    _write_cache_manifest(cache_entries)
-    ladder = _write_ladder_report(step_reports, baseline)
-    step_b_comparison = _write_step_b_comparison()
-    if step_b_comparison is not None:
-        ladder["step_b_comparison"] = {
-            "path": "outputs/reports/STEP_B_LM_ACCEPTANCE_COMPARISON.md",
-            "overall_status": step_b_comparison["overall_status"],
-        }
-    step_c_diagnosis = _write_step_c_diagnosis_report()
-    if step_c_diagnosis is not None:
-        ladder["step_c_diagnosis"] = {
-            "path": "outputs/reports/STEP_C_DIAGNOSIS_REPORT.md",
-            "breaking_factor": step_c_diagnosis["breaking_factor"],
-            "best_non_truth_covariance_candidate": step_c_diagnosis["best_non_truth_covariance_candidate"],
-        }
-    from scripts.render_all_figure_previews import render_gallery
-
-    from scripts.build_legacy_graph_package import main as build_graph_package
-
-    build_graph_package()
-    gallery = render_gallery(force=False)
-    ladder["gallery"] = {
-        "path": "outputs/gallery/PLOT_GALLERY.md",
-        "entry_count": gallery["entry_count"],
+    process_start_time_utc = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    run_context: dict[str, Any] = {
+        "started_monotonic": time.monotonic(),
+        "process_start_time_utc": process_start_time_utc,
+        "row_counter": 0,
+        "total_rows": len(planned),
+        "last_completed_output": None,
+        "timeout_seconds_per_row": options.timeout_seconds_per_row,
+        "interrupted": False,
+        "interruption_reason": None,
     }
-    (REPORTS / "CONTROLLED_MIGRATION_LADDER.json").write_text(json.dumps(ladder, indent=2), encoding="utf-8")
+    _write_heartbeat(
+        _heartbeat_payload(
+            status="starting",
+            current_substep=None,
+            current_grid_point=None,
+            row_number=0,
+            total_rows=len(planned),
+            started_monotonic=run_context["started_monotonic"],
+            process_start_time_utc=process_start_time_utc,
+            last_completed_output=None,
+        )
+    )
+    output_suffix = "_bounded" if options.bounded else ""
+    report_stem = "CONTROLLED_MIGRATION_LADDER_BOUNDED_RECOVERY" if options.bounded else "CONTROLLED_MIGRATION_LADDER"
+    manifest_stem = "CACHE_MANIFEST_BOUNDED_RECOVERY" if options.bounded else "CACHE_MANIFEST"
+
+    for step_name, grid in grouped:
+        if options.timeout_seconds_total is not None and time.monotonic() - run_context["started_monotonic"] > float(options.timeout_seconds_total):
+            run_context["interrupted"] = True
+            run_context["interruption_reason"] = "timeout_seconds_total"
+            break
+        step = step_by_name[step_name]
+        points = grouped[(step_name, grid)]
+        if not points:
+            continue
+        if step.name == STEP_B_NAME:
+            grid_rows = _run_step_b_rows(grid, points=points, run_context=run_context)
+        elif step.name in STEP_C_DIAGNOSIS_NAMES:
+            grid_rows = _run_diagnosis_rows(step, grid, points=points, run_context=run_context)
+        else:
+            allowed = set(points)
+            grid_rows = [
+                row
+                for row in _filter_rows(all_rows, grid)
+                if (row["num_users"], row["num_satellites"]) in allowed
+            ]
+            for row in grid_rows:
+                run_context["row_counter"] += 1
+                run_context["last_completed_output"] = f"{step.name}:{grid}:{row['num_users']}:{row['num_satellites']}"
+                _write_row_status(
+                    {
+                        "event": "row_end",
+                        "step": step.name,
+                        "grid": grid,
+                        "num_users": row["num_users"],
+                        "num_satellites": row["num_satellites"],
+                        "row_number": run_context["row_counter"],
+                        "total_rows": run_context["total_rows"],
+                        "status": "copied_from_legacy_source",
+                    }
+                )
+        status = "complete"
+        if run_context.get("interrupted"):
+            status = run_context.get("interruption_reason") or "interrupted"
+        elif len(grid_rows) < len(points):
+            status = "partial"
+        output_grid = f"{grid}{output_suffix}"
+        execution = _execution_metadata(
+            planned_rows=len(points),
+            executed_rows=len(grid_rows),
+            status=status,
+            options=options,
+            output_grid=output_grid,
+        )
+        report = _write_step(step, grid, grid_rows, previous_by_grid[grid], execution=execution, output_grid=output_grid)
+        previous_by_grid[grid] = report["health"]
+        step_reports.append(report)
+        cache_entries.append({"step": step.name, "grid": output_grid, **report["cache"]})
+        _write_heartbeat(
+            _heartbeat_payload(
+                status=status,
+                current_substep=step.name,
+                current_grid_point={"grid": grid, "row_count": len(grid_rows)},
+                row_number=run_context["row_counter"],
+                total_rows=len(planned),
+                started_monotonic=run_context["started_monotonic"],
+                process_start_time_utc=process_start_time_utc,
+                last_completed_output=run_context.get("last_completed_output"),
+            )
+        )
+        if run_context.get("interrupted") or _should_stop_after_degradation(report, options):
+            break
+
+    _write_cache_manifest(cache_entries, stem=manifest_stem)
+    ladder = _write_ladder_report(step_reports, baseline, stem=report_stem)
+    ladder["execution"] = {
+        "status": run_context.get("interruption_reason") or "complete",
+        "planned_rows": len(planned),
+        "executed_rows": run_context["row_counter"],
+        "bounded": options.bounded,
+        "heartbeat_path": _repo_rel(HEARTBEAT_PATH),
+        "row_status_path": _repo_rel(ROW_STATUS_PATH),
+    }
+    (REPORTS / f"{report_stem}.json").write_text(json.dumps(ladder, indent=2), encoding="utf-8")
+
+    if not options.bounded:
+        step_b_comparison = _write_step_b_comparison()
+        if step_b_comparison is not None:
+            ladder["step_b_comparison"] = {
+                "path": "outputs/reports/STEP_B_LM_ACCEPTANCE_COMPARISON.md",
+                "overall_status": step_b_comparison["overall_status"],
+            }
+        step_c_diagnosis = _write_step_c_diagnosis_report()
+        if step_c_diagnosis is not None:
+            ladder["step_c_diagnosis"] = {
+                "path": "outputs/reports/STEP_C_DIAGNOSIS_REPORT.md",
+                "breaking_factor": step_c_diagnosis["breaking_factor"],
+                "best_non_truth_covariance_candidate": step_c_diagnosis["best_non_truth_covariance_candidate"],
+            }
+        from scripts.render_all_figure_previews import render_gallery
+
+        from scripts.build_legacy_graph_package import main as build_graph_package
+
+        build_graph_package()
+        gallery = render_gallery(force=False)
+        ladder["gallery"] = {
+            "path": "outputs/gallery/PLOT_GALLERY.md",
+            "entry_count": gallery["entry_count"],
+        }
+        (REPORTS / f"{report_stem}.json").write_text(json.dumps(ladder, indent=2), encoding="utf-8")
     return ladder
 
 
-def main() -> int:
-    payload = run_ladder()
-    print(json.dumps({"status": "wrote", "first_degraded_step": payload["first_degraded_step"], "current_best": payload["current_best_migration_step"]}, indent=2))
+def _parse_args(argv: list[str] | None = None) -> LadderRunOptions:
+    """Parse CLI arguments into runtime options."""
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--step", action="append", default=[], help="Migration step name to run. May be repeated.")
+    parser.add_argument("--max-rows", type=int, default=None)
+    parser.add_argument("--max-substeps", type=int, default=None)
+    parser.add_argument("--tiny-only", action="store_true", default=False)
+    parser.add_argument("--medium", action="store_true", default=False, help="Explicitly allow medium grid rows.")
+    parser.add_argument("--no-medium", action="store_true", default=False)
+    parser.add_argument("--timeout-seconds-per-row", type=float, default=None)
+    parser.add_argument("--timeout-seconds-total", type=float, default=None)
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--list-planned-work", action="store_true")
+    parser.add_argument("--stop-after-first-degradation", action="store_true")
+    parser.add_argument("--use-cache", action="store_true")
+    args = parser.parse_args(argv)
+    include_medium = bool(args.medium and not args.no_medium and not args.tiny_only)
+    tiny_only = bool(args.tiny_only or args.no_medium or not args.medium)
+    return LadderRunOptions(
+        steps=tuple(args.step),
+        include_medium=include_medium,
+        tiny_only=tiny_only,
+        max_rows=args.max_rows,
+        max_substeps=args.max_substeps,
+        timeout_seconds_per_row=args.timeout_seconds_per_row,
+        timeout_seconds_total=args.timeout_seconds_total,
+        resume=args.resume,
+        dry_run=args.dry_run,
+        list_planned_work=args.list_planned_work,
+        stop_after_first_degradation=args.stop_after_first_degradation,
+        use_cache=args.use_cache,
+    )
+
+
+def main(argv: list[str] | None = None) -> int:
+    options = _parse_args(argv)
+    payload = run_ladder(options)
+    print(
+        json.dumps(
+            {
+                "status": "planned" if options.dry_run else "wrote",
+                "first_degraded_step": payload.get("first_degraded_step"),
+                "current_best": payload.get("current_best_migration_step"),
+                "execution": payload.get("execution"),
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

@@ -1,0 +1,100 @@
+{
+  "artifact_status": "non_final_controlled_migration_step",
+  "step": {
+    "name": "step_c0_legacy_map_instrumented",
+    "estimator_mode": "legacy_staged_compatible",
+    "internal_clock_mode": "all_clock",
+    "acceptance_mode": "residual_trust_region",
+    "metric_mode": "legacy_all_clock_sync",
+    "weighting_mode": "legacy_notebook",
+    "geometry_noise_mode": "legacy_replay",
+    "display_transform_mode": "raw_metrics_no_smoothing",
+    "map_covariance_mode": "truth_error_diagonal",
+    "map_update_mode": "truth_gated_legacy_instrumented",
+    "exact_change": "Instrument legacy MAP covariance/update behavior without changing behavior.",
+    "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+  },
+  "grid": "tiny",
+  "output_grid": "tiny_bounded",
+  "status": "partially_degraded",
+  "manuscript_ready": false,
+  "lm_acceptance_mode": "residual_trust_region",
+  "truth_state_used_for_lm_acceptance": true,
+  "map_covariance_mode": "truth_error_diagonal",
+  "map_update_mode": "truth_gated_legacy_instrumented",
+  "plot_outputs": [
+    "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/pos_vary_ues.pdf",
+    "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/sync_vary_ues.pdf"
+  ],
+  "raw_outputs": {
+    "raw_csv": "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_raw.csv",
+    "summary_csv": "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_summary.csv",
+    "arrays_npz": "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_arrays.npz"
+  },
+  "health": {
+    "status": "partially_degraded",
+    "comparison_count": 0,
+    "position_improvement_count": 0,
+    "sync_improvement_count": 0,
+    "does_jcls_help_localization": false,
+    "does_jcls_help_synchronization": false,
+    "healthy_rows": 2,
+    "failed_rows": 0,
+    "fallback_count": 2,
+    "lm_cost_increase_rows": 0,
+    "map_accepted_cost_increase_rows": 0,
+    "map_invalid_covariance_rows": 0,
+    "lm_or_map_worse_than_il_rows": 0,
+    "catastrophic_failure": false,
+    "performance_degraded_vs_previous": false,
+    "strongest_position_improvement": null,
+    "strongest_sync_improvement": null
+  },
+  "lm_acceptance_diagnostics": {
+    "truth_state_used_for_lm_acceptance": true,
+    "accepted_step_count": 0,
+    "rejected_step_count": 0,
+    "rows_with_residual_cost_increase": 0,
+    "rejection_reasons": []
+  },
+  "map_update_diagnostics": {
+    "truth_state_used_for_map_covariance": false,
+    "truth_state_used_for_map_acceptance": false,
+    "accepted_update_count": 0,
+    "rejected_update_count": 0,
+    "rejected_candidate_count": 0,
+    "fallback_count": 0,
+    "rows_with_accepted_residual_cost_increase": 0,
+    "invalid_covariance_rows": 0,
+    "covariance_trace_after_min": null,
+    "covariance_trace_after_max": null,
+    "covariance_condition_after_max": null,
+    "update_norm_max": null,
+    "fallback_paths": [],
+    "rejection_reasons": []
+  },
+  "change_vs_previous": null,
+  "execution": {
+    "status": "complete",
+    "complete": true,
+    "planned_rows": 2,
+    "executed_rows": 2,
+    "partial": false,
+    "output_grid": "tiny_bounded",
+    "max_rows": 2,
+    "max_substeps": null,
+    "timeout_seconds_per_row": null,
+    "timeout_seconds_total": 600.0,
+    "resume": false,
+    "dry_run": false,
+    "stop_after_first_degradation": false,
+    "use_cache": true,
+    "bounded": true,
+    "canonical_cache_valid": false
+  },
+  "cache": {
+    "cache_key": "7ffea5cb5a6676ff900453d0d4cf67401852958715f3ea24ba6b9545d0ffeb0b",
+    "cache_path": "outputs/cache/migration_ladder/7ffea5cb5a6676ff/metadata.json",
+    "raw_result_hash": "42b7088ba83031177c00b9ff0c48229f67c82515927b0c5834f20d871420f28d"
+  }
+}

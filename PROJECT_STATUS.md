@@ -324,6 +324,18 @@ covariance with observable MAP acceptance) is majorly degraded, while C2
 No C3 non-truth covariance candidate is healthy when paired with observable
 MAP acceptance. These outputs are non-final and not manuscript-ready.
 
+A hung-ladder recovery pass is implemented on branch
+`codex/migration-step-c-diagnosis`. No still-running Python ladder process was
+found. Existing canonical C0/C1/C2/C3 tiny and medium outputs appear complete
+as diagnostic artifacts, so the recovery separates runner-safety risk from
+output validity. `scripts/run_controlled_migration_ladder.py` now defaults to
+tiny-only execution, requires `--medium` for medium rows, supports dry-run/
+planned-work listing, max-row/substep limits, timeout metadata, bounded output
+stems, row status logs, noncanonical bounded cache status, and a heartbeat at
+`outputs/cache/migration_ladder/RUN_HEARTBEAT.json`. A bounded C0 two-row smoke
+wrote to `outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/`
+without overwriting canonical ladder outputs.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -380,3 +392,7 @@ See `docs/tasks/NEXT.md`.
   the primary breaking factor; covariance replacement alone is not the primary
   failure in the current medium grid, but no fully non-truth candidate is yet
   healthy.
+- `outputs/reports/HUNG_LADDER_RECOVERY_REPORT.md` is the current source of
+  truth for recovery from the unsafe ladder invocation. It classifies the
+  existing C outputs as complete diagnostics and recommends read-only review
+  before further bounded execution.

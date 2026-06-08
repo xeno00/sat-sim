@@ -11,7 +11,17 @@ from jcls_sim.migration import (
     step_c3_cov_damped_pinv,
     step_diff,
 )
-from scripts.run_controlled_migration_ladder import _install_map_diagnosis, _install_residual_lm_acceptance
+from scripts.run_controlled_migration_ladder import (
+    LadderRunOptions,
+    _cache_payload_status,
+    _execution_metadata,
+    _heartbeat_payload,
+    _install_map_diagnosis,
+    _install_residual_lm_acceptance,
+    _parse_args,
+    _planned_work,
+    _should_stop_after_degradation,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -183,6 +193,142 @@ class TestControlledMigrationLadder(unittest.TestCase):
             "incomplete_c1_c2_evidence",
         })
         self.assertGreater(len(report["summaries"]), 0)
+
+    def test_dry_run_plan_lists_rows_without_medium_by_default(self) -> None:
+        options = _parse_args([
+            "--dry-run",
+            "--step",
+            "step_c0_legacy_map_instrumented",
+        ])
+        planned = _planned_work(options)
+
+        self.assertTrue(options.dry_run)
+        self.assertTrue(options.tiny_only)
+        self.assertFalse(options.include_medium)
+        self.assertGreater(len(planned), 0)
+        self.assertEqual({row["grid"] for row in planned}, {"tiny"})
+
+    def test_default_run_is_tiny_only(self) -> None:
+        options = _parse_args([])
+
+        self.assertTrue(options.tiny_only)
+        self.assertFalse(options.include_medium)
+
+    def test_medium_requires_explicit_medium_flag(self) -> None:
+        without_medium = _parse_args(["--step", "step_c0_legacy_map_instrumented"])
+        with_medium = _parse_args(["--step", "step_c0_legacy_map_instrumented", "--medium"])
+
+        self.assertEqual({row["grid"] for row in _planned_work(without_medium)}, {"tiny"})
+        self.assertIn("medium", {row["grid"] for row in _planned_work(with_medium)})
+
+    def test_max_rows_limits_planned_execution(self) -> None:
+        options = _parse_args([
+            "--step",
+            "step_c0_legacy_map_instrumented",
+            "--tiny-only",
+            "--max-rows",
+            "2",
+        ])
+
+        self.assertEqual(len(_planned_work(options)), 2)
+
+    def test_tiny_only_does_not_run_medium_even_with_no_medium_flag(self) -> None:
+        options = _parse_args([
+            "--step",
+            "step_c0_legacy_map_instrumented",
+            "--medium",
+            "--no-medium",
+        ])
+        planned = _planned_work(options)
+
+        self.assertEqual({row["grid"] for row in planned}, {"tiny"})
+
+    def test_partial_execution_is_not_valid_cache(self) -> None:
+        options = LadderRunOptions(max_rows=2)
+        metadata = {"execution": _execution_metadata(
+            planned_rows=4,
+            executed_rows=2,
+            status="partial",
+            options=options,
+            output_grid="tiny_bounded",
+        )}
+
+        self.assertEqual(_cache_payload_status(metadata), "partial")
+        self.assertFalse(metadata["execution"]["complete"])
+
+    def test_bounded_complete_execution_is_not_canonical_cache(self) -> None:
+        options = LadderRunOptions(max_rows=2)
+        metadata = {"execution": _execution_metadata(
+            planned_rows=2,
+            executed_rows=2,
+            status="complete",
+            options=options,
+            output_grid="tiny_bounded",
+        )}
+
+        self.assertEqual(_cache_payload_status(metadata), "bounded_noncanonical")
+        self.assertFalse(metadata["execution"]["canonical_cache_valid"])
+
+    def test_heartbeat_payload_has_required_schema(self) -> None:
+        payload = _heartbeat_payload(
+            status="running",
+            current_substep="step_c0_legacy_map_instrumented",
+            current_grid_point={"grid": "tiny", "num_users": 1, "num_satellites": 4},
+            row_number=1,
+            total_rows=2,
+            started_monotonic=0.0,
+            process_start_time_utc="2026-06-08T00:00:00Z",
+            last_completed_output=None,
+        )
+
+        for key in [
+            "current_substep",
+            "current_grid_point",
+            "row_number",
+            "elapsed_time_seconds",
+            "estimated_remaining_rows",
+            "last_completed_output",
+            "process_start_time_utc",
+            "status",
+        ]:
+            self.assertIn(key, payload)
+
+    def test_timeout_status_is_represented_in_metadata(self) -> None:
+        metadata = _execution_metadata(
+            planned_rows=4,
+            executed_rows=1,
+            status="timeout_seconds_total",
+            options=LadderRunOptions(timeout_seconds_total=1.0),
+            output_grid="tiny_bounded",
+        )
+
+        self.assertEqual(metadata["status"], "timeout_seconds_total")
+        self.assertTrue(metadata["partial"])
+        self.assertFalse(metadata["complete"])
+
+    def test_stop_after_first_degradation_guard(self) -> None:
+        report = {"health": {"performance_degraded_vs_previous": True}}
+
+        self.assertTrue(_should_stop_after_degradation(report, LadderRunOptions(stop_after_first_degradation=True)))
+        self.assertFalse(_should_stop_after_degradation(report, LadderRunOptions(stop_after_first_degradation=False)))
+
+    def test_dry_run_does_not_execute_rows(self) -> None:
+        from scripts.run_controlled_migration_ladder import run_ladder
+
+        payload = run_ladder(LadderRunOptions(
+            steps=("step_c0_legacy_map_instrumented",),
+            max_rows=1,
+            dry_run=True,
+        ))
+
+        self.assertEqual(payload["artifact_status"], "non_final_controlled_migration_ladder_dry_run")
+        self.assertEqual(payload["row_count"], 1)
+        self.assertNotIn("execution", payload)
+
+    def test_bounded_recovery_uses_separate_output_stem(self) -> None:
+        options = LadderRunOptions(steps=("step_c0_legacy_map_instrumented",), max_rows=2)
+        self.assertTrue(options.bounded)
+        self.assertNotEqual("tiny_bounded", "tiny")
 
 
 if __name__ == "__main__":
