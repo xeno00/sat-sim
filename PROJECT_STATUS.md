@@ -408,6 +408,17 @@ promoted variants. Outputs are written under
 promoted-only medium validation was run for those variants. These outputs are
 non-final and not manuscript figures.
 
+Step 3 covariance/dynamics exploration is implemented on branch
+`codex/step3-covariance-exploration`. The runner
+`scripts/explore_step3_covariance.py` tests bounded lane-separated covariance
+and dynamics variants over sparse cases `(N_u,N_s)=(3,8),(7,8),(7,12)`, with
+Step B/LM-only as the baseline. The diagnostic writes lane-level and aggregate
+outputs under `outputs/step3_covariance_exploration/`, task-matrix and summary
+reports under `outputs/reports/`, and gallery previews for compact plots.
+Default execution is sparse-only; promoted medium validation is explicit and
+limited to at most two promoted variants. These outputs are non-final and not
+manuscript figures.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -495,3 +506,7 @@ See `docs/tasks/NEXT.md`.
   sparse transfer check for block-scaled covariance and clock-drift variants.
   It is still diagnostic-only; the next decision should be a read-only review
   before any larger network-size validation or estimator integration.
+- `outputs/reports/STEP3_COVARIANCE_EXPLORATION_REPORT.md` records a bounded
+  lane-separated covariance/dynamics exploration. It is still diagnostic-only;
+  the next decision should be read-only review before any larger validation or
+  estimator integration.

@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_covariance_exploration/plots/clock_covariance_vs_sync_ratio.pdf",
+  "source_pdf_sha256": "9e752b4df68b1a5c269d28e70a477f934e1d451c510c1f001c14ba2ef7522a5d",
+  "source_pdf_size_bytes": 18051,
+  "preview_paths": [
+    "previews/9a1d5097614c__outputs__step3_covariance_exploration__plots__clock_covariance_vs_sync_ratio-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/9a1d5097614c__outputs__step3_covariance_exploration__plots__clock_covariance_vs_sync_ratio.json",
+  "render_timestamp_utc": "2026-06-08T20:59:55.479733+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-covariance-exploration",
+  "commit": "a979eb0"
+}

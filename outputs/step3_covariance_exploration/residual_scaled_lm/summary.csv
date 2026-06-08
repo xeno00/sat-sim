@@ -1,0 +1,2 @@
+both_improved_count,lane,max_position_ratio,max_sync_ratio,mean_p_clock_trace,mean_p_position_trace,mean_position_ratio,mean_runtime_seconds,mean_sync_ratio,position_improved_count,sync_improved_count,tested_cases
+9,residual_scaled_lm,0.028598081876483224,0.220764544442016,0.004793982527286007,0.004567755635979179,0.021074811911639246,0.02766666666785669,0.18382523041636625,9,9,9

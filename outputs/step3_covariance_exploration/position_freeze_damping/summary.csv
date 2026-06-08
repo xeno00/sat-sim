@@ -1,0 +1,2 @@
+both_improved_count,lane,max_position_ratio,max_sync_ratio,mean_p_clock_trace,mean_p_position_trace,mean_position_ratio,mean_runtime_seconds,mean_sync_ratio,position_improved_count,sync_improved_count,tested_cases
+9,position_freeze_damping,1.0,0.4793732693993227,0.00019162499999999998,0.4533333333333336,0.6867467991272185,0.031166666662708547,0.31600116222383196,9,12,12

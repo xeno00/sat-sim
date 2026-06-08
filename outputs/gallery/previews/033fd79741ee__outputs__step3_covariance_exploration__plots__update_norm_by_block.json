@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_covariance_exploration/plots/update_norm_by_block.pdf",
+  "source_pdf_sha256": "e31b229155191a68aea5ca5a697429ee5cd6714b1df48f721b4f6413d4c2294a",
+  "source_pdf_size_bytes": 14257,
+  "preview_paths": [
+    "previews/033fd79741ee__outputs__step3_covariance_exploration__plots__update_norm_by_block-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/033fd79741ee__outputs__step3_covariance_exploration__plots__update_norm_by_block.json",
+  "render_timestamp_utc": "2026-06-08T20:59:58.263041+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-covariance-exploration",
+  "commit": "a979eb0"
+}

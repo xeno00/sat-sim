@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_covariance_exploration/plots/runtime_by_lane.pdf",
+  "source_pdf_sha256": "405c6436da7b51301cc2a545c25b33afbbb5d4bbfe48da33f001781a26531d1d",
+  "source_pdf_size_bytes": 13690,
+  "preview_paths": [
+    "previews/012e07bdf9b7__outputs__step3_covariance_exploration__plots__runtime_by_lane-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/012e07bdf9b7__outputs__step3_covariance_exploration__plots__runtime_by_lane.json",
+  "render_timestamp_utc": "2026-06-08T20:59:57.592316+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-covariance-exploration",
+  "commit": "a979eb0"
+}

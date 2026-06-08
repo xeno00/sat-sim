@@ -32,6 +32,7 @@ SOURCE_ROOTS = [
     SAT_SIM_ROOT / "outputs" / "step3_low_cost_exploration",
     SAT_SIM_ROOT / "outputs" / "step3_micro_benchmarks",
     SAT_SIM_ROOT / "outputs" / "step3_near_winner_sparse",
+    SAT_SIM_ROOT / "outputs" / "step3_covariance_exploration",
     SAT_SIM_ROOT / "v24_notebook_regression_outputs",
     SAT_SIM_ROOT / "v24_human_review_outputs",
     SAT_SIM_ROOT / "v24_manuscript_candidate_outputs",
@@ -148,6 +149,8 @@ def _group_for(path: Path) -> str:
         return "Step 3 micro-benchmarks"
     if "outputs/step3_near_winner_sparse" in text:
         return "Step 3 near-winner sparse"
+    if "outputs/step3_covariance_exploration" in text:
+        return "Step 3 covariance exploration"
     if "outputs/legacy_replay/clock_sweep_full" in text:
         return "legacy clock-sweep full"
     if "crlb_replay" in text:

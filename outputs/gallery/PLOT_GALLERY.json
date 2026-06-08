@@ -1,6 +1,6 @@
 {
   "artifact_status": "non_final_plot_gallery",
-  "generated_at_utc": "2026-06-08T20:19:10.070561+00:00",
+  "generated_at_utc": "2026-06-08T20:59:59.142652+00:00",
   "source_roots": [
     "outputs/legacy_replay",
     "outputs/package_diagnostic",
@@ -12,13 +12,15 @@
     "outputs/step3_low_cost_exploration",
     "outputs/step3_micro_benchmarks",
     "outputs/step3_near_winner_sparse",
+    "outputs/step3_covariance_exploration",
     "v24_notebook_regression_outputs",
     "v24_human_review_outputs",
     "v24_manuscript_candidate_outputs",
     "v24_figure_outputs"
   ],
-  "entry_count": 105,
+  "entry_count": 112,
   "groups": [
+    "Step 3 covariance exploration",
     "Step 3 gate exploration",
     "Step 3 low-cost exploration",
     "Step 3 micro-benchmarks",
@@ -1618,6 +1620,132 @@
       "source_pdf_size_bytes": 18075
     },
     {
+      "figure_name": "best_variant_per_lane.pdf",
+      "group": "Step 3 covariance exploration",
+      "source_pdf_path": "outputs/step3_covariance_exploration/plots/best_variant_per_lane.pdf",
+      "preview_paths": [
+        "previews/117e35c2cc34__outputs__step3_covariance_exploration__plots__best_variant_per_lane-1.png"
+      ],
+      "metadata_path": "previews/117e35c2cc34__outputs__step3_covariance_exploration__plots__best_variant_per_lane.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "d91b5d68e16ce7f852ae6013cf8f37c93b09bb421a1579cb7f10f56c55c5abaa",
+      "source_pdf_size_bytes": 13976
+    },
+    {
+      "figure_name": "both_improved_count_by_lane_variant.pdf",
+      "group": "Step 3 covariance exploration",
+      "source_pdf_path": "outputs/step3_covariance_exploration/plots/both_improved_count_by_lane_variant.pdf",
+      "preview_paths": [
+        "previews/b32193e656dc__outputs__step3_covariance_exploration__plots__both_improved_count_by_lane_variant-1.png"
+      ],
+      "metadata_path": "previews/b32193e656dc__outputs__step3_covariance_exploration__plots__both_improved_count_by_lane_variant.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "b6b64b1391da6fbfaaa7fb2faf76bdc373f7ac83b6e385961ee8a5b0bd1c3770",
+      "source_pdf_size_bytes": 14867
+    },
+    {
+      "figure_name": "clock_covariance_vs_sync_ratio.pdf",
+      "group": "Step 3 covariance exploration",
+      "source_pdf_path": "outputs/step3_covariance_exploration/plots/clock_covariance_vs_sync_ratio.pdf",
+      "preview_paths": [
+        "previews/9a1d5097614c__outputs__step3_covariance_exploration__plots__clock_covariance_vs_sync_ratio-1.png"
+      ],
+      "metadata_path": "previews/9a1d5097614c__outputs__step3_covariance_exploration__plots__clock_covariance_vs_sync_ratio.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "9e752b4df68b1a5c269d28e70a477f934e1d451c510c1f001c14ba2ef7522a5d",
+      "source_pdf_size_bytes": 18051
+    },
+    {
+      "figure_name": "position_covariance_vs_position_ratio.pdf",
+      "group": "Step 3 covariance exploration",
+      "source_pdf_path": "outputs/step3_covariance_exploration/plots/position_covariance_vs_position_ratio.pdf",
+      "preview_paths": [
+        "previews/682385424b19__outputs__step3_covariance_exploration__plots__position_covariance_vs_position_ratio-1.png"
+      ],
+      "metadata_path": "previews/682385424b19__outputs__step3_covariance_exploration__plots__position_covariance_vs_position_ratio.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "4932cd2c6c9e09ea803802a8e1c67adedac752a16c47e9b85ff4e73f9405487d",
+      "source_pdf_size_bytes": 17911
+    },
+    {
+      "figure_name": "position_sync_ratio_scatter.pdf",
+      "group": "Step 3 covariance exploration",
+      "source_pdf_path": "outputs/step3_covariance_exploration/plots/position_sync_ratio_scatter.pdf",
+      "preview_paths": [
+        "previews/848b0f6b39d6__outputs__step3_covariance_exploration__plots__position_sync_ratio_scatter-1.png"
+      ],
+      "metadata_path": "previews/848b0f6b39d6__outputs__step3_covariance_exploration__plots__position_sync_ratio_scatter.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "65962ce8526755751965f8c4979f45aaf82d89f49891dbb779cf5690c042a663",
+      "source_pdf_size_bytes": 19479
+    },
+    {
+      "figure_name": "runtime_by_lane.pdf",
+      "group": "Step 3 covariance exploration",
+      "source_pdf_path": "outputs/step3_covariance_exploration/plots/runtime_by_lane.pdf",
+      "preview_paths": [
+        "previews/012e07bdf9b7__outputs__step3_covariance_exploration__plots__runtime_by_lane-1.png"
+      ],
+      "metadata_path": "previews/012e07bdf9b7__outputs__step3_covariance_exploration__plots__runtime_by_lane.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "405c6436da7b51301cc2a545c25b33afbbb5d4bbfe48da33f001781a26531d1d",
+      "source_pdf_size_bytes": 13690
+    },
+    {
+      "figure_name": "update_norm_by_block.pdf",
+      "group": "Step 3 covariance exploration",
+      "source_pdf_path": "outputs/step3_covariance_exploration/plots/update_norm_by_block.pdf",
+      "preview_paths": [
+        "previews/033fd79741ee__outputs__step3_covariance_exploration__plots__update_norm_by_block-1.png"
+      ],
+      "metadata_path": "previews/033fd79741ee__outputs__step3_covariance_exploration__plots__update_norm_by_block.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "e31b229155191a68aea5ca5a697429ee5cd6714b1df48f721b4f6413d4c2294a",
+      "source_pdf_size_bytes": 14257
+    },
+    {
       "figure_name": "gate_both_improved_bar.pdf",
       "group": "Step 3 gate exploration",
       "source_pdf_path": "outputs/step3_gate_exploration/gate_both_improved_bar.pdf",
@@ -1832,7 +1960,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "b85e1ba545cee4a3439116ee43aff623df0f7ba8d3fb3d2d18db577d46aa0798",
+      "source_pdf_sha256": "e5aa7a48657e5a8b4d7a14729a912938fe53f210bb0292db16343f119be32a8c",
       "source_pdf_size_bytes": 18840
     },
     {
@@ -1850,7 +1978,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "e237d937d7a64c26b45f47a117c4e0a475b187cc8a14b3b4a387f15287a756b3",
+      "source_pdf_sha256": "ff4a21cad1227523fe8514aa4d40c7cde36203c787d5b458220b1b0d1c769d4a",
       "source_pdf_size_bytes": 16730
     },
     {
@@ -1868,7 +1996,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "b4bcf8d22edb01ee1231d259e4030f8f060287cb7e427e727b9e66e26d63247f",
+      "source_pdf_sha256": "7154b059151e07a9a6d56562d0da4b46fd21287a950e483c2873ec8bfa85d4c2",
       "source_pdf_size_bytes": 12263
     },
     {
@@ -1886,7 +2014,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "2871e0cceb041d96d077596e5c0733139095d050bbc3ee63aea8f25cd9e06d1a",
+      "source_pdf_sha256": "efbe8658dc6dc0df40b65c6baefdacd4bb1c22ba4914ed911b80c51d976c1554",
       "source_pdf_size_bytes": 19429
     },
     {
@@ -1904,7 +2032,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "6e8b43ca157bac6a37d55afd9d71582d28df272513dc7bb270cc7c47fbb05c99",
+      "source_pdf_sha256": "1cc5b04308ad5a42896d194fdfcd9fe10f8234aa54fdb857d336431551f34f41",
       "source_pdf_size_bytes": 16416
     },
     {
@@ -2452,6 +2580,6 @@
       "source_pdf_size_bytes": 23711
     }
   ],
-  "branch": "codex/step3-near-winner-sparse",
-  "commit": "df9fcaf"
+  "branch": "codex/step3-covariance-exploration",
+  "commit": "a979eb0"
 }

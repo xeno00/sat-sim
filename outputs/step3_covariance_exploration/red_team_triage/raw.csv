@@ -1,0 +1,23 @@
+both_improved_count,classification,lane,mean_position_ratio,mean_sync_ratio,promoted,recommendation,source_lane,variant
+3,inconclusive,red_team_triage,0.05200946435616497,0.3404030354055451,False,do not promote from this sprint,block_scaled_drift_tuning,block_drift_base
+3,inconclusive,red_team_triage,0.03165361240574122,0.24279554267869285,False,do not promote from this sprint,block_scaled_drift_tuning,block_drift_loose_clock
+3,inconclusive,red_team_triage,0.05200290423138484,0.340400845709036,False,do not promote from this sprint,block_scaled_drift_tuning,block_drift_loose_position
+3,inconclusive,red_team_triage,0.06263649646477584,0.3936580096403807,False,do not promote from this sprint,block_scaled_drift_tuning,block_drift_strong_clock
+3,inconclusive,red_team_triage,0.052050578078454174,0.3404203225431304,False,do not promote from this sprint,block_scaled_drift_tuning,block_drift_tight_position
+3,inconclusive,red_team_triage,0.05200946435616497,0.336826031971595,False,do not promote from this sprint,gauge_common_clock,damp_common_clock_025
+3,inconclusive,red_team_triage,0.06398701058131297,0.43986509579631633,False,do not promote from this sprint,gauge_common_clock,no_drift_project_common_clock
+3,inconclusive,red_team_triage,0.05200946435616497,0.366348752647813,False,do not promote from this sprint,gauge_common_clock,project_common_clock
+2,inconclusive,red_team_triage,0.1673312695486249,1.2670234885718268,False,do not promote from this sprint,lm_curvature,block_diag_lm_covariance
+2,inconclusive,red_team_triage,0.1673312695486249,1.2670234885718268,False,do not promote from this sprint,lm_curvature,full_lm_covariance
+3,inconclusive,red_team_triage,0.07293262175927238,0.4629552107464643,False,do not promote from this sprint,lm_curvature,lm_covariance_floors_ceilings
+0,tradeoff,red_team_triage,1.0,0.3404030354055451,False,do not promote from this sprint,position_freeze_damping,freeze_positions_clock_drift
+3,inconclusive,red_team_triage,0.7510071995985713,0.24279554267869285,False,do not promote from this sprint,position_freeze_damping,position_damped_clock_loose
+3,inconclusive,red_team_triage,0.24407973900527943,0.3404030354055451,False,do not promote from this sprint,position_freeze_damping,position_update_clipped
+3,inconclusive,red_team_triage,0.7519002579050232,0.3404030354055451,False,do not promote from this sprint,position_freeze_damping,position_update_damped_025
+3,promising,red_team_triage,0.021074811911639246,0.18382523041636625,True,review before medium/integration,residual_scaled_lm,block_diag_residual_scaled_covariance
+3,promising,red_team_triage,0.021074811911639246,0.18382523041636625,True,review before medium/integration,residual_scaled_lm,full_residual_scaled_covariance
+3,inconclusive,red_team_triage,0.021074811911639246,0.18382523041636625,False,do not promote from this sprint,residual_scaled_lm,residual_scaled_floors_ceilings
+3,inconclusive,red_team_triage,0.8511234836810138,0.3404030354055451,False,do not promote from this sprint,schur_reduced,clock_first_position_small
+0,tradeoff,red_team_triage,1.0,0.3404030354055451,False,do not promote from this sprint,schur_reduced,clock_only_reduced
+3,inconclusive,red_team_triage,0.06398701058151682,0.4712623356063815,False,do not promote from this sprint,schur_reduced,schur_position_clock_backsolve
+0,tradeoff,red_team_triage,0.06398701058151682,1.0,False,do not promote from this sprint,schur_reduced,schur_position_only

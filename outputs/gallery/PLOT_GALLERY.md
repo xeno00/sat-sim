@@ -3,8 +3,80 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 105
-- Generated at: 2026-06-08T20:19:10.070561+00:00
+- Generated entries: 112
+- Generated at: 2026-06-08T20:59:59.142652+00:00
+
+## Step 3 covariance exploration
+
+### best_variant_per_lane.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_covariance_exploration/plots/best_variant_per_lane.pdf](../step3_covariance_exploration/plots/best_variant_per_lane.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![best_variant_per_lane.pdf](previews/117e35c2cc34__outputs__step3_covariance_exploration__plots__best_variant_per_lane-1.png)
+- Preview metadata: [previews/117e35c2cc34__outputs__step3_covariance_exploration__plots__best_variant_per_lane.json](previews/117e35c2cc34__outputs__step3_covariance_exploration__plots__best_variant_per_lane.json)
+
+### both_improved_count_by_lane_variant.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_covariance_exploration/plots/both_improved_count_by_lane_variant.pdf](../step3_covariance_exploration/plots/both_improved_count_by_lane_variant.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![both_improved_count_by_lane_variant.pdf](previews/b32193e656dc__outputs__step3_covariance_exploration__plots__both_improved_count_by_lane_variant-1.png)
+- Preview metadata: [previews/b32193e656dc__outputs__step3_covariance_exploration__plots__both_improved_count_by_lane_variant.json](previews/b32193e656dc__outputs__step3_covariance_exploration__plots__both_improved_count_by_lane_variant.json)
+
+### clock_covariance_vs_sync_ratio.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_covariance_exploration/plots/clock_covariance_vs_sync_ratio.pdf](../step3_covariance_exploration/plots/clock_covariance_vs_sync_ratio.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![clock_covariance_vs_sync_ratio.pdf](previews/9a1d5097614c__outputs__step3_covariance_exploration__plots__clock_covariance_vs_sync_ratio-1.png)
+- Preview metadata: [previews/9a1d5097614c__outputs__step3_covariance_exploration__plots__clock_covariance_vs_sync_ratio.json](previews/9a1d5097614c__outputs__step3_covariance_exploration__plots__clock_covariance_vs_sync_ratio.json)
+
+### position_covariance_vs_position_ratio.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_covariance_exploration/plots/position_covariance_vs_position_ratio.pdf](../step3_covariance_exploration/plots/position_covariance_vs_position_ratio.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![position_covariance_vs_position_ratio.pdf](previews/682385424b19__outputs__step3_covariance_exploration__plots__position_covariance_vs_position_ratio-1.png)
+- Preview metadata: [previews/682385424b19__outputs__step3_covariance_exploration__plots__position_covariance_vs_position_ratio.json](previews/682385424b19__outputs__step3_covariance_exploration__plots__position_covariance_vs_position_ratio.json)
+
+### position_sync_ratio_scatter.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_covariance_exploration/plots/position_sync_ratio_scatter.pdf](../step3_covariance_exploration/plots/position_sync_ratio_scatter.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![position_sync_ratio_scatter.pdf](previews/848b0f6b39d6__outputs__step3_covariance_exploration__plots__position_sync_ratio_scatter-1.png)
+- Preview metadata: [previews/848b0f6b39d6__outputs__step3_covariance_exploration__plots__position_sync_ratio_scatter.json](previews/848b0f6b39d6__outputs__step3_covariance_exploration__plots__position_sync_ratio_scatter.json)
+
+### runtime_by_lane.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_covariance_exploration/plots/runtime_by_lane.pdf](../step3_covariance_exploration/plots/runtime_by_lane.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![runtime_by_lane.pdf](previews/012e07bdf9b7__outputs__step3_covariance_exploration__plots__runtime_by_lane-1.png)
+- Preview metadata: [previews/012e07bdf9b7__outputs__step3_covariance_exploration__plots__runtime_by_lane.json](previews/012e07bdf9b7__outputs__step3_covariance_exploration__plots__runtime_by_lane.json)
+
+### update_norm_by_block.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_covariance_exploration/plots/update_norm_by_block.pdf](../step3_covariance_exploration/plots/update_norm_by_block.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![update_norm_by_block.pdf](previews/033fd79741ee__outputs__step3_covariance_exploration__plots__update_norm_by_block-1.png)
+- Preview metadata: [previews/033fd79741ee__outputs__step3_covariance_exploration__plots__update_norm_by_block.json](previews/033fd79741ee__outputs__step3_covariance_exploration__plots__update_norm_by_block.json)
 
 ## Step 3 gate exploration
 
