@@ -1,6 +1,6 @@
 {
   "artifact_status": "non_final_plot_gallery",
-  "generated_at_utc": "2026-06-08T16:03:13.119225+00:00",
+  "generated_at_utc": "2026-06-08T16:54:02.128064+00:00",
   "source_roots": [
     "outputs/legacy_replay",
     "outputs/package_diagnostic",
@@ -8,13 +8,15 @@
     "outputs/human_review",
     "outputs/migration_baseline",
     "outputs/migration_ladder",
+    "outputs/step3_gate_exploration",
     "v24_notebook_regression_outputs",
     "v24_human_review_outputs",
     "v24_manuscript_candidate_outputs",
     "v24_figure_outputs"
   ],
-  "entry_count": 84,
+  "entry_count": 89,
   "groups": [
+    "Step 3 gate exploration",
     "controlled migration ladder",
     "human-review",
     "legacy CRLB replay",
@@ -1610,6 +1612,116 @@
       "source_pdf_size_bytes": 18075
     },
     {
+      "figure_name": "gate_both_improved_bar.pdf",
+      "group": "Step 3 gate exploration",
+      "source_pdf_path": "outputs/step3_gate_exploration/gate_both_improved_bar.pdf",
+      "preview_paths": [
+        "previews/c9e293bcad1b__outputs__step3_gate_exploration__gate_both_improved_bar-1.png"
+      ],
+      "metadata_path": "previews/c9e293bcad1b__outputs__step3_gate_exploration__gate_both_improved_bar.json",
+      "raw_data_paths": [
+        "outputs/step3_gate_exploration/step3_gate_exploration_raw.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/step3_gate_exploration/metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "4f13c5aa7f68d59192ebdd2e7cc8b4dfc0e50847c8492a23bac3ab068446c9a8",
+      "source_pdf_size_bytes": 12426
+    },
+    {
+      "figure_name": "nis_vs_error_improvement.pdf",
+      "group": "Step 3 gate exploration",
+      "source_pdf_path": "outputs/step3_gate_exploration/nis_vs_error_improvement.pdf",
+      "preview_paths": [
+        "previews/bb0589bf620e__outputs__step3_gate_exploration__nis_vs_error_improvement-1.png"
+      ],
+      "metadata_path": "previews/bb0589bf620e__outputs__step3_gate_exploration__nis_vs_error_improvement.json",
+      "raw_data_paths": [
+        "outputs/step3_gate_exploration/step3_gate_exploration_raw.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/step3_gate_exploration/metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "37e96ef228a4931b864025c0db438b067ec9b5ecd88fadff24a8b8bd8cab2eb1",
+      "source_pdf_size_bytes": 18595
+    },
+    {
+      "figure_name": "nullspace_ratio_vs_error_improvement.pdf",
+      "group": "Step 3 gate exploration",
+      "source_pdf_path": "outputs/step3_gate_exploration/nullspace_ratio_vs_error_improvement.pdf",
+      "preview_paths": [
+        "previews/f1a31d74654e__outputs__step3_gate_exploration__nullspace_ratio_vs_error_improvement-1.png"
+      ],
+      "metadata_path": "previews/f1a31d74654e__outputs__step3_gate_exploration__nullspace_ratio_vs_error_improvement.json",
+      "raw_data_paths": [
+        "outputs/step3_gate_exploration/step3_gate_exploration_raw.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/step3_gate_exploration/metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "60181d5957362b0ecaaae2274a7fdc159e56639add612a43280c8820121386e9",
+      "source_pdf_size_bytes": 18673
+    },
+    {
+      "figure_name": "position_sync_ratio_scatter.pdf",
+      "group": "Step 3 gate exploration",
+      "source_pdf_path": "outputs/step3_gate_exploration/position_sync_ratio_scatter.pdf",
+      "preview_paths": [
+        "previews/478176ac9235__outputs__step3_gate_exploration__position_sync_ratio_scatter-1.png"
+      ],
+      "metadata_path": "previews/478176ac9235__outputs__step3_gate_exploration__position_sync_ratio_scatter.json",
+      "raw_data_paths": [
+        "outputs/step3_gate_exploration/step3_gate_exploration_raw.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/step3_gate_exploration/metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "8eecf48671ada859045707a2cacb6da5d5fdf2be351e2938673b997236bfa0b2",
+      "source_pdf_size_bytes": 18778
+    },
+    {
+      "figure_name": "update_norm_vs_error_improvement.pdf",
+      "group": "Step 3 gate exploration",
+      "source_pdf_path": "outputs/step3_gate_exploration/update_norm_vs_error_improvement.pdf",
+      "preview_paths": [
+        "previews/1f0f53f9507e__outputs__step3_gate_exploration__update_norm_vs_error_improvement-1.png"
+      ],
+      "metadata_path": "previews/1f0f53f9507e__outputs__step3_gate_exploration__update_norm_vs_error_improvement.json",
+      "raw_data_paths": [
+        "outputs/step3_gate_exploration/step3_gate_exploration_raw.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/step3_gate_exploration/metadata.json"
+      ],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "d8db36fe466023ed5a734cc2316ad354ed4ef64e6ded8e9586bf378113f0a43d",
+      "source_pdf_size_bytes": 18918
+    },
+    {
       "figure_name": "fig4_localization_vs_satellites.pdf",
       "group": "package diagnostic",
       "source_pdf_path": "v24_figure_outputs/fig4_localization_vs_satellites/fig4_localization_vs_satellites.pdf",
@@ -2046,6 +2158,6 @@
       "source_pdf_size_bytes": 23711
     }
   ],
-  "branch": "codex/step-c5-sliding-window-map",
-  "commit": "12e133e"
+  "branch": "codex/step3-gate-exploration",
+  "commit": "6b26b10"
 }

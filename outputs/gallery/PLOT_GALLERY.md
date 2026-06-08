@@ -3,8 +3,80 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 84
-- Generated at: 2026-06-08T16:03:13.119225+00:00
+- Generated entries: 89
+- Generated at: 2026-06-08T16:54:02.128064+00:00
+
+## Step 3 gate exploration
+
+### gate_both_improved_bar.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_gate_exploration/gate_both_improved_bar.pdf](../step3_gate_exploration/gate_both_improved_bar.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![gate_both_improved_bar.pdf](previews/c9e293bcad1b__outputs__step3_gate_exploration__gate_both_improved_bar-1.png)
+- Preview metadata: [previews/c9e293bcad1b__outputs__step3_gate_exploration__gate_both_improved_bar.json](previews/c9e293bcad1b__outputs__step3_gate_exploration__gate_both_improved_bar.json)
+- Raw data:
+  - [outputs/step3_gate_exploration/step3_gate_exploration_raw.csv](../step3_gate_exploration/step3_gate_exploration_raw.csv)
+- Nearby metadata:
+  - [outputs/step3_gate_exploration/metadata.json](../step3_gate_exploration/metadata.json)
+
+### nis_vs_error_improvement.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_gate_exploration/nis_vs_error_improvement.pdf](../step3_gate_exploration/nis_vs_error_improvement.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![nis_vs_error_improvement.pdf](previews/bb0589bf620e__outputs__step3_gate_exploration__nis_vs_error_improvement-1.png)
+- Preview metadata: [previews/bb0589bf620e__outputs__step3_gate_exploration__nis_vs_error_improvement.json](previews/bb0589bf620e__outputs__step3_gate_exploration__nis_vs_error_improvement.json)
+- Raw data:
+  - [outputs/step3_gate_exploration/step3_gate_exploration_raw.csv](../step3_gate_exploration/step3_gate_exploration_raw.csv)
+- Nearby metadata:
+  - [outputs/step3_gate_exploration/metadata.json](../step3_gate_exploration/metadata.json)
+
+### nullspace_ratio_vs_error_improvement.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_gate_exploration/nullspace_ratio_vs_error_improvement.pdf](../step3_gate_exploration/nullspace_ratio_vs_error_improvement.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![nullspace_ratio_vs_error_improvement.pdf](previews/f1a31d74654e__outputs__step3_gate_exploration__nullspace_ratio_vs_error_improvement-1.png)
+- Preview metadata: [previews/f1a31d74654e__outputs__step3_gate_exploration__nullspace_ratio_vs_error_improvement.json](previews/f1a31d74654e__outputs__step3_gate_exploration__nullspace_ratio_vs_error_improvement.json)
+- Raw data:
+  - [outputs/step3_gate_exploration/step3_gate_exploration_raw.csv](../step3_gate_exploration/step3_gate_exploration_raw.csv)
+- Nearby metadata:
+  - [outputs/step3_gate_exploration/metadata.json](../step3_gate_exploration/metadata.json)
+
+### position_sync_ratio_scatter.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_gate_exploration/position_sync_ratio_scatter.pdf](../step3_gate_exploration/position_sync_ratio_scatter.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![position_sync_ratio_scatter.pdf](previews/478176ac9235__outputs__step3_gate_exploration__position_sync_ratio_scatter-1.png)
+- Preview metadata: [previews/478176ac9235__outputs__step3_gate_exploration__position_sync_ratio_scatter.json](previews/478176ac9235__outputs__step3_gate_exploration__position_sync_ratio_scatter.json)
+- Raw data:
+  - [outputs/step3_gate_exploration/step3_gate_exploration_raw.csv](../step3_gate_exploration/step3_gate_exploration_raw.csv)
+- Nearby metadata:
+  - [outputs/step3_gate_exploration/metadata.json](../step3_gate_exploration/metadata.json)
+
+### update_norm_vs_error_improvement.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_gate_exploration/update_norm_vs_error_improvement.pdf](../step3_gate_exploration/update_norm_vs_error_improvement.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![update_norm_vs_error_improvement.pdf](previews/1f0f53f9507e__outputs__step3_gate_exploration__update_norm_vs_error_improvement-1.png)
+- Preview metadata: [previews/1f0f53f9507e__outputs__step3_gate_exploration__update_norm_vs_error_improvement.json](previews/1f0f53f9507e__outputs__step3_gate_exploration__update_norm_vs_error_improvement.json)
+- Raw data:
+  - [outputs/step3_gate_exploration/step3_gate_exploration_raw.csv](../step3_gate_exploration/step3_gate_exploration_raw.csv)
+- Nearby metadata:
+  - [outputs/step3_gate_exploration/metadata.json](../step3_gate_exploration/metadata.json)
 
 ## controlled migration ladder
 

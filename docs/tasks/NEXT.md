@@ -1,27 +1,25 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Review C5 Sliding-Window MAP Smoother
+# Next Task: Review Sparse Step 3 Gate Exploration
 
 ## Purpose
 
-Review branch `codex/step-c5-sliding-window-map` before merge. Do not edit
-files and do not run additional ladder rows unless a precise bounded follow-up
-command is approved.
+Review branch `codex/step3-gate-exploration` before merge. Do not edit files,
+do not run additional gate experiments, and do not run medium validation unless
+a precise bounded follow-up command is approved.
 
 ## Scope
 
 Inspect:
 
-- `jcls_sim/migration.py`
-- `scripts/run_controlled_migration_ladder.py`
-- `tests/test_controlled_migration_ladder.py`
-- `outputs/migration_ladder/step_c5_sliding_window_map/tiny/`
-- `outputs/migration_ladder/step_c5_sliding_window_map/medium/`
-- `outputs/reports/STEP_C5_SLIDING_WINDOW_MAP_COMPARISON.md`
-- `outputs/reports/STEP_C5_SLIDING_WINDOW_MAP_COMPARISON.json`
-- `outputs/reports/STEP2_ONLY_VS_STEP3_REFINEMENT.md`
-- `outputs/reports/STEP2_ONLY_VS_STEP3_REFINEMENT.json`
-- C5 gallery preview entries under `outputs/gallery/`
+- `scripts/explore_step3_gates.py`
+- `scripts/render_all_figure_previews.py`
+- `tests/test_step3_gate_exploration.py`
+- `outputs/step3_gate_exploration/`
+- `outputs/reports/STEP3_GATE_EXPLORATION_REPORT.md`
+- `outputs/reports/STEP3_GATE_EXPLORATION_REPORT.json`
+- Step 3 gate exploration entries under `outputs/gallery/`
+- `PROJECT_STATUS.md`
 
 Do not edit:
 
@@ -36,31 +34,27 @@ Do not edit:
 
 ## Required Review Checks
 
-1. Confirm C5 uses Step B residual/trust-region LM behavior as the forward
-   estimator baseline.
-2. Confirm C5 keeps all-clock internals, legacy symbolic parameter ordering,
-   legacy sync metric, single-UE policy, and legacy geometry/noise settings.
-3. Confirm C5 changes only the Step 3 MAP/EKF refinement into a small
-   sliding-window MAP smoother.
-4. Confirm the C5 smoother does not call `scenario.get_true_state()` for
-   acceptance, covariance, or fallback decisions.
-5. Confirm C5 metadata records window length, `F=I`, configured `P0`, `Q`,
-   measurement covariance use, objective components, accept/reject counts, and
-   rejection reasons.
-6. Confirm accepted C5 solver steps do not increase the full observable
-   smoother objective beyond tolerance.
-7. Confirm tiny was run first and medium was run only because tiny was not
-   catastrophic.
-8. Confirm C5 outputs are non-final and not manuscript-ready.
-9. Confirm gallery previews exist for C5 tiny and medium.
-10. Confirm `STEP2_ONLY_VS_STEP3_REFINEMENT` correctly reports that Step 2
-    currently shows JCLS benefit while Step 3 is mixed or harmful.
+1. Confirm the exploration is sparse only and uses representative cases
+   `(N_u,N_s)=(3,8),(7,8),(7,12)`.
+2. Confirm it does not run the full migration ladder or large grids by default.
+3. Confirm the gate set includes NIS, line-search, nullspace, clock/position
+   ratio, covariance/measurement inflation, and Huber residual weighting.
+4. Confirm NIS, nullspace ratio, clock/position update ratio, chosen line-search
+   alpha, objective history, and update diagnostics are recorded.
+5. Confirm Step 3 acceptance does not use `scenario.get_true_state()`.
+6. Confirm truth-state errors are used only for diagnostics/labels.
+7. Confirm outputs are non-final, not manuscript-ready, and under
+   `outputs/step3_gate_exploration/`.
+8. Confirm the report states no gate improved both localization and
+   synchronization across the sparse cases.
+9. Confirm medium validation was not run.
+10. Confirm gallery previews exist for the Step 3 exploration plots.
 11. Confirm tests pass.
 
 Run:
 
 ```powershell
-python -m unittest tests.test_controlled_migration_ladder
+python -m unittest tests.test_step3_gate_exploration
 powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
 ```
 
@@ -71,9 +65,6 @@ Return:
 - PASS / FAIL / PASS WITH CAVEAT;
 - merge recommendation;
 - required fixes before merge, if any;
-- whether C5 improves over C4;
-- whether C5 approaches Step B/legacy behavior;
-- whether Step 3 is now defensible;
-- whether Step B/LM-only should be treated as the current clean estimator
-  baseline;
-- next recommended action.
+- whether any gate is promising enough for medium validation;
+- whether Step B/LM-only remains the current clean estimator baseline;
+- next recommended action after merge.

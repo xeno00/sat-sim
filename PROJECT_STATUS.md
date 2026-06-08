@@ -361,6 +361,17 @@ decrease for accepted smoothing steps, but Step 3 improves over Step 2 in only
 reviewing Step B/LM-only as the clean estimator baseline before attempting
 another Step 3 design.
 
+Sparse Step 3 gate exploration is implemented on branch
+`codex/step3-gate-exploration`. It tests NIS, line-search, nullspace,
+clock/position-ratio, covariance/measurement inflation, and Huber gates on
+representative cases `(N_u,N_s)=(3,8),(7,8),(7,12)`. Outputs are written under
+`outputs/step3_gate_exploration/`, with the report at
+`outputs/reports/STEP3_GATE_EXPLORATION_REPORT.md`. No tested gate improves
+both localization and synchronization across the sparse set, so no medium
+validation was run. Current evidence strengthens the recommendation to treat
+Step B/LM-only as the clean estimator baseline and redesign Step 3
+structurally rather than continue tuning scalar observable gates.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -431,3 +442,7 @@ See `docs/tasks/NEXT.md`.
   degraded versus Step B. `outputs/reports/STEP2_ONLY_VS_STEP3_REFINEMENT.md`
   currently supports reviewing Step B/LM-only as the clean estimator result
   before attempting another Step 3 design.
+- `outputs/reports/STEP3_GATE_EXPLORATION_REPORT.md` records that sparse
+  observable gate/covariance-control experiments did not produce a Step 3 gate
+  that improves both localization and synchronization across representative
+  cases. Medium validation was not run.
