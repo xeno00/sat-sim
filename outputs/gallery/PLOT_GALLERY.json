@@ -1,6 +1,6 @@
 {
   "artifact_status": "non_final_plot_gallery",
-  "generated_at_utc": "2026-06-08T14:44:35.962158+00:00",
+  "generated_at_utc": "2026-06-08T16:03:13.119225+00:00",
   "source_roots": [
     "outputs/legacy_replay",
     "outputs/package_diagnostic",
@@ -13,7 +13,7 @@
     "v24_manuscript_candidate_outputs",
     "v24_figure_outputs"
   ],
-  "entry_count": 80,
+  "entry_count": 84,
   "groups": [
     "controlled migration ladder",
     "human-review",
@@ -1514,6 +1514,102 @@
       "source_pdf_size_bytes": 17869
     },
     {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c5_sliding_window_map/medium/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/42608899d0c7__outputs__migration_ladder__step_c5_sliding_window_map__medium__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/42608899d0c7__outputs__migration_ladder__step_c5_sliding_window_map__medium__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c5_sliding_window_map/medium/migration_arrays.npz",
+        "outputs/migration_ladder/step_c5_sliding_window_map/medium/migration_raw.csv",
+        "outputs/migration_ladder/step_c5_sliding_window_map/medium/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c5_sliding_window_map/medium/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "dc0b671ab1617cbe2920d3885941df5777b29dbf558244f40d0ac33de4b2cd9c",
+      "source_pdf_size_bytes": 18733
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c5_sliding_window_map/medium/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/784b5ef2a88c__outputs__migration_ladder__step_c5_sliding_window_map__medium__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/784b5ef2a88c__outputs__migration_ladder__step_c5_sliding_window_map__medium__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c5_sliding_window_map/medium/migration_arrays.npz",
+        "outputs/migration_ladder/step_c5_sliding_window_map/medium/migration_raw.csv",
+        "outputs/migration_ladder/step_c5_sliding_window_map/medium/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c5_sliding_window_map/medium/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "1c4746292a5da391679bd894826157d56e2dfa1b359d6f4545e2e439c812ae18",
+      "source_pdf_size_bytes": 19198
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c5_sliding_window_map/tiny/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/ddea344cc71a__outputs__migration_ladder__step_c5_sliding_window_map__tiny__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/ddea344cc71a__outputs__migration_ladder__step_c5_sliding_window_map__tiny__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c5_sliding_window_map/tiny/migration_arrays.npz",
+        "outputs/migration_ladder/step_c5_sliding_window_map/tiny/migration_raw.csv",
+        "outputs/migration_ladder/step_c5_sliding_window_map/tiny/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c5_sliding_window_map/tiny/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "149c8c1416e364133814ec1b95bee16bc9f1f14c948f6100655083e5dd6852a0",
+      "source_pdf_size_bytes": 17581
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c5_sliding_window_map/tiny/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/7955e9c8ce28__outputs__migration_ladder__step_c5_sliding_window_map__tiny__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/7955e9c8ce28__outputs__migration_ladder__step_c5_sliding_window_map__tiny__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c5_sliding_window_map/tiny/migration_arrays.npz",
+        "outputs/migration_ladder/step_c5_sliding_window_map/tiny/migration_raw.csv",
+        "outputs/migration_ladder/step_c5_sliding_window_map/tiny/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c5_sliding_window_map/tiny/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "fa82e4036f338b2132f46a3652532b4a26007c3613817efae2abb469c17b3a26",
+      "source_pdf_size_bytes": 18075
+    },
+    {
       "figure_name": "fig4_localization_vs_satellites.pdf",
       "group": "package diagnostic",
       "source_pdf_path": "v24_figure_outputs/fig4_localization_vs_satellites/fig4_localization_vs_satellites.pdf",
@@ -1950,6 +2046,6 @@
       "source_pdf_size_bytes": 23711
     }
   ],
-  "branch": "codex/step-c4-composite-map-acceptance",
-  "commit": "21a880e"
+  "branch": "codex/step-c5-sliding-window-map",
+  "commit": "12e133e"
 }

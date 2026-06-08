@@ -40,6 +40,7 @@ SOURCE_NETWORK_ROOT = SAT_SIM_ROOT / "outputs" / "legacy_replay" / "network_size
 SOURCE_CLOCK_ROOT = SAT_SIM_ROOT / "outputs" / "legacy_replay" / "clock_sweep_full"
 MIGRATION_CACHE_SCHEMA_VERSION = "controlled-migration-ladder-v1"
 STEP_B_NAME = "step_b_lm_residual_acceptance"
+STEP_C5_NAME = "step_c5_sliding_window_map"
 STEP_C_DIAGNOSIS_NAMES = {
     "step_c0_legacy_map_instrumented",
     "step_c1_legacy_cov_observable_acceptance",
@@ -65,6 +66,22 @@ COMPOSITE_MAP_ACCEPTANCE_PARAMETERS = {
     "relative_update_norm_limit": STEP_B_STEP_NORM_LIMIT,
     "position_update_limit_rule": "max(1e3, 0.5 * position_state_norm)",
     "clock_update_limit_rule": "max(1e3, 0.5 * clock_state_norm)",
+}
+SLIDING_WINDOW_MAP_PARAMETERS = {
+    "mode": "sliding_window_map",
+    "window_length": 3,
+    "state_transition": "identity",
+    "max_iterations": 6,
+    "initial_damping": 1.0e-3,
+    "damping_increase": 10.0,
+    "damping_decrease": 0.5,
+    "objective_tolerance": STEP_C_COST_TOLERANCE,
+    "position_prior_std_km": 100.0,
+    "clock_prior_std_km": 1.0,
+    "position_process_std_km": 10.0,
+    "clock_process_std_km": 0.1,
+    "truth_state_used_for_map_acceptance": False,
+    "truth_state_used_for_map_covariance": False,
 }
 
 
@@ -509,6 +526,269 @@ def _parameter_update_norms(scenario: Any, update: np.ndarray, state: np.ndarray
         "position_update_limit": max(1.0e3, 0.50 * (position_state or 0.0)),
         "clock_update_limit": max(1.0e3, 0.50 * (clock_state or 0.0)),
     }
+
+
+def _sliding_window_precision_diagonal(scenario: Any, *, position_std_km: float, clock_std_km: float) -> np.ndarray:
+    """Return a diagonal precision for the legacy all-clock state ordering."""
+
+    variances = [
+        float(clock_std_km) ** 2 if "delta" in str(param) else float(position_std_km) ** 2
+        for param in scenario.symbolic_parameter_vector
+    ]
+    return np.diag(1.0 / np.maximum(np.asarray(variances, dtype=float), STEP_C_COVARIANCE_DAMPING))
+
+
+def _sliding_window_components(
+    scenario: Any,
+    states: np.ndarray,
+    measurements: list[np.ndarray],
+    theta_prior: np.ndarray,
+    prior_precision: np.ndarray,
+    process_precision: np.ndarray,
+) -> dict[str, float]:
+    """Return measurement, prior, dynamics, and total smoother objective terms."""
+
+    covariance = np.asarray(scenario.get_measurement_covariance(), dtype=float)
+    measurement_precision = _safe_inverse(covariance)
+    measurement_objective = 0.0
+    for state, measurement in zip(states, measurements):
+        residual = np.asarray(measurement - scenario.h(state), dtype=float)
+        measurement_objective += float(residual.T @ measurement_precision @ residual)
+    prior_delta = np.asarray(states[0] - theta_prior, dtype=float)
+    prior_objective = float(prior_delta.T @ prior_precision @ prior_delta)
+    dynamics_objective = 0.0
+    for idx in range(1, states.shape[0]):
+        delta = np.asarray(states[idx] - states[idx - 1], dtype=float)
+        dynamics_objective += float(delta.T @ process_precision @ delta)
+    total = measurement_objective + prior_objective + dynamics_objective
+    return {
+        "measurement_objective": measurement_objective,
+        "prior_objective": prior_objective,
+        "dynamics_objective": dynamics_objective,
+        "total_objective": float(total),
+    }
+
+
+def _sliding_window_normal_equations(
+    scenario: Any,
+    states: np.ndarray,
+    measurements: list[np.ndarray],
+    theta_prior: np.ndarray,
+    prior_precision: np.ndarray,
+    process_precision: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Return Gauss-Newton normal matrix and right-hand side for the smoother."""
+
+    window_length, state_dim = states.shape
+    total_dim = window_length * state_dim
+    normal = np.zeros((total_dim, total_dim), dtype=float)
+    rhs = np.zeros(total_dim, dtype=float)
+    measurement_precision = _safe_inverse(np.asarray(scenario.get_measurement_covariance(), dtype=float))
+
+    def block(index: int) -> slice:
+        return slice(index * state_dim, (index + 1) * state_dim)
+
+    for epoch, (state, measurement) in enumerate(zip(states, measurements)):
+        residual = np.asarray(measurement - scenario.h(state), dtype=float)
+        jacobian = np.asarray(scenario.evaluate_jacobian(state), dtype=float)
+        target = block(epoch)
+        normal[target, target] += jacobian.T @ measurement_precision @ jacobian
+        rhs[target] += jacobian.T @ measurement_precision @ residual
+
+    prior_delta = np.asarray(states[0] - theta_prior, dtype=float)
+    first = block(0)
+    normal[first, first] += prior_precision
+    rhs[first] += -prior_precision @ prior_delta
+
+    for epoch in range(1, window_length):
+        prev = block(epoch - 1)
+        curr = block(epoch)
+        delta = np.asarray(states[epoch] - states[epoch - 1], dtype=float)
+        normal[prev, prev] += process_precision
+        normal[curr, curr] += process_precision
+        normal[prev, curr] += -process_precision
+        normal[curr, prev] += -process_precision
+        rhs[prev] += process_precision @ delta
+        rhs[curr] += -process_precision @ delta
+    return _symmetrize(normal), rhs
+
+
+def _sliding_window_map_refinement(scenario: Any, x_step2: np.ndarray, measurements: list[np.ndarray]) -> tuple[np.ndarray, dict[str, Any]]:
+    """Run a Step-B-initialized sliding-window MAP smoother without truth gates."""
+
+    params = SLIDING_WINDOW_MAP_PARAMETERS
+    state_dim = int(len(x_step2))
+    window_length = int(params["window_length"])
+    if len(measurements) != window_length:
+        raise ValueError(f"expected {window_length} measurements, got {len(measurements)}")
+    states = np.tile(np.asarray(x_step2, dtype=float), (window_length, 1))
+    theta_prior = np.asarray(x_step2, dtype=float)
+    prior_precision = _sliding_window_precision_diagonal(
+        scenario,
+        position_std_km=float(params["position_prior_std_km"]),
+        clock_std_km=float(params["clock_prior_std_km"]),
+    )
+    process_precision = _sliding_window_precision_diagonal(
+        scenario,
+        position_std_km=float(params["position_process_std_km"]),
+        clock_std_km=float(params["clock_process_std_km"]),
+    )
+    initial_components = _sliding_window_components(
+        scenario,
+        states,
+        measurements,
+        theta_prior,
+        prior_precision,
+        process_precision,
+    )
+    current_components = dict(initial_components)
+    damping = float(params["initial_damping"])
+    history: list[dict[str, Any]] = []
+    accepted_count = 0
+    rejected_count = 0
+
+    final_normal, _ = _sliding_window_normal_equations(
+        scenario,
+        states,
+        measurements,
+        theta_prior,
+        prior_precision,
+        process_precision,
+    )
+    for iteration in range(int(params["max_iterations"])):
+        normal, rhs = _sliding_window_normal_equations(
+            scenario,
+            states,
+            measurements,
+            theta_prior,
+            prior_precision,
+            process_precision,
+        )
+        final_normal = normal
+        damped = normal + damping * np.eye(normal.shape[0])
+        reasons: list[str] = []
+        try:
+            step = np.linalg.solve(damped, rhs)
+        except np.linalg.LinAlgError:
+            step = np.linalg.pinv(damped) @ rhs
+            reasons.append("normal_matrix_pseudoinverse")
+        candidate_states = states + step.reshape(states.shape)
+        finite_candidate = bool(np.all(np.isfinite(candidate_states)))
+        if not finite_candidate:
+            reasons.append("nonfinite_candidate")
+        candidate_components = (
+            _sliding_window_components(scenario, candidate_states, measurements, theta_prior, prior_precision, process_precision)
+            if finite_candidate
+            else {
+                "measurement_objective": float("inf"),
+                "prior_objective": float("inf"),
+                "dynamics_objective": float("inf"),
+                "total_objective": float("inf"),
+            }
+        )
+        current_total = float(current_components["total_objective"])
+        candidate_total = float(candidate_components["total_objective"])
+        decrease = current_total - candidate_total if np.isfinite(candidate_total) else None
+        if not np.isfinite(candidate_total):
+            reasons.append("nonfinite_total_objective")
+        if np.isfinite(candidate_total) and candidate_total > current_total - STEP_C_COST_TOLERANCE * max(1.0, abs(current_total)):
+            reasons.append("total_objective_not_decreased")
+        update_final_epoch = step.reshape(states.shape)[-1]
+        norm_status = _parameter_update_norms(scenario, update_final_epoch, states[-1])
+        accepted = not reasons
+        history.append(
+            {
+                "iteration": iteration,
+                "accepted": bool(accepted),
+                "current_total_objective": current_total,
+                "candidate_total_objective": candidate_total,
+                "objective_decrease": decrease,
+                "current_measurement_objective": current_components["measurement_objective"],
+                "candidate_measurement_objective": candidate_components["measurement_objective"],
+                "current_prior_objective": current_components["prior_objective"],
+                "candidate_prior_objective": candidate_components["prior_objective"],
+                "current_dynamics_objective": current_components["dynamics_objective"],
+                "candidate_dynamics_objective": candidate_components["dynamics_objective"],
+                "damping": damping,
+                "condition_number": float(np.linalg.cond(damped)) if np.all(np.isfinite(damped)) else None,
+                "update_norm": float(np.linalg.norm(step)),
+                "final_epoch_update_norm": norm_status["update_norm"],
+                "relative_update_norm": norm_status["relative_update_norm"],
+                "position_update_norm": norm_status["position_update_norm"],
+                "clock_update_norm": norm_status["clock_update_norm"],
+                "rejection_reasons": reasons,
+            }
+        )
+        if accepted:
+            states = candidate_states
+            current_components = candidate_components
+            damping = max(damping * float(params["damping_decrease"]), 1.0e-12)
+            accepted_count += 1
+        else:
+            damping *= float(params["damping_increase"])
+            rejected_count += 1
+
+    final_components = _sliding_window_components(
+        scenario,
+        states,
+        measurements,
+        theta_prior,
+        prior_precision,
+        process_precision,
+    )
+    covariance = _symmetrize(np.linalg.pinv(final_normal + float(params["initial_damping"]) * np.eye(final_normal.shape[0])))
+    covariance_status = _covariance_status(covariance)
+    accepted_decreases = [
+        float(item["objective_decrease"])
+        for item in history
+        if item["accepted"] and item["objective_decrease"] is not None
+    ]
+    diagnostics = _map_diagnostics_template(
+        "configured_diagonal_prior_process",
+        "sliding_window_map",
+        False,
+        False,
+    )
+    diagnostics.update(
+        {
+            "map_acceptance_mode": "sliding_window_full_objective_decrease",
+            "score_components_used": ["measurement_objective", "prior_objective", "dynamics_objective", "total_objective"],
+            "initial_residual_cost": initial_components["measurement_objective"],
+            "final_residual_cost": final_components["measurement_objective"],
+            "accepted_cost_decrease_min": min(accepted_decreases) if accepted_decreases else 0.0,
+            "initial_map_objective": initial_components["total_objective"],
+            "final_map_objective": final_components["total_objective"],
+            "accepted_map_objective_decrease_min": min(accepted_decreases) if accepted_decreases else 0.0,
+            "prior_cost_before": initial_components["prior_objective"],
+            "prior_cost_after": final_components["prior_objective"],
+            "dynamics_cost_before": initial_components["dynamics_objective"],
+            "dynamics_cost_after": final_components["dynamics_objective"],
+            "measurement_cost_before": initial_components["measurement_objective"],
+            "measurement_cost_after": final_components["measurement_objective"],
+            "accepted_update_count": accepted_count,
+            "rejected_update_count": rejected_count,
+            "rejected_candidate_count": rejected_count,
+            "covariance_trace_before": None,
+            "covariance_trace_after": covariance_status["trace"],
+            "covariance_condition_before": None,
+            "covariance_condition_after": covariance_status["condition_number"],
+            "covariance_diagonal_min": covariance_status["diagonal_min"],
+            "covariance_diagonal_max": covariance_status["diagonal_max"],
+            "update_norm_max": max((float(item["final_epoch_update_norm"]) for item in history), default=0.0),
+            "position_update_norm_max": max((float(item["position_update_norm"]) for item in history if item["position_update_norm"] is not None), default=None),
+            "clock_update_norm_max": max((float(item["clock_update_norm"]) for item in history if item["clock_update_norm"] is not None), default=None),
+            "relative_update_norm_max": max((float(item["relative_update_norm"]) for item in history), default=0.0),
+            "finite_covariance": covariance_status["finite"],
+            "symmetric_covariance": covariance_status["symmetric"],
+            "psd_covariance": covariance_status["psd"],
+            "rejection_reasons": sorted({reason for item in history for reason in item["rejection_reasons"]}),
+            "step_trace": history,
+            "sliding_window_parameters": params,
+            "window_length": window_length,
+            "state_transition": "identity",
+        }
+    )
+    return np.asarray(states[-1], dtype=float), diagnostics
 
 
 def _install_map_diagnosis(namespace: dict[str, Any], step: MigrationStep) -> None:
@@ -1035,6 +1315,162 @@ def _scenario_result_step_b(
     return row
 
 
+def _scenario_result_step_c5(
+    *,
+    namespace: dict[str, Any],
+    config: dict[str, Any],
+    num_users: int,
+    num_satellites: int,
+) -> dict[str, Any]:
+    """Run one C5 row: Step-B LM followed by sliding-window MAP smoothing."""
+
+    Scenario = namespace["Scenario"]
+    Optimizer = namespace["Optimizer"]
+    row: dict[str, Any] = {
+        "num_users": int(num_users),
+        "num_satellites": int(num_satellites),
+        "clock_std_dev_seconds": float(config["clock_std_dev"]),
+        "map_iteration_count": 0 if int(num_users) == 1 else int(SLIDING_WINDOW_MAP_PARAMETERS["max_iterations"]),
+        "truth_centered_initialization": False,
+        "true_state_acceptance_gates_used": False,
+        "truth_state_used_for_lm_acceptance": False,
+        "truth_state_used_for_map_acceptance": False,
+        "truth_state_used_for_map_covariance": False,
+        "lm_acceptance_mode": "residual_trust_region",
+        "all_clock_state": True,
+        "v24_gauged_state": False,
+        "step3_mode": "sliding_window_map",
+        "fallbacks": [],
+        "failures": [],
+    }
+    scenario = Scenario(
+        num_users=int(num_users),
+        num_satellites=int(num_satellites),
+        clock_std_dev_seconds=float(config["clock_std_dev"]),
+    )
+    optimizer = Optimizer()
+    x_init = optimizer.initialize_state(scenario, error_range=float(config["error_range"]))
+    z = scenario.query_measurements()
+    row["state_dimension"] = int(len(scenario.symbolic_parameter_vector))
+    row["measurement_count"] = int(len(scenario.get_links()))
+    row["symbolic_parameter_order"] = [str(param) for param in scenario.symbolic_parameter_vector]
+
+    try:
+        x_il = optimizer.run(
+            algorithm="IL",
+            scenario=scenario,
+            x=x_init,
+            z=z,
+            num_steps=15,
+            tol=1.0e-8,
+            verbose=False,
+        )
+        row["il_status"] = "passed"
+    except Exception as exc:  # noqa: BLE001 - preserve bounded diagnostic behavior.
+        x_il = x_init.copy()
+        row["il_status"] = "failed_fallback_to_initial_state"
+        row["failures"].append({"stage": "IL", "error_type": type(exc).__name__, "error": str(exc)})
+        row["fallbacks"].append("IL_failed_to_initial_state")
+    row["il_position_error_m"] = float(optimizer.calculate_average_position_error(scenario, x_il))
+    row["il_sync_error_s"] = float(optimizer.calculate_average_clock_error(scenario, x_il))
+
+    if int(num_users) == 1:
+        row["single_ue_policy"] = config["single_ue_policy"]
+        row["cooperative_jcls_attempted"] = False
+        row["lm_status"] = "not_attempted_single_ue_baseline"
+        row["map_status"] = "not_attempted_single_ue_baseline"
+        row["lm_position_error_m"] = row["il_position_error_m"]
+        row["map_position_error_m"] = row["il_position_error_m"]
+        row["lm_sync_error_s"] = row["il_sync_error_s"]
+        row["map_sync_error_s"] = row["il_sync_error_s"]
+        row["success"] = bool(row["il_status"] == "passed")
+        row["fallbacks"].append({"stage": "LM/MAP", "reason": "single_ue_noncooperative_baseline_only"})
+        row["lm_diagnostics"] = {
+            "lm_acceptance_mode": "not_attempted_single_ue_baseline",
+            "truth_state_used_for_lm_acceptance": False,
+            "accepted_step_count": 0,
+            "rejected_step_count": 0,
+            "initial_residual_cost": None,
+            "final_residual_cost": None,
+            "cost_decrease": None,
+            "final_damping": None,
+            "convergence_status": "not_attempted",
+            "rejection_reasons": [],
+            "step_trace": [],
+        }
+        row["map_diagnostics"] = _map_diagnostics_template(
+            "configured_diagonal_prior_process",
+            "sliding_window_map_not_attempted_single_ue",
+            False,
+            False,
+        )
+        row["map_diagnostics"]["sliding_window_parameters"] = SLIDING_WINDOW_MAP_PARAMETERS
+        row["fallback_count"] = len(row["fallbacks"])
+        row["failure_count"] = len(row["failures"])
+        row["cache_used"] = False
+        return row
+
+    row["single_ue_policy"] = "not_applicable"
+    row["cooperative_jcls_attempted"] = True
+    try:
+        x_lm = optimizer.run(
+            algorithm="LM",
+            scenario=scenario,
+            x=x_il,
+            z=z,
+            num_steps=20,
+            verbose=False,
+        )
+        row["lm_status"] = "passed"
+    except Exception as exc:  # noqa: BLE001 - preserve legacy LM fallback shape.
+        x_lm = x_il.copy()
+        row["lm_status"] = "failed_fallback_to_il"
+        row["failures"].append({"stage": "LM", "error_type": type(exc).__name__, "error": str(exc)})
+        row["fallbacks"].append("LM_failed_to_IL")
+    row["lm_diagnostics"] = getattr(optimizer, "_last_lm_diagnostics", {
+        "lm_acceptance_mode": "residual_trust_region",
+        "truth_state_used_for_lm_acceptance": False,
+        "accepted_step_count": 0,
+        "rejected_step_count": 0,
+        "initial_residual_cost": None,
+        "final_residual_cost": None,
+        "cost_decrease": None,
+        "final_damping": None,
+        "convergence_status": "not_recorded",
+        "rejection_reasons": [],
+        "step_trace": [],
+    })
+    row["lm_position_error_m"] = float(optimizer.calculate_average_position_error(scenario, x_lm))
+    row["lm_sync_error_s"] = float(optimizer.calculate_average_clock_error(scenario, x_lm))
+
+    measurements = [z] + [scenario.query_measurements() for _ in range(int(SLIDING_WINDOW_MAP_PARAMETERS["window_length"]) - 1)]
+    try:
+        x_map, map_diagnostics = _sliding_window_map_refinement(scenario, x_lm, measurements)
+        row["map_status"] = "sliding_window_map_passed"
+    except Exception as exc:  # noqa: BLE001 - keep Step 2 state and record the failure.
+        x_map = x_lm.copy()
+        map_diagnostics = _map_diagnostics_template(
+            "configured_diagonal_prior_process",
+            "sliding_window_map_failed",
+            False,
+            False,
+        )
+        map_diagnostics["sliding_window_parameters"] = SLIDING_WINDOW_MAP_PARAMETERS
+        row["map_status"] = "failed_keep_step_b_lm_state"
+        row["failures"].append({"stage": "sliding_window_map", "error_type": type(exc).__name__, "error": str(exc)})
+        row["fallbacks"].append("sliding_window_map_failed_keep_lm")
+    row["map_diagnostics"] = map_diagnostics
+    row["map_fallback_count"] = 0
+    row["map_failure_count"] = 1 if row["map_status"] == "failed_keep_step_b_lm_state" else 0
+    row["map_position_error_m"] = float(optimizer.calculate_average_position_error(scenario, x_map))
+    row["map_sync_error_s"] = float(optimizer.calculate_average_clock_error(scenario, x_map))
+    row["success"] = row["il_status"] == "passed" and row["lm_status"] == "passed" and row["map_failure_count"] == 0
+    row["fallback_count"] = len(row["fallbacks"])
+    row["failure_count"] = len(row["failures"])
+    row["cache_used"] = False
+    return row
+
+
 def _run_step_b_rows(
     grid: str,
     *,
@@ -1090,6 +1526,78 @@ def _run_step_b_rows(
                 {
                     "event": "row_end",
                     "step": STEP_B_NAME,
+                    "grid": grid,
+                    "num_users": user,
+                    "num_satellites": sat,
+                    "row_number": run_context["row_counter"],
+                    "total_rows": run_context["total_rows"],
+                    "duration_seconds": row_duration,
+                    "status": status,
+                    "point_index": point_index,
+                }
+            )
+        rows.append(row)
+        if run_context is not None and run_context.get("interrupted"):
+            break
+    return rows
+
+
+def _run_step_c5_rows(
+    step: MigrationStep,
+    grid: str,
+    *,
+    points: list[tuple[int, int]] | None = None,
+    run_context: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """Run the C5 sliding-window MAP migration rows."""
+
+    config = _mode_config("medium")
+    selected_points = points if points is not None else _grid_points(grid)
+    np.random.seed(int(config["seed"]))
+    namespace, _executed_cells = _execute_legacy_namespace()
+    _install_residual_lm_acceptance(namespace)
+    rows = []
+    for point_index, (user, sat) in enumerate(selected_points, start=1):
+        if run_context is not None:
+            _write_row_status(
+                {
+                    "event": "row_start",
+                    "step": step.name,
+                    "grid": grid,
+                    "num_users": user,
+                    "num_satellites": sat,
+                    "row_number": run_context["row_counter"] + 1,
+                    "total_rows": run_context["total_rows"],
+                }
+            )
+            _write_heartbeat(
+                _heartbeat_payload(
+                    status="running",
+                    current_substep=step.name,
+                    current_grid_point={"grid": grid, "num_users": user, "num_satellites": sat},
+                    row_number=run_context["row_counter"],
+                    total_rows=run_context["total_rows"],
+                    started_monotonic=run_context["started_monotonic"],
+                    process_start_time_utc=run_context["process_start_time_utc"],
+                    last_completed_output=run_context.get("last_completed_output"),
+                )
+            )
+        row_started = time.monotonic()
+        row = _scenario_result_step_c5(namespace=namespace, config=config, num_users=user, num_satellites=sat)
+        row_duration = time.monotonic() - row_started
+        if run_context is not None:
+            run_context["row_counter"] += 1
+            run_context["last_completed_output"] = f"{step.name}:{grid}:{user}:{sat}"
+            status = "complete"
+            if run_context.get("timeout_seconds_per_row") is not None and row_duration > float(run_context["timeout_seconds_per_row"]):
+                status = "timeout_after_row"
+                run_context["interrupted"] = True
+                run_context["interruption_reason"] = "timeout_seconds_per_row"
+                row["execution_status"] = status
+            _write_row_status(
+                {
+                    "event": "row_end",
+                    "step": step.name,
                     "grid": grid,
                     "num_users": user,
                     "num_satellites": sat,
@@ -1270,6 +1778,10 @@ def _write_csvs(rows: list[dict[str, Any]], output_root: Path) -> dict[str, str]
         "map_accepted_objective_decrease_min",
         "map_prior_cost_before",
         "map_prior_cost_after",
+        "map_measurement_cost_before",
+        "map_measurement_cost_after",
+        "map_dynamics_cost_before",
+        "map_dynamics_cost_after",
         "map_position_update_norm_max",
         "map_clock_update_norm_max",
         "map_relative_update_norm_max",
@@ -1325,6 +1837,10 @@ def _write_csvs(rows: list[dict[str, Any]], output_root: Path) -> dict[str, str]
                     "map_accepted_objective_decrease_min": map_diag.get("accepted_map_objective_decrease_min"),
                     "map_prior_cost_before": map_diag.get("prior_cost_before"),
                     "map_prior_cost_after": map_diag.get("prior_cost_after"),
+                    "map_measurement_cost_before": map_diag.get("measurement_cost_before"),
+                    "map_measurement_cost_after": map_diag.get("measurement_cost_after"),
+                    "map_dynamics_cost_before": map_diag.get("dynamics_cost_before"),
+                    "map_dynamics_cost_after": map_diag.get("dynamics_cost_after"),
                     "map_position_update_norm_max": map_diag.get("position_update_norm_max"),
                     "map_clock_update_norm_max": map_diag.get("clock_update_norm_max"),
                     "map_relative_update_norm_max": map_diag.get("relative_update_norm_max"),
@@ -1379,12 +1895,60 @@ def _write_npz(rows: list[dict[str, Any]], output_root: Path) -> str:
         map_initial_objective=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("initial_map_objective")) for row in rows], dtype=float),
         map_final_objective=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("final_map_objective")) for row in rows], dtype=float),
         map_prior_cost_after=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("prior_cost_after")) for row in rows], dtype=float),
+        map_measurement_cost_after=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("measurement_cost_after")) for row in rows], dtype=float),
+        map_dynamics_cost_after=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("dynamics_cost_after")) for row in rows], dtype=float),
         map_position_update_norm_max=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("position_update_norm_max")) for row in rows], dtype=float),
         map_clock_update_norm_max=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("clock_update_norm_max")) for row in rows], dtype=float),
         map_position_error_m=np.asarray([row["map_position_error_m"] for row in rows], dtype=float),
         map_sync_error_s=np.asarray([row["map_sync_error_s"] for row in rows], dtype=float),
     )
     return _repo_rel(path)
+
+
+def _write_step_auxiliary(step: MigrationStep, rows: list[dict[str, Any]], output_root: Path) -> dict[str, str]:
+    """Write step-specific auxiliary diagnostics."""
+
+    if step.name != STEP_C5_NAME:
+        return {}
+    output_root.mkdir(parents=True, exist_ok=True)
+    objective_path = output_root / "objective_history.json"
+    failure_path = output_root / "failure_log.json"
+    objective_payload = {
+        "artifact_status": "non_final_step_c5_objective_history",
+        "manuscript_ready": False,
+        "step": step.name,
+        "sliding_window_map_parameters": SLIDING_WINDOW_MAP_PARAMETERS,
+        "rows": [
+            {
+                "num_users": row["num_users"],
+                "num_satellites": row["num_satellites"],
+                "map_status": row.get("map_status"),
+                "objective_history": row.get("map_diagnostics", {}).get("step_trace", []),
+            }
+            for row in rows
+        ],
+    }
+    failure_payload = {
+        "artifact_status": "non_final_step_c5_failure_log",
+        "manuscript_ready": False,
+        "step": step.name,
+        "failures": [
+            {
+                "num_users": row["num_users"],
+                "num_satellites": row["num_satellites"],
+                "failures": row.get("failures", []),
+                "fallbacks": row.get("fallbacks", []),
+            }
+            for row in rows
+            if row.get("failures") or row.get("fallbacks")
+        ],
+    }
+    objective_path.write_text(json.dumps(objective_payload, indent=2), encoding="utf-8")
+    failure_path.write_text(json.dumps(failure_payload, indent=2), encoding="utf-8")
+    return {
+        "objective_history_json": _repo_rel(objective_path),
+        "failure_log_json": _repo_rel(failure_path),
+    }
 
 
 def _health(rows: list[dict[str, Any]], previous: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -1498,6 +2062,7 @@ def _cache_identity(step: MigrationStep, grid: str, rows: list[dict[str, Any]]) 
         "extracted_cell_hashes": _selected_cell_hashes(),
         "step": step.to_dict(),
         "composite_map_acceptance_parameters": COMPOSITE_MAP_ACCEPTANCE_PARAMETERS if step.map_update_mode == "composite_observable" else None,
+        "sliding_window_map_parameters": SLIDING_WINDOW_MAP_PARAMETERS if step.map_update_mode == "sliding_window_map" else None,
         "grid": grid,
         "grid_parameters": {
             "num_users": sorted({row["num_users"] for row in rows}),
@@ -1591,25 +2156,28 @@ def _write_step(
     plot_outputs = _plot(rows, output_root)
     csvs = _write_csvs(rows, output_root)
     arrays = _write_npz(rows, output_root)
+    auxiliary_outputs = _write_step_auxiliary(step, rows, output_root)
     health = _health(rows, previous_health)
     metadata = {
         "artifact_status": "non_final_controlled_migration_step",
         "step": step.to_dict(),
         "composite_map_acceptance_parameters": COMPOSITE_MAP_ACCEPTANCE_PARAMETERS if step.map_update_mode == "composite_observable" else None,
+        "sliding_window_map_parameters": SLIDING_WINDOW_MAP_PARAMETERS if step.map_update_mode == "sliding_window_map" else None,
         "grid": grid,
         "output_grid": output_grid,
         "status": health["status"],
         "manuscript_ready": False,
         "lm_acceptance_mode": step.acceptance_mode,
-        "truth_state_used_for_lm_acceptance": False if step.name == STEP_B_NAME else True,
+        "truth_state_used_for_lm_acceptance": False if step.acceptance_mode == "residual_trust_region" else True,
         "map_covariance_mode": step.map_covariance_mode,
         "map_update_mode": step.map_update_mode,
         "plot_outputs": plot_outputs,
-        "raw_outputs": {**csvs, "arrays_npz": arrays},
+        "raw_outputs": {**csvs, "arrays_npz": arrays, **auxiliary_outputs},
         "health": health,
         "lm_acceptance_diagnostics": _lm_acceptance_summary(rows),
         "map_update_diagnostics": _map_update_summary(rows),
         "composite_map_acceptance_parameters": COMPOSITE_MAP_ACCEPTANCE_PARAMETERS if step.map_update_mode == "composite_observable" else None,
+        "sliding_window_map_parameters": SLIDING_WINDOW_MAP_PARAMETERS if step.map_update_mode == "sliding_window_map" else None,
         "change_vs_previous": None,
         "execution": execution or _execution_metadata(
             planned_rows=len(rows),
@@ -1619,7 +2187,7 @@ def _write_step(
             output_grid=output_grid,
         ),
     }
-    if step.name != STEP_B_NAME:
+    if step.acceptance_mode != "residual_trust_region":
         metadata["lm_acceptance_diagnostics"]["truth_state_used_for_lm_acceptance"] = True
     metadata["cache"] = _write_cache(step, grid, rows, metadata)
     path = output_root / "migration_step_metadata.json"
@@ -1747,6 +2315,10 @@ def _read_ladder_raw(path: Path) -> dict[tuple[int, int], dict[str, Any]]:
                 "map_accepted_objective_decrease_min",
                 "map_prior_cost_before",
                 "map_prior_cost_after",
+                "map_measurement_cost_before",
+                "map_measurement_cost_after",
+                "map_dynamics_cost_before",
+                "map_dynamics_cost_after",
                 "map_position_update_norm_max",
                 "map_clock_update_norm_max",
                 "map_relative_update_norm_max",
@@ -2276,6 +2848,205 @@ def _write_step_c4_composite_acceptance_comparison() -> dict[str, Any] | None:
     return payload
 
 
+def _write_step_c5_sliding_window_comparison() -> dict[str, Any] | None:
+    """Compare C5 sliding-window MAP against Step B, C4, and legacy behavior."""
+
+    grid = "medium" if (LADDER_ROOT / STEP_C5_NAME / "medium" / "migration_raw.csv").exists() else "tiny"
+    c5_path = LADDER_ROOT / STEP_C5_NAME / grid / "migration_raw.csv"
+    c5_meta_path = LADDER_ROOT / STEP_C5_NAME / grid / "migration_step_metadata.json"
+    step_b_path = LADDER_ROOT / STEP_B_NAME / grid / "migration_raw.csv"
+    c4_path = LADDER_ROOT / "step_c4_composite_map_acceptance" / grid / "migration_raw.csv"
+    legacy_path = SOURCE_NETWORK_ROOT / "legacy_network_size_raw.csv"
+    if not (c5_path.exists() and c5_meta_path.exists() and step_b_path.exists()):
+        return None
+    c5_rows = _read_ladder_raw(c5_path)
+    step_b_rows = _read_ladder_raw(step_b_path)
+    c4_rows = _read_ladder_raw(c4_path) if c4_path.exists() else {}
+    legacy_rows = _read_ladder_raw(legacy_path) if legacy_path.exists() else {}
+    c5_metadata = json.loads(c5_meta_path.read_text(encoding="utf-8"))
+    comparisons = []
+    for key in sorted(c5_rows):
+        c5 = c5_rows[key]
+        step_b = step_b_rows.get(key)
+        if step_b is None:
+            continue
+        c4 = c4_rows.get(key)
+        legacy = legacy_rows.get(key)
+        comparisons.append(
+            {
+                "num_users": key[0],
+                "num_satellites": key[1],
+                "status_vs_step_b": _classify_diagnosis_row(step_b, c5, diagnostic_only=False),
+                "il_position_error_m": c5["il_position_error_m"],
+                "lm_position_error_m": c5["lm_position_error_m"],
+                "step3_position_error_m": c5["map_position_error_m"],
+                "step_b_position_error_m": step_b["map_position_error_m"],
+                "c4_position_error_m": c4["map_position_error_m"] if c4 else None,
+                "legacy_position_error_m": legacy["map_position_error_m"] if legacy else None,
+                "il_sync_error_s": c5["il_sync_error_s"],
+                "lm_sync_error_s": c5["lm_sync_error_s"],
+                "step3_sync_error_s": c5["map_sync_error_s"],
+                "step_b_sync_error_s": step_b["map_sync_error_s"],
+                "c4_sync_error_s": c4["map_sync_error_s"] if c4 else None,
+                "legacy_sync_error_s": legacy["map_sync_error_s"] if legacy else None,
+                "objective_decrease": (
+                    float(c5["map_initial_objective"]) - float(c5["map_final_objective"])
+                    if c5.get("map_initial_objective") not in {None, ""} and c5.get("map_final_objective") not in {None, ""}
+                    else None
+                ),
+                "measurement_objective_after": c5.get("map_measurement_cost_after"),
+                "prior_objective_after": c5.get("map_prior_cost_after"),
+                "dynamics_objective_after": c5.get("map_dynamics_cost_after"),
+                "accepted_step_count": c5.get("map_accepted_update_count"),
+                "rejected_step_count": c5.get("map_rejected_update_count"),
+                "condition_number": c5.get("map_covariance_condition_after"),
+                "position_update_norm_max": c5.get("map_position_update_norm_max"),
+                "clock_update_norm_max": c5.get("map_clock_update_norm_max"),
+                "jcls_localization_helps": bool(c5["map_position_error_m"] < c5["il_position_error_m"]),
+                "jcls_sync_helps": bool(c5["map_sync_error_s"] < c5["il_sync_error_s"]),
+            }
+        )
+    counts = _status_counts([
+        {"status": item["status_vs_step_b"]}
+        for item in comparisons
+    ])
+    overall = (
+        "healthy"
+        if counts["major_degradation"] == 0 and counts["failed"] == 0 and counts["mild_degradation"] == 0
+        else "mild_degradation"
+        if counts["major_degradation"] == 0 and counts["failed"] == 0
+        else "major_degradation"
+    )
+    if c5_metadata["health"].get("catastrophic_failure"):
+        overall = "failed"
+    c4_overall = None
+    c4_report_path = REPORTS / "STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.json"
+    if c4_report_path.exists():
+        c4_overall = json.loads(c4_report_path.read_text(encoding="utf-8")).get("c4_overall_status")
+    payload = {
+        "artifact_status": "non_final_step_c5_sliding_window_map_comparison",
+        "manuscript_ready": False,
+        "grid": grid,
+        "c5_overall_status": overall,
+        "step_b_reference": STEP_B_NAME,
+        "c4_reference": "step_c4_composite_map_acceptance",
+        "legacy_reference": _repo_rel(legacy_path),
+        "c5_health": c5_metadata["health"],
+        "c5_map_update_diagnostics": c5_metadata["map_update_diagnostics"],
+        "status_counts_vs_step_b": counts,
+        "comparisons": comparisons,
+        "does_c5_improve_over_c4": bool(c4_overall and overall in {"healthy", "mild_degradation"} and c4_overall in {"major_degradation", "failed"}),
+        "does_c5_approach_step_b_or_legacy_behavior": bool(overall in {"healthy", "mild_degradation"}),
+        "is_step3_defensible_now": bool(overall == "healthy"),
+    }
+    REPORTS.mkdir(parents=True, exist_ok=True)
+    (REPORTS / "STEP_C5_SLIDING_WINDOW_MAP_COMPARISON.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    md = [
+        "# Step C5 Sliding-Window MAP Comparison",
+        "",
+        "## Executive Summary",
+        "",
+        f"- Grid: `{grid}`",
+        f"- C5 status: `{overall}`",
+        f"- Improves over C4: `{payload['does_c5_improve_over_c4']}`",
+        f"- Approaches Step B or legacy behavior: `{payload['does_c5_approach_step_b_or_legacy_behavior']}`",
+        f"- Step 3 defensible now: `{payload['is_step3_defensible_now']}`",
+        "",
+        "## Aggregate Diagnostics",
+        "",
+        f"- Localization improvement rows: {c5_metadata['health']['position_improvement_count']} of {c5_metadata['health']['comparison_count']}",
+        f"- Synchronization improvement rows: {c5_metadata['health']['sync_improvement_count']} of {c5_metadata['health']['comparison_count']}",
+        f"- Step-3 accepted/rejected solver steps: {c5_metadata['map_update_diagnostics']['accepted_update_count']}/{c5_metadata['map_update_diagnostics']['rejected_update_count']}",
+        f"- Objective components: `{c5_metadata['map_update_diagnostics'].get('score_components_used')}`",
+        "",
+        "## Row Comparisons Against Step B",
+        "",
+        "| Nu | Ns | Status vs Step B | Step B pos [m] | C5 pos [m] | Step B sync [s] | C5 sync [s] | Step3 acc/rej | J total decrease |",
+        "|---:|---:|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for item in comparisons:
+        md.append(
+            f"| {item['num_users']} | {item['num_satellites']} | `{item['status_vs_step_b']}` | "
+            f"{item['step_b_position_error_m']} | {item['step3_position_error_m']} | "
+            f"{item['step_b_sync_error_s']} | {item['step3_sync_error_s']} | "
+            f"{item['accepted_step_count']}/{item['rejected_step_count']} | {item['objective_decrease']} |"
+        )
+    (REPORTS / "STEP_C5_SLIDING_WINDOW_MAP_COMPARISON.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    return payload
+
+
+def _write_step2_only_vs_step3_report() -> dict[str, Any] | None:
+    """Write a report comparing C5 Step 2 LM-only outputs to Step 3 refinement."""
+
+    grid = "medium" if (LADDER_ROOT / STEP_C5_NAME / "medium" / "migration_raw.csv").exists() else "tiny"
+    c5_path = LADDER_ROOT / STEP_C5_NAME / grid / "migration_raw.csv"
+    if not c5_path.exists():
+        return None
+    rows = _read_ladder_raw(c5_path)
+    comparisons = []
+    for key in sorted(rows):
+        row = rows[key]
+        if not row.get("cooperative_jcls_attempted"):
+            continue
+        comparisons.append(
+            {
+                "num_users": key[0],
+                "num_satellites": key[1],
+                "step2_position_error_m": row["lm_position_error_m"],
+                "step3_position_error_m": row["map_position_error_m"],
+                "step2_sync_error_s": row["lm_sync_error_s"],
+                "step3_sync_error_s": row["map_sync_error_s"],
+                "step2_localization_improves_over_il": bool(row["lm_position_error_m"] < row["il_position_error_m"]),
+                "step2_sync_improves_over_il": bool(row["lm_sync_error_s"] < row["il_sync_error_s"]),
+                "step3_improves_position_over_step2": bool(row["map_position_error_m"] < row["lm_position_error_m"]),
+                "step3_improves_sync_over_step2": bool(row["map_sync_error_s"] < row["lm_sync_error_s"]),
+            }
+        )
+    step2_position_wins = sum(1 for item in comparisons if item["step2_localization_improves_over_il"])
+    step2_sync_wins = sum(1 for item in comparisons if item["step2_sync_improves_over_il"])
+    step3_position_wins = sum(1 for item in comparisons if item["step3_improves_position_over_step2"])
+    step3_sync_wins = sum(1 for item in comparisons if item["step3_improves_sync_over_step2"])
+    step2_shows_jcls_benefit = bool(comparisons and step2_position_wins == len(comparisons) and step2_sync_wins == len(comparisons))
+    step3_improves = bool(comparisons and step3_position_wins == len(comparisons) and step3_sync_wins == len(comparisons))
+    payload = {
+        "artifact_status": "non_final_step2_only_vs_step3_refinement",
+        "manuscript_ready": False,
+        "grid": grid,
+        "comparison_count": len(comparisons),
+        "step2_position_improvement_rows": step2_position_wins,
+        "step2_sync_improvement_rows": step2_sync_wins,
+        "step3_position_improvement_over_step2_rows": step3_position_wins,
+        "step3_sync_improvement_over_step2_rows": step3_sync_wins,
+        "does_step2_alone_show_jcls_benefit": step2_shows_jcls_benefit,
+        "does_step3_improve_or_hurt": "improve" if step3_improves else "mixed_or_hurt",
+        "should_manuscript_temporarily_show_coarse_jcls_only": bool(step2_shows_jcls_benefit and not step3_improves),
+        "comparisons": comparisons,
+    }
+    (REPORTS / "STEP2_ONLY_VS_STEP3_REFINEMENT.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    md = [
+        "# Step 2 Only vs Step 3 Refinement",
+        "",
+        "## Executive Summary",
+        "",
+        f"- Grid: `{grid}`",
+        f"- Step 2 alone shows JCLS benefit: `{payload['does_step2_alone_show_jcls_benefit']}`",
+        f"- Step 3 behavior: `{payload['does_step3_improve_or_hurt']}`",
+        f"- Coarse-only temporary figure recommendation: `{payload['should_manuscript_temporarily_show_coarse_jcls_only']}`",
+        "",
+        "| Nu | Ns | Step2 pos [m] | Step3 pos [m] | Step2 sync [s] | Step3 sync [s] | Step3 pos improves | Step3 sync improves |",
+        "|---:|---:|---:|---:|---:|---:|---|---|",
+    ]
+    for item in comparisons:
+        md.append(
+            f"| {item['num_users']} | {item['num_satellites']} | "
+            f"{item['step2_position_error_m']} | {item['step3_position_error_m']} | "
+            f"{item['step2_sync_error_s']} | {item['step3_sync_error_s']} | "
+            f"`{item['step3_improves_position_over_step2']}` | `{item['step3_improves_sync_over_step2']}` |"
+        )
+    (REPORTS / "STEP2_ONLY_VS_STEP3_REFINEMENT.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    return payload
+
+
 def _write_cache_manifest(cache_entries: list[dict[str, Any]], *, stem: str = "CACHE_MANIFEST") -> None:
     """Write migration cache manifest."""
 
@@ -2434,6 +3205,8 @@ def run_ladder(options: LadderRunOptions | None = None) -> dict[str, Any]:
             continue
         if step.name == STEP_B_NAME:
             grid_rows = _run_step_b_rows(grid, points=points, run_context=run_context)
+        elif step.name == STEP_C5_NAME:
+            grid_rows = _run_step_c5_rows(step, grid, points=points, run_context=run_context)
         elif step.name in STEP_C_DIAGNOSIS_NAMES:
             grid_rows = _run_diagnosis_rows(step, grid, points=points, run_context=run_context)
         else:
@@ -2498,6 +3271,20 @@ def run_ladder(options: LadderRunOptions | None = None) -> dict[str, Any]:
             ladder["step_c4_comparison"] = {
                 "path": "outputs/reports/STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.md",
                 "overall_status": comparison["c4_overall_status"],
+            }
+    if STEP_C5_NAME in {report["step"]["name"] for report in step_reports}:
+        comparison = _write_step_c5_sliding_window_comparison()
+        if comparison is not None:
+            ladder["step_c5_comparison"] = {
+                "path": "outputs/reports/STEP_C5_SLIDING_WINDOW_MAP_COMPARISON.md",
+                "overall_status": comparison["c5_overall_status"],
+            }
+        step2_report = _write_step2_only_vs_step3_report()
+        if step2_report is not None:
+            ladder["step2_only_vs_step3"] = {
+                "path": "outputs/reports/STEP2_ONLY_VS_STEP3_REFINEMENT.md",
+                "step2_shows_jcls_benefit": step2_report["does_step2_alone_show_jcls_benefit"],
+                "step3_behavior": step2_report["does_step3_improve_or_hurt"],
             }
     ladder["execution"] = {
         "status": run_context.get("interruption_reason") or "complete",

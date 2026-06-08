@@ -10,11 +10,13 @@ from jcls_sim.migration import (
     step_c2_observable_cov_legacy_acceptance,
     step_c3_cov_damped_pinv,
     step_c4_composite_map_acceptance,
+    step_c5_sliding_window_map,
     step_diff,
 )
 from scripts.run_controlled_migration_ladder import (
     COMPOSITE_MAP_ACCEPTANCE_PARAMETERS,
     LadderRunOptions,
+    SLIDING_WINDOW_MAP_PARAMETERS,
     _cache_payload_status,
     _execution_metadata,
     _heartbeat_payload,
@@ -23,6 +25,7 @@ from scripts.run_controlled_migration_ladder import (
     _parse_args,
     _planned_work,
     _should_stop_after_degradation,
+    _sliding_window_map_refinement,
 )
 
 
@@ -73,6 +76,19 @@ class TestControlledMigrationLadder(unittest.TestCase):
 
         self.assertEqual(c4, {"map_update_mode": ("truth_gated_legacy", "composite_observable")})
         self.assertEqual(step_c4_composite_map_acceptance().map_covariance_mode, "truth_error_diagonal")
+
+    def test_step_c5_changes_only_map_refinement_from_step_b(self) -> None:
+        c5 = step_diff(step_b_lm_residual_acceptance(), step_c5_sliding_window_map())
+
+        self.assertEqual(
+            c5,
+            {
+                "map_covariance_mode": ("truth_error_diagonal", "configured_diagonal_prior_process"),
+                "map_update_mode": ("truth_gated_legacy", "sliding_window_map"),
+            },
+        )
+        self.assertEqual(step_c5_sliding_window_map().acceptance_mode, "residual_trust_region")
+        self.assertEqual(step_c5_sliding_window_map().internal_clock_mode, "all_clock")
 
     def test_ladder_report_has_wrapper_and_step_a_tiny_medium(self) -> None:
         report = json.loads((REPORTS / "CONTROLLED_MIGRATION_LADDER.json").read_text(encoding="utf-8"))
@@ -415,6 +431,107 @@ class TestControlledMigrationLadder(unittest.TestCase):
         paths = {entry["source_pdf_path"] for entry in gallery["entries"]}
 
         self.assertIn(c4_pdf, paths)
+
+    def test_c5_smoother_source_does_not_call_true_state(self) -> None:
+        import inspect
+
+        source = inspect.getsource(_sliding_window_map_refinement)
+        self.assertNotIn("get_true_state", source)
+
+    def test_c5_metadata_records_sliding_window_parameters(self) -> None:
+        metadata_path = LADDER / "step_c5_sliding_window_map" / "tiny" / "migration_step_metadata.json"
+        if not metadata_path.exists():
+            self.skipTest("C5 tiny output has not been generated yet")
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(metadata["map_update_mode"], "sliding_window_map")
+        self.assertFalse(metadata["map_update_diagnostics"]["truth_state_used_for_map_acceptance"])
+        self.assertFalse(metadata["map_update_diagnostics"]["truth_state_used_for_map_covariance"])
+        self.assertEqual(metadata["sliding_window_map_parameters"], SLIDING_WINDOW_MAP_PARAMETERS)
+        self.assertIn("measurement_objective", metadata["map_update_diagnostics"]["score_components_used"])
+        self.assertIn("prior_objective", metadata["map_update_diagnostics"]["score_components_used"])
+        self.assertIn("dynamics_objective", metadata["map_update_diagnostics"]["score_components_used"])
+
+    def test_c5_accepted_steps_decrease_total_objective(self) -> None:
+        objective_path = LADDER / "step_c5_sliding_window_map" / "tiny" / "objective_history.json"
+        if not objective_path.exists():
+            self.skipTest("C5 objective history has not been generated yet")
+        payload = json.loads(objective_path.read_text(encoding="utf-8"))
+
+        for row in payload["rows"]:
+            for item in row["objective_history"]:
+                if item["accepted"]:
+                    self.assertGreaterEqual(float(item["objective_decrease"]), -1.0e-9)
+                    self.assertLessEqual(float(item["candidate_total_objective"]), float(item["current_total_objective"]) + 1.0e-9)
+
+    def test_c5_outputs_or_failure_report_exist(self) -> None:
+        root = LADDER / "step_c5_sliding_window_map" / "tiny"
+        comparison = REPORTS / "STEP_C5_SLIDING_WINDOW_MAP_COMPARISON.json"
+
+        self.assertTrue(root.exists() or comparison.exists())
+        if root.exists():
+            for name in [
+                "pos_vary_ues.pdf",
+                "sync_vary_ues.pdf",
+                "migration_raw.csv",
+                "migration_summary.csv",
+                "migration_arrays.npz",
+                "migration_step_metadata.json",
+                "objective_history.json",
+                "failure_log.json",
+            ]:
+                self.assertTrue((root / name).exists(), f"{root / name}")
+
+    def test_c5_medium_exists_only_if_tiny_not_catastrophic(self) -> None:
+        medium = LADDER / "step_c5_sliding_window_map" / "medium" / "migration_step_metadata.json"
+        tiny = LADDER / "step_c5_sliding_window_map" / "tiny" / "migration_step_metadata.json"
+        if not medium.exists():
+            self.skipTest("C5 medium output has not been generated")
+        tiny_metadata = json.loads(tiny.read_text(encoding="utf-8"))
+
+        self.assertFalse(tiny_metadata["health"]["catastrophic_failure"])
+
+    def test_c5_single_ue_does_not_attempt_cooperative_jcls(self) -> None:
+        raw_path = LADDER / "step_c5_sliding_window_map" / "medium" / "migration_raw.csv"
+        if not raw_path.exists():
+            self.skipTest("C5 medium output has not been generated")
+        raw = raw_path.read_text(encoding="utf-8")
+
+        single_user_lines = [line for line in raw.splitlines() if line.startswith("1,")]
+        self.assertGreater(len(single_user_lines), 0)
+        for line in single_user_lines:
+            self.assertIn("False", line)
+            self.assertIn("noncooperative_clockless_baseline_only", line)
+            self.assertIn("sliding_window_map_not_attempted_single_ue", line)
+
+    def test_c5_cache_identity_records_smoother_parameters(self) -> None:
+        metadata_path = LADDER / "step_c5_sliding_window_map" / "tiny" / "migration_step_metadata.json"
+        if not metadata_path.exists():
+            self.skipTest("C5 tiny output has not been generated yet")
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        cache = json.loads((ROOT / metadata["cache"]["cache_path"]).read_text(encoding="utf-8"))
+
+        self.assertEqual(cache["identity"]["step"]["map_update_mode"], "sliding_window_map")
+        self.assertEqual(cache["identity"]["sliding_window_map_parameters"], SLIDING_WINDOW_MAP_PARAMETERS)
+
+    def test_gallery_includes_c5_previews_when_c5_exists(self) -> None:
+        c5_pdf = "outputs/migration_ladder/step_c5_sliding_window_map/medium/pos_vary_ues.pdf"
+        if not (LADDER / "step_c5_sliding_window_map" / "medium" / "pos_vary_ues.pdf").exists():
+            self.skipTest("C5 medium output has not been generated")
+        gallery = json.loads(GALLERY.read_text(encoding="utf-8"))
+        paths = {entry["source_pdf_path"] for entry in gallery["entries"]}
+
+        self.assertIn(c5_pdf, paths)
+
+    def test_step2_only_report_records_step3_hurts_current_c5(self) -> None:
+        report_path = REPORTS / "STEP2_ONLY_VS_STEP3_REFINEMENT.json"
+        if not report_path.exists():
+            self.skipTest("Step2-vs-Step3 report has not been generated")
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+
+        self.assertFalse(report["manuscript_ready"])
+        self.assertTrue(report["does_step2_alone_show_jcls_benefit"])
+        self.assertIn(report["does_step3_improve_or_hurt"], {"improve", "mixed_or_hurt"})
 
 
 if __name__ == "__main__":

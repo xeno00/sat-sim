@@ -193,6 +193,16 @@
       "name": "Migration Step C3 residual scaled synchronization medium replay",
       "path": "outputs/migration_ladder/step_c3_cov_residual_scaled/medium/sync_vary_ues.pdf",
       "status": "controlled Migration Step C3 residual scaled, non-final"
+    },
+    {
+      "name": "Migration Step C4 composite acceptance localization medium replay",
+      "path": "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/pos_vary_ues.pdf",
+      "status": "controlled Migration Step C4 composite acceptance, non-final"
+    },
+    {
+      "name": "Migration Step C4 composite acceptance synchronization medium replay",
+      "path": "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/sync_vary_ues.pdf",
+      "status": "controlled Migration Step C4 composite acceptance, non-final"
     }
   ]
 }

@@ -1,0 +1,29 @@
+{
+  "artifact_status": "non_final_step_c5_failure_log",
+  "manuscript_ready": false,
+  "step": "step_c5_sliding_window_map",
+  "failures": [
+    {
+      "num_users": 1,
+      "num_satellites": 4,
+      "failures": [],
+      "fallbacks": [
+        {
+          "stage": "LM/MAP",
+          "reason": "single_ue_noncooperative_baseline_only"
+        }
+      ]
+    },
+    {
+      "num_users": 1,
+      "num_satellites": 8,
+      "failures": [],
+      "fallbacks": [
+        {
+          "stage": "LM/MAP",
+          "reason": "single_ue_noncooperative_baseline_only"
+        }
+      ]
+    }
+  ]
+}

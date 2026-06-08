@@ -1,0 +1,123 @@
+{
+  "artifact_status": "non_final_step2_only_vs_step3_refinement",
+  "manuscript_ready": false,
+  "grid": "medium",
+  "comparison_count": 9,
+  "step2_position_improvement_rows": 9,
+  "step2_sync_improvement_rows": 9,
+  "step3_position_improvement_over_step2_rows": 3,
+  "step3_sync_improvement_over_step2_rows": 2,
+  "does_step2_alone_show_jcls_benefit": true,
+  "does_step3_improve_or_hurt": "mixed_or_hurt",
+  "should_manuscript_temporarily_show_coarse_jcls_only": true,
+  "comparisons": [
+    {
+      "num_users": 3,
+      "num_satellites": 4,
+      "step2_position_error_m": 0.2131941128459946,
+      "step3_position_error_m": 0.3151576169073507,
+      "step2_sync_error_s": 1.3351889972769755e-10,
+      "step3_sync_error_s": 1.3893616010752704e-10,
+      "step2_localization_improves_over_il": true,
+      "step2_sync_improves_over_il": true,
+      "step3_improves_position_over_step2": false,
+      "step3_improves_sync_over_step2": false
+    },
+    {
+      "num_users": 3,
+      "num_satellites": 8,
+      "step2_position_error_m": 0.0665267939114088,
+      "step3_position_error_m": 0.0965307303895113,
+      "step2_sync_error_s": 7.54312411036653e-11,
+      "step3_sync_error_s": 7.72910350114867e-11,
+      "step2_localization_improves_over_il": true,
+      "step2_sync_improves_over_il": true,
+      "step3_improves_position_over_step2": false,
+      "step3_improves_sync_over_step2": false
+    },
+    {
+      "num_users": 3,
+      "num_satellites": 12,
+      "step2_position_error_m": 0.03459737796458858,
+      "step3_position_error_m": 0.06430749876719007,
+      "step2_sync_error_s": 3.671044386840676e-11,
+      "step3_sync_error_s": 6.255069004539848e-11,
+      "step2_localization_improves_over_il": true,
+      "step2_sync_improves_over_il": true,
+      "step3_improves_position_over_step2": false,
+      "step3_improves_sync_over_step2": false
+    },
+    {
+      "num_users": 5,
+      "num_satellites": 4,
+      "step2_position_error_m": 0.12001548861158823,
+      "step3_position_error_m": 0.17925013080181434,
+      "step2_sync_error_s": 1.9457639692566239e-10,
+      "step3_sync_error_s": 2.428967193651001e-10,
+      "step2_localization_improves_over_il": true,
+      "step2_sync_improves_over_il": true,
+      "step3_improves_position_over_step2": false,
+      "step3_improves_sync_over_step2": false
+    },
+    {
+      "num_users": 5,
+      "num_satellites": 8,
+      "step2_position_error_m": 0.0422391319935556,
+      "step3_position_error_m": 0.021703851419712775,
+      "step2_sync_error_s": 2.25199897086867e-10,
+      "step3_sync_error_s": 2.2554635483154607e-10,
+      "step2_localization_improves_over_il": true,
+      "step2_sync_improves_over_il": true,
+      "step3_improves_position_over_step2": true,
+      "step3_improves_sync_over_step2": false
+    },
+    {
+      "num_users": 5,
+      "num_satellites": 12,
+      "step2_position_error_m": 0.03353350849047848,
+      "step3_position_error_m": 0.007960414006900689,
+      "step2_sync_error_s": 9.914760058221162e-11,
+      "step3_sync_error_s": 9.893295852838404e-11,
+      "step2_localization_improves_over_il": true,
+      "step2_sync_improves_over_il": true,
+      "step3_improves_position_over_step2": true,
+      "step3_improves_sync_over_step2": true
+    },
+    {
+      "num_users": 7,
+      "num_satellites": 4,
+      "step2_position_error_m": 0.1981577479229557,
+      "step3_position_error_m": 0.036803539798125014,
+      "step2_sync_error_s": 2.4366630869840003e-10,
+      "step3_sync_error_s": 2.4366653995397013e-10,
+      "step2_localization_improves_over_il": true,
+      "step2_sync_improves_over_il": true,
+      "step3_improves_position_over_step2": true,
+      "step3_improves_sync_over_step2": false
+    },
+    {
+      "num_users": 7,
+      "num_satellites": 8,
+      "step2_position_error_m": 0.005218478291540495,
+      "step3_position_error_m": 0.013092159783767533,
+      "step2_sync_error_s": 5.45500217682124e-11,
+      "step3_sync_error_s": 5.4589411687972505e-11,
+      "step2_localization_improves_over_il": true,
+      "step2_sync_improves_over_il": true,
+      "step3_improves_position_over_step2": false,
+      "step3_improves_sync_over_step2": false
+    },
+    {
+      "num_users": 7,
+      "num_satellites": 12,
+      "step2_position_error_m": 0.002613915380213702,
+      "step3_position_error_m": 0.010620218513787916,
+      "step2_sync_error_s": 7.38060810596917e-11,
+      "step3_sync_error_s": 7.38054412624939e-11,
+      "step2_localization_improves_over_il": true,
+      "step2_sync_improves_over_il": true,
+      "step3_improves_position_over_step2": false,
+      "step3_improves_sync_over_step2": true
+    }
+  ]
+}

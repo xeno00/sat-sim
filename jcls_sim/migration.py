@@ -236,6 +236,22 @@ def step_c4_composite_map_acceptance() -> MigrationStep:
     )
 
 
+def step_c5_sliding_window_map() -> MigrationStep:
+    """Return C5: Step-B-initialized sliding-window MAP smoother."""
+
+    return _diagnosis_step(
+        name="step_c5_sliding_window_map",
+        covariance_mode="configured_diagonal_prior_process",
+        update_mode="sliding_window_map",
+        exact_change=(
+            "Start from Step B residual-LM behavior and replace the legacy "
+            "MAP/EKF truth-gated refinement with a small sliding-window MAP "
+            "smoother using configured P0, Q, R, and objective-decrease "
+            "acceptance."
+        ),
+    )
+
+
 def migration_ladder_steps() -> list[MigrationStep]:
     """Return the implemented controlled migration ladder steps."""
 
@@ -253,6 +269,7 @@ def migration_ladder_steps() -> list[MigrationStep]:
         step_c3_cov_damped_pinv(),
         step_c3_cov_residual_scaled(),
         step_c4_composite_map_acceptance(),
+        step_c5_sliding_window_map(),
     ]
 
 

@@ -43,6 +43,8 @@ Canonical graph-package outputs now live under `outputs/`. Existing `v24_*` fold
 - [Migration Step C3 damped pinv synchronization medium replay](migration_ladder/step_c3_cov_damped_pinv/medium/sync_vary_ues.pdf) - controlled Migration Step C3 damped pinv, non-final
 - [Migration Step C3 residual scaled localization medium replay](migration_ladder/step_c3_cov_residual_scaled/medium/pos_vary_ues.pdf) - controlled Migration Step C3 residual scaled, non-final
 - [Migration Step C3 residual scaled synchronization medium replay](migration_ladder/step_c3_cov_residual_scaled/medium/sync_vary_ues.pdf) - controlled Migration Step C3 residual scaled, non-final
+- [Migration Step C4 composite acceptance localization medium replay](migration_ladder/step_c4_composite_map_acceptance/medium/pos_vary_ues.pdf) - controlled Migration Step C4 composite acceptance, non-final
+- [Migration Step C4 composite acceptance synchronization medium replay](migration_ladder/step_c4_composite_map_acceptance/medium/sync_vary_ues.pdf) - controlled Migration Step C4 composite acceptance, non-final
 
 ## Legacy/Provenance Paths
 - `v24_notebook_regression_outputs` remains for provenance; prefer canonical `outputs/` links for review.

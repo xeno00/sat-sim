@@ -4,18 +4,18 @@
   "entry_count": 2,
   "entries": [
     {
-      "step": "step_c4_composite_map_acceptance",
+      "step": "step_c5_sliding_window_map",
       "grid": "tiny",
-      "cache_key": "69906ca95662b00d8d2c6d6445f9ad91218091939f110538bb20c02c9a4c705e",
-      "cache_path": "outputs/cache/migration_ladder/69906ca95662b00d/metadata.json",
-      "raw_result_hash": "b9fc83cab69bdb07738022525789319357726f04f442823b20ff5adb4155d2dc"
+      "cache_key": "a9f8ac3770a1acee496099ab4dc94cf66ffa715c0ec68e0a82da6e212300df50",
+      "cache_path": "outputs/cache/migration_ladder/a9f8ac3770a1acee/metadata.json",
+      "raw_result_hash": "ea9f6da18471a046cce4523b980da1c5b98d5225a9b19e2989264fdb2c7f3606"
     },
     {
-      "step": "step_c4_composite_map_acceptance",
+      "step": "step_c5_sliding_window_map",
       "grid": "medium",
-      "cache_key": "e2550f1ee90a836880e20fbd0fafce71f27fe7e366203991c61dec726533cfe8",
-      "cache_path": "outputs/cache/migration_ladder/e2550f1ee90a8368/metadata.json",
-      "raw_result_hash": "0a13e524e82779c0821fcd28465beaa89e0ac01c9f13154124815e6afbdd371f"
+      "cache_key": "23a9f8e510cfa5370aba3f0100dda4700a185a3b99dec4d81740c6bb4f4d6568",
+      "cache_path": "outputs/cache/migration_ladder/23a9f8e510cfa537/metadata.json",
+      "raw_result_hash": "c53629b5d69da8615867aaf81205edb84ffc1c9b92bd0ec60074ed2da45f2d6a"
     }
   ],
   "fresh_hit_count": 0,

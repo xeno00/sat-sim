@@ -349,6 +349,18 @@ catastrophic, so medium was run. Medium remains `major_degradation` versus
 Step B: C4 accepted 43 MAP updates and rejected 2, but still does not approach
 Step B behavior closely enough to replace legacy MAP truth acceptance.
 
+Step C5 sliding-window MAP smoothing is implemented on branch
+`codex/step-c5-sliding-window-map`. It keeps Step B residual/trust-region LM
+behavior, all-clock internal state, legacy metrics, and legacy geometry/noise
+settings, then replaces the legacy MAP/EKF truth-gated refinement with a small
+`T=3`, `F=I` sliding-window MAP objective using configured diagonal `P0`, `Q`,
+and measurement covariance `R`. Tiny was not catastrophic, so medium was run.
+Medium remains `major_degradation` versus Step B. C5 records full-objective
+decrease for accepted smoothing steps, but Step 3 improves over Step 2 in only
+3/9 localization rows and 2/9 synchronization rows. Current evidence supports
+reviewing Step B/LM-only as the clean estimator baseline before attempting
+another Step 3 design.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -413,3 +425,9 @@ See `docs/tasks/NEXT.md`.
   the first composite observable MAP acceptance criterion improves guardrail
   observability but remains majorly degraded versus Step B. MAP truth
   acceptance should not be considered replaceable yet.
+- `outputs/reports/STEP_C5_SLIDING_WINDOW_MAP_COMPARISON.md` records that a
+  simple Step-B-initialized sliding-window MAP smoother with configured
+  diagonal `P0/Q` and full-objective-decrease acceptance remains majorly
+  degraded versus Step B. `outputs/reports/STEP2_ONLY_VS_STEP3_REFINEMENT.md`
+  currently supports reviewing Step B/LM-only as the clean estimator result
+  before attempting another Step 3 design.
