@@ -336,6 +336,19 @@ stems, row status logs, noncanonical bounded cache status, and a heartbeat at
 wrote to `outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/`
 without overwriting canonical ladder outputs.
 
+A composite observable MAP acceptance attempt is implemented on branch
+`codex/step-c4-composite-map-acceptance`. It starts from Step B behavior, keeps
+all-clock internals and legacy MAP covariance, and changes only MAP
+acceptance/reversion to a composite observable rule using residual cost, prior
+consistency, total MAP objective, covariance trace/information checks, bounded
+state/position/clock update norms, and finite/symmetric/PSD covariance checks.
+It writes `outputs/reports/STEP_C_ACCEPTANCE_DESIGN_NOTES.*`,
+`outputs/migration_ladder/step_c4_composite_map_acceptance/`, and
+`outputs/reports/STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.*`. Tiny is not
+catastrophic, so medium was run. Medium remains `major_degradation` versus
+Step B: C4 accepted 43 MAP updates and rejected 2, but still does not approach
+Step B behavior closely enough to replace legacy MAP truth acceptance.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -396,3 +409,7 @@ See `docs/tasks/NEXT.md`.
   truth for recovery from the unsafe ladder invocation. It classifies the
   existing C outputs as complete diagnostics and recommends read-only review
   before further bounded execution.
+- `outputs/reports/STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.md` records that
+  the first composite observable MAP acceptance criterion improves guardrail
+  observability but remains majorly degraded versus Step B. MAP truth
+  acceptance should not be considered replaceable yet.

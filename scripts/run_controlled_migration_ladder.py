@@ -49,12 +49,23 @@ STEP_C_DIAGNOSIS_NAMES = {
     "step_c3_cov_damped_inverse",
     "step_c3_cov_damped_pinv",
     "step_c3_cov_residual_scaled",
+    "step_c4_composite_map_acceptance",
 }
 STEP_B_STEP_NORM_LIMIT = 1.0e6
 STEP_B_COST_TOLERANCE = 1.0e-9
 STEP_C_COST_TOLERANCE = 1.0e-9
 STEP_C_COVARIANCE_DAMPING = 1.0e-8
 STEP_C_PROCESS_COVARIANCE_SCALE = 1.0e2
+COMPOSITE_MAP_ACCEPTANCE_PARAMETERS = {
+    "mode": "composite_observable",
+    "measurement_residual_cost_weight": 1.0,
+    "prior_consistency_cost_weight": 1.0,
+    "map_objective_tolerance": STEP_C_COST_TOLERANCE,
+    "covariance_trace_relative_tolerance": 1.0e-6,
+    "relative_update_norm_limit": STEP_B_STEP_NORM_LIMIT,
+    "position_update_limit_rule": "max(1e3, 0.5 * position_state_norm)",
+    "clock_update_limit_rule": "max(1e3, 0.5 * clock_state_norm)",
+}
 
 
 @dataclass(frozen=True)
@@ -85,7 +96,6 @@ class LadderRunOptions:
             or self.timeout_seconds_total is not None
             or self.dry_run
             or self.stop_after_first_degradation
-            or self.steps
         )
 
 
@@ -185,6 +195,8 @@ def _print_planned_work(planned: list[dict[str, Any]], options: LadderRunOptions
         "max_rows": options.max_rows,
         "max_substeps": options.max_substeps,
         "dry_run": options.dry_run,
+        "list_planned_work": options.list_planned_work,
+        "will_execute": not (options.dry_run or options.list_planned_work),
         "planned_rows": planned,
     }
     print(json.dumps(payload, indent=2))
@@ -457,9 +469,45 @@ def _map_diagnostics_template(covariance_mode: str, update_mode: str, truth_cova
         "psd_covariance": None,
         "true_error_before": None,
         "true_error_after": None,
+        "map_acceptance_mode": update_mode,
+        "score_components_used": [],
+        "initial_map_objective": None,
+        "final_map_objective": None,
+        "accepted_map_objective_decrease_min": None,
+        "prior_cost_before": None,
+        "prior_cost_after": None,
+        "position_update_norm_max": None,
+        "clock_update_norm_max": None,
+        "relative_update_norm_max": None,
         "fallback_paths": [],
         "rejection_reasons": [],
         "step_trace": [],
+    }
+
+
+def _parameter_update_norms(scenario: Any, update: np.ndarray, state: np.ndarray) -> dict[str, float | None]:
+    """Return total, position, and clock update norms from symbolic parameter names."""
+
+    symbols = [str(param) for param in scenario.symbolic_parameter_vector]
+    clock_indices = [idx for idx, symbol in enumerate(symbols) if "delta" in symbol]
+    position_indices = [idx for idx, symbol in enumerate(symbols) if idx not in clock_indices]
+    update = np.asarray(update, dtype=float)
+    state = np.asarray(state, dtype=float)
+
+    def _norm(indices: list[int], values: np.ndarray) -> float | None:
+        return float(np.linalg.norm(values[indices])) if indices else None
+
+    position_update = _norm(position_indices, update)
+    clock_update = _norm(clock_indices, update)
+    position_state = _norm(position_indices, state)
+    clock_state = _norm(clock_indices, state)
+    return {
+        "update_norm": float(np.linalg.norm(update)),
+        "relative_update_norm": float(np.linalg.norm(update)) / max(1.0, float(np.linalg.norm(state))),
+        "position_update_norm": position_update,
+        "clock_update_norm": clock_update,
+        "position_update_limit": max(1.0e3, 0.50 * (position_state or 0.0)),
+        "clock_update_limit": max(1.0e3, 0.50 * (clock_state or 0.0)),
     }
 
 
@@ -503,6 +551,13 @@ def _install_map_diagnosis(namespace: dict[str, Any], step: MigrationStep) -> No
             candidate_cost = _residual_cost(scenario, x_new, z)
             true_error_after = float(np.linalg.norm(x_new - true_state)) if true_state is not None else None
             reasons = ["legacy_truth_reverted"] if not accepted else []
+            current_map_objective = current_cost
+            candidate_map_objective = candidate_cost
+            prior_cost_before = 0.0
+            prior_cost_after = 0.0
+            component_names = ["legacy_truth_error"]
+            norm_status = _parameter_update_norms(scenario, x_new - x, x)
+            candidate_status = _covariance_status(P_new)
         else:
             R = np.asarray(scenario.get_measurement_covariance(), dtype=float)
             F = np.eye(len(x))
@@ -520,16 +575,57 @@ def _install_map_diagnosis(namespace: dict[str, Any], step: MigrationStep) -> No
             P_candidate = _symmetrize(I_KJ @ P_pred @ I_KJ.T + K @ R @ K.T)
             candidate_cost = _residual_cost(scenario, x_candidate, z) if np.all(np.isfinite(x_candidate)) else float("inf")
             candidate_status = _covariance_status(P_candidate)
-            update_norm = float(np.linalg.norm(update))
-            relative_update_norm = update_norm / max(1.0, float(np.linalg.norm(x)))
+            p_pred_status = _covariance_status(P_pred)
+            prior_precision = _safe_inverse(P_pred)
+            prior_cost_before = 0.0
+            prior_cost_after = float(update.T @ prior_precision @ update) if np.all(np.isfinite(update)) else float("inf")
+            current_map_objective = current_cost + prior_cost_before
+            candidate_map_objective = candidate_cost + prior_cost_after
+            norm_status = _parameter_update_norms(scenario, update, x)
             reasons = []
             if not np.all(np.isfinite(x_candidate)):
                 reasons.append("nonfinite_state")
             if not np.isfinite(candidate_cost):
                 reasons.append("nonfinite_residual_cost")
-            if candidate_cost > current_cost + STEP_C_COST_TOLERANCE * max(1.0, abs(current_cost)):
-                reasons.append("residual_cost_increased")
-            if not np.isfinite(relative_update_norm) or relative_update_norm > STEP_B_STEP_NORM_LIMIT:
+            if update_mode == "composite_observable":
+                component_names = [
+                    "measurement_residual_cost",
+                    "prior_consistency_cost",
+                    "total_map_objective",
+                    "covariance_trace_nonexplosion",
+                    "information_gain_nonnegative",
+                    "relative_update_norm",
+                    "position_update_norm",
+                    "clock_update_norm",
+                    "finite_symmetric_psd_covariance",
+                ]
+                if not np.isfinite(candidate_map_objective):
+                    reasons.append("nonfinite_map_objective")
+                if candidate_map_objective > current_map_objective + STEP_C_COST_TOLERANCE * max(1.0, abs(current_map_objective)):
+                    reasons.append("map_objective_increased")
+                if candidate_cost > current_cost + STEP_C_COST_TOLERANCE * max(1.0, abs(current_cost)):
+                    reasons.append("residual_cost_increased")
+                trace_before = p_pred_status["trace"]
+                trace_after = candidate_status["trace"]
+                if trace_before is not None and trace_after is not None and trace_after > trace_before * (1.0 + 1.0e-6) + 1.0e-9:
+                    reasons.append("covariance_trace_exploded")
+                if trace_before is not None and trace_after is not None and trace_before - trace_after < -1.0e-9:
+                    reasons.append("negative_information_gain")
+                position_update = norm_status["position_update_norm"]
+                clock_update = norm_status["clock_update_norm"]
+                if position_update is not None and position_update > float(norm_status["position_update_limit"]):
+                    reasons.append("position_update_norm_exceeded")
+                if clock_update is not None and clock_update > float(norm_status["clock_update_limit"]):
+                    reasons.append("clock_update_norm_exceeded")
+            else:
+                component_names = [
+                    "measurement_residual_cost",
+                    "relative_update_norm",
+                    "finite_symmetric_psd_covariance",
+                ]
+                if candidate_cost > current_cost + STEP_C_COST_TOLERANCE * max(1.0, abs(current_cost)):
+                    reasons.append("residual_cost_increased")
+            if not np.isfinite(float(norm_status["relative_update_norm"])) or float(norm_status["relative_update_norm"]) > STEP_B_STEP_NORM_LIMIT:
                 reasons.append("relative_update_norm_exceeded")
             if not candidate_status["finite"]:
                 reasons.append("nonfinite_covariance")
@@ -544,6 +640,7 @@ def _install_map_diagnosis(namespace: dict[str, Any], step: MigrationStep) -> No
 
         posterior_status = _covariance_status(P_new)
         update_norm_final = float(np.linalg.norm(x_new - x))
+        map_objective_decrease = current_map_objective - candidate_map_objective if np.isfinite(candidate_map_objective) else None
         trace.append(
             {
                 "iteration": len(trace),
@@ -551,25 +648,48 @@ def _install_map_diagnosis(namespace: dict[str, Any], step: MigrationStep) -> No
                 "current_residual_cost": current_cost,
                 "candidate_residual_cost": candidate_cost,
                 "cost_decrease": current_cost - candidate_cost if np.isfinite(candidate_cost) else None,
+                "current_prior_cost": prior_cost_before,
+                "candidate_prior_cost": prior_cost_after,
+                "current_map_objective": current_map_objective,
+                "candidate_map_objective": candidate_map_objective,
+                "map_objective_decrease": map_objective_decrease,
                 "covariance_trace_before": prior_status["trace"],
+                "covariance_trace_predicted": p_pred_status["trace"] if not truth_acceptance else prior_status["trace"],
                 "covariance_trace_after": posterior_status["trace"],
                 "covariance_condition_before": prior_status["condition_number"],
                 "covariance_condition_after": posterior_status["condition_number"],
                 "update_norm": update_norm_final,
+                "candidate_update_norm": norm_status["update_norm"],
+                "relative_update_norm": norm_status["relative_update_norm"],
+                "position_update_norm": norm_status["position_update_norm"],
+                "clock_update_norm": norm_status["clock_update_norm"],
                 "true_error_before": true_error_before,
                 "true_error_after": true_error_after,
                 "fallback_path": fallback_path if truth_acceptance else "optimizer_method",
+                "score_components_used": component_names,
                 "rejection_reasons": reasons,
             }
         )
         self._step_c_diagnosis_map_trace = trace
         accepted_costs = [float(item["cost_decrease"]) for item in trace if item["accepted"] and item["cost_decrease"] is not None]
+        accepted_map_objective_decreases = [
+            float(item["map_objective_decrease"])
+            for item in trace
+            if item["accepted"] and item["map_objective_decrease"] is not None
+        ]
         self._last_map_diagnostics = _map_diagnostics_template(covariance_mode, update_mode, truth_covariance, truth_acceptance)
         self._last_map_diagnostics.update(
             {
                 "initial_residual_cost": trace[0]["current_residual_cost"],
                 "final_residual_cost": trace[-1]["candidate_residual_cost"] if trace[-1]["accepted"] else trace[-1]["current_residual_cost"],
                 "accepted_cost_decrease_min": min(accepted_costs) if accepted_costs else 0.0,
+                "map_acceptance_mode": "composite_observable" if update_mode == "composite_observable" else update_mode,
+                "score_components_used": sorted({name for item in trace for name in item["score_components_used"]}),
+                "initial_map_objective": trace[0]["current_map_objective"],
+                "final_map_objective": trace[-1]["candidate_map_objective"] if trace[-1]["accepted"] else trace[-1]["current_map_objective"],
+                "accepted_map_objective_decrease_min": min(accepted_map_objective_decreases) if accepted_map_objective_decreases else 0.0,
+                "prior_cost_before": trace[0]["current_prior_cost"],
+                "prior_cost_after": trace[-1]["candidate_prior_cost"],
                 "rejected_candidate_count": sum(1 for item in trace if not item["accepted"]),
                 "accepted_update_count": sum(1 for item in trace if item["accepted"]),
                 "rejected_update_count": sum(1 for item in trace if not item["accepted"]),
@@ -580,6 +700,9 @@ def _install_map_diagnosis(namespace: dict[str, Any], step: MigrationStep) -> No
                 "covariance_diagonal_min": posterior_status["diagonal_min"],
                 "covariance_diagonal_max": posterior_status["diagonal_max"],
                 "update_norm_max": max(float(item["update_norm"]) for item in trace),
+                "position_update_norm_max": max((float(item["position_update_norm"]) for item in trace if item["position_update_norm"] is not None), default=None),
+                "clock_update_norm_max": max((float(item["clock_update_norm"]) for item in trace if item["clock_update_norm"] is not None), default=None),
+                "relative_update_norm_max": max(float(item["relative_update_norm"]) for item in trace),
                 "finite_covariance": posterior_status["finite"],
                 "symmetric_covariance": posterior_status["symmetric"],
                 "psd_covariance": posterior_status["psd"],
@@ -1140,6 +1263,16 @@ def _write_csvs(rows: list[dict[str, Any]], output_root: Path) -> dict[str, str]
         "map_psd_covariance",
         "map_true_error_before",
         "map_true_error_after",
+        "map_acceptance_mode",
+        "map_score_components_used",
+        "map_initial_objective",
+        "map_final_objective",
+        "map_accepted_objective_decrease_min",
+        "map_prior_cost_before",
+        "map_prior_cost_after",
+        "map_position_update_norm_max",
+        "map_clock_update_norm_max",
+        "map_relative_update_norm_max",
         "map_fallback_paths",
         "map_rejection_reasons",
     ]
@@ -1185,6 +1318,16 @@ def _write_csvs(rows: list[dict[str, Any]], output_root: Path) -> dict[str, str]
                     "map_psd_covariance": map_diag.get("psd_covariance"),
                     "map_true_error_before": map_diag.get("true_error_before"),
                     "map_true_error_after": map_diag.get("true_error_after"),
+                    "map_acceptance_mode": map_diag.get("map_acceptance_mode"),
+                    "map_score_components_used": json.dumps(map_diag.get("score_components_used", [])),
+                    "map_initial_objective": map_diag.get("initial_map_objective"),
+                    "map_final_objective": map_diag.get("final_map_objective"),
+                    "map_accepted_objective_decrease_min": map_diag.get("accepted_map_objective_decrease_min"),
+                    "map_prior_cost_before": map_diag.get("prior_cost_before"),
+                    "map_prior_cost_after": map_diag.get("prior_cost_after"),
+                    "map_position_update_norm_max": map_diag.get("position_update_norm_max"),
+                    "map_clock_update_norm_max": map_diag.get("clock_update_norm_max"),
+                    "map_relative_update_norm_max": map_diag.get("relative_update_norm_max"),
                     "map_fallback_paths": json.dumps(map_diag.get("fallback_paths", [])),
                     "map_rejection_reasons": json.dumps(map_diag.get("rejection_reasons", [])),
                 }
@@ -1233,6 +1376,11 @@ def _write_npz(rows: list[dict[str, Any]], output_root: Path) -> str:
         map_final_residual_cost=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("final_residual_cost")) for row in rows], dtype=float),
         map_covariance_trace_after=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("covariance_trace_after")) for row in rows], dtype=float),
         map_update_norm_max=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("update_norm_max")) for row in rows], dtype=float),
+        map_initial_objective=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("initial_map_objective")) for row in rows], dtype=float),
+        map_final_objective=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("final_map_objective")) for row in rows], dtype=float),
+        map_prior_cost_after=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("prior_cost_after")) for row in rows], dtype=float),
+        map_position_update_norm_max=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("position_update_norm_max")) for row in rows], dtype=float),
+        map_clock_update_norm_max=np.asarray([_float_or_nan(row.get("map_diagnostics", {}).get("clock_update_norm_max")) for row in rows], dtype=float),
         map_position_error_m=np.asarray([row["map_position_error_m"] for row in rows], dtype=float),
         map_sync_error_s=np.asarray([row["map_sync_error_s"] for row in rows], dtype=float),
     )
@@ -1349,6 +1497,7 @@ def _cache_identity(step: MigrationStep, grid: str, rows: list[dict[str, Any]]) 
         "notebook_sha256": _sha256(NOTEBOOK_PATH),
         "extracted_cell_hashes": _selected_cell_hashes(),
         "step": step.to_dict(),
+        "composite_map_acceptance_parameters": COMPOSITE_MAP_ACCEPTANCE_PARAMETERS if step.map_update_mode == "composite_observable" else None,
         "grid": grid,
         "grid_parameters": {
             "num_users": sorted({row["num_users"] for row in rows}),
@@ -1446,6 +1595,7 @@ def _write_step(
     metadata = {
         "artifact_status": "non_final_controlled_migration_step",
         "step": step.to_dict(),
+        "composite_map_acceptance_parameters": COMPOSITE_MAP_ACCEPTANCE_PARAMETERS if step.map_update_mode == "composite_observable" else None,
         "grid": grid,
         "output_grid": output_grid,
         "status": health["status"],
@@ -1459,6 +1609,7 @@ def _write_step(
         "health": health,
         "lm_acceptance_diagnostics": _lm_acceptance_summary(rows),
         "map_update_diagnostics": _map_update_summary(rows),
+        "composite_map_acceptance_parameters": COMPOSITE_MAP_ACCEPTANCE_PARAMETERS if step.map_update_mode == "composite_observable" else None,
         "change_vs_previous": None,
         "execution": execution or _execution_metadata(
             planned_rows=len(rows),
@@ -1544,6 +1695,15 @@ def _map_update_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "covariance_trace_after_max": max((float(item["covariance_trace_after"]) for item in diagnostics if item.get("covariance_trace_after") is not None), default=None),
         "covariance_condition_after_max": max((float(item["covariance_condition_after"]) for item in diagnostics if item.get("covariance_condition_after") is not None), default=None),
         "update_norm_max": max((float(item["update_norm_max"]) for item in diagnostics if item.get("update_norm_max") is not None), default=None),
+        "map_acceptance_modes": sorted({str(item.get("map_acceptance_mode")) for item in diagnostics if item.get("map_acceptance_mode")}),
+        "score_components_used": sorted({component for item in diagnostics for component in item.get("score_components_used", [])}),
+        "initial_map_objective_min": min((float(item["initial_map_objective"]) for item in diagnostics if item.get("initial_map_objective") is not None), default=None),
+        "final_map_objective_max": max((float(item["final_map_objective"]) for item in diagnostics if item.get("final_map_objective") is not None), default=None),
+        "accepted_map_objective_decrease_min": min((float(item["accepted_map_objective_decrease_min"]) for item in diagnostics if item.get("accepted_map_objective_decrease_min") is not None), default=None),
+        "prior_cost_after_max": max((float(item["prior_cost_after"]) for item in diagnostics if item.get("prior_cost_after") is not None), default=None),
+        "position_update_norm_max": max((float(item["position_update_norm_max"]) for item in diagnostics if item.get("position_update_norm_max") is not None), default=None),
+        "clock_update_norm_max": max((float(item["clock_update_norm_max"]) for item in diagnostics if item.get("clock_update_norm_max") is not None), default=None),
+        "relative_update_norm_max": max((float(item["relative_update_norm_max"]) for item in diagnostics if item.get("relative_update_norm_max") is not None), default=None),
         "fallback_paths": sorted({path for item in diagnostics for path in item.get("fallback_paths", [])}),
         "rejection_reasons": sorted({reason for item in diagnostics for reason in item.get("rejection_reasons", [])}),
     }
@@ -1582,6 +1742,14 @@ def _read_ladder_raw(path: Path) -> dict[tuple[int, int], dict[str, Any]]:
                 "map_update_norm_max",
                 "map_true_error_before",
                 "map_true_error_after",
+                "map_initial_objective",
+                "map_final_objective",
+                "map_accepted_objective_decrease_min",
+                "map_prior_cost_before",
+                "map_prior_cost_after",
+                "map_position_update_norm_max",
+                "map_clock_update_norm_max",
+                "map_relative_update_norm_max",
             ]:
                 if converted.get(key) not in {None, ""}:
                     converted[key] = float(converted[key])
@@ -1892,6 +2060,222 @@ def _write_step_c_diagnosis_report() -> dict[str, Any] | None:
     return payload
 
 
+def _write_step_c_acceptance_design_notes() -> dict[str, Any]:
+    """Write read-only synthesis notes for the Step C MAP acceptance diagnosis."""
+
+    report_path = REPORTS / "STEP_C_DIAGNOSIS_REPORT.json"
+    if not report_path.exists():
+        raise FileNotFoundError(report_path)
+    diagnosis = json.loads(report_path.read_text(encoding="utf-8"))
+    summaries = {item["step"]: item for item in diagnosis.get("summaries", [])}
+    payload = {
+        "artifact_status": "non_final_step_c_acceptance_design_notes",
+        "manuscript_ready": False,
+        "source_report": "outputs/reports/STEP_C_DIAGNOSIS_REPORT.json",
+        "legacy_map_acceptance_protection_hypothesis": [
+            "Legacy MAP acceptance appears to prevent accepted updates that improve a local observable score but move the all-clock state into a poorer estimator basin.",
+            "The legacy truth gate protects against overconfident EKF-style corrections from a fragile all-clock state and legacy covariance representation.",
+            "C0 remains behavior-preserving because it instruments the legacy path without removing truth-state reversion.",
+        ],
+        "why_observable_acceptance_failed": [
+            "C1 kept the legacy truth-derived covariance but replaced acceptance with local observable checks and still produced major degradation.",
+            "This indicates residual-only/covariance-local acceptance is insufficient for the legacy all-clock MAP path.",
+            "The local residual score does not fully capture downstream localization/synchronization behavior under the overparameterized all-clock state.",
+        ],
+        "why_c2_degraded_less_than_c1": [
+            "C2 replaced covariance while preserving legacy truth-gated acceptance, and it degraded only mildly.",
+            "This isolates acceptance/reversion, not covariance replacement alone, as the primary breaking factor in the current medium grid.",
+        ],
+        "correlating_metrics": {
+            step: {
+                "overall_status": summary.get("overall_status"),
+                "metadata_status": summary.get("metadata_status"),
+                "status_counts": summary.get("status_counts"),
+                "accepted_update_count": summary.get("map_update_diagnostics", {}).get("accepted_update_count"),
+                "rejected_update_count": summary.get("map_update_diagnostics", {}).get("rejected_update_count"),
+                "invalid_covariance_rows": summary.get("map_update_diagnostics", {}).get("invalid_covariance_rows"),
+                "covariance_trace_after_max": summary.get("map_update_diagnostics", {}).get("covariance_trace_after_max"),
+                "update_norm_max": summary.get("map_update_diagnostics", {}).get("update_norm_max"),
+                "rejection_reasons": summary.get("map_update_diagnostics", {}).get("rejection_reasons"),
+            }
+            for step, summary in summaries.items()
+        },
+        "recommended_next_acceptance_criteria": [
+            "measurement residual cost nonincrease",
+            "prior consistency cost",
+            "total observable MAP objective nonincrease",
+            "covariance trace nonexplosion and finite/symmetric/PSD checks",
+            "bounded relative state update norm",
+            "bounded position update norm",
+            "bounded clock update norm",
+        ],
+        "recommended_next_step": "step_c4_composite_map_acceptance",
+    }
+    REPORTS.mkdir(parents=True, exist_ok=True)
+    (REPORTS / "STEP_C_ACCEPTANCE_DESIGN_NOTES.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    md = [
+        "# Step C Acceptance Design Notes",
+        "",
+        "## Executive Summary",
+        "",
+        "Existing Step C outputs are complete diagnostic artifacts. They indicate that replacing MAP acceptance/reversion is the primary breaking factor, not covariance replacement alone.",
+        "",
+        "## Diagnosis Synthesis",
+        "",
+        "- C0 instruments legacy MAP behavior and is diagnostic-only.",
+        "- C1 keeps legacy covariance but replaces acceptance; it has major degradation.",
+        "- C2 replaces covariance but keeps legacy truth acceptance; it has mild degradation.",
+        "- C3 candidates replace both covariance and acceptance; none is healthy.",
+        "",
+        "## What Legacy Acceptance Appears To Protect",
+        "",
+        *[f"- {item}" for item in payload["legacy_map_acceptance_protection_hypothesis"]],
+        "",
+        "## Why Local Observable Acceptance Failed",
+        "",
+        *[f"- {item}" for item in payload["why_observable_acceptance_failed"]],
+        "",
+        "## Why C2 Degraded Less Than C1",
+        "",
+        *[f"- {item}" for item in payload["why_c2_degraded_less_than_c1"]],
+        "",
+        "## Correlating Metrics",
+        "",
+        "| Step | Overall | Metadata | Healthy | Mild | Major | Failed | Accepted | Rejected | Invalid cov rows | Update norm max |",
+        "|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for step, item in payload["correlating_metrics"].items():
+        counts = item.get("status_counts") or {}
+        md.append(
+            f"| `{step}` | `{item['overall_status']}` | `{item['metadata_status']}` | "
+            f"{counts.get('healthy', 0)} | {counts.get('mild_degradation', 0)} | {counts.get('major_degradation', 0)} | {counts.get('failed', 0)} | "
+            f"{item.get('accepted_update_count')} | {item.get('rejected_update_count')} | {item.get('invalid_covariance_rows')} | {item.get('update_norm_max')} |"
+        )
+    md += [
+        "",
+        "## Criteria To Test Next",
+        "",
+        *[f"- {item}" for item in payload["recommended_next_acceptance_criteria"]],
+    ]
+    (REPORTS / "STEP_C_ACCEPTANCE_DESIGN_NOTES.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    return payload
+
+
+def _write_step_c4_composite_acceptance_comparison() -> dict[str, Any] | None:
+    """Compare C4 composite acceptance against Step B, C1, C2, and best C3."""
+
+    grid = "medium" if (LADDER_ROOT / "step_c4_composite_map_acceptance" / "medium" / "migration_raw.csv").exists() else "tiny"
+    c4_path = LADDER_ROOT / "step_c4_composite_map_acceptance" / grid / "migration_raw.csv"
+    c4_meta_path = LADDER_ROOT / "step_c4_composite_map_acceptance" / grid / "migration_step_metadata.json"
+    step_b_path = LADDER_ROOT / STEP_B_NAME / grid / "migration_raw.csv"
+    if not (c4_path.exists() and c4_meta_path.exists() and step_b_path.exists()):
+        return None
+    c4_rows = _read_ladder_raw(c4_path)
+    step_b_rows = _read_ladder_raw(step_b_path)
+    c4_metadata = json.loads(c4_meta_path.read_text(encoding="utf-8"))
+    diagnosis_report = json.loads((REPORTS / "STEP_C_DIAGNOSIS_REPORT.json").read_text(encoding="utf-8")) if (REPORTS / "STEP_C_DIAGNOSIS_REPORT.json").exists() else {}
+    c3_summaries = [item for item in diagnosis_report.get("summaries", []) if item.get("step", "").startswith("step_c3")]
+    severity = {"healthy": 0, "mild_degradation": 1, "major_degradation": 2, "failed": 3}
+    best_c3 = min(
+        c3_summaries,
+        key=lambda item: (severity.get(item.get("overall_status"), 99), item.get("status_counts", {}).get("major_degradation", 99)),
+        default=None,
+    )
+    comparisons = []
+    for key in sorted(c4_rows):
+        c4 = c4_rows[key]
+        base = step_b_rows.get(key)
+        if base is None:
+            continue
+        comparisons.append(
+            {
+                "num_users": key[0],
+                "num_satellites": key[1],
+                "status": _classify_diagnosis_row(base, c4, diagnostic_only=False),
+                "step_b_map_position_error_m": base["map_position_error_m"],
+                "c4_map_position_error_m": c4["map_position_error_m"],
+                "step_b_map_sync_error_s": base["map_sync_error_s"],
+                "c4_map_sync_error_s": c4["map_sync_error_s"],
+                "map_accepted_update_count": c4.get("map_accepted_update_count"),
+                "map_rejected_update_count": c4.get("map_rejected_update_count"),
+                "map_initial_objective": c4.get("map_initial_objective"),
+                "map_final_objective": c4.get("map_final_objective"),
+                "map_accepted_objective_decrease_min": c4.get("map_accepted_objective_decrease_min"),
+                "map_initial_residual_cost": c4.get("map_initial_residual_cost"),
+                "map_final_residual_cost": c4.get("map_final_residual_cost"),
+                "map_prior_cost_before": c4.get("map_prior_cost_before"),
+                "map_prior_cost_after": c4.get("map_prior_cost_after"),
+                "map_covariance_trace_before": c4.get("map_covariance_trace_before"),
+                "map_covariance_trace_after": c4.get("map_covariance_trace_after"),
+                "map_position_update_norm_max": c4.get("map_position_update_norm_max"),
+                "map_clock_update_norm_max": c4.get("map_clock_update_norm_max"),
+                "map_relative_update_norm_max": c4.get("map_relative_update_norm_max"),
+            }
+        )
+    counts = _status_counts(comparisons)
+    overall = (
+        "healthy"
+        if counts["major_degradation"] == 0 and counts["failed"] == 0 and counts["mild_degradation"] == 0
+        else "mild_degradation"
+        if counts["major_degradation"] == 0 and counts["failed"] == 0
+        else "major_degradation"
+    )
+    if c4_metadata["health"].get("catastrophic_failure"):
+        overall = "failed"
+    payload = {
+        "artifact_status": "non_final_step_c4_composite_acceptance_comparison",
+        "manuscript_ready": False,
+        "grid": grid,
+        "c4_overall_status": overall,
+        "step_b_reference": STEP_B_NAME,
+        "c1_reference": "step_c1_legacy_cov_observable_acceptance",
+        "c2_reference": "step_c2_observable_cov_legacy_acceptance",
+        "best_c3_reference": best_c3["step"] if best_c3 else None,
+        "c4_health": c4_metadata["health"],
+        "c4_map_update_diagnostics": c4_metadata["map_update_diagnostics"],
+        "status_counts": counts,
+        "comparisons": comparisons,
+        "does_c4_improve_over_c1": bool(overall in {"healthy", "mild_degradation"} and diagnosis_report.get("breaking_factor") == "acceptance_replacement"),
+        "does_c4_approach_step_b_behavior": bool(overall in {"healthy", "mild_degradation"}),
+        "map_truth_acceptance_replaceable_now": bool(overall == "healthy"),
+    }
+    REPORTS.mkdir(parents=True, exist_ok=True)
+    (REPORTS / "STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    md = [
+        "# Step C4 Composite MAP Acceptance Comparison",
+        "",
+        "## Executive Summary",
+        "",
+        f"- Grid: `{grid}`",
+        f"- C4 status: `{overall}`",
+        f"- Best C3 reference: `{payload['best_c3_reference']}`",
+        f"- MAP truth acceptance replaceable now: `{payload['map_truth_acceptance_replaceable_now']}`",
+        "",
+        "## Aggregate Diagnostics",
+        "",
+        f"- Localization improvement rows: {c4_metadata['health']['position_improvement_count']} of {c4_metadata['health']['comparison_count']}",
+        f"- Synchronization improvement rows: {c4_metadata['health']['sync_improvement_count']} of {c4_metadata['health']['comparison_count']}",
+        f"- MAP accepted/rejected updates: {c4_metadata['map_update_diagnostics']['accepted_update_count']}/{c4_metadata['map_update_diagnostics']['rejected_update_count']}",
+        f"- Score components: `{c4_metadata['map_update_diagnostics'].get('score_components_used')}`",
+        f"- Rejection reasons: `{c4_metadata['map_update_diagnostics'].get('rejection_reasons')}`",
+        "",
+        "## Row Comparisons Against Step B",
+        "",
+        "| Nu | Ns | Status | Step B pos [m] | C4 pos [m] | Step B sync [s] | C4 sync [s] | MAP acc/rej | Jmap before | Jmap after |",
+        "|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for item in comparisons:
+        md.append(
+            f"| {item['num_users']} | {item['num_satellites']} | `{item['status']}` | "
+            f"{item['step_b_map_position_error_m']} | {item['c4_map_position_error_m']} | "
+            f"{item['step_b_map_sync_error_s']} | {item['c4_map_sync_error_s']} | "
+            f"{item['map_accepted_update_count']}/{item['map_rejected_update_count']} | "
+            f"{item['map_initial_objective']} | {item['map_final_objective']} |"
+        )
+    (REPORTS / "STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    return payload
+
+
 def _write_cache_manifest(cache_entries: list[dict[str, Any]], *, stem: str = "CACHE_MANIFEST") -> None:
     """Write migration cache manifest."""
 
@@ -1938,7 +2322,7 @@ def _write_ladder_report(step_reports: list[dict[str, Any]], baseline: dict[str,
         "baseline": baseline,
         "steps": steps,
         "first_degraded_step": first_degraded,
-        "current_best_migration_step": steps[-1]["step"]["name"] if first_degraded is None and steps else "step_a_no_display_smoothing",
+                "current_best_migration_step": steps[-1]["step"]["name"] if first_degraded is None and steps else "step_a_no_display_smoothing",
         "stop_rule_triggered": first_degraded is not None,
         "manuscript_ready": False,
     }
@@ -1985,7 +2369,7 @@ def run_ladder(options: LadderRunOptions | None = None) -> dict[str, Any]:
     options = options or LadderRunOptions()
     planned = _planned_work(options)
     _print_planned_work(planned, options)
-    if options.dry_run:
+    if options.dry_run or options.list_planned_work:
         return {
             "artifact_status": "non_final_controlled_migration_ladder_dry_run",
             "row_count": len(planned),
@@ -2024,8 +2408,20 @@ def run_ladder(options: LadderRunOptions | None = None) -> dict[str, Any]:
         )
     )
     output_suffix = "_bounded" if options.bounded else ""
-    report_stem = "CONTROLLED_MIGRATION_LADDER_BOUNDED_RECOVERY" if options.bounded else "CONTROLLED_MIGRATION_LADDER"
-    manifest_stem = "CACHE_MANIFEST_BOUNDED_RECOVERY" if options.bounded else "CACHE_MANIFEST"
+    report_stem = (
+        "CONTROLLED_MIGRATION_LADDER_BOUNDED_RECOVERY"
+        if options.bounded
+        else "CONTROLLED_MIGRATION_LADDER_SELECTED"
+        if options.steps
+        else "CONTROLLED_MIGRATION_LADDER"
+    )
+    manifest_stem = (
+        "CACHE_MANIFEST_BOUNDED_RECOVERY"
+        if options.bounded
+        else "CACHE_MANIFEST_SELECTED"
+        if options.steps
+        else "CACHE_MANIFEST"
+    )
 
     for step_name, grid in grouped:
         if options.timeout_seconds_total is not None and time.monotonic() - run_context["started_monotonic"] > float(options.timeout_seconds_total):
@@ -2096,6 +2492,13 @@ def run_ladder(options: LadderRunOptions | None = None) -> dict[str, Any]:
 
     _write_cache_manifest(cache_entries, stem=manifest_stem)
     ladder = _write_ladder_report(step_reports, baseline, stem=report_stem)
+    if "step_c4_composite_map_acceptance" in {report["step"]["name"] for report in step_reports}:
+        comparison = _write_step_c4_composite_acceptance_comparison()
+        if comparison is not None:
+            ladder["step_c4_comparison"] = {
+                "path": "outputs/reports/STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.md",
+                "overall_status": comparison["c4_overall_status"],
+            }
     ladder["execution"] = {
         "status": run_context.get("interruption_reason") or "complete",
         "planned_rows": len(planned),
@@ -2107,6 +2510,8 @@ def run_ladder(options: LadderRunOptions | None = None) -> dict[str, Any]:
     (REPORTS / f"{report_stem}.json").write_text(json.dumps(ladder, indent=2), encoding="utf-8")
 
     if not options.bounded:
+        if (REPORTS / "STEP_C_DIAGNOSIS_REPORT.json").exists():
+            _write_step_c_acceptance_design_notes()
         step_b_comparison = _write_step_b_comparison()
         if step_b_comparison is not None:
             ladder["step_b_comparison"] = {
@@ -2163,7 +2568,7 @@ def _parse_args(argv: list[str] | None = None) -> LadderRunOptions:
         timeout_seconds_per_row=args.timeout_seconds_per_row,
         timeout_seconds_total=args.timeout_seconds_total,
         resume=args.resume,
-        dry_run=args.dry_run,
+        dry_run=bool(args.dry_run),
         list_planned_work=args.list_planned_work,
         stop_after_first_degradation=args.stop_after_first_degradation,
         use_cache=args.use_cache,
@@ -2176,7 +2581,7 @@ def main(argv: list[str] | None = None) -> int:
     print(
         json.dumps(
             {
-                "status": "planned" if options.dry_run else "wrote",
+                "status": "planned" if (options.dry_run or options.list_planned_work) else "wrote",
                 "first_degraded_step": payload.get("first_degraded_step"),
                 "current_best": payload.get("current_best_migration_step"),
                 "execution": payload.get("execution"),

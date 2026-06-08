@@ -1,0 +1,370 @@
+{
+  "artifact_status": "non_final_controlled_migration_ladder",
+  "baseline": {
+    "artifact_status": "non_final_legacy_behavior_freeze",
+    "status": "healthy",
+    "manuscript_ready": false,
+    "copied_output_roots": [
+      "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium",
+      "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full"
+    ],
+    "baseline_health": {
+      "status": "healthy",
+      "comparison_count": 9,
+      "position_improvement_count": 9,
+      "sync_improvement_count": 9,
+      "does_jcls_help_localization": true,
+      "does_jcls_help_synchronization": true,
+      "healthy_rows": 12,
+      "failed_rows": 0,
+      "fallback_count": 48,
+      "lm_cost_increase_rows": 0,
+      "map_accepted_cost_increase_rows": 0,
+      "map_invalid_covariance_rows": 0,
+      "lm_or_map_worse_than_il_rows": 0,
+      "catastrophic_failure": false,
+      "performance_degraded_vs_previous": false,
+      "strongest_position_improvement": {
+        "num_users": 7,
+        "num_satellites": 12,
+        "position_improvement_m": 0.38934000617619297,
+        "sync_improvement_ns": 0.49684854894722424
+      },
+      "strongest_sync_improvement": {
+        "num_users": 5,
+        "num_satellites": 12,
+        "position_improvement_m": 0.36845328726804843,
+        "sync_improvement_ns": 0.5776285528012194
+      }
+    },
+    "legacy_caveats": {
+      "all_clock_internal_state": true,
+      "truth_gated_acceptance": true,
+      "legacy_all_clock_sync_metric": true,
+      "map_global_fallback": true,
+      "non_v24_gauged_internals": true
+    }
+  },
+  "steps": [
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c4_composite_map_acceptance",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "composite_observable",
+        "exact_change": "Keep Step B residual LM acceptance and legacy MAP covariance, but replace MAP truth-state acceptance with a composite observable MAP objective, covariance, and bounded-update acceptance rule.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "composite_map_acceptance_parameters": {
+        "mode": "composite_observable",
+        "measurement_residual_cost_weight": 1.0,
+        "prior_consistency_cost_weight": 1.0,
+        "map_objective_tolerance": 1e-09,
+        "covariance_trace_relative_tolerance": 1e-06,
+        "relative_update_norm_limit": 1000000.0,
+        "position_update_limit_rule": "max(1e3, 0.5 * position_state_norm)",
+        "clock_update_limit_rule": "max(1e3, 0.5 * clock_state_norm)"
+      },
+      "grid": "tiny",
+      "output_grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "composite_observable",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 1,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 2,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 1,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18767358638927323,
+          "sync_improvement_ns": 0.08758358029443115
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18767358638927323,
+          "sync_improvement_ns": 0.08758358029443115
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": true,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 10,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 500.00074639138785,
+        "covariance_trace_after_max": 500.0349482017509,
+        "covariance_condition_after_max": 47535337718.00891,
+        "update_norm_max": 0.0041255411078656495,
+        "map_acceptance_modes": [
+          "composite_observable",
+          "not_attempted_single_ue_baseline"
+        ],
+        "score_components_used": [
+          "clock_update_norm",
+          "covariance_trace_nonexplosion",
+          "finite_symmetric_psd_covariance",
+          "information_gain_nonnegative",
+          "measurement_residual_cost",
+          "position_update_norm",
+          "prior_consistency_cost",
+          "relative_update_norm",
+          "total_map_objective"
+        ],
+        "initial_map_objective_min": 18.299474284363157,
+        "final_map_objective_max": 22.438932135717945,
+        "accepted_map_objective_decrease_min": 13.506689572071812,
+        "prior_cost_after_max": 1.7020087206240858e-07,
+        "position_update_norm_max": 0.004006111388210701,
+        "clock_update_norm_max": 0.0009854750021217253,
+        "relative_update_norm_max": 3.7373927106757577e-07,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": []
+      },
+      "change_vs_previous": {},
+      "execution": {
+        "status": "complete",
+        "complete": true,
+        "planned_rows": 4,
+        "executed_rows": 4,
+        "partial": false,
+        "output_grid": "tiny",
+        "max_rows": null,
+        "max_substeps": null,
+        "timeout_seconds_per_row": null,
+        "timeout_seconds_total": null,
+        "resume": false,
+        "dry_run": false,
+        "stop_after_first_degradation": false,
+        "use_cache": true,
+        "bounded": false,
+        "canonical_cache_valid": true
+      },
+      "cache": {
+        "cache_key": "9ee6960514147f753cfc27dcb73b1e15eb3b96273588606d1b355b218964811d",
+        "cache_path": "outputs/cache/migration_ladder/9ee6960514147f75/metadata.json",
+        "raw_result_hash": "b9fc83cab69bdb07738022525789319357726f04f442823b20ff5adb4155d2dc"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c4_composite_map_acceptance",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "composite_observable",
+        "exact_change": "Keep Step B residual LM acceptance and legacy MAP covariance, but replace MAP truth-state acceptance with a composite observable MAP objective, covariance, and bounded-update acceptance rule.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "composite_map_acceptance_parameters": {
+        "mode": "composite_observable",
+        "measurement_residual_cost_weight": 1.0,
+        "prior_consistency_cost_weight": 1.0,
+        "map_objective_tolerance": 1e-09,
+        "covariance_trace_relative_tolerance": 1e-06,
+        "relative_update_norm_limit": 1000000.0,
+        "position_update_limit_rule": "max(1e3, 0.5 * position_state_norm)",
+        "clock_update_limit_rule": "max(1e3, 0.5 * clock_state_norm)"
+      },
+      "grid": "medium",
+      "output_grid": "medium",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "composite_observable",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 9,
+        "position_improvement_count": 7,
+        "sync_improvement_count": 8,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 3,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3833540226959053,
+          "sync_improvement_ns": 0.496736266677672
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3589708373112318,
+          "sync_improvement_ns": 0.5762150400553615
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": true,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 43,
+        "rejected_update_count": 2,
+        "rejected_candidate_count": 2,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 400.00654553235006,
+        "covariance_trace_after_max": 500.0478590773216,
+        "covariance_condition_after_max": 49901964256.57262,
+        "update_norm_max": 0.0028340135977937557,
+        "map_acceptance_modes": [
+          "composite_observable",
+          "not_attempted_single_ue_baseline"
+        ],
+        "score_components_used": [
+          "clock_update_norm",
+          "covariance_trace_nonexplosion",
+          "finite_symmetric_psd_covariance",
+          "information_gain_nonnegative",
+          "measurement_residual_cost",
+          "position_update_norm",
+          "prior_consistency_cost",
+          "relative_update_norm",
+          "total_map_objective"
+        ],
+        "initial_map_objective_min": 16.815166893078285,
+        "final_map_objective_max": 96.62001020364328,
+        "accepted_map_objective_decrease_min": 10.578987752841648,
+        "prior_cost_after_max": 1.8231313188180397e-08,
+        "position_update_norm_max": 0.0028109000174269265,
+        "clock_update_norm_max": 0.00043051951284810727,
+        "relative_update_norm_max": 1.8106343319724972e-07,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "map_objective_increased",
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {},
+      "execution": {
+        "status": "complete",
+        "complete": true,
+        "planned_rows": 12,
+        "executed_rows": 12,
+        "partial": false,
+        "output_grid": "medium",
+        "max_rows": null,
+        "max_substeps": null,
+        "timeout_seconds_per_row": null,
+        "timeout_seconds_total": null,
+        "resume": false,
+        "dry_run": false,
+        "stop_after_first_degradation": false,
+        "use_cache": true,
+        "bounded": false,
+        "canonical_cache_valid": true
+      },
+      "cache": {
+        "cache_key": "89f9c6e4b1bea3d4b5e5bc1b636bb7e6232aa0c26de61aebec44a9ec844748d5",
+        "cache_path": "outputs/cache/migration_ladder/89f9c6e4b1bea3d4/metadata.json",
+        "raw_result_hash": "0a13e524e82779c0821fcd28465beaa89e0ac01c9f13154124815e6afbdd371f"
+      }
+    }
+  ],
+  "first_degraded_step": null,
+  "current_best_migration_step": "step_c4_composite_map_acceptance",
+  "stop_rule_triggered": false,
+  "manuscript_ready": false,
+  "step_c4_comparison": {
+    "path": "outputs/reports/STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.md",
+    "overall_status": "major_degradation"
+  },
+  "execution": {
+    "status": "complete",
+    "planned_rows": 16,
+    "executed_rows": 16,
+    "bounded": false,
+    "heartbeat_path": "outputs/cache/migration_ladder/RUN_HEARTBEAT.json",
+    "row_status_path": "outputs/cache/migration_ladder/ROW_STATUS.jsonl"
+  },
+  "step_b_comparison": {
+    "path": "outputs/reports/STEP_B_LM_ACCEPTANCE_COMPARISON.md",
+    "overall_status": "healthy"
+  },
+  "step_c_diagnosis": {
+    "path": "outputs/reports/STEP_C_DIAGNOSIS_REPORT.md",
+    "breaking_factor": "acceptance_replacement",
+    "best_non_truth_covariance_candidate": null
+  },
+  "gallery": {
+    "path": "outputs/gallery/PLOT_GALLERY.md",
+    "entry_count": 82
+  }
+}

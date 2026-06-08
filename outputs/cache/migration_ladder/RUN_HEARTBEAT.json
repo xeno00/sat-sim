@@ -1,15 +1,15 @@
 {
   "artifact_status": "non_final_migration_ladder_heartbeat",
   "status": "complete",
-  "current_substep": "step_c0_legacy_map_instrumented",
+  "current_substep": "step_c4_composite_map_acceptance",
   "current_grid_point": {
-    "grid": "tiny",
-    "row_count": 2
+    "grid": "medium",
+    "row_count": 12
   },
-  "row_number": 2,
-  "elapsed_time_seconds": 7.375,
+  "row_number": 16,
+  "elapsed_time_seconds": 925.5160000000033,
   "estimated_remaining_rows": 0,
-  "last_completed_output": "step_c0_legacy_map_instrumented:tiny:1:8",
-  "process_start_time_utc": "2026-06-08T13:36:39Z",
-  "timestamp_utc": "2026-06-08T13:36:46Z"
+  "last_completed_output": "step_c4_composite_map_acceptance:medium:7:12",
+  "process_start_time_utc": "2026-06-08T14:17:49Z",
+  "timestamp_utc": "2026-06-08T14:33:14Z"
 }

@@ -1,0 +1,23 @@
+{
+  "artifact_status": "non_final_migration_ladder_cache_manifest",
+  "cache_schema_version": "controlled-migration-ladder-v1",
+  "entry_count": 2,
+  "entries": [
+    {
+      "step": "step_c4_composite_map_acceptance",
+      "grid": "tiny",
+      "cache_key": "69906ca95662b00d8d2c6d6445f9ad91218091939f110538bb20c02c9a4c705e",
+      "cache_path": "outputs/cache/migration_ladder/69906ca95662b00d/metadata.json",
+      "raw_result_hash": "b9fc83cab69bdb07738022525789319357726f04f442823b20ff5adb4155d2dc"
+    },
+    {
+      "step": "step_c4_composite_map_acceptance",
+      "grid": "medium",
+      "cache_key": "e2550f1ee90a836880e20fbd0fafce71f27fe7e366203991c61dec726533cfe8",
+      "cache_path": "outputs/cache/migration_ladder/e2550f1ee90a8368/metadata.json",
+      "raw_result_hash": "0a13e524e82779c0821fcd28465beaa89e0ac01c9f13154124815e6afbdd371f"
+    }
+  ],
+  "fresh_hit_count": 0,
+  "miss_or_stale_count": 2
+}

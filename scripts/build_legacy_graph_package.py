@@ -281,6 +281,7 @@ def build_current_graph_status(los: dict[str, Any], nlos: dict[str, Any], clock:
         ("step_c3_cov_damped_inverse", "Migration Step C3 damped inverse"),
         ("step_c3_cov_damped_pinv", "Migration Step C3 damped pinv"),
         ("step_c3_cov_residual_scaled", "Migration Step C3 residual scaled"),
+        ("step_c4_composite_map_acceptance", "Migration Step C4 composite acceptance"),
     ]:
         migration_root = OUTPUTS / "migration_ladder" / step_name / "medium"
         if (migration_root / "pos_vary_ues.pdf").exists() and (migration_root / "sync_vary_ues.pdf").exists():

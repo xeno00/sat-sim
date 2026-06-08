@@ -1,0 +1,183 @@
+{
+  "artifact_status": "non_final_step_c_acceptance_design_notes",
+  "manuscript_ready": false,
+  "source_report": "outputs/reports/STEP_C_DIAGNOSIS_REPORT.json",
+  "legacy_map_acceptance_protection_hypothesis": [
+    "Legacy MAP acceptance appears to prevent accepted updates that improve a local observable score but move the all-clock state into a poorer estimator basin.",
+    "The legacy truth gate protects against overconfident EKF-style corrections from a fragile all-clock state and legacy covariance representation.",
+    "C0 remains behavior-preserving because it instruments the legacy path without removing truth-state reversion."
+  ],
+  "why_observable_acceptance_failed": [
+    "C1 kept the legacy truth-derived covariance but replaced acceptance with local observable checks and still produced major degradation.",
+    "This indicates residual-only/covariance-local acceptance is insufficient for the legacy all-clock MAP path.",
+    "The local residual score does not fully capture downstream localization/synchronization behavior under the overparameterized all-clock state."
+  ],
+  "why_c2_degraded_less_than_c1": [
+    "C2 replaced covariance while preserving legacy truth-gated acceptance, and it degraded only mildly.",
+    "This isolates acceptance/reversion, not covariance replacement alone, as the primary breaking factor in the current medium grid."
+  ],
+  "correlating_metrics": {
+    "step_c0_legacy_map_instrumented": {
+      "overall_status": "diagnostic_only",
+      "metadata_status": "healthy",
+      "status_counts": {
+        "healthy": 0,
+        "mild_degradation": 0,
+        "major_degradation": 0,
+        "failed": 0,
+        "diagnostic_only": 12
+      },
+      "accepted_update_count": 6,
+      "rejected_update_count": 39,
+      "invalid_covariance_rows": 0,
+      "covariance_trace_after_max": 500.0666119511186,
+      "update_norm_max": 0.001363438050976329,
+      "rejection_reasons": [
+        "legacy_truth_reverted"
+      ]
+    },
+    "step_c1_legacy_cov_observable_acceptance": {
+      "overall_status": "major_degradation",
+      "metadata_status": "partially_degraded",
+      "status_counts": {
+        "healthy": 4,
+        "mild_degradation": 3,
+        "major_degradation": 5,
+        "failed": 0,
+        "diagnostic_only": 0
+      },
+      "accepted_update_count": 43,
+      "rejected_update_count": 2,
+      "invalid_covariance_rows": 0,
+      "covariance_trace_after_max": 500.0478590773216,
+      "update_norm_max": 0.0028340135977937557,
+      "rejection_reasons": [
+        "residual_cost_increased"
+      ]
+    },
+    "step_c2_observable_cov_legacy_acceptance": {
+      "overall_status": "mild_degradation",
+      "metadata_status": "healthy",
+      "status_counts": {
+        "healthy": 10,
+        "mild_degradation": 2,
+        "major_degradation": 0,
+        "failed": 0,
+        "diagnostic_only": 0
+      },
+      "accepted_update_count": 7,
+      "rejected_update_count": 38,
+      "invalid_covariance_rows": 0,
+      "covariance_trace_after_max": 500.05918609001503,
+      "update_norm_max": 0.0013067200772744153,
+      "rejection_reasons": [
+        "legacy_truth_reverted"
+      ]
+    },
+    "step_c3_cov_diag_prior": {
+      "overall_status": "major_degradation",
+      "metadata_status": "partially_degraded",
+      "status_counts": {
+        "healthy": 7,
+        "mild_degradation": 2,
+        "major_degradation": 3,
+        "failed": 0,
+        "diagnostic_only": 0
+      },
+      "accepted_update_count": 6,
+      "rejected_update_count": 39,
+      "invalid_covariance_rows": 0,
+      "covariance_trace_after_max": 190926.3636363636,
+      "update_norm_max": 0.0019833563671700356,
+      "rejection_reasons": [
+        "residual_cost_increased"
+      ]
+    },
+    "step_c3_cov_block_diag": {
+      "overall_status": "major_degradation",
+      "metadata_status": "partially_degraded",
+      "status_counts": {
+        "healthy": 7,
+        "mild_degradation": 3,
+        "major_degradation": 2,
+        "failed": 0,
+        "diagnostic_only": 0
+      },
+      "accepted_update_count": 9,
+      "rejected_update_count": 36,
+      "invalid_covariance_rows": 0,
+      "covariance_trace_after_max": 47731.5909090909,
+      "update_norm_max": 0.0019743058475011816,
+      "rejection_reasons": [
+        "residual_cost_increased"
+      ]
+    },
+    "step_c3_cov_damped_inverse": {
+      "overall_status": "major_degradation",
+      "metadata_status": "failed",
+      "status_counts": {
+        "healthy": 3,
+        "mild_degradation": 3,
+        "major_degradation": 6,
+        "failed": 0,
+        "diagnostic_only": 0
+      },
+      "accepted_update_count": 35,
+      "rejected_update_count": 10,
+      "invalid_covariance_rows": 1,
+      "covariance_trace_after_max": 972331538586430.9,
+      "update_norm_max": 0.001982511458121259,
+      "rejection_reasons": [
+        "residual_cost_increased"
+      ]
+    },
+    "step_c3_cov_damped_pinv": {
+      "overall_status": "major_degradation",
+      "metadata_status": "partially_degraded",
+      "status_counts": {
+        "healthy": 3,
+        "mild_degradation": 4,
+        "major_degradation": 5,
+        "failed": 0,
+        "diagnostic_only": 0
+      },
+      "accepted_update_count": 43,
+      "rejected_update_count": 2,
+      "invalid_covariance_rows": 0,
+      "covariance_trace_after_max": 500.0828002233146,
+      "update_norm_max": 0.002799464978815082,
+      "rejection_reasons": [
+        "residual_cost_increased"
+      ]
+    },
+    "step_c3_cov_residual_scaled": {
+      "overall_status": "major_degradation",
+      "metadata_status": "partially_degraded",
+      "status_counts": {
+        "healthy": 3,
+        "mild_degradation": 4,
+        "major_degradation": 5,
+        "failed": 0,
+        "diagnostic_only": 0
+      },
+      "accepted_update_count": 44,
+      "rejected_update_count": 1,
+      "invalid_covariance_rows": 0,
+      "covariance_trace_after_max": 500.05413680439403,
+      "update_norm_max": 0.002799975237036193,
+      "rejection_reasons": [
+        "residual_cost_increased"
+      ]
+    }
+  },
+  "recommended_next_acceptance_criteria": [
+    "measurement residual cost nonincrease",
+    "prior consistency cost",
+    "total observable MAP objective nonincrease",
+    "covariance trace nonexplosion and finite/symmetric/PSD checks",
+    "bounded relative state update norm",
+    "bounded position update norm",
+    "bounded clock update norm"
+  ],
+  "recommended_next_step": "step_c4_composite_map_acceptance"
+}

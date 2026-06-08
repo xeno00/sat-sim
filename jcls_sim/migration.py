@@ -221,6 +221,21 @@ def step_c3_cov_residual_scaled() -> MigrationStep:
     )
 
 
+def step_c4_composite_map_acceptance() -> MigrationStep:
+    """Return C4: legacy covariance with composite observable MAP acceptance."""
+
+    return _diagnosis_step(
+        name="step_c4_composite_map_acceptance",
+        covariance_mode="truth_error_diagonal",
+        update_mode="composite_observable",
+        exact_change=(
+            "Keep Step B residual LM acceptance and legacy MAP covariance, "
+            "but replace MAP truth-state acceptance with a composite observable "
+            "MAP objective, covariance, and bounded-update acceptance rule."
+        ),
+    )
+
+
 def migration_ladder_steps() -> list[MigrationStep]:
     """Return the implemented controlled migration ladder steps."""
 
@@ -237,6 +252,7 @@ def migration_ladder_steps() -> list[MigrationStep]:
         step_c3_cov_damped_inverse(),
         step_c3_cov_damped_pinv(),
         step_c3_cov_residual_scaled(),
+        step_c4_composite_map_acceptance(),
     ]
 
 

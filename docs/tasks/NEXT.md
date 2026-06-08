@@ -1,26 +1,28 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Review Step C Diagnosis Recovery Before Merge
+# Next Task: Review C4 Composite MAP Acceptance
 
 ## Purpose
 
-Review branch `codex/migration-step-c-diagnosis` after the hung-ladder recovery
-and runtime-guard pass. Do not edit files and do not rerun the full ladder.
+Review branch `codex/step-c4-composite-map-acceptance` before merge. Do not
+edit files and do not run additional ladder rows unless a precise bounded
+follow-up command is approved.
 
 ## Scope
 
 Inspect:
 
+- `jcls_sim/migration.py`
 - `scripts/run_controlled_migration_ladder.py`
+- `scripts/build_legacy_graph_package.py`
 - `tests/test_controlled_migration_ladder.py`
-- `outputs/reports/HUNG_LADDER_RECOVERY_REPORT.md`
-- `outputs/reports/HUNG_LADDER_RECOVERY_REPORT.json`
-- `outputs/reports/STEP_C_DIAGNOSIS_REPORT.md`
-- `outputs/reports/STEP_C_DIAGNOSIS_REPORT.json`
-- canonical C0/C1/C2/C3 outputs under `outputs/migration_ladder/`
-- bounded smoke output under
-  `outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/`
-- heartbeat/status files under `outputs/cache/migration_ladder/`
+- `outputs/reports/STEP_C_ACCEPTANCE_DESIGN_NOTES.md`
+- `outputs/reports/STEP_C_ACCEPTANCE_DESIGN_NOTES.json`
+- `outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/`
+- `outputs/migration_ladder/step_c4_composite_map_acceptance/medium/`
+- `outputs/reports/STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.md`
+- `outputs/reports/STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.json`
+- C4 gallery preview entries under `outputs/gallery/`
 
 Do not edit:
 
@@ -35,21 +37,21 @@ Do not edit:
 
 ## Required Review Checks
 
-1. Confirm no canonical C0/C1/C2/C3 tiny/medium outputs were overwritten by
-   the bounded recovery smoke.
-2. Confirm the recovery report distinguishes runner-safety failure from output
-   validity.
-3. Confirm every canonical C-substep output has raw CSV, summary CSV, metadata,
-   PDFs, gallery PNG previews, and complete cache status.
-4. Confirm bounded recovery output is under a separate `tiny_bounded` path.
-5. Confirm bounded cache entries are marked noncanonical, not valid canonical
-   cache.
-6. Confirm default CLI execution is tiny-only.
-7. Confirm medium execution requires explicit `--medium`.
-8. Confirm dry-run/planned-work output reports rows before execution.
-9. Confirm max-row/substep/time guard metadata is present.
-10. Confirm heartbeat and row-status files are written.
-11. Confirm focused tests and full sat-sim tests pass.
+1. Confirm C4 starts from Step B behavior, not degraded C1/C2/C3 behavior.
+2. Confirm C4 keeps all-clock internals, Step B residual LM acceptance, legacy
+   covariance, legacy sync metric, single-UE policy, and geometry/noise
+   settings.
+3. Confirm C4 changes only MAP acceptance/reversion logic.
+4. Confirm C4 does not call `scenario.get_true_state()` for acceptance.
+5. Confirm C4 metadata records `map_acceptance_mode:
+   composite_observable`, all score components, and accept/reject reasons.
+6. Confirm accepted C4 updates do not increase the observable total MAP
+   objective beyond tolerance.
+7. Confirm tiny was run first and medium was run only because tiny was not
+   catastrophic.
+8. Confirm C4 outputs are non-final and not manuscript-ready.
+9. Confirm gallery previews exist for C4 tiny and medium.
+10. Confirm tests pass.
 
 Run:
 
@@ -65,6 +67,7 @@ Return:
 - PASS / FAIL / PASS WITH CAVEAT;
 - merge recommendation;
 - required fixes before merge, if any;
-- whether it is safe to continue Step C diagnosis review without rerunning the
-  full ladder;
-- next bounded command to run only if additional execution is required.
+- whether C4 improves over C1;
+- whether C4 approaches Step B behavior;
+- whether MAP truth acceptance can now be replaced;
+- next recommended acceptance-design action.

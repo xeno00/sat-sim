@@ -1,6 +1,6 @@
 {
   "artifact_status": "non_final_plot_gallery",
-  "generated_at_utc": "2026-06-08T07:39:42.561273+00:00",
+  "generated_at_utc": "2026-06-08T14:44:35.962158+00:00",
   "source_roots": [
     "outputs/legacy_replay",
     "outputs/package_diagnostic",
@@ -13,7 +13,7 @@
     "v24_manuscript_candidate_outputs",
     "v24_figure_outputs"
   ],
-  "entry_count": 74,
+  "entry_count": 80,
   "groups": [
     "controlled migration ladder",
     "human-review",
@@ -700,6 +700,54 @@
     {
       "figure_name": "pos_vary_ues.pdf",
       "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/9e9395ba422e__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/9e9395ba422e__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_arrays.npz",
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_raw.csv",
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "f7db9712c856d224272ba8ff8869945ddbe114dc35f6070774edadbfec8e429e",
+      "source_pdf_size_bytes": 14567
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/d55912b97639__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/d55912b97639__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_arrays.npz",
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_raw.csv",
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "f53a5acc9798889f6d296577395ba5cad4819dea0434197c1231a7a376531c87",
+      "source_pdf_size_bytes": 15522
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "controlled migration ladder",
       "source_pdf_path": "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/pos_vary_ues.pdf",
       "preview_paths": [
         "previews/5d768626f7e1__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__medium__pos_vary_ues-1.png"
@@ -1370,6 +1418,102 @@
       "source_pdf_size_bytes": 17868
     },
     {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/ce75828f950c__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/ce75828f950c__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_arrays.npz",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_raw.csv",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "361befcc2256e2936b8bee39d2e5869bf6ec455b68423fde7071bc81904818f4",
+      "source_pdf_size_bytes": 18746
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/65a330ffb732__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/65a330ffb732__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_arrays.npz",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_raw.csv",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "e68d8275b8daf10b2e8440a190ddd72a0e1b74c43d469d2cb06988eeb986e227",
+      "source_pdf_size_bytes": 19190
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/c09fe41a7c79__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/c09fe41a7c79__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_arrays.npz",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_raw.csv",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "c796dc0deaca60e84c330409226cbcd45496a309baae76f61f13ebbd2699b254",
+      "source_pdf_size_bytes": 17656
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/eacbb2a2b42c__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/eacbb2a2b42c__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_arrays.npz",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_raw.csv",
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "566dcf05284cc0b7ffcbbb0b018cb415863b53051245345cd9a1045d05579e8b",
+      "source_pdf_size_bytes": 17869
+    },
+    {
       "figure_name": "fig4_localization_vs_satellites.pdf",
       "group": "package diagnostic",
       "source_pdf_path": "v24_figure_outputs/fig4_localization_vs_satellites/fig4_localization_vs_satellites.pdf",
@@ -1806,6 +1950,6 @@
       "source_pdf_size_bytes": 23711
     }
   ],
-  "branch": "codex/migration-step-c-diagnosis",
-  "commit": "c9cf524"
+  "branch": "codex/step-c4-composite-map-acceptance",
+  "commit": "21a880e"
 }

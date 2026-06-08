@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/pos_vary_ues.pdf",
+  "source_pdf_sha256": "361befcc2256e2936b8bee39d2e5869bf6ec455b68423fde7071bc81904818f4",
+  "source_pdf_size_bytes": 18746,
+  "preview_paths": [
+    "previews/ce75828f950c__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__pos_vary_ues-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/ce75828f950c__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__pos_vary_ues.json",
+  "render_timestamp_utc": "2026-06-08T14:33:21.399146+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step-c4-composite-map-acceptance",
+  "commit": "21a880e"
+}

@@ -3,8 +3,8 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 74
-- Generated at: 2026-06-08T07:39:42.561273+00:00
+- Generated entries: 80
+- Generated at: 2026-06-08T14:44:35.962158+00:00
 
 ## controlled migration ladder
 
@@ -263,6 +263,38 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
   - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_summary.csv](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_summary.csv)
 - Nearby metadata:
   - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_step_metadata.json](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/pos_vary_ues.pdf](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/9e9395ba422e__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__pos_vary_ues-1.png)
+- Preview metadata: [previews/9e9395ba422e__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__pos_vary_ues.json](previews/9e9395ba422e__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_arrays.npz](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_raw.csv](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_raw.csv)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_summary.csv](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_step_metadata.json](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/sync_vary_ues.pdf](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/d55912b97639__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__sync_vary_ues-1.png)
+- Preview metadata: [previews/d55912b97639__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__sync_vary_ues.json](previews/d55912b97639__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_arrays.npz](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_raw.csv](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_raw.csv)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_summary.csv](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_step_metadata.json](../migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/migration_step_metadata.json)
 
 ### pos_vary_ues.pdf
 
@@ -711,6 +743,70 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
   - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_summary.csv)
 - Nearby metadata:
   - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/pos_vary_ues.pdf](../migration_ladder/step_c4_composite_map_acceptance/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/ce75828f950c__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/ce75828f950c__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__pos_vary_ues.json](previews/ce75828f950c__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_arrays.npz](../migration_ladder/step_c4_composite_map_acceptance/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_raw.csv](../migration_ladder/step_c4_composite_map_acceptance/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_summary.csv](../migration_ladder/step_c4_composite_map_acceptance/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_step_metadata.json](../migration_ladder/step_c4_composite_map_acceptance/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/sync_vary_ues.pdf](../migration_ladder/step_c4_composite_map_acceptance/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/65a330ffb732__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/65a330ffb732__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__sync_vary_ues.json](previews/65a330ffb732__outputs__migration_ladder__step_c4_composite_map_acceptance__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_arrays.npz](../migration_ladder/step_c4_composite_map_acceptance/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_raw.csv](../migration_ladder/step_c4_composite_map_acceptance/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_summary.csv](../migration_ladder/step_c4_composite_map_acceptance/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/medium/migration_step_metadata.json](../migration_ladder/step_c4_composite_map_acceptance/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/pos_vary_ues.pdf](../migration_ladder/step_c4_composite_map_acceptance/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/c09fe41a7c79__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/c09fe41a7c79__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__pos_vary_ues.json](previews/c09fe41a7c79__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_arrays.npz](../migration_ladder/step_c4_composite_map_acceptance/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_raw.csv](../migration_ladder/step_c4_composite_map_acceptance/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_summary.csv](../migration_ladder/step_c4_composite_map_acceptance/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_step_metadata.json](../migration_ladder/step_c4_composite_map_acceptance/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/sync_vary_ues.pdf](../migration_ladder/step_c4_composite_map_acceptance/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/eacbb2a2b42c__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/eacbb2a2b42c__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__sync_vary_ues.json](previews/eacbb2a2b42c__outputs__migration_ladder__step_c4_composite_map_acceptance__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_arrays.npz](../migration_ladder/step_c4_composite_map_acceptance/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_raw.csv](../migration_ladder/step_c4_composite_map_acceptance/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_summary.csv](../migration_ladder/step_c4_composite_map_acceptance/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c4_composite_map_acceptance/tiny/migration_step_metadata.json](../migration_ladder/step_c4_composite_map_acceptance/tiny/migration_step_metadata.json)
 
 ## human-review
 

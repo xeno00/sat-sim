@@ -9,9 +9,11 @@ from jcls_sim.migration import (
     step_c1_legacy_cov_observable_acceptance,
     step_c2_observable_cov_legacy_acceptance,
     step_c3_cov_damped_pinv,
+    step_c4_composite_map_acceptance,
     step_diff,
 )
 from scripts.run_controlled_migration_ladder import (
+    COMPOSITE_MAP_ACCEPTANCE_PARAMETERS,
     LadderRunOptions,
     _cache_payload_status,
     _execution_metadata,
@@ -65,6 +67,12 @@ class TestControlledMigrationLadder(unittest.TestCase):
                 "map_update_mode": ("truth_gated_legacy", "observable_residual_covariance_checks"),
             },
         )
+
+    def test_step_c4_changes_only_map_acceptance_from_step_b(self) -> None:
+        c4 = step_diff(step_b_lm_residual_acceptance(), step_c4_composite_map_acceptance())
+
+        self.assertEqual(c4, {"map_update_mode": ("truth_gated_legacy", "composite_observable")})
+        self.assertEqual(step_c4_composite_map_acceptance().map_covariance_mode, "truth_error_diagonal")
 
     def test_ladder_report_has_wrapper_and_step_a_tiny_medium(self) -> None:
         report = json.loads((REPORTS / "CONTROLLED_MIGRATION_LADDER.json").read_text(encoding="utf-8"))
@@ -173,6 +181,12 @@ class TestControlledMigrationLadder(unittest.TestCase):
         source = inspect.getsource(_install_map_diagnosis)
         self.assertIn("truth_state_used_for_map_covariance", source)
         self.assertIn("truth_acceptance", source)
+
+    def test_c4_patch_has_no_true_state_acceptance_mode(self) -> None:
+        step = step_c4_composite_map_acceptance()
+
+        self.assertEqual(step.map_update_mode, "composite_observable")
+        self.assertFalse(step.map_update_mode.startswith("truth_gated"))
 
     def test_step_b_comparison_report_exists(self) -> None:
         report = json.loads((REPORTS / "STEP_B_LM_ACCEPTANCE_COMPARISON.json").read_text(encoding="utf-8"))
@@ -329,6 +343,78 @@ class TestControlledMigrationLadder(unittest.TestCase):
         options = LadderRunOptions(steps=("step_c0_legacy_map_instrumented",), max_rows=2)
         self.assertTrue(options.bounded)
         self.assertNotEqual("tiny_bounded", "tiny")
+
+    def test_c4_outputs_exist_or_failure_report_exists(self) -> None:
+        c4_root = LADDER / "step_c4_composite_map_acceptance" / "tiny"
+        failure_report = REPORTS / "STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.json"
+
+        if not (c4_root.exists() or failure_report.exists()):
+            self.skipTest("C4 outputs have not been generated yet")
+        if c4_root.exists():
+            self.assertTrue((c4_root / "migration_step_metadata.json").exists())
+            self.assertTrue((c4_root / "migration_raw.csv").exists())
+
+    def test_c4_metadata_records_composite_score_components(self) -> None:
+        metadata_path = LADDER / "step_c4_composite_map_acceptance" / "tiny" / "migration_step_metadata.json"
+        if not metadata_path.exists():
+            self.skipTest("C4 tiny output has not been generated yet")
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(metadata["map_update_mode"], "composite_observable")
+        self.assertIn("composite_observable", metadata["map_update_diagnostics"]["map_acceptance_modes"])
+        self.assertIn("total_map_objective", metadata["map_update_diagnostics"]["score_components_used"])
+        self.assertFalse(metadata["map_update_diagnostics"]["truth_state_used_for_map_acceptance"])
+        self.assertTrue(metadata["map_update_diagnostics"]["truth_state_used_for_map_covariance"])
+
+    def test_c4_accepted_updates_do_not_increase_map_objective(self) -> None:
+        raw_path = LADDER / "step_c4_composite_map_acceptance" / "tiny" / "migration_raw.csv"
+        if not raw_path.exists():
+            self.skipTest("C4 tiny output has not been generated yet")
+        import csv
+
+        with raw_path.open(newline="", encoding="utf-8") as handle:
+            rows = list(csv.DictReader(handle))
+        for row in rows:
+            value = row.get("map_accepted_objective_decrease_min")
+            if value not in {None, ""} and int(float(row.get("map_accepted_update_count") or 0)) > 0:
+                self.assertGreaterEqual(float(value), -1.0e-9)
+
+    def test_c4_rejected_updates_log_reason(self) -> None:
+        metadata_path = LADDER / "step_c4_composite_map_acceptance" / "tiny" / "migration_step_metadata.json"
+        if not metadata_path.exists():
+            self.skipTest("C4 tiny output has not been generated yet")
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        if metadata["map_update_diagnostics"]["rejected_update_count"] > 0:
+            self.assertGreater(len(metadata["map_update_diagnostics"]["rejection_reasons"]), 0)
+
+    def test_c4_medium_exists_only_if_tiny_not_catastrophic(self) -> None:
+        medium = LADDER / "step_c4_composite_map_acceptance" / "medium" / "migration_step_metadata.json"
+        tiny = LADDER / "step_c4_composite_map_acceptance" / "tiny" / "migration_step_metadata.json"
+        if not medium.exists():
+            self.skipTest("C4 medium output has not been generated")
+        tiny_metadata = json.loads(tiny.read_text(encoding="utf-8"))
+
+        self.assertFalse(tiny_metadata["health"]["catastrophic_failure"])
+
+    def test_c4_cache_identity_records_acceptance_parameters(self) -> None:
+        metadata_path = LADDER / "step_c4_composite_map_acceptance" / "tiny" / "migration_step_metadata.json"
+        if not metadata_path.exists():
+            self.skipTest("C4 tiny output has not been generated yet")
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        cache = json.loads((ROOT / metadata["cache"]["cache_path"]).read_text(encoding="utf-8"))
+
+        self.assertEqual(cache["identity"]["step"]["map_update_mode"], "composite_observable")
+        self.assertEqual(cache["identity"]["composite_map_acceptance_parameters"], COMPOSITE_MAP_ACCEPTANCE_PARAMETERS)
+
+    def test_gallery_includes_c4_previews_when_c4_exists(self) -> None:
+        c4_pdf = "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/pos_vary_ues.pdf"
+        gallery_path = GALLERY
+        if not (LADDER / "step_c4_composite_map_acceptance" / "medium" / "pos_vary_ues.pdf").exists():
+            self.skipTest("C4 medium output has not been generated")
+        gallery = json.loads(gallery_path.read_text(encoding="utf-8"))
+        paths = {entry["source_pdf_path"] for entry in gallery["entries"]}
+
+        self.assertIn(c4_pdf, paths)
 
 
 if __name__ == "__main__":

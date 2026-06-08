@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny_bounded/pos_vary_ues.pdf",
+  "source_pdf_sha256": "f7db9712c856d224272ba8ff8869945ddbe114dc35f6070774edadbfec8e429e",
+  "source_pdf_size_bytes": 14567,
+  "preview_paths": [
+    "previews/9e9395ba422e__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__pos_vary_ues-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/9e9395ba422e__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny_bounded__pos_vary_ues.json",
+  "render_timestamp_utc": "2026-06-08T14:42:46.693448+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step-c4-composite-map-acceptance",
+  "commit": "21a880e"
+}
