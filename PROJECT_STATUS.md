@@ -372,6 +372,16 @@ validation was run. Current evidence strengthens the recommendation to treat
 Step B/LM-only as the clean estimator baseline and redesign Step 3
 structurally rather than continue tuning scalar observable gates.
 
+A low-cost diverse Step 3 exploration is implemented on branch
+`codex/step3-low-cost-exploration`. Live legacy evaluation for broad lanes
+exceeded the sprint runtime budget, so the completed Step 3 gate diagnostics
+were reused as proxy evidence for six idea classes under
+`outputs/step3_low_cost_exploration/`. The report
+`outputs/reports/STEP3_LOW_COST_EXPLORATION_REPORT.md` marks proxy-only lanes
+explicitly. No idea met promotion criteria for medium validation. Clock-drift
+and Schur/nuisance-clock remain inconclusive because they were not executed as
+true structural implementations in this low-cost fallback.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -446,3 +456,8 @@ See `docs/tasks/NEXT.md`.
   observable gate/covariance-control experiments did not produce a Step 3 gate
   that improves both localization and synchronization across representative
   cases. Medium validation was not run.
+- `outputs/reports/STEP3_LOW_COST_EXPLORATION_REPORT.md` records a low-cost
+  diverse Step 3 triage using prior gate diagnostics as proxy evidence. It did
+  not identify a medium-validation candidate. It is useful for triage only, not
+  as evidence that clock-drift or Schur/nuisance-clock structural approaches
+  have been ruled out.

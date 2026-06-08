@@ -36,9 +36,11 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 ## Suspect/Broken Graphs
 - `v24_human_review_outputs`: package-native human-review Fig. 4--7 path can degrade at later JCLS stages; preserve as suspect diagnostics only
 - `v24_figure_outputs`: package-native diagnostics are not legacy-compatible and not best available
+- `outputs/step3_low_cost_exploration`: low-cost Step 3 triage/proxy diagnostics only; not figure-ready and not a manuscript output
 
 ## Warnings
 - No graph is manuscript-ready.
 - Legacy CRLB is all-clock/post-hoc and not V24-clean.
 - Legacy estimator replays use truth-gated acceptance behavior and all-clock synchronization metrics.
 - Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures.
+- Low-cost Step 3 exploration did not identify a medium-validation candidate and uses proxy evidence for clock-drift and Schur/nuisance-clock lanes.

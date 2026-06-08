@@ -168,6 +168,14 @@
     "No graph is manuscript-ready.",
     "Legacy CRLB is all-clock/post-hoc and not V24-clean.",
     "Legacy estimator replays use truth-gated acceptance behavior and all-clock synchronization metrics.",
-    "Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures."
+    "Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures.",
+    "Low-cost Step 3 exploration did not identify a medium-validation candidate and uses proxy evidence for clock-drift and Schur/nuisance-clock lanes."
+  ],
+  "suspect_or_broken_graphs": [
+    {
+      "name": "Step 3 low-cost exploration",
+      "path": "outputs/step3_low_cost_exploration/",
+      "status": "diagnostic proxy triage only; not figure-ready and not manuscript-ready"
+    }
   ]
 }

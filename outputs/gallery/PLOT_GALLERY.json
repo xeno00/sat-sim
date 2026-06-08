@@ -1,6 +1,6 @@
 {
   "artifact_status": "non_final_plot_gallery",
-  "generated_at_utc": "2026-06-08T16:54:02.128064+00:00",
+  "generated_at_utc": "2026-06-08T18:10:12.679697+00:00",
   "source_roots": [
     "outputs/legacy_replay",
     "outputs/package_diagnostic",
@@ -9,14 +9,16 @@
     "outputs/migration_baseline",
     "outputs/migration_ladder",
     "outputs/step3_gate_exploration",
+    "outputs/step3_low_cost_exploration",
     "v24_notebook_regression_outputs",
     "v24_human_review_outputs",
     "v24_manuscript_candidate_outputs",
     "v24_figure_outputs"
   ],
-  "entry_count": 89,
+  "entry_count": 94,
   "groups": [
     "Step 3 gate exploration",
+    "Step 3 low-cost exploration",
     "controlled migration ladder",
     "human-review",
     "legacy CRLB replay",
@@ -1722,6 +1724,96 @@
       "source_pdf_size_bytes": 18918
     },
     {
+      "figure_name": "best_config_per_lane.pdf",
+      "group": "Step 3 low-cost exploration",
+      "source_pdf_path": "outputs/step3_low_cost_exploration/plots/best_config_per_lane.pdf",
+      "preview_paths": [
+        "previews/d8569f084acb__outputs__step3_low_cost_exploration__plots__best_config_per_lane-1.png"
+      ],
+      "metadata_path": "previews/d8569f084acb__outputs__step3_low_cost_exploration__plots__best_config_per_lane.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "8359214d539f2b1f99c87aac64947777fa17935e88ce4809945315b5dd7e37f8",
+      "source_pdf_size_bytes": 16272
+    },
+    {
+      "figure_name": "both_improved_by_lane.pdf",
+      "group": "Step 3 low-cost exploration",
+      "source_pdf_path": "outputs/step3_low_cost_exploration/plots/both_improved_by_lane.pdf",
+      "preview_paths": [
+        "previews/534a9ddb209f__outputs__step3_low_cost_exploration__plots__both_improved_by_lane-1.png"
+      ],
+      "metadata_path": "previews/534a9ddb209f__outputs__step3_low_cost_exploration__plots__both_improved_by_lane.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "931dbfce0a15f0f57a202ed8e26e8b1df2c7472af1c33bf700a0ff8f3e3d3dde",
+      "source_pdf_size_bytes": 11845
+    },
+    {
+      "figure_name": "failure_count_by_lane.pdf",
+      "group": "Step 3 low-cost exploration",
+      "source_pdf_path": "outputs/step3_low_cost_exploration/plots/failure_count_by_lane.pdf",
+      "preview_paths": [
+        "previews/86502aa199f1__outputs__step3_low_cost_exploration__plots__failure_count_by_lane-1.png"
+      ],
+      "metadata_path": "previews/86502aa199f1__outputs__step3_low_cost_exploration__plots__failure_count_by_lane.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "32cd5ff137b3821cf740e05bd5593373370a2bb544620708a08699a3eddd72bd",
+      "source_pdf_size_bytes": 11903
+    },
+    {
+      "figure_name": "pareto_position_sync_ratio.pdf",
+      "group": "Step 3 low-cost exploration",
+      "source_pdf_path": "outputs/step3_low_cost_exploration/plots/pareto_position_sync_ratio.pdf",
+      "preview_paths": [
+        "previews/48b8446a5a68__outputs__step3_low_cost_exploration__plots__pareto_position_sync_ratio-1.png"
+      ],
+      "metadata_path": "previews/48b8446a5a68__outputs__step3_low_cost_exploration__plots__pareto_position_sync_ratio.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "bd3e168f646b414292117188897659d50a08c9a9dbb33b3dc852900841474451",
+      "source_pdf_size_bytes": 18528
+    },
+    {
+      "figure_name": "runtime_by_lane.pdf",
+      "group": "Step 3 low-cost exploration",
+      "source_pdf_path": "outputs/step3_low_cost_exploration/plots/runtime_by_lane.pdf",
+      "preview_paths": [
+        "previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane-1.png"
+      ],
+      "metadata_path": "previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "9f52101fe383f616f716801c974933d2b850480cfddb30cbda96e216fd6911cd",
+      "source_pdf_size_bytes": 12269
+    },
+    {
       "figure_name": "fig4_localization_vs_satellites.pdf",
       "group": "package diagnostic",
       "source_pdf_path": "v24_figure_outputs/fig4_localization_vs_satellites/fig4_localization_vs_satellites.pdf",
@@ -2158,6 +2250,6 @@
       "source_pdf_size_bytes": 23711
     }
   ],
-  "branch": "codex/step3-gate-exploration",
-  "commit": "6b26b10"
+  "branch": "codex/step3-low-cost-exploration",
+  "commit": "7c7445b"
 }

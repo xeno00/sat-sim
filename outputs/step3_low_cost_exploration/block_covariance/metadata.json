@@ -1,0 +1,15 @@
+{
+  "artifact_status": "non_final_step3_low_cost_block_covariance",
+  "lane": "block_covariance",
+  "manuscript_ready": false,
+  "not_for_manuscript_submission": true,
+  "truth_state_used_for_acceptance": false,
+  "truth_state_used_for_covariance": false,
+  "truth_state_used_for_diagnostics": true,
+  "raw_csv": "outputs/step3_low_cost_exploration/block_covariance/raw.csv",
+  "summary_csv": "outputs/step3_low_cost_exploration/block_covariance/summary.csv",
+  "row_count": 3,
+  "methods": [
+    "covariance_k100"
+  ]
+}

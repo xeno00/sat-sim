@@ -1,0 +1,10 @@
+# Step 3 Low-Cost Exploration Task Matrix
+
+| Lane | Status | Last activity | Expected outputs | Blocker | Fallback owner |
+|---|---|---|---|---|---|
+| `block_covariance` | `orchestrator_completed` | implemented via shared low-cost exploration script | `outputs/step3_low_cost_exploration/block_covariance/raw.csv`<br>`outputs/step3_low_cost_exploration/block_covariance/summary.csv`<br>`outputs/step3_low_cost_exploration/block_covariance/metadata.json` | `None` | `orchestrator` |
+| `clock_drift` | `orchestrator_completed` | implemented via shared low-cost exploration script | `outputs/step3_low_cost_exploration/clock_drift/raw.csv`<br>`outputs/step3_low_cost_exploration/clock_drift/summary.csv`<br>`outputs/step3_low_cost_exploration/clock_drift/metadata.json` | `None` | `orchestrator` |
+| `gauge_nullspace` | `orchestrator_completed` | implemented via shared low-cost exploration script | `outputs/step3_low_cost_exploration/gauge_nullspace/raw.csv`<br>`outputs/step3_low_cost_exploration/gauge_nullspace/summary.csv`<br>`outputs/step3_low_cost_exploration/gauge_nullspace/metadata.json` | `None` | `orchestrator` |
+| `robust_measurement` | `orchestrator_completed` | implemented via shared low-cost exploration script | `outputs/step3_low_cost_exploration/robust_measurement/raw.csv`<br>`outputs/step3_low_cost_exploration/robust_measurement/summary.csv`<br>`outputs/step3_low_cost_exploration/robust_measurement/metadata.json` | `None` | `orchestrator` |
+| `schur_nuisance_clock` | `orchestrator_completed` | implemented via shared low-cost exploration script | `outputs/step3_low_cost_exploration/schur_nuisance_clock/raw.csv`<br>`outputs/step3_low_cost_exploration/schur_nuisance_clock/summary.csv`<br>`outputs/step3_low_cost_exploration/schur_nuisance_clock/metadata.json` | `None` | `orchestrator` |
+| `solver_mechanics` | `orchestrator_completed` | implemented via shared low-cost exploration script | `outputs/step3_low_cost_exploration/solver_mechanics/raw.csv`<br>`outputs/step3_low_cost_exploration/solver_mechanics/summary.csv`<br>`outputs/step3_low_cost_exploration/solver_mechanics/metadata.json` | `None` | `orchestrator` |

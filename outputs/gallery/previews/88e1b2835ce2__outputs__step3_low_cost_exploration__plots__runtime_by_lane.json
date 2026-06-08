@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_low_cost_exploration/plots/runtime_by_lane.pdf",
+  "source_pdf_sha256": "9f52101fe383f616f716801c974933d2b850480cfddb30cbda96e216fd6911cd",
+  "source_pdf_size_bytes": 12269,
+  "preview_paths": [
+    "previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane.json",
+  "render_timestamp_utc": "2026-06-08T18:08:53.726338+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-low-cost-exploration",
+  "commit": "7c7445b"
+}

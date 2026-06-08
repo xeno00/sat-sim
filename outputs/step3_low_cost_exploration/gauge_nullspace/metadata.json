@@ -1,0 +1,15 @@
+{
+  "artifact_status": "non_final_step3_low_cost_gauge_nullspace",
+  "lane": "gauge_nullspace",
+  "manuscript_ready": false,
+  "not_for_manuscript_submission": true,
+  "truth_state_used_for_acceptance": false,
+  "truth_state_used_for_covariance": false,
+  "truth_state_used_for_diagnostics": true,
+  "raw_csv": "outputs/step3_low_cost_exploration/gauge_nullspace/raw.csv",
+  "summary_csv": "outputs/step3_low_cost_exploration/gauge_nullspace/summary.csv",
+  "row_count": 3,
+  "methods": [
+    "nullspace_line_search"
+  ]
+}

@@ -1,24 +1,26 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Review Sparse Step 3 Gate Exploration
+# Next Task: Review Low-Cost Step 3 Exploration
 
 ## Purpose
 
-Review branch `codex/step3-gate-exploration` before merge. Do not edit files,
-do not run additional gate experiments, and do not run medium validation unless
-a precise bounded follow-up command is approved.
+Review branch `codex/step3-low-cost-exploration` before merge. Do not edit
+files, do not run live legacy exploration, and do not run medium validation
+unless a precise bounded follow-up command is approved.
 
 ## Scope
 
 Inspect:
 
-- `scripts/explore_step3_gates.py`
+- `scripts/explore_step3_low_cost.py`
 - `scripts/render_all_figure_previews.py`
-- `tests/test_step3_gate_exploration.py`
-- `outputs/step3_gate_exploration/`
-- `outputs/reports/STEP3_GATE_EXPLORATION_REPORT.md`
-- `outputs/reports/STEP3_GATE_EXPLORATION_REPORT.json`
-- Step 3 gate exploration entries under `outputs/gallery/`
+- `tests/test_step3_low_cost_exploration.py`
+- `outputs/step3_low_cost_exploration/`
+- `outputs/reports/STEP3_LOW_COST_EXPLORATION_REPORT.md`
+- `outputs/reports/STEP3_LOW_COST_EXPLORATION_REPORT.json`
+- `outputs/reports/STEP3_LOW_COST_EXPLORATION_TASK_MATRIX.md`
+- `outputs/reports/STEP3_LOW_COST_EXPLORATION_TASK_MATRIX.json`
+- Step 3 low-cost exploration entries under `outputs/gallery/`
 - `PROJECT_STATUS.md`
 
 Do not edit:
@@ -34,27 +36,24 @@ Do not edit:
 
 ## Required Review Checks
 
-1. Confirm the exploration is sparse only and uses representative cases
-   `(N_u,N_s)=(3,8),(7,8),(7,12)`.
-2. Confirm it does not run the full migration ladder or large grids by default.
-3. Confirm the gate set includes NIS, line-search, nullspace, clock/position
-   ratio, covariance/measurement inflation, and Huber residual weighting.
-4. Confirm NIS, nullspace ratio, clock/position update ratio, chosen line-search
-   alpha, objective history, and update diagnostics are recorded.
-5. Confirm Step 3 acceptance does not use `scenario.get_true_state()`.
-6. Confirm truth-state errors are used only for diagnostics/labels.
-7. Confirm outputs are non-final, not manuscript-ready, and under
-   `outputs/step3_gate_exploration/`.
-8. Confirm the report states no gate improved both localization and
-   synchronization across the sparse cases.
-9. Confirm medium validation was not run.
-10. Confirm gallery previews exist for the Step 3 exploration plots.
-11. Confirm tests pass.
+1. Confirm the branch stays code/diagnostic-only and does not touch notebook or
+   manuscript artifacts.
+2. Confirm the low-cost runner defaults to sparse/proxy diagnostics and does
+   not run the full ladder or medium validation.
+3. Confirm live legacy execution is opt-in via `--execute-legacy`.
+4. Confirm reports clearly state that clock-drift and Schur/nuisance-clock
+   lanes are proxy-only/inconclusive, not ruled out.
+5. Confirm all rows include lane, method/config, case, cache key,
+   position/sync ratios, improvement flags, and truth-state usage flags.
+6. Confirm no row uses truth for acceptance or covariance.
+7. Confirm no idea met promotion criteria and medium validation was not run.
+8. Confirm gallery previews exist for the low-cost exploration plots.
+9. Confirm focused and full tests pass.
 
 Run:
 
 ```powershell
-python -m unittest tests.test_step3_gate_exploration
+python -m unittest tests.test_step3_low_cost_exploration
 powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
 ```
 
@@ -65,6 +64,7 @@ Return:
 - PASS / FAIL / PASS WITH CAVEAT;
 - merge recommendation;
 - required fixes before merge, if any;
-- whether any gate is promising enough for medium validation;
+- whether any idea is promising enough for medium validation;
+- which lanes remain inconclusive;
 - whether Step B/LM-only remains the current clean estimator baseline;
 - next recommended action after merge.

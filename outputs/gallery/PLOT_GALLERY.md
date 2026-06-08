@@ -3,8 +3,8 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 89
-- Generated at: 2026-06-08T16:54:02.128064+00:00
+- Generated entries: 94
+- Generated at: 2026-06-08T18:10:12.679697+00:00
 
 ## Step 3 gate exploration
 
@@ -77,6 +77,58 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
   - [outputs/step3_gate_exploration/step3_gate_exploration_raw.csv](../step3_gate_exploration/step3_gate_exploration_raw.csv)
 - Nearby metadata:
   - [outputs/step3_gate_exploration/metadata.json](../step3_gate_exploration/metadata.json)
+
+## Step 3 low-cost exploration
+
+### best_config_per_lane.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_low_cost_exploration/plots/best_config_per_lane.pdf](../step3_low_cost_exploration/plots/best_config_per_lane.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![best_config_per_lane.pdf](previews/d8569f084acb__outputs__step3_low_cost_exploration__plots__best_config_per_lane-1.png)
+- Preview metadata: [previews/d8569f084acb__outputs__step3_low_cost_exploration__plots__best_config_per_lane.json](previews/d8569f084acb__outputs__step3_low_cost_exploration__plots__best_config_per_lane.json)
+
+### both_improved_by_lane.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_low_cost_exploration/plots/both_improved_by_lane.pdf](../step3_low_cost_exploration/plots/both_improved_by_lane.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![both_improved_by_lane.pdf](previews/534a9ddb209f__outputs__step3_low_cost_exploration__plots__both_improved_by_lane-1.png)
+- Preview metadata: [previews/534a9ddb209f__outputs__step3_low_cost_exploration__plots__both_improved_by_lane.json](previews/534a9ddb209f__outputs__step3_low_cost_exploration__plots__both_improved_by_lane.json)
+
+### failure_count_by_lane.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_low_cost_exploration/plots/failure_count_by_lane.pdf](../step3_low_cost_exploration/plots/failure_count_by_lane.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![failure_count_by_lane.pdf](previews/86502aa199f1__outputs__step3_low_cost_exploration__plots__failure_count_by_lane-1.png)
+- Preview metadata: [previews/86502aa199f1__outputs__step3_low_cost_exploration__plots__failure_count_by_lane.json](previews/86502aa199f1__outputs__step3_low_cost_exploration__plots__failure_count_by_lane.json)
+
+### pareto_position_sync_ratio.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_low_cost_exploration/plots/pareto_position_sync_ratio.pdf](../step3_low_cost_exploration/plots/pareto_position_sync_ratio.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![pareto_position_sync_ratio.pdf](previews/48b8446a5a68__outputs__step3_low_cost_exploration__plots__pareto_position_sync_ratio-1.png)
+- Preview metadata: [previews/48b8446a5a68__outputs__step3_low_cost_exploration__plots__pareto_position_sync_ratio.json](previews/48b8446a5a68__outputs__step3_low_cost_exploration__plots__pareto_position_sync_ratio.json)
+
+### runtime_by_lane.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_low_cost_exploration/plots/runtime_by_lane.pdf](../step3_low_cost_exploration/plots/runtime_by_lane.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![runtime_by_lane.pdf](previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane-1.png)
+- Preview metadata: [previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane.json](previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane.json)
 
 ## controlled migration ladder
 

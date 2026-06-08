@@ -1,0 +1,84 @@
+{
+  "artifact_status": "step3_low_cost_exploration_task_matrix",
+  "subagent_strategy": "read-only explorers plus orchestrator-owned implementation; experiment lanes share one evaluator so edit ownership is intentionally serialized",
+  "rows": [
+    {
+      "lane": "block_covariance",
+      "spawned_agent": null,
+      "status": "orchestrator_completed",
+      "last_observed_activity": "implemented via shared low-cost exploration script",
+      "expected_output_files": [
+        "outputs/step3_low_cost_exploration/block_covariance/raw.csv",
+        "outputs/step3_low_cost_exploration/block_covariance/summary.csv",
+        "outputs/step3_low_cost_exploration/block_covariance/metadata.json"
+      ],
+      "blocker": null,
+      "fallback_owner": "orchestrator"
+    },
+    {
+      "lane": "clock_drift",
+      "spawned_agent": null,
+      "status": "orchestrator_completed",
+      "last_observed_activity": "implemented via shared low-cost exploration script",
+      "expected_output_files": [
+        "outputs/step3_low_cost_exploration/clock_drift/raw.csv",
+        "outputs/step3_low_cost_exploration/clock_drift/summary.csv",
+        "outputs/step3_low_cost_exploration/clock_drift/metadata.json"
+      ],
+      "blocker": null,
+      "fallback_owner": "orchestrator"
+    },
+    {
+      "lane": "gauge_nullspace",
+      "spawned_agent": null,
+      "status": "orchestrator_completed",
+      "last_observed_activity": "implemented via shared low-cost exploration script",
+      "expected_output_files": [
+        "outputs/step3_low_cost_exploration/gauge_nullspace/raw.csv",
+        "outputs/step3_low_cost_exploration/gauge_nullspace/summary.csv",
+        "outputs/step3_low_cost_exploration/gauge_nullspace/metadata.json"
+      ],
+      "blocker": null,
+      "fallback_owner": "orchestrator"
+    },
+    {
+      "lane": "robust_measurement",
+      "spawned_agent": null,
+      "status": "orchestrator_completed",
+      "last_observed_activity": "implemented via shared low-cost exploration script",
+      "expected_output_files": [
+        "outputs/step3_low_cost_exploration/robust_measurement/raw.csv",
+        "outputs/step3_low_cost_exploration/robust_measurement/summary.csv",
+        "outputs/step3_low_cost_exploration/robust_measurement/metadata.json"
+      ],
+      "blocker": null,
+      "fallback_owner": "orchestrator"
+    },
+    {
+      "lane": "schur_nuisance_clock",
+      "spawned_agent": null,
+      "status": "orchestrator_completed",
+      "last_observed_activity": "implemented via shared low-cost exploration script",
+      "expected_output_files": [
+        "outputs/step3_low_cost_exploration/schur_nuisance_clock/raw.csv",
+        "outputs/step3_low_cost_exploration/schur_nuisance_clock/summary.csv",
+        "outputs/step3_low_cost_exploration/schur_nuisance_clock/metadata.json"
+      ],
+      "blocker": null,
+      "fallback_owner": "orchestrator"
+    },
+    {
+      "lane": "solver_mechanics",
+      "spawned_agent": null,
+      "status": "orchestrator_completed",
+      "last_observed_activity": "implemented via shared low-cost exploration script",
+      "expected_output_files": [
+        "outputs/step3_low_cost_exploration/solver_mechanics/raw.csv",
+        "outputs/step3_low_cost_exploration/solver_mechanics/summary.csv",
+        "outputs/step3_low_cost_exploration/solver_mechanics/metadata.json"
+      ],
+      "blocker": null,
+      "fallback_owner": "orchestrator"
+    }
+  ]
+}
