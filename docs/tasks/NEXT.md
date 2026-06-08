@@ -1,26 +1,24 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Review Low-Cost Step 3 Exploration
+# Next Task: Review Step 3 Micro-Benchmarks
 
 ## Purpose
 
-Review branch `codex/step3-low-cost-exploration` before merge. Do not edit
-files, do not run live legacy exploration, and do not run medium validation
-unless a precise bounded follow-up command is approved.
+Review branch `codex/step3-micro-benchmarks` before merge. Do not edit files,
+do not run network-size graphs, do not run full ladders, and do not run medium
+grids.
 
 ## Scope
 
 Inspect:
 
-- `scripts/explore_step3_low_cost.py`
+- `scripts/benchmark_step3_micro_cases.py`
 - `scripts/render_all_figure_previews.py`
-- `tests/test_step3_low_cost_exploration.py`
-- `outputs/step3_low_cost_exploration/`
-- `outputs/reports/STEP3_LOW_COST_EXPLORATION_REPORT.md`
-- `outputs/reports/STEP3_LOW_COST_EXPLORATION_REPORT.json`
-- `outputs/reports/STEP3_LOW_COST_EXPLORATION_TASK_MATRIX.md`
-- `outputs/reports/STEP3_LOW_COST_EXPLORATION_TASK_MATRIX.json`
-- Step 3 low-cost exploration entries under `outputs/gallery/`
+- `tests/test_step3_micro_benchmarks.py`
+- `outputs/step3_micro_benchmarks/`
+- `outputs/reports/STEP3_MICRO_BENCHMARK_REPORT.md`
+- `outputs/reports/STEP3_MICRO_BENCHMARK_REPORT.json`
+- Step 3 micro-benchmark entries under `outputs/gallery/`
 - `PROJECT_STATUS.md`
 
 Do not edit:
@@ -38,22 +36,28 @@ Do not edit:
 
 1. Confirm the branch stays code/diagnostic-only and does not touch notebook or
    manuscript artifacts.
-2. Confirm the low-cost runner defaults to sparse/proxy diagnostics and does
-   not run the full ladder or medium validation.
-3. Confirm live legacy execution is opt-in via `--execute-legacy`.
-4. Confirm reports clearly state that clock-drift and Schur/nuisance-clock
-   lanes are proxy-only/inconclusive, not ruled out.
-5. Confirm all rows include lane, method/config, case, cache key,
-   position/sync ratios, improvement flags, and truth-state usage flags.
-6. Confirm no row uses truth for acceptance or covariance.
-7. Confirm no idea met promotion criteria and medium validation was not run.
-8. Confirm gallery previews exist for the low-cost exploration plots.
+2. Confirm the micro-benchmark runner defaults to tiny deterministic cases and
+   does not run network-size graphs, full ladders, or medium grids.
+3. Confirm all six requested cases are implemented:
+   clock-only, position-only, clock drift, common-clock/gauge, mixed
+   position-clock, and Schur/nuisance-clock.
+4. Confirm all six requested variants are tested:
+   baseline C5 proxy, block-scaled no-drift, block-scaled drift,
+   common-clock projection, Schur/nuisance-clock reduction, and clock-only
+   filter.
+5. Confirm diagnostics record before/after position and clock errors,
+   residual/prior/dynamics/objective components, update norms, nullspace/gauge
+   component, covariance scales, and case pass/fail.
+6. Confirm promotion is based on explicit micro-case pass/fail and does not
+   imply manuscript readiness or network-size validation.
+7. Confirm report and metadata mark outputs non-final and not manuscript-ready.
+8. Confirm gallery previews exist for the micro-benchmark plots.
 9. Confirm focused and full tests pass.
 
 Run:
 
 ```powershell
-python -m unittest tests.test_step3_low_cost_exploration
+python -m unittest tests.test_step3_micro_benchmarks
 powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
 ```
 
@@ -64,7 +68,9 @@ Return:
 - PASS / FAIL / PASS WITH CAVEAT;
 - merge recommendation;
 - required fixes before merge, if any;
-- whether any idea is promising enough for medium validation;
-- which lanes remain inconclusive;
+- which variants passed the micro-benchmark promotion rule;
+- which variants failed and why;
+- whether any variant is promising enough for the next sparse network
+  experiment;
 - whether Step B/LM-only remains the current clean estimator baseline;
 - next recommended action after merge.

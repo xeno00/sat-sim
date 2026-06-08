@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_micro_benchmarks/plots/clock_error_before_after.pdf",
+  "source_pdf_sha256": "ff4a21cad1227523fe8514aa4d40c7cde36203c787d5b458220b1b0d1c769d4a",
+  "source_pdf_size_bytes": 16730,
+  "preview_paths": [
+    "previews/eb33c18b3334__outputs__step3_micro_benchmarks__plots__clock_error_before_after-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/eb33c18b3334__outputs__step3_micro_benchmarks__plots__clock_error_before_after.json",
+  "render_timestamp_utc": "2026-06-08T19:08:38.369620+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-micro-benchmarks",
+  "commit": "f482d00"
+}

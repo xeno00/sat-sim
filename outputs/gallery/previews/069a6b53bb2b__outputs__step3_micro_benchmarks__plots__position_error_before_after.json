@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_micro_benchmarks/plots/position_error_before_after.pdf",
+  "source_pdf_sha256": "1cc5b04308ad5a42896d194fdfcd9fe10f8234aa54fdb857d336431551f34f41",
+  "source_pdf_size_bytes": 16416,
+  "preview_paths": [
+    "previews/069a6b53bb2b__outputs__step3_micro_benchmarks__plots__position_error_before_after-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/069a6b53bb2b__outputs__step3_micro_benchmarks__plots__position_error_before_after.json",
+  "render_timestamp_utc": "2026-06-08T19:08:41.073510+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-micro-benchmarks",
+  "commit": "f482d00"
+}

@@ -382,6 +382,19 @@ explicitly. No idea met promotion criteria for medium validation. Clock-drift
 and Schur/nuisance-clock remain inconclusive because they were not executed as
 true structural implementations in this low-cost fallback.
 
+Step 3 deterministic micro-benchmarks are implemented on branch
+`codex/step3-micro-benchmarks`. The benchmark runner
+`scripts/benchmark_step3_micro_cases.py` executes six tiny toy cases and six
+structural variants without running network-size graphs, full ladders, medium
+grids, notebook code, or manuscript figure generation. Outputs are written
+under `outputs/step3_micro_benchmarks/`, with the report at
+`outputs/reports/STEP3_MICRO_BENCHMARK_REPORT.md`. The micro-benchmarks isolate
+clock-only, position-only, clock-drift, common-clock/gauge, mixed
+position-clock, and Schur/nuisance-clock behavior. Passing a micro-benchmark is
+necessary but not sufficient for network-size promotion; Step B/LM-only remains
+the current clean estimator baseline pending review of the micro-benchmark
+branch.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -461,3 +474,7 @@ See `docs/tasks/NEXT.md`.
   not identify a medium-validation candidate. It is useful for triage only, not
   as evidence that clock-drift or Schur/nuisance-clock structural approaches
   have been ruled out.
+- `outputs/reports/STEP3_MICRO_BENCHMARK_REPORT.md` records deterministic toy
+  Step 3 matrix/formulation checks. These diagnostics are not network-size
+  graphs, are not manuscript outputs, and should be used only to decide which
+  structural Step 3 variant deserves the next sparse network experiment.

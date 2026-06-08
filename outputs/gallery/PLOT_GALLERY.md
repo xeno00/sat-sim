@@ -3,8 +3,8 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 94
-- Generated at: 2026-06-08T18:10:12.679697+00:00
+- Generated entries: 99
+- Generated at: 2026-06-08T19:08:41.759043+00:00
 
 ## Step 3 gate exploration
 
@@ -129,6 +129,58 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
 
 ![runtime_by_lane.pdf](previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane-1.png)
 - Preview metadata: [previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane.json](previews/88e1b2835ce2__outputs__step3_low_cost_exploration__plots__runtime_by_lane.json)
+
+## Step 3 micro-benchmarks
+
+### block_update_norms.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_micro_benchmarks/plots/block_update_norms.pdf](../step3_micro_benchmarks/plots/block_update_norms.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![block_update_norms.pdf](previews/c875b34bb7d2__outputs__step3_micro_benchmarks__plots__block_update_norms-1.png)
+- Preview metadata: [previews/c875b34bb7d2__outputs__step3_micro_benchmarks__plots__block_update_norms.json](previews/c875b34bb7d2__outputs__step3_micro_benchmarks__plots__block_update_norms.json)
+
+### clock_error_before_after.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_micro_benchmarks/plots/clock_error_before_after.pdf](../step3_micro_benchmarks/plots/clock_error_before_after.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![clock_error_before_after.pdf](previews/eb33c18b3334__outputs__step3_micro_benchmarks__plots__clock_error_before_after-1.png)
+- Preview metadata: [previews/eb33c18b3334__outputs__step3_micro_benchmarks__plots__clock_error_before_after.json](previews/eb33c18b3334__outputs__step3_micro_benchmarks__plots__clock_error_before_after.json)
+
+### pass_fail_heatmap.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_micro_benchmarks/plots/pass_fail_heatmap.pdf](../step3_micro_benchmarks/plots/pass_fail_heatmap.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![pass_fail_heatmap.pdf](previews/38a0991edb45__outputs__step3_micro_benchmarks__plots__pass_fail_heatmap-1.png)
+- Preview metadata: [previews/38a0991edb45__outputs__step3_micro_benchmarks__plots__pass_fail_heatmap.json](previews/38a0991edb45__outputs__step3_micro_benchmarks__plots__pass_fail_heatmap.json)
+
+### position_clock_improvement_scatter.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_micro_benchmarks/plots/position_clock_improvement_scatter.pdf](../step3_micro_benchmarks/plots/position_clock_improvement_scatter.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![position_clock_improvement_scatter.pdf](previews/9a6231738e3b__outputs__step3_micro_benchmarks__plots__position_clock_improvement_scatter-1.png)
+- Preview metadata: [previews/9a6231738e3b__outputs__step3_micro_benchmarks__plots__position_clock_improvement_scatter.json](previews/9a6231738e3b__outputs__step3_micro_benchmarks__plots__position_clock_improvement_scatter.json)
+
+### position_error_before_after.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_micro_benchmarks/plots/position_error_before_after.pdf](../step3_micro_benchmarks/plots/position_error_before_after.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![position_error_before_after.pdf](previews/069a6b53bb2b__outputs__step3_micro_benchmarks__plots__position_error_before_after-1.png)
+- Preview metadata: [previews/069a6b53bb2b__outputs__step3_micro_benchmarks__plots__position_error_before_after.json](previews/069a6b53bb2b__outputs__step3_micro_benchmarks__plots__position_error_before_after.json)
 
 ## controlled migration ladder
 

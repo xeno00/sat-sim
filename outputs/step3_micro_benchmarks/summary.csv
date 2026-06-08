@@ -1,0 +1,7 @@
+clock_ratio_meaningful_cases,finite_cases,mean_clock_ratio_meaningful_only,mean_position_ratio_meaningful_only,mean_runtime_seconds,passed_cases,position_ratio_meaningful_cases,tested_cases,variant
+5,6,1.0559908503897133,0.06324123779592468,0.0024999999926270298,4,3,6,baseline_c5_current_cov
+5,6,0.8612708450142392,0.02158645949139072,0.002666666667209938,5,3,6,block_scaled_no_drift
+5,6,0.756063738238114,0.02158645949137103,0.005166666669538245,6,3,6,block_scaled_with_clock_drift
+5,6,0.8250041031000894,0.02158645949139072,0.005166666669538245,5,3,6,gauge_common_clock_projected
+5,6,0.8612708450144357,0.021586459491364052,0.002666666667209938,5,3,6,schur_nuisance_clock_reduced
+5,6,0.8612708450142392,1.0,0.002666666667209938,3,3,6,clock_only_filter
