@@ -1,5 +1,5 @@
-num_users,num_satellites,cooperative_jcls_attempted,map_position_error_m,map_sync_error_s,fallback_count,failure_count,success,single_ue_policy
-1,4,False,0.26229065223009157,2.1421024323915456e-10,1,0,True,noncooperative_clockless_baseline_only
-1,8,False,0.23928421797729885,3.740229093377279e-10,1,0,True,noncooperative_clockless_baseline_only
-3,4,True,0.21319409915203305,1.3353240451837242e-10,5,0,True,not_applicable
-3,8,True,0.04951813969782118,2.5173518048411375e-10,5,0,True,not_applicable
+num_users,num_satellites,measurement_count,state_dimension,cooperative_jcls_attempted,il_position_error_m,lm_position_error_m,map_position_error_m,il_sync_error_s,lm_sync_error_s,map_sync_error_s,fallback_count,failure_count,success,single_ue_policy,lm_acceptance_mode,truth_state_used_for_lm_acceptance,lm_initial_residual_cost,lm_final_residual_cost,lm_cost_decrease,lm_final_damping,lm_convergence_status,lm_accepted_step_count,lm_rejected_step_count,lm_rejection_reasons
+1,4,4,8,False,0.26229065223009157,0.26229065223009157,0.26229065223009157,2.1421024323915456e-10,2.1421024323915456e-10,2.1421024323915456e-10,1,0,True,noncooperative_clockless_baseline_only,,,,,,,,,,[]
+1,8,8,12,False,0.23928421797729885,0.23928421797729885,0.23928421797729885,3.740229093377279e-10,3.740229093377279e-10,3.740229093377279e-10,1,0,True,noncooperative_clockless_baseline_only,,,,,,,,,,[]
+3,4,18,16,True,0.6725903831549868,0.21319409915203305,0.21319409915203305,5.36918739880879e-10,1.3353240451837242e-10,1.3353240451837242e-10,5,0,True,not_applicable,,,,,,,,,,[]
+3,8,30,20,True,0.30037122254726123,0.07467113264496299,0.04951813969782118,4.5147050485676336e-10,2.5173311851861874e-10,2.5173518048411375e-10,5,0,True,not_applicable,,,,,,,,,,[]

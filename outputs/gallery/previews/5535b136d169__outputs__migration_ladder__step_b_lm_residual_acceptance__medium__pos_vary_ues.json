@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/pos_vary_ues.pdf",
+  "source_pdf_sha256": "14ac19675d9fd4cc221e18ee413fd5e884726fe27ee9889f2dec4b1f6df968fb",
+  "source_pdf_size_bytes": 18719,
+  "preview_paths": [
+    "previews/5535b136d169__outputs__migration_ladder__step_b_lm_residual_acceptance__medium__pos_vary_ues-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/5535b136d169__outputs__migration_ladder__step_b_lm_residual_acceptance__medium__pos_vary_ues.json",
+  "render_timestamp_utc": "2026-06-08T01:25:00.243243+00:00",
+  "render_status": "rendered",
+  "branch": "codex/migration-step-b-lm-no-truth-gate",
+  "commit": "27e83d0"
+}

@@ -270,22 +270,26 @@ def build_current_graph_status(los: dict[str, Any], nlos: dict[str, Any], clock:
             "Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures.",
         ],
     }
-    migration_root = OUTPUTS / "migration_ladder" / "step_a_no_display_smoothing" / "medium"
-    if (migration_root / "pos_vary_ues.pdf").exists() and (migration_root / "sync_vary_ues.pdf").exists():
-        status["current_best_graphs"].extend(
-            [
-                {
-                    "name": "Migration Step A localization medium replay",
-                    "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
-                    "status": "controlled migration Step A, non-final",
-                },
-                {
-                    "name": "Migration Step A synchronization medium replay",
-                    "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf",
-                    "status": "controlled migration Step A, non-final",
-                },
-            ]
-        )
+    for step_name, label in [
+        ("step_a_no_display_smoothing", "Migration Step A"),
+        ("step_b_lm_residual_acceptance", "Migration Step B"),
+    ]:
+        migration_root = OUTPUTS / "migration_ladder" / step_name / "medium"
+        if (migration_root / "pos_vary_ues.pdf").exists() and (migration_root / "sync_vary_ues.pdf").exists():
+            status["current_best_graphs"].extend(
+                [
+                    {
+                        "name": f"{label} localization medium replay",
+                        "path": f"outputs/migration_ladder/{step_name}/medium/pos_vary_ues.pdf",
+                        "status": f"controlled {label}, non-final",
+                    },
+                    {
+                        "name": f"{label} synchronization medium replay",
+                        "path": f"outputs/migration_ladder/{step_name}/medium/sync_vary_ues.pdf",
+                        "status": f"controlled {label}, non-final",
+                    },
+                ]
+            )
     REPORTS.mkdir(parents=True, exist_ok=True)
     (REPORTS / "CURRENT_GRAPH_STATUS.json").write_text(json.dumps(status, indent=2), encoding="utf-8")
     md = [

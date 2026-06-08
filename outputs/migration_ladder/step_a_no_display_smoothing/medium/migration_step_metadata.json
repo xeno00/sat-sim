@@ -15,6 +15,8 @@
   "grid": "medium",
   "status": "healthy",
   "manuscript_ready": false,
+  "lm_acceptance_mode": "truth_gated_legacy",
+  "truth_state_used_for_lm_acceptance": true,
   "plot_outputs": [
     "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
     "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf"
@@ -34,6 +36,9 @@
     "healthy_rows": 12,
     "failed_rows": 0,
     "fallback_count": 48,
+    "lm_cost_increase_rows": 0,
+    "lm_or_map_worse_than_il_rows": 0,
+    "catastrophic_failure": false,
     "performance_degraded_vs_previous": false,
     "strongest_position_improvement": {
       "num_users": 7,
@@ -48,10 +53,17 @@
       "sync_improvement_ns": 0.5776285528012194
     }
   },
+  "lm_acceptance_diagnostics": {
+    "truth_state_used_for_lm_acceptance": true,
+    "accepted_step_count": 0,
+    "rejected_step_count": 0,
+    "rows_with_residual_cost_increase": 0,
+    "rejection_reasons": []
+  },
   "change_vs_previous": null,
   "cache": {
-    "cache_key": "11fdaf6334b3357044b7f022dee7e2abe27c80e454abff794aeafa69eabce0f3",
-    "cache_path": "outputs/cache/migration_ladder/11fdaf6334b33570/metadata.json",
+    "cache_key": "3c134a447d124dd38a858c15c6c3434267bdfda5341295aa0fb7d472b3143e5d",
+    "cache_path": "outputs/cache/migration_ladder/3c134a447d124dd3/metadata.json",
     "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
   }
 }

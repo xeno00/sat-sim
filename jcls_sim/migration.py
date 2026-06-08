@@ -83,6 +83,27 @@ def step_a_no_display_smoothing() -> MigrationStep:
     )
 
 
+def step_b_lm_residual_acceptance() -> MigrationStep:
+    """Return Step B configuration: LM residual/trust-region acceptance."""
+
+    return MigrationStep(
+        name="step_b_lm_residual_acceptance",
+        estimator_mode="legacy_staged_compatible",
+        internal_clock_mode="all_clock",
+        acceptance_mode="residual_trust_region",
+        metric_mode="legacy_all_clock_sync",
+        weighting_mode="legacy_notebook",
+        geometry_noise_mode="legacy_replay",
+        display_transform_mode="raw_metrics_no_smoothing",
+        exact_change=(
+            "Replace LM true-state acceptance with observable residual-cost, "
+            "finite-candidate, and bounded-step checks; keep all other legacy "
+            "internals fixed."
+        ),
+        expected_raw_metric_change="possible; this is the first estimator-decision migration step",
+    )
+
+
 def migration_ladder_steps() -> list[MigrationStep]:
     """Return the implemented controlled migration ladder steps."""
 
@@ -90,6 +111,7 @@ def migration_ladder_steps() -> list[MigrationStep]:
         legacy_behavior_freeze_step(),
         legacy_staged_compatible_step(),
         step_a_no_display_smoothing(),
+        step_b_lm_residual_acceptance(),
     ]
 
 

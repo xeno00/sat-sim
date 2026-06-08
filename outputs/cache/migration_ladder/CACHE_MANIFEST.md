@@ -1,10 +1,12 @@
 # Migration Ladder Cache Manifest
 
-- Entries: 4
+- Entries: 6
 
 | Step | Grid | Cache key | Metadata |
 |---|---|---|---|
-| `legacy_staged_compatible` | `tiny` | `6f0dd4a08b14` | [outputs/cache/migration_ladder/6f0dd4a08b142293/metadata.json](../../outputs/cache/migration_ladder/6f0dd4a08b142293/metadata.json) |
-| `legacy_staged_compatible` | `medium` | `d7482a05f144` | [outputs/cache/migration_ladder/d7482a05f14473b1/metadata.json](../../outputs/cache/migration_ladder/d7482a05f14473b1/metadata.json) |
-| `step_a_no_display_smoothing` | `tiny` | `967c85126f5d` | [outputs/cache/migration_ladder/967c85126f5de02f/metadata.json](../../outputs/cache/migration_ladder/967c85126f5de02f/metadata.json) |
-| `step_a_no_display_smoothing` | `medium` | `11fdaf6334b3` | [outputs/cache/migration_ladder/11fdaf6334b33570/metadata.json](../../outputs/cache/migration_ladder/11fdaf6334b33570/metadata.json) |
+| `legacy_staged_compatible` | `tiny` | `b9d926f8a203` | [outputs/cache/migration_ladder/b9d926f8a203a859/metadata.json](../../outputs/cache/migration_ladder/b9d926f8a203a859/metadata.json) |
+| `legacy_staged_compatible` | `medium` | `948e0cb58c0c` | [outputs/cache/migration_ladder/948e0cb58c0ccbe9/metadata.json](../../outputs/cache/migration_ladder/948e0cb58c0ccbe9/metadata.json) |
+| `step_a_no_display_smoothing` | `tiny` | `d4552a0eb993` | [outputs/cache/migration_ladder/d4552a0eb993a667/metadata.json](../../outputs/cache/migration_ladder/d4552a0eb993a667/metadata.json) |
+| `step_a_no_display_smoothing` | `medium` | `3c134a447d12` | [outputs/cache/migration_ladder/3c134a447d124dd3/metadata.json](../../outputs/cache/migration_ladder/3c134a447d124dd3/metadata.json) |
+| `step_b_lm_residual_acceptance` | `tiny` | `0cedfb063bdb` | [outputs/cache/migration_ladder/0cedfb063bdb506d/metadata.json](../../outputs/cache/migration_ladder/0cedfb063bdb506d/metadata.json) |
+| `step_b_lm_residual_acceptance` | `medium` | `dcd2b6982cb0` | [outputs/cache/migration_ladder/dcd2b6982cb04a66/metadata.json](../../outputs/cache/migration_ladder/dcd2b6982cb04a66/metadata.json) |

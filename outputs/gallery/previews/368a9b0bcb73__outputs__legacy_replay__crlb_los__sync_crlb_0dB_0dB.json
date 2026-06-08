@@ -1,14 +1,14 @@
 {
   "source_pdf_path": "outputs/legacy_replay/crlb_los/sync_crlb_0dB_0dB.pdf",
-  "source_pdf_sha256": "4adf8b13b3e7e01877cc3c7e16b1320b10e30f64ee064d21bffe2de70ceac147",
+  "source_pdf_sha256": "5a4e19146dca4e0a88a76f9a0eb8b7ef470939b4345098238ba0cf1154b50484",
   "source_pdf_size_bytes": 21490,
   "preview_paths": [
     "previews/368a9b0bcb73__outputs__legacy_replay__crlb_los__sync_crlb_0dB_0dB-1.png"
   ],
   "preview_count": 1,
   "metadata_path": "previews/368a9b0bcb73__outputs__legacy_replay__crlb_los__sync_crlb_0dB_0dB.json",
-  "render_timestamp_utc": "2026-06-08T00:38:52.987193+00:00",
+  "render_timestamp_utc": "2026-06-08T01:24:51.985625+00:00",
   "render_status": "rendered",
-  "branch": "codex/controlled-legacy-to-v24-migration",
-  "commit": "a608cdd"
+  "branch": "codex/migration-step-b-lm-no-truth-gate",
+  "commit": "27e83d0"
 }

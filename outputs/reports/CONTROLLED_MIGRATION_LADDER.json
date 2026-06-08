@@ -18,6 +18,9 @@
       "healthy_rows": 12,
       "failed_rows": 0,
       "fallback_count": 48,
+      "lm_cost_increase_rows": 0,
+      "lm_or_map_worse_than_il_rows": 0,
+      "catastrophic_failure": false,
       "performance_degraded_vs_previous": false,
       "strongest_position_improvement": {
         "num_users": 7,
@@ -58,6 +61,8 @@
       "grid": "tiny",
       "status": "healthy",
       "manuscript_ready": false,
+      "lm_acceptance_mode": "truth_gated_legacy",
+      "truth_state_used_for_lm_acceptance": true,
       "plot_outputs": [
         "outputs/migration_ladder/legacy_staged_compatible/tiny/pos_vary_ues.pdf",
         "outputs/migration_ladder/legacy_staged_compatible/tiny/sync_vary_ues.pdf"
@@ -77,6 +82,9 @@
         "healthy_rows": 4,
         "failed_rows": 0,
         "fallback_count": 12,
+        "lm_cost_increase_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
         "performance_degraded_vs_previous": false,
         "strongest_position_improvement": {
           "num_users": 3,
@@ -91,10 +99,17 @@
           "sync_improvement_ns": 0.12228772885361414
         }
       },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 0,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
       "change_vs_previous": {},
       "cache": {
-        "cache_key": "6f0dd4a08b142293d56f2c37e6427605157d2bc33fc9eb79a313627dd68bc3a2",
-        "cache_path": "outputs/cache/migration_ladder/6f0dd4a08b142293/metadata.json",
+        "cache_key": "b9d926f8a203a85960fc86121d2c4b9dc60511f41ce17fccb10eaeb37f00bef4",
+        "cache_path": "outputs/cache/migration_ladder/b9d926f8a203a859/metadata.json",
         "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9"
       }
     },
@@ -115,6 +130,8 @@
       "grid": "medium",
       "status": "healthy",
       "manuscript_ready": false,
+      "lm_acceptance_mode": "truth_gated_legacy",
+      "truth_state_used_for_lm_acceptance": true,
       "plot_outputs": [
         "outputs/migration_ladder/legacy_staged_compatible/medium/pos_vary_ues.pdf",
         "outputs/migration_ladder/legacy_staged_compatible/medium/sync_vary_ues.pdf"
@@ -134,6 +151,9 @@
         "healthy_rows": 12,
         "failed_rows": 0,
         "fallback_count": 48,
+        "lm_cost_increase_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
         "performance_degraded_vs_previous": false,
         "strongest_position_improvement": {
           "num_users": 7,
@@ -148,10 +168,17 @@
           "sync_improvement_ns": 0.5776285528012194
         }
       },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 0,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
       "change_vs_previous": {},
       "cache": {
-        "cache_key": "d7482a05f14473b16c81e153568aef80119280ef0ae9826043f234952896a56d",
-        "cache_path": "outputs/cache/migration_ladder/d7482a05f14473b1/metadata.json",
+        "cache_key": "948e0cb58c0ccbe9070e84797f11f823fac3dad8948d91124e2cd900346bfc28",
+        "cache_path": "outputs/cache/migration_ladder/948e0cb58c0ccbe9/metadata.json",
         "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
       }
     },
@@ -172,6 +199,8 @@
       "grid": "tiny",
       "status": "healthy",
       "manuscript_ready": false,
+      "lm_acceptance_mode": "truth_gated_legacy",
+      "truth_state_used_for_lm_acceptance": true,
       "plot_outputs": [
         "outputs/migration_ladder/step_a_no_display_smoothing/tiny/pos_vary_ues.pdf",
         "outputs/migration_ladder/step_a_no_display_smoothing/tiny/sync_vary_ues.pdf"
@@ -191,6 +220,9 @@
         "healthy_rows": 4,
         "failed_rows": 0,
         "fallback_count": 12,
+        "lm_cost_increase_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
         "performance_degraded_vs_previous": false,
         "strongest_position_improvement": {
           "num_users": 3,
@@ -205,6 +237,13 @@
           "sync_improvement_ns": 0.12228772885361414
         }
       },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 0,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
       "change_vs_previous": {
         "display_transform_mode": [
           "legacy_replay_display",
@@ -212,8 +251,8 @@
         ]
       },
       "cache": {
-        "cache_key": "967c85126f5de02ffdf4368a1c4b1a0082a92863598a27170ff7275c4b3bfe06",
-        "cache_path": "outputs/cache/migration_ladder/967c85126f5de02f/metadata.json",
+        "cache_key": "d4552a0eb993a66747e5b1d31a5995167578bac4de670c7d5f271a55de16da4a",
+        "cache_path": "outputs/cache/migration_ladder/d4552a0eb993a667/metadata.json",
         "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9"
       }
     },
@@ -234,6 +273,8 @@
       "grid": "medium",
       "status": "healthy",
       "manuscript_ready": false,
+      "lm_acceptance_mode": "truth_gated_legacy",
+      "truth_state_used_for_lm_acceptance": true,
       "plot_outputs": [
         "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
         "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf"
@@ -253,6 +294,9 @@
         "healthy_rows": 12,
         "failed_rows": 0,
         "fallback_count": 48,
+        "lm_cost_increase_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
         "performance_degraded_vs_previous": false,
         "strongest_position_improvement": {
           "num_users": 7,
@@ -267,20 +311,174 @@
           "sync_improvement_ns": 0.5776285528012194
         }
       },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 0,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
       "change_vs_previous": {},
       "cache": {
-        "cache_key": "11fdaf6334b3357044b7f022dee7e2abe27c80e454abff794aeafa69eabce0f3",
-        "cache_path": "outputs/cache/migration_ladder/11fdaf6334b33570/metadata.json",
+        "cache_key": "3c134a447d124dd38a858c15c6c3434267bdfda5341295aa0fb7d472b3143e5d",
+        "cache_path": "outputs/cache/migration_ladder/3c134a447d124dd3/metadata.json",
         "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_b_lm_residual_acceptance",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "exact_change": "Replace LM true-state acceptance with observable residual-cost, finite-candidate, and bounded-step checks; keep all other legacy internals fixed.",
+        "expected_raw_metric_change": "possible; this is the first estimator-decision migration step"
+      },
+      "grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": false,
+      "plot_outputs": [
+        "outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 2,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 12,
+        "lm_cost_increase_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": true,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.20518099458954553,
+          "sync_improvement_ns": 0.08758455602889806
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.20518099458954553,
+          "sync_improvement_ns": 0.08758455602889806
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": false,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "change_vs_previous": {
+        "acceptance_mode": [
+          "truth_gated_legacy",
+          "residual_trust_region"
+        ]
+      },
+      "cache": {
+        "cache_key": "0cedfb063bdb506d774d527e3c03b46fac48425743557a32a0242761301613c1",
+        "cache_path": "outputs/cache/migration_ladder/0cedfb063bdb506d/metadata.json",
+        "raw_result_hash": "43497c0297c6fe3f55f5f5e64ce2923c3b24f54cd1505b66a9d0b3f3c44b6e06"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_b_lm_residual_acceptance",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "exact_change": "Replace LM true-state acceptance with observable residual-cost, finite-candidate, and bounded-step checks; keep all other legacy internals fixed.",
+        "expected_raw_metric_change": "possible; this is the first estimator-decision migration step"
+      },
+      "grid": "medium",
+      "status": "healthy",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": false,
+      "plot_outputs": [
+        "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "healthy",
+        "comparison_count": 9,
+        "position_improvement_count": 9,
+        "sync_improvement_count": 9,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 48,
+        "lm_cost_increase_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3891444962935921,
+          "sync_improvement_ns": 0.4967347384231532
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3684532867515761,
+          "sync_improvement_ns": 0.5777427293930988
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": false,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "dcd2b6982cb04a6658c3d1254c9ac229743e59a23a9dc7c07bb3c46a6f7675c6",
+        "cache_path": "outputs/cache/migration_ladder/dcd2b6982cb04a66/metadata.json",
+        "raw_result_hash": "a5aa939206fd55f4b3da0a572b792a3f7a47020351c5248c2fe6cfc649df4ef2"
       }
     }
   ],
-  "first_degraded_step": null,
+  "first_degraded_step": "step_b_lm_residual_acceptance",
   "current_best_migration_step": "step_a_no_display_smoothing",
-  "stop_rule_triggered": false,
+  "stop_rule_triggered": true,
   "manuscript_ready": false,
+  "step_b_comparison": {
+    "path": "outputs/reports/STEP_B_LM_ACCEPTANCE_COMPARISON.md",
+    "overall_status": "healthy"
+  },
   "gallery": {
     "path": "outputs/gallery/PLOT_GALLERY.md",
-    "entry_count": 38
+    "entry_count": 42
   }
 }

@@ -190,6 +190,21 @@ rejection, failure logs, and cache manifests. The full clock sweep has been
 regenerated through valid cache hits instead of rerunning the 1619 s legacy
 simulation.
 
+A controlled migration Step B sprint is implemented on branch
+`codex/migration-step-b-lm-no-truth-gate`. It adds
+`step_b_lm_residual_acceptance`, replacing LM true-state acceptance with
+observable residual-cost, finite-candidate, trust-ratio, and bounded-step
+checks while preserving all-clock internals, legacy IL/MAP behavior, legacy
+metrics, geometry/noise settings, and raw/display separation. Step B writes
+tiny and medium diagnostics under
+`outputs/migration_ladder/step_b_lm_residual_acceptance/`, updates gallery and
+graph-package reports, and writes
+`outputs/reports/STEP_B_LM_ACCEPTANCE_COMPARISON.*`. Medium Step B is healthy
+and preserves all JCLS improvements; tiny Step B is partially degraded because
+one synchronization comparison no longer improves, so the ladder conservatively
+marks Step B as the first degraded correction and keeps Step A as the current
+best migration step.
+
 ## Blocking risks
 
 - Legacy notebook estimates all clocks.
@@ -294,6 +309,11 @@ package-described `legacy_staged_compatible` mode via `jcls_sim.migration`, and
 tests Step A (`raw_metrics_no_smoothing`) on tiny and medium grids under
 `outputs/migration_ladder/`. Step A preserves localization/synchronization
 improvements and does not trigger the stop rule. No output is manuscript-ready.
+Step B (`step_b_lm_residual_acceptance`) is implemented on branch
+`codex/migration-step-b-lm-no-truth-gate`; it removes LM truth-state acceptance
+and records residual/trust-region diagnostics. Medium is healthy, tiny is
+partially degraded, and the ladder conservatively marks Step B as the first
+degraded correction pending review.
 
 ## Next task
 

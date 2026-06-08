@@ -35,12 +35,22 @@
     {
       "name": "Migration Step A localization medium replay",
       "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
-      "status": "controlled migration Step A, non-final"
+      "status": "controlled Migration Step A, non-final"
     },
     {
       "name": "Migration Step A synchronization medium replay",
       "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf",
-      "status": "controlled migration Step A, non-final"
+      "status": "controlled Migration Step A, non-final"
+    },
+    {
+      "name": "Migration Step B localization medium replay",
+      "path": "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/pos_vary_ues.pdf",
+      "status": "controlled Migration Step B, non-final"
+    },
+    {
+      "name": "Migration Step B synchronization medium replay",
+      "path": "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/sync_vary_ues.pdf",
+      "status": "controlled Migration Step B, non-final"
     }
   ],
   "suspect_graphs": [

@@ -1,9 +1,9 @@
 # Controlled Migration Ladder
 
 ## Executive Summary
-This ladder starts from frozen legacy-compatible behavior, exposes the legacy behavior as a package-described mode, and tests Step A: raw metrics without display smoothing. No figure is manuscript-ready.
+This ladder starts from frozen legacy-compatible behavior and changes one migration axis at a time. No figure is manuscript-ready.
 
-- First degraded step: `none`
+- First degraded step: `step_b_lm_residual_acceptance`
 - Current best migration step: `step_a_no_display_smoothing`
 
 ## Baseline Health
@@ -18,6 +18,8 @@ This ladder starts from frozen legacy-compatible behavior, exposes the legacy be
 | `legacy_staged_compatible` | `medium` | `healthy` | 9/9 | 9/9 | 48 | keep |
 | `step_a_no_display_smoothing` | `tiny` | `healthy` | 2/2 | 2/2 | 12 | keep |
 | `step_a_no_display_smoothing` | `medium` | `healthy` | 9/9 | 9/9 | 48 | keep |
+| `step_b_lm_residual_acceptance` | `tiny` | `partially_degraded` | 2/2 | 1/2 | 12 | stop and inspect |
+| `step_b_lm_residual_acceptance` | `medium` | `healthy` | 9/9 | 9/9 | 48 | keep |
 
 ## Caveat
 This ladder uses the current legacy medium replay rows as the frozen behavior source. It does not make manuscript-ready claims and does not execute the original notebook.

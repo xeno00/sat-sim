@@ -3,8 +3,8 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 38
-- Generated at: 2026-06-08T00:41:29.829813+00:00
+- Generated entries: 42
+- Generated at: 2026-06-08T01:28:24.711279+00:00
 
 ## controlled migration ladder
 
@@ -135,6 +135,70 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
   - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_summary.csv](../migration_ladder/step_a_no_display_smoothing/tiny/migration_summary.csv)
 - Nearby metadata:
   - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_step_metadata.json](../migration_ladder/step_a_no_display_smoothing/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/pos_vary_ues.pdf](../migration_ladder/step_b_lm_residual_acceptance/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/5535b136d169__outputs__migration_ladder__step_b_lm_residual_acceptance__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/5535b136d169__outputs__migration_ladder__step_b_lm_residual_acceptance__medium__pos_vary_ues.json](previews/5535b136d169__outputs__migration_ladder__step_b_lm_residual_acceptance__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_arrays.npz](../migration_ladder/step_b_lm_residual_acceptance/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_raw.csv](../migration_ladder/step_b_lm_residual_acceptance/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_summary.csv](../migration_ladder/step_b_lm_residual_acceptance/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_step_metadata.json](../migration_ladder/step_b_lm_residual_acceptance/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/sync_vary_ues.pdf](../migration_ladder/step_b_lm_residual_acceptance/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/5cadf9f2fdcf__outputs__migration_ladder__step_b_lm_residual_acceptance__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/5cadf9f2fdcf__outputs__migration_ladder__step_b_lm_residual_acceptance__medium__sync_vary_ues.json](previews/5cadf9f2fdcf__outputs__migration_ladder__step_b_lm_residual_acceptance__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_arrays.npz](../migration_ladder/step_b_lm_residual_acceptance/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_raw.csv](../migration_ladder/step_b_lm_residual_acceptance/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_summary.csv](../migration_ladder/step_b_lm_residual_acceptance/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_step_metadata.json](../migration_ladder/step_b_lm_residual_acceptance/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/pos_vary_ues.pdf](../migration_ladder/step_b_lm_residual_acceptance/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/d72eab0b2563__outputs__migration_ladder__step_b_lm_residual_acceptance__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/d72eab0b2563__outputs__migration_ladder__step_b_lm_residual_acceptance__tiny__pos_vary_ues.json](previews/d72eab0b2563__outputs__migration_ladder__step_b_lm_residual_acceptance__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_arrays.npz](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_raw.csv](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_summary.csv](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_step_metadata.json](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/sync_vary_ues.pdf](../migration_ladder/step_b_lm_residual_acceptance/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/b6e7d8626dbe__outputs__migration_ladder__step_b_lm_residual_acceptance__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/b6e7d8626dbe__outputs__migration_ladder__step_b_lm_residual_acceptance__tiny__sync_vary_ues.json](previews/b6e7d8626dbe__outputs__migration_ladder__step_b_lm_residual_acceptance__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_arrays.npz](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_raw.csv](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_summary.csv](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_step_metadata.json](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_step_metadata.json)
 
 ## human-review
 
