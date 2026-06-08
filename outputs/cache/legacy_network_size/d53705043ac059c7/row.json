@@ -1,0 +1,45 @@
+{
+  "clock_std_dev_seconds": 5e-10,
+  "num_users": 1,
+  "num_satellites": 4,
+  "map_iteration_count": 0,
+  "truth_centered_initialization": false,
+  "true_state_acceptance_gates_used": true,
+  "all_clock_state": true,
+  "v24_gauged_state": false,
+  "fallbacks": [
+    {
+      "stage": "LM/MAP",
+      "reason": "single_ue_noncooperative_baseline_only"
+    }
+  ],
+  "failures": [],
+  "state_dimension": 8,
+  "measurement_count": 4,
+  "symbolic_parameter_order": [
+    "delta_1",
+    "delta_2",
+    "delta_3",
+    "delta_4",
+    "delta_5",
+    "x_1",
+    "y_1",
+    "z_1"
+  ],
+  "il_status": "passed",
+  "il_position_error_m": 0.26229065223009157,
+  "il_sync_error_s": 2.1421024323915456e-10,
+  "lm_status": "not_attempted_single_ue_baseline",
+  "lm_position_error_m": 0.26229065223009157,
+  "lm_sync_error_s": 2.1421024323915456e-10,
+  "map_fallback_count": 0,
+  "map_failure_count": 0,
+  "map_position_error_m": 0.26229065223009157,
+  "map_sync_error_s": 2.1421024323915456e-10,
+  "success": true,
+  "single_ue_policy": "noncooperative_clockless_baseline_only",
+  "cooperative_jcls_attempted": false,
+  "map_status": "not_attempted_single_ue_baseline",
+  "cache_used": false,
+  "cache_key": "d53705043ac059c7518c581d8078739efa1552e7e25369111e42ca736956556e"
+}

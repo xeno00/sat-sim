@@ -1,14 +1,14 @@
 {
   "source_pdf_path": "outputs/legacy_replay/crlb_los/sync_crlb_0dB_0dB.pdf",
-  "source_pdf_sha256": "b4fbf9eb338a01a6ecc8c5fd256ba255ad5d8ea47ddf32cd37e135410b38caf7",
+  "source_pdf_sha256": "66a1a6fb793b6b2128a2515fa428c914d89bafab684251fedb70e3b67448d676",
   "source_pdf_size_bytes": 21490,
   "preview_paths": [
     "previews/368a9b0bcb73__outputs__legacy_replay__crlb_los__sync_crlb_0dB_0dB-1.png"
   ],
   "preview_count": 1,
   "metadata_path": "previews/368a9b0bcb73__outputs__legacy_replay__crlb_los__sync_crlb_0dB_0dB.json",
-  "render_timestamp_utc": "2026-06-07T22:14:16.457878+00:00",
+  "render_timestamp_utc": "2026-06-08T00:08:37.099790+00:00",
   "render_status": "rendered",
-  "branch": "codex/legacy-figures-gallery-crlb-nlos",
-  "commit": "bd34891"
+  "branch": "codex/legacy-network-size-and-v24-port-plan",
+  "commit": "093fbdf"
 }

@@ -3,8 +3,8 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 24
-- Generated at: 2026-06-07T22:23:35.388997+00:00
+- Generated entries: 26
+- Generated at: 2026-06-08T00:10:54.147243+00:00
 
 ## human-review
 
@@ -242,14 +242,48 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
 - Nearby metadata:
   - [v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_metadata.json](../../v24_notebook_regression_outputs/executed_legacy/clock_sweep_replay/legacy_clock_sweep_metadata.json)
 
+## legacy network-size medium
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/legacy_replay/network_size_medium/pos_vary_ues.pdf](../legacy_replay/network_size_medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/7def54e11a22__outputs__legacy_replay__network_size_medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/7def54e11a22__outputs__legacy_replay__network_size_medium__pos_vary_ues.json](previews/7def54e11a22__outputs__legacy_replay__network_size_medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/legacy_replay/network_size_medium/legacy_network_size_arrays.npz](../legacy_replay/network_size_medium/legacy_network_size_arrays.npz)
+  - [outputs/legacy_replay/network_size_medium/legacy_network_size_raw.csv](../legacy_replay/network_size_medium/legacy_network_size_raw.csv)
+  - [outputs/legacy_replay/network_size_medium/legacy_network_size_summary.csv](../legacy_replay/network_size_medium/legacy_network_size_summary.csv)
+- Nearby metadata:
+  - [outputs/legacy_replay/network_size_medium/legacy_network_size_metadata.json](../legacy_replay/network_size_medium/legacy_network_size_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/legacy_replay/network_size_medium/sync_vary_ues.pdf](../legacy_replay/network_size_medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/f52d6c49dc65__outputs__legacy_replay__network_size_medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/f52d6c49dc65__outputs__legacy_replay__network_size_medium__sync_vary_ues.json](previews/f52d6c49dc65__outputs__legacy_replay__network_size_medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/legacy_replay/network_size_medium/legacy_network_size_arrays.npz](../legacy_replay/network_size_medium/legacy_network_size_arrays.npz)
+  - [outputs/legacy_replay/network_size_medium/legacy_network_size_raw.csv](../legacy_replay/network_size_medium/legacy_network_size_raw.csv)
+  - [outputs/legacy_replay/network_size_medium/legacy_network_size_summary.csv](../legacy_replay/network_size_medium/legacy_network_size_summary.csv)
+- Nearby metadata:
+  - [outputs/legacy_replay/network_size_medium/legacy_network_size_metadata.json](../legacy_replay/network_size_medium/legacy_network_size_metadata.json)
+
 ## legacy network-size smoke
 
 ### pos_vary_ues.pdf
 
-- Status: `legacy_network_size_smoke_replayed_unverified_match`
+- Status: `legacy_network_size_medium_replayed_unverified_match`
 - Manuscript ready: `False`
 - Source PDF: [outputs/legacy_replay/network_size/pos_vary_ues.pdf](../legacy_replay/network_size/pos_vary_ues.pdf)
-- Warning: Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
 
 ![pos_vary_ues.pdf](previews/6a76c72975e5__outputs__legacy_replay__network_size__pos_vary_ues-1.png)
 - Preview metadata: [previews/6a76c72975e5__outputs__legacy_replay__network_size__pos_vary_ues.json](previews/6a76c72975e5__outputs__legacy_replay__network_size__pos_vary_ues.json)
@@ -261,10 +295,10 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
 
 ### sync_vary_ues.pdf
 
-- Status: `legacy_network_size_smoke_replayed_unverified_match`
+- Status: `legacy_network_size_medium_replayed_unverified_match`
 - Manuscript ready: `False`
 - Source PDF: [outputs/legacy_replay/network_size/sync_vary_ues.pdf](../legacy_replay/network_size/sync_vary_ues.pdf)
-- Warning: Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
 
 ![sync_vary_ues.pdf](previews/739bb364c402__outputs__legacy_replay__network_size__sync_vary_ues-1.png)
 - Preview metadata: [previews/739bb364c402__outputs__legacy_replay__network_size__sync_vary_ues.json](previews/739bb364c402__outputs__legacy_replay__network_size__sync_vary_ues.json)

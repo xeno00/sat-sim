@@ -1,32 +1,132 @@
 {
   "artifact_status": "non_final_cache_manifest",
-  "cache_schema_version": "legacy-network-size-row-v1",
+  "cache_schema_version": "legacy-network-size-grid-row-v2",
+  "mode": "medium",
   "events": [
     {
-      "cache_key": "0f4c3b988e0b7acbdb50d5bcfe5889823aa0b5be02d79403a9ee567730f73fcd",
+      "cache_key": "d53705043ac059c7518c581d8078739efa1552e7e25369111e42ca736956556e",
+      "mode": "medium",
+      "num_users": 1,
       "num_satellites": 4,
-      "hit": false,
-      "fresh": false,
-      "invalidation_reason": "missing_cache_entry"
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/d53705043ac059c7/metadata.json"
     },
     {
-      "cache_key": "e9d3e3927f2e22d9f1b9157dc4176b0b52bf1bd78c9bb4dbbdaaebf2b1bc4e5c",
+      "cache_key": "826f185f765e5a3ce614318cdd853415e9771751303eaa342acfde4d46763386",
+      "mode": "medium",
+      "num_users": 1,
       "num_satellites": 8,
-      "hit": false,
-      "fresh": false,
-      "invalidation_reason": "missing_cache_entry"
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/826f185f765e5a3c/metadata.json"
     },
     {
-      "cache_key": "dfa1c676764fc05de71cd77ebbc4eea6e4858423e838516da317bc00931e4204",
+      "cache_key": "84a1fbf260c3089399c04e26270e405fb7a637278d6e2ba74401143ef48caf8d",
+      "mode": "medium",
+      "num_users": 1,
       "num_satellites": 12,
-      "hit": false,
-      "fresh": false,
-      "invalidation_reason": "missing_cache_entry"
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/84a1fbf260c30893/metadata.json"
+    },
+    {
+      "cache_key": "f4ac70023b3cad363f1c8e09ed6196d6ba2b0dd8c69af5f7597dcb1c7d8b5780",
+      "mode": "medium",
+      "num_users": 3,
+      "num_satellites": 4,
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/f4ac70023b3cad36/metadata.json"
+    },
+    {
+      "cache_key": "f670a160d02d9e790767f49e4e34e8c128c1482b6291c6f14568da5c08e4a54b",
+      "mode": "medium",
+      "num_users": 3,
+      "num_satellites": 8,
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/f670a160d02d9e79/metadata.json"
+    },
+    {
+      "cache_key": "15da4da01cfa55a1b1e84fae6b18311679c7904e2cd9d85280957041d59ef0af",
+      "mode": "medium",
+      "num_users": 3,
+      "num_satellites": 12,
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/15da4da01cfa55a1/metadata.json"
+    },
+    {
+      "cache_key": "ad06b8171a27562e41995fcb870cacf83fa52c7b9cbf98bf870085794621d2c2",
+      "mode": "medium",
+      "num_users": 5,
+      "num_satellites": 4,
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/ad06b8171a27562e/metadata.json"
+    },
+    {
+      "cache_key": "c4dad99bccfb647663c1a8a72b00734b0f75e26b30197f467b18c9af812d7894",
+      "mode": "medium",
+      "num_users": 5,
+      "num_satellites": 8,
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/c4dad99bccfb6476/metadata.json"
+    },
+    {
+      "cache_key": "5482e02b7840806e191f9df8ed18668bd534e049dd4d0d6a6b9ef5ab93485874",
+      "mode": "medium",
+      "num_users": 5,
+      "num_satellites": 12,
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/5482e02b7840806e/metadata.json"
+    },
+    {
+      "cache_key": "ba92714d98c523bf697d9671bccabdeebf7ff270c54246a38ff4d39c1670a26a",
+      "mode": "medium",
+      "num_users": 7,
+      "num_satellites": 4,
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/ba92714d98c523bf/metadata.json"
+    },
+    {
+      "cache_key": "c4f56ffd94cd99b3454408b02b40b42d63097fa653a61d2d3da31e4944e71dae",
+      "mode": "medium",
+      "num_users": 7,
+      "num_satellites": 8,
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/c4f56ffd94cd99b3/metadata.json"
+    },
+    {
+      "cache_key": "95053dae8a4474d6d8afd6d25a91cfecb981b42c641c700dc96dcaf7395a99e4",
+      "mode": "medium",
+      "num_users": 7,
+      "num_satellites": 12,
+      "hit": true,
+      "fresh": true,
+      "invalidation_reason": null,
+      "cache_path": "outputs/cache/legacy_network_size/95053dae8a4474d6/metadata.json"
     }
   ],
-  "fresh_hit_count": 0,
-  "miss_or_stale_count": 3,
-  "timestamp_utc": "2026-06-07T22:10:24Z",
-  "branch": "codex/legacy-figures-gallery-crlb-nlos",
-  "commit": "bd34891"
+  "fresh_hit_count": 12,
+  "miss_or_stale_count": 0,
+  "timestamp_utc": "2026-06-08T00:08:31Z",
+  "branch": "codex/legacy-network-size-and-v24-port-plan",
+  "commit": "093fbdf"
 }

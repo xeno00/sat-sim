@@ -3030,7 +3030,7 @@
     }
   ],
   "report_type": "figure_regression_table",
-  "reproduction_status": "legacy_network_size_smoke_replayed_unverified_match",
+  "reproduction_status": "legacy_network_size_medium_replayed_unverified_match",
   "status": "complete_static_partial_regression",
   "artifact_status": "non_final_status_upgrade",
   "legacy_reproduction_status_schema": [
@@ -3045,23 +3045,27 @@
   "target_figure_statuses": [
     {
       "figure": "pos_vary_ues.pdf",
-      "status": "legacy_network_size_smoke_replayed_unverified_match",
+      "status": "legacy_network_size_medium_replayed_unverified_match",
       "reproduced": false,
-      "reason": "Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.",
+      "reason": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
       "legacy_replay": true,
-      "bounded_smoke_replay": true,
+      "bounded_smoke_replay": false,
       "manuscript_ready": false,
-      "replayed_output_root": "outputs/legacy_replay/network_size"
+      "replayed_output_root": "outputs/legacy_replay/network_size_medium",
+      "medium_legacy_replay": true,
+      "full_legacy_replay": false
     },
     {
       "figure": "sync_vary_ues.pdf",
-      "status": "legacy_network_size_smoke_replayed_unverified_match",
+      "status": "legacy_network_size_medium_replayed_unverified_match",
       "reproduced": false,
-      "reason": "Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.",
+      "reason": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
       "legacy_replay": true,
-      "bounded_smoke_replay": true,
+      "bounded_smoke_replay": false,
       "manuscript_ready": false,
-      "replayed_output_root": "outputs/legacy_replay/network_size"
+      "replayed_output_root": "outputs/legacy_replay/network_size_medium",
+      "medium_legacy_replay": true,
+      "full_legacy_replay": false
     },
     {
       "figure": "pos_vary_clock.pdf",

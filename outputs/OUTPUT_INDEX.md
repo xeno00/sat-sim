@@ -19,8 +19,8 @@ Canonical graph-package outputs now live under `outputs/`. Existing `v24_*` fold
 - [Corrected LOS synchronization CRLB replay](legacy_replay/crlb_los/sync_crlb_0dB_0dB.pdf) - legacy replay, not V24-clean
 - [Full legacy clock-sweep localization replay](legacy_replay/clock_sweep_full/pos_vary_clock.pdf) - legacy replay, unverified match
 - [Full legacy clock-sweep synchronization replay](legacy_replay/clock_sweep_full/sync_vary_clock.pdf) - legacy replay, unverified match
-- [Legacy-compatible network-size localization smoke replay](legacy_replay/network_size/pos_vary_ues.pdf) - bounded smoke legacy replay, unverified match
-- [Legacy-compatible network-size synchronization smoke replay](legacy_replay/network_size/sync_vary_ues.pdf) - bounded smoke legacy replay, unverified match
+- [Legacy-compatible network-size localization medium replay](legacy_replay/network_size_medium/pos_vary_ues.pdf) - medium legacy replay, unverified match
+- [Legacy-compatible network-size synchronization medium replay](legacy_replay/network_size_medium/sync_vary_ues.pdf) - medium legacy replay, unverified match
 
 ## Legacy/Provenance Paths
 - `v24_notebook_regression_outputs` remains for provenance; prefer canonical `outputs/` links for review.

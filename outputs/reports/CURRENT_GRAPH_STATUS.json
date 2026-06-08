@@ -23,14 +23,14 @@
       "status": "legacy replay, unverified match"
     },
     {
-      "name": "Legacy-compatible network-size localization smoke replay",
-      "path": "outputs/legacy_replay/network_size/pos_vary_ues.pdf",
-      "status": "bounded smoke legacy replay, unverified match"
+      "name": "Legacy-compatible network-size localization medium replay",
+      "path": "outputs/legacy_replay/network_size_medium/pos_vary_ues.pdf",
+      "status": "medium legacy replay, unverified match"
     },
     {
-      "name": "Legacy-compatible network-size synchronization smoke replay",
-      "path": "outputs/legacy_replay/network_size/sync_vary_ues.pdf",
-      "status": "bounded smoke legacy replay, unverified match"
+      "name": "Legacy-compatible network-size synchronization medium replay",
+      "path": "outputs/legacy_replay/network_size_medium/sync_vary_ues.pdf",
+      "status": "medium legacy replay, unverified match"
     }
   ],
   "suspect_graphs": [

@@ -1,6 +1,6 @@
 {
   "artifact_status": "non_final_plot_gallery",
-  "generated_at_utc": "2026-06-07T22:23:35.388997+00:00",
+  "generated_at_utc": "2026-06-08T00:10:54.147243+00:00",
   "source_roots": [
     "outputs/legacy_replay",
     "outputs/package_diagnostic",
@@ -11,12 +11,13 @@
     "v24_manuscript_candidate_outputs",
     "v24_figure_outputs"
   ],
-  "entry_count": 24,
+  "entry_count": 26,
   "groups": [
     "human-review",
     "legacy CRLB replay",
     "legacy clock-sweep full",
     "legacy clock-sweep smoke",
+    "legacy network-size medium",
     "legacy network-size smoke",
     "manuscript-candidate",
     "package diagnostic"
@@ -91,7 +92,7 @@
       "warning": "Legacy notebook CRLB logic replayed safely into diagnostics, but match to existing artifact is unverified and V24 caveats remain.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "49edb7912c7346ffbc62ff6a9f31b59e74f27dd2e82801cdcd0687ea7d959892",
+      "source_pdf_sha256": "4fc8ba71deb4f1b62cd77da81898a342b7835a87d354b6410970b01e3c15bcff",
       "source_pdf_size_bytes": 22330
     },
     {
@@ -115,7 +116,7 @@
       "warning": "Legacy notebook CRLB logic replayed safely into diagnostics, but match to existing artifact is unverified and V24 caveats remain.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "b4fbf9eb338a01a6ecc8c5fd256ba255ad5d8ea47ddf32cd37e135410b38caf7",
+      "source_pdf_sha256": "66a1a6fb793b6b2128a2515fa428c914d89bafab684251fedb70e3b67448d676",
       "source_pdf_size_bytes": 21490
     },
     {
@@ -133,9 +134,9 @@
       "nearby_metadata_paths": [
         "outputs/legacy_replay/network_size/legacy_network_size_metadata.json"
       ],
-      "status": "legacy_network_size_smoke_replayed_unverified_match",
+      "status": "legacy_network_size_medium_replayed_unverified_match",
       "manuscript_ready": false,
-      "warning": "Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.",
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
       "render_status": "rendered",
       "render_error": null,
       "source_pdf_sha256": "c2bdfae49aa831b42d88fef4ecb14f8e73311072dbfefb1d1193e20c8afb2c7b",
@@ -156,13 +157,61 @@
       "nearby_metadata_paths": [
         "outputs/legacy_replay/network_size/legacy_network_size_metadata.json"
       ],
-      "status": "legacy_network_size_smoke_replayed_unverified_match",
+      "status": "legacy_network_size_medium_replayed_unverified_match",
       "manuscript_ready": false,
-      "warning": "Bounded safe legacy-compatible network-size smoke replay completed under canonical outputs; match is unverified, full notebook-size replay was not attempted, and legacy caveats remain.",
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
       "render_status": "rendered",
       "render_error": null,
       "source_pdf_sha256": "cffa70d22a4dabfa0cd4998c36318a37432a6190198f646794d3eb06df545746",
       "source_pdf_size_bytes": 17513
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "legacy network-size medium",
+      "source_pdf_path": "outputs/legacy_replay/network_size_medium/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/7def54e11a22__outputs__legacy_replay__network_size_medium__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/7def54e11a22__outputs__legacy_replay__network_size_medium__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/legacy_replay/network_size_medium/legacy_network_size_arrays.npz",
+        "outputs/legacy_replay/network_size_medium/legacy_network_size_raw.csv",
+        "outputs/legacy_replay/network_size_medium/legacy_network_size_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/legacy_replay/network_size_medium/legacy_network_size_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "210a07354fff235353b346401880c335588213b15864a96a7ee7c3a48e51928a",
+      "source_pdf_size_bytes": 18722
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "legacy network-size medium",
+      "source_pdf_path": "outputs/legacy_replay/network_size_medium/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/f52d6c49dc65__outputs__legacy_replay__network_size_medium__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/f52d6c49dc65__outputs__legacy_replay__network_size_medium__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/legacy_replay/network_size_medium/legacy_network_size_arrays.npz",
+        "outputs/legacy_replay/network_size_medium/legacy_network_size_raw.csv",
+        "outputs/legacy_replay/network_size_medium/legacy_network_size_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/legacy_replay/network_size_medium/legacy_network_size_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "be53b7c5d94f1bc7e0dbc8bc75222060f6c94c20d94ce466a7a3abebd9eb9688",
+      "source_pdf_size_bytes": 19199
     },
     {
       "figure_name": "fig4_localization_vs_satellites.pdf",
@@ -601,6 +650,6 @@
       "source_pdf_size_bytes": 23711
     }
   ],
-  "branch": "codex/legacy-figures-gallery-crlb-nlos",
-  "commit": "bd34891"
+  "branch": "codex/legacy-network-size-and-v24-port-plan",
+  "commit": "093fbdf"
 }

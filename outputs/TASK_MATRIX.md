@@ -1,23 +1,19 @@
 # Task Matrix
 
 ## Executive Summary
-All required lanes were either completed by read-only subagents and integrated by the orchestrator or completed directly by the orchestrator. No lane was silently omitted.
+This sprint used one read-only subagent for the V24 port plan and orchestrator-owned implementation lanes for replay/cache/gallery/report generation. No lane was silently omitted.
 
 | Lane | Owner | Status | Expected outputs | Blocker |
 |---|---|---|---|---|
-| A - Gallery/Markdown Quality | Maxwell | `subagent_completed_orchestrator_integrated` | `outputs/gallery/PLOT_GALLERY.md`, `outputs/gallery/PLOT_GALLERY.html`, `outputs/gallery/PLOT_GALLERY.json` |  |
-| B - Output Structure | orchestrator | `orchestrator_completed` | `outputs/OUTPUT_INDEX.md`, `outputs/OUTPUT_INDEX.json` |  |
-| C - CRLB Legend + LOS Replay | Carver | `subagent_completed_orchestrator_integrated` | `outputs/legacy_replay/crlb_los/pos_crlb_0dB_0dB.pdf`, `outputs/legacy_replay/crlb_los/sync_crlb_0dB_0dB.pdf`, `outputs/reports/CRLB_LOS_REPLAY_REPORT.md` |  |
-| D - NLOS CRLB | Carver | `subagent_completed_failure_report` | `outputs/reports/CRLB_NLOS_REPORT.md`, `outputs/reports/CRLB_NLOS_REPORT.json` | No executable legacy Rayleigh/NLOS CRLB path or package score-covariance NLOS FIM path exists. |
-| E - Legacy-Compatible Positioning Figures | Rawls | `subagent_completed_orchestrator_integrated` | `outputs/legacy_replay/network_size/pos_vary_ues.pdf`, `outputs/legacy_replay/network_size/sync_vary_ues.pdf`, `outputs/reports/LEGACY_NETWORK_SIZE_REPLAY_REPORT.md` | Full 52-row notebook replay remains expensive; this sprint completed bounded smoke only. |
-| F - Cache/Checkpoint | orchestrator | `orchestrator_completed` | `outputs/cache/CACHE_MANIFEST.md`, `outputs/cache/CACHE_MANIFEST.json` |  |
-| G - Scientific Red-Team | Laplace | `subagent_completed_orchestrator_integrated` | `outputs/reports/CURRENT_GRAPH_STATUS.md`, `outputs/reports/CURRENT_GRAPH_STATUS.json` |  |
+| A - Legacy Network-Size Replay | orchestrator | `orchestrator_completed` | `outputs/legacy_replay/network_size_medium/pos_vary_ues.pdf`, `outputs/legacy_replay/network_size_medium/sync_vary_ues.pdf`, `outputs/reports/LEGACY_NETWORK_SIZE_REPLAY_REPORT.md` |  |
+| B - Cache/Runtime | orchestrator | `orchestrator_completed` | `outputs/cache/CACHE_MANIFEST.md`, `outputs/cache/CACHE_MANIFEST.json` |  |
+| C - Figure/Gallery | orchestrator | `orchestrator_completed` | `outputs/gallery/PLOT_GALLERY.md`, `outputs/gallery/PLOT_GALLERY.html`, `outputs/gallery/PLOT_GALLERY.json` |  |
+| D - V24 Port Plan | Carson | `subagent_completed_orchestrator_integrated` | `outputs/reports/V24_FIGURE_REPLACEMENT_PLAN.md`, `outputs/reports/LEGACY_TO_PACKAGE_PORT_PLAN.md` |  |
+| E - Scientific Red-Team | orchestrator | `orchestrator_completed` | `outputs/reports/CURRENT_GRAPH_STATUS.md`, `outputs/reports/V24_FIGURE_REPLACEMENT_PLAN.md` |  |
 
 ## Notes
-- **A**: reported broken Markdown/HTML image paths, Windows separators, duplicate status ambiguity; fixes integrated into scripts/render_all_figure_previews.py and tests
-- **B**: canonical outputs/ structure and OUTPUT_INDEX generated
-- **C**: reported corrected legend convention and LOS caveats; plotter regenerated LOS CRLB PDFs
-- **D**: reported NLOS/Rayleigh path is not executable/defensible; precise failure report generated instead of fake graphs
-- **E**: mapped notebook cells 28/29 and safe bounded smoke replay; outputs generated under outputs/legacy_replay/network_size
-- **F**: network-size replay used row-level cache with 3 cold misses; cache manifest written under outputs/cache
-- **G**: reported no graphs manuscript-ready; package-native Fig. 4-7 marked suspect in CURRENT_GRAPH_STATUS
+- **A**: Medium replay generated 12 rows under outputs/legacy_replay/network_size_medium with 12 cold cache misses.
+- **B**: Per-row cache keys include script/notebook/cell hashes, mode, Nu, Ns, sigma, iterations, seed, schema version, and row hash.
+- **C**: Gallery refreshed with network_size_medium previews and canonical graph package reports.
+- **D**: Read-only port-plan findings integrated into V24_FIGURE_REPLACEMENT_PLAN and LEGACY_TO_PACKAGE_PORT_PLAN.
+- **E**: Current reports classify all outputs as non-final/not manuscript-ready and preserve package-native suspect labels.

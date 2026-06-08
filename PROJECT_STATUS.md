@@ -279,6 +279,14 @@ writes an explicit NLOS CRLB failure report, produces a bounded
 legacy-compatible network-size smoke replay, marks package-native Fig. 4--7
 outputs as suspect, and writes cache/status/index reports. All outputs remain
 non-final and not manuscript-ready.
+A medium legacy-compatible network-size replay is implemented on branch
+`codex/legacy-network-size-and-v24-port-plan`. It runs a 4-by-3 grid over
+`N_u={1,3,5,7}` and `N_s={4,8,12}` with deterministic seeds, per-row cache,
+single-UE noncooperative baseline handling, and non-final PDF/CSV/NPZ/metadata
+outputs under `outputs/legacy_replay/network_size_medium/`. It also writes
+`V24_FIGURE_REPLACEMENT_PLAN` and `LEGACY_TO_PACKAGE_PORT_PLAN` reports. The
+medium replay shows JCLS improvement in all baseline comparisons, but remains
+legacy/all-clock/truth-gated provenance and is not manuscript-ready.
 
 ## Next task
 
@@ -323,3 +331,7 @@ See `docs/tasks/NEXT.md`.
   visual-review artifacts are legacy-compatible replays, not V24-clean
   manuscript figures. `outputs/reports/CURRENT_GRAPH_STATUS.md` is the current
   source of truth for graph readiness and suspect outputs.
+- `outputs/reports/V24_FIGURE_REPLACEMENT_PLAN.md` and
+  `outputs/reports/LEGACY_TO_PACKAGE_PORT_PLAN.md` identify the next technical
+  direction: port the helpful legacy staged-estimation behavior into
+  package-native V24 code without truth leakage before final figure reruns.

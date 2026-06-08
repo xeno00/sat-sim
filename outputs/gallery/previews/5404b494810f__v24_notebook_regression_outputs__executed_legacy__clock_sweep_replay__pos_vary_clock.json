@@ -7,8 +7,8 @@
   ],
   "preview_count": 1,
   "metadata_path": "previews/5404b494810f__v24_notebook_regression_outputs__executed_legacy__clock_sweep_replay__pos_vary_clock.json",
-  "render_timestamp_utc": "2026-06-07T22:14:37.432020+00:00",
+  "render_timestamp_utc": "2026-06-08T00:07:54.280504+00:00",
   "render_status": "rendered",
-  "branch": "codex/legacy-figures-gallery-crlb-nlos",
-  "commit": "bd34891"
+  "branch": "codex/legacy-network-size-and-v24-port-plan",
+  "commit": "093fbdf"
 }

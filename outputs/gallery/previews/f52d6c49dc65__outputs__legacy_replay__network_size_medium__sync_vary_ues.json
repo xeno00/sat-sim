@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/legacy_replay/network_size_medium/sync_vary_ues.pdf",
+  "source_pdf_sha256": "be53b7c5d94f1bc7e0dbc8bc75222060f6c94c20d94ce466a7a3abebd9eb9688",
+  "source_pdf_size_bytes": 19199,
+  "preview_paths": [
+    "previews/f52d6c49dc65__outputs__legacy_replay__network_size_medium__sync_vary_ues-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/f52d6c49dc65__outputs__legacy_replay__network_size_medium__sync_vary_ues.json",
+  "render_timestamp_utc": "2026-06-08T00:08:39.324761+00:00",
+  "render_status": "rendered",
+  "branch": "codex/legacy-network-size-and-v24-port-plan",
+  "commit": "093fbdf"
+}

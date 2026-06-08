@@ -124,6 +124,10 @@ def _group_for(path: Path) -> str:
         return "legacy CRLB replay"
     if "outputs/legacy_replay/crlb_nlos" in text:
         return "NLOS CRLB status"
+    if "outputs/legacy_replay/network_size_full" in text:
+        return "legacy network-size full"
+    if "outputs/legacy_replay/network_size_medium" in text:
+        return "legacy network-size medium"
     if "outputs/legacy_replay/network_size" in text:
         return "legacy network-size smoke"
     if "outputs/legacy_replay/clock_sweep_full" in text:

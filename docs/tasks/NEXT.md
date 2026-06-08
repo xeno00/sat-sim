@@ -1,36 +1,33 @@
 MODE: PLAN_ONLY
 
-# Next Task: Decide Full Legacy Replay Versus V24-Clean Figure Replacement
+# Next Task: Plan V24-Clean Staged Estimator Port
 
 ## Purpose
 
-Use the canonical graph package under `outputs/` to decide the next safe figure
-provenance step. Do not edit manuscript files and do not generate manuscript
-figures.
+Use the medium legacy-compatible network-size replay and the
+legacy-to-package port plan to design the next package-native V24 estimator
+hardening task. Do not generate manuscript figures.
 
-Completed diagnostic/replay artifacts:
+Current useful artifacts:
 
-- Corrected LOS CRLB legacy replay under `outputs/legacy_replay/crlb_los/`.
-- NLOS CRLB failure report under `outputs/reports/CRLB_NLOS_REPORT.md`.
-- Full legacy clock-sweep replay copied under
-  `outputs/legacy_replay/clock_sweep_full/`.
-- Bounded legacy-compatible network-size smoke replay under
-  `outputs/legacy_replay/network_size/`.
-- Canonical gallery under `outputs/gallery/`.
-- Current graph status under `outputs/reports/CURRENT_GRAPH_STATUS.md`.
+- `outputs/legacy_replay/network_size_medium/`
+- `outputs/reports/LEGACY_NETWORK_SIZE_REPLAY_REPORT.md`
+- `outputs/reports/V24_FIGURE_REPLACEMENT_PLAN.md`
+- `outputs/reports/LEGACY_TO_PACKAGE_PORT_PLAN.md`
+- `outputs/reports/CURRENT_GRAPH_STATUS.md`
 
 ## Scope
 
 Inspect:
 
-- `outputs/OUTPUT_INDEX.md`
-- `outputs/gallery/PLOT_GALLERY.md`
-- `outputs/reports/CURRENT_GRAPH_STATUS.md`
-- `outputs/reports/CRLB_LOS_REPLAY_REPORT.md`
-- `outputs/reports/CRLB_NLOS_REPORT.md`
-- `outputs/reports/LEGACY_NETWORK_SIZE_REPLAY_REPORT.md`
-- `outputs/cache/CACHE_MANIFEST.md`
-- `v24_notebook_regression_outputs/FIGURE_REGRESSION_TABLE.md`
+- `jcls_sim/algorithm.py`
+- `jcls_sim/estimators.py`
+- `jcls_sim/figure_generation.py`
+- `jcls_sim/metrics.py`
+- `jcls_sim/bounds.py`
+- `scripts/run_v24_figures_4_7.py`
+- `outputs/reports/LEGACY_TO_PACKAGE_PORT_PLAN.md`
+- existing tests for algorithm, estimators, metrics, and figure generation
 
 Do not edit:
 
@@ -46,24 +43,25 @@ Do not edit:
 
 ## Required Analysis
 
-1. Decide whether a full legacy network-size replay is worth running next, given
-   the bounded smoke replay and runtime/caveats.
-2. Decide whether NLOS CRLB needs a model-design task before any graph can be
-   generated.
-3. Decide whether the canonical graph package is sufficient for human visual
-   review or needs more gallery/report polish.
-4. Identify which existing manuscript figures are most likely to need V24-clean
-   replacement rather than legacy replay provenance.
-5. Propose the smallest next implementation task.
+1. Identify where package-native Step 1/2/3 acceptance/fallback behavior still
+   differs from the successful legacy staged path.
+2. Design truth-free acceptance gates using weighted residual decrease,
+   innovation consistency, covariance trace, rank status, and finite-value
+   checks.
+3. Decide how rank-tolerant/pseudoinverse updates should be reported without
+   being mislabeled as convergence.
+4. Define raw-vs-display transform separation for future figure scripts.
+5. Specify focused tests that prove no truth-state access is used in active
+   estimator acceptance.
 
 ## Expected Output
 
-Return a plan with:
+Return an implementation plan with:
 
-- full legacy replay recommendation;
-- V24-clean replacement recommendation;
-- NLOS CRLB model-design recommendation;
+- exact package files to edit;
+- exact tests to add/update;
 - risk level;
-- exact allowed files for the next implementation task;
-- stop conditions and tests.
+- stop conditions;
+- expected diagnostic outputs;
+- confirmation no manuscript or notebook edits are needed.
 

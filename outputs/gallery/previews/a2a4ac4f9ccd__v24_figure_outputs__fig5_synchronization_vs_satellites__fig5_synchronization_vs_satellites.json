@@ -7,8 +7,8 @@
   ],
   "preview_count": 1,
   "metadata_path": "previews/a2a4ac4f9ccd__v24_figure_outputs__fig5_synchronization_vs_satellites__fig5_synchronization_vs_satellites.json",
-  "render_timestamp_utc": "2026-06-07T22:14:22.492385+00:00",
+  "render_timestamp_utc": "2026-06-08T00:07:42.816096+00:00",
   "render_status": "rendered",
-  "branch": "codex/legacy-figures-gallery-crlb-nlos",
-  "commit": "bd34891"
+  "branch": "codex/legacy-network-size-and-v24-port-plan",
+  "commit": "093fbdf"
 }

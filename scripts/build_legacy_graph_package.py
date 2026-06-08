@@ -220,19 +220,30 @@ def build_output_index(status_report: dict[str, Any]) -> None:
 def build_current_graph_status(los: dict[str, Any], nlos: dict[str, Any], clock: dict[str, Any]) -> dict[str, Any]:
     """Write current graph status report."""
 
+    network_mode = "smoke"
     network_root = OUTPUTS / "legacy_replay" / "network_size"
+    medium_root = OUTPUTS / "legacy_replay" / "network_size_medium"
+    full_root = OUTPUTS / "legacy_replay" / "network_size_full"
+    if (full_root / "pos_vary_ues.pdf").exists() and (full_root / "sync_vary_ues.pdf").exists():
+        network_root = full_root
+        network_mode = "full"
+    elif (medium_root / "pos_vary_ues.pdf").exists() and (medium_root / "sync_vary_ues.pdf").exists():
+        network_root = medium_root
+        network_mode = "medium"
     network_graphs = []
     if (network_root / "pos_vary_ues.pdf").exists() and (network_root / "sync_vary_ues.pdf").exists():
+        network_rel = str(network_root.relative_to(SAT_SIM_ROOT)).replace("\\", "/")
+        network_label = "full" if network_mode == "full" else "medium" if network_mode == "medium" else "bounded smoke"
         network_graphs = [
             {
-                "name": "Legacy-compatible network-size localization smoke replay",
-                "path": "outputs/legacy_replay/network_size/pos_vary_ues.pdf",
-                "status": "bounded smoke legacy replay, unverified match",
+                "name": f"Legacy-compatible network-size localization {network_label} replay",
+                "path": f"{network_rel}/pos_vary_ues.pdf",
+                "status": f"{network_label} legacy replay, unverified match",
             },
             {
-                "name": "Legacy-compatible network-size synchronization smoke replay",
-                "path": "outputs/legacy_replay/network_size/sync_vary_ues.pdf",
-                "status": "bounded smoke legacy replay, unverified match",
+                "name": f"Legacy-compatible network-size synchronization {network_label} replay",
+                "path": f"{network_rel}/sync_vary_ues.pdf",
+                "status": f"{network_label} legacy replay, unverified match",
             },
         ]
     status = {

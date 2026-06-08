@@ -98,7 +98,7 @@ class TestLegacyClockSweepReplay(unittest.TestCase):
             self.assertFalse(status_by_figure[figure]["manuscript_ready"])
 
         for figure in ["pos_vary_ues.pdf", "sync_vary_ues.pdf"]:
-            self.assertEqual(status_by_figure[figure]["status"], "legacy_network_size_smoke_replayed_unverified_match")
+            self.assertEqual(status_by_figure[figure]["status"], "legacy_network_size_medium_replayed_unverified_match")
             self.assertFalse(status_by_figure[figure]["manuscript_ready"])
 
     def test_replay_script_is_redirected_and_does_not_use_forbidden_paths(self) -> None:
