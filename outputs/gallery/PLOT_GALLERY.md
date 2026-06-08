@@ -3,8 +3,8 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 99
-- Generated at: 2026-06-08T19:08:41.759043+00:00
+- Generated entries: 105
+- Generated at: 2026-06-08T20:19:10.070561+00:00
 
 ## Step 3 gate exploration
 
@@ -181,6 +181,68 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
 
 ![position_error_before_after.pdf](previews/069a6b53bb2b__outputs__step3_micro_benchmarks__plots__position_error_before_after-1.png)
 - Preview metadata: [previews/069a6b53bb2b__outputs__step3_micro_benchmarks__plots__position_error_before_after.json](previews/069a6b53bb2b__outputs__step3_micro_benchmarks__plots__position_error_before_after.json)
+
+## Step 3 near-winner sparse
+
+### both_improved_count_by_variant.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_near_winner_sparse/plots/both_improved_count_by_variant.pdf](../step3_near_winner_sparse/plots/both_improved_count_by_variant.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![both_improved_count_by_variant.pdf](previews/a6dd816cc9dd__outputs__step3_near_winner_sparse__plots__both_improved_count_by_variant-1.png)
+- Preview metadata: [previews/a6dd816cc9dd__outputs__step3_near_winner_sparse__plots__both_improved_count_by_variant.json](previews/a6dd816cc9dd__outputs__step3_near_winner_sparse__plots__both_improved_count_by_variant.json)
+
+### position_ratio_heatmap.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_near_winner_sparse/plots/position_ratio_heatmap.pdf](../step3_near_winner_sparse/plots/position_ratio_heatmap.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![position_ratio_heatmap.pdf](previews/c9e7915ee5a9__outputs__step3_near_winner_sparse__plots__position_ratio_heatmap-1.png)
+- Preview metadata: [previews/c9e7915ee5a9__outputs__step3_near_winner_sparse__plots__position_ratio_heatmap.json](previews/c9e7915ee5a9__outputs__step3_near_winner_sparse__plots__position_ratio_heatmap.json)
+
+### position_sync_ratio_scatter.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_near_winner_sparse/plots/position_sync_ratio_scatter.pdf](../step3_near_winner_sparse/plots/position_sync_ratio_scatter.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![position_sync_ratio_scatter.pdf](previews/e3c0421b30cb__outputs__step3_near_winner_sparse__plots__position_sync_ratio_scatter-1.png)
+- Preview metadata: [previews/e3c0421b30cb__outputs__step3_near_winner_sparse__plots__position_sync_ratio_scatter.json](previews/e3c0421b30cb__outputs__step3_near_winner_sparse__plots__position_sync_ratio_scatter.json)
+
+### runtime_by_variant.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_near_winner_sparse/plots/runtime_by_variant.pdf](../step3_near_winner_sparse/plots/runtime_by_variant.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![runtime_by_variant.pdf](previews/406e83d0ca14__outputs__step3_near_winner_sparse__plots__runtime_by_variant-1.png)
+- Preview metadata: [previews/406e83d0ca14__outputs__step3_near_winner_sparse__plots__runtime_by_variant.json](previews/406e83d0ca14__outputs__step3_near_winner_sparse__plots__runtime_by_variant.json)
+
+### sync_ratio_heatmap.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_near_winner_sparse/plots/sync_ratio_heatmap.pdf](../step3_near_winner_sparse/plots/sync_ratio_heatmap.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![sync_ratio_heatmap.pdf](previews/cba7f6d0f90a__outputs__step3_near_winner_sparse__plots__sync_ratio_heatmap-1.png)
+- Preview metadata: [previews/cba7f6d0f90a__outputs__step3_near_winner_sparse__plots__sync_ratio_heatmap.json](previews/cba7f6d0f90a__outputs__step3_near_winner_sparse__plots__sync_ratio_heatmap.json)
+
+### update_norm_by_block.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_near_winner_sparse/plots/update_norm_by_block.pdf](../step3_near_winner_sparse/plots/update_norm_by_block.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![update_norm_by_block.pdf](previews/c81b4dd289b5__outputs__step3_near_winner_sparse__plots__update_norm_by_block-1.png)
+- Preview metadata: [previews/c81b4dd289b5__outputs__step3_near_winner_sparse__plots__update_norm_by_block.json](previews/c81b4dd289b5__outputs__step3_near_winner_sparse__plots__update_norm_by_block.json)
 
 ## controlled migration ladder
 

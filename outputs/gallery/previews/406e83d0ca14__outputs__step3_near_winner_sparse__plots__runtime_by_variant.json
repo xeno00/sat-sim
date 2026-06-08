@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_near_winner_sparse/plots/runtime_by_variant.pdf",
+  "source_pdf_sha256": "5591a9ac41beedc37ba8acc95d8d350de9a52214f3b3a23fbc253566eb3c19d1",
+  "source_pdf_size_bytes": 13715,
+  "preview_paths": [
+    "previews/406e83d0ca14__outputs__step3_near_winner_sparse__plots__runtime_by_variant-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/406e83d0ca14__outputs__step3_near_winner_sparse__plots__runtime_by_variant.json",
+  "render_timestamp_utc": "2026-06-08T20:19:07.777555+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-near-winner-sparse",
+  "commit": "df9fcaf"
+}

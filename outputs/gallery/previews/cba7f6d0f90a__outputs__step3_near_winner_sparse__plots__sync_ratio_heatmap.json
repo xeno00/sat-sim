@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_near_winner_sparse/plots/sync_ratio_heatmap.pdf",
+  "source_pdf_sha256": "76ee082d632c1329518ca8afd1be425e83b8ed875979d38ecb822dc80c2b526d",
+  "source_pdf_size_bytes": 18020,
+  "preview_paths": [
+    "previews/cba7f6d0f90a__outputs__step3_near_winner_sparse__plots__sync_ratio_heatmap-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/cba7f6d0f90a__outputs__step3_near_winner_sparse__plots__sync_ratio_heatmap.json",
+  "render_timestamp_utc": "2026-06-08T20:19:08.692442+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-near-winner-sparse",
+  "commit": "df9fcaf"
+}

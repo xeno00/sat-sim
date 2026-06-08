@@ -395,6 +395,19 @@ necessary but not sufficient for network-size promotion; Step B/LM-only remains
 the current clean estimator baseline pending review of the micro-benchmark
 branch.
 
+Near-winner sparse Step 3 exploration is implemented on branch
+`codex/step3-near-winner-sparse`. The runner
+`scripts/explore_step3_near_winner_sparse.py` tests eight variants close to the
+micro-benchmark winner on sparse cases `(N_u,N_s)=(3,8),(7,8),(7,12)`, using
+Step B/LM-only as the baseline. Default execution is sparse-only; promoted
+medium validation requires an explicit flag and is restricted to at most two
+promoted variants. Outputs are written under
+`outputs/step3_near_winner_sparse/`, with the report at
+`outputs/reports/STEP3_NEAR_WINNER_SPARSE_REPORT.md`. The diagnostic promoted
+`block_scaled_drift_loose_clock_prior` and `block_scaled_drift_base`; explicit
+promoted-only medium validation was run for those variants. These outputs are
+non-final and not manuscript figures.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -478,3 +491,7 @@ See `docs/tasks/NEXT.md`.
   Step 3 matrix/formulation checks. These diagnostics are not network-size
   graphs, are not manuscript outputs, and should be used only to decide which
   structural Step 3 variant deserves the next sparse network experiment.
+- `outputs/reports/STEP3_NEAR_WINNER_SPARSE_REPORT.md` records a bounded
+  sparse transfer check for block-scaled covariance and clock-drift variants.
+  It is still diagnostic-only; the next decision should be a read-only review
+  before any larger network-size validation or estimator integration.

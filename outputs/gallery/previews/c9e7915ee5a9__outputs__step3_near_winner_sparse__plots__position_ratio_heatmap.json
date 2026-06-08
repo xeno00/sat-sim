@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_near_winner_sparse/plots/position_ratio_heatmap.pdf",
+  "source_pdf_sha256": "7b41aa8e2bda806849010b2bfd0395262d5379da1e380f140c7211717c9ecd38",
+  "source_pdf_size_bytes": 17362,
+  "preview_paths": [
+    "previews/c9e7915ee5a9__outputs__step3_near_winner_sparse__plots__position_ratio_heatmap-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/c9e7915ee5a9__outputs__step3_near_winner_sparse__plots__position_ratio_heatmap.json",
+  "render_timestamp_utc": "2026-06-08T20:19:05.762401+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-near-winner-sparse",
+  "commit": "df9fcaf"
+}

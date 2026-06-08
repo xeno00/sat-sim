@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_near_winner_sparse/plots/both_improved_count_by_variant.pdf",
+  "source_pdf_sha256": "ed17e0a18a4f92da3a8dc67e8e3d69444de6a80b4542eef39f13ee226f1d4a51",
+  "source_pdf_size_bytes": 13448,
+  "preview_paths": [
+    "previews/a6dd816cc9dd__outputs__step3_near_winner_sparse__plots__both_improved_count_by_variant-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/a6dd816cc9dd__outputs__step3_near_winner_sparse__plots__both_improved_count_by_variant.json",
+  "render_timestamp_utc": "2026-06-08T20:19:04.975669+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-near-winner-sparse",
+  "commit": "df9fcaf"
+}

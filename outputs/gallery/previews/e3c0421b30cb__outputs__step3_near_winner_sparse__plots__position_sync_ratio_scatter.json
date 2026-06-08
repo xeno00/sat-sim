@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_near_winner_sparse/plots/position_sync_ratio_scatter.pdf",
+  "source_pdf_sha256": "268427354b408dbc83ad2df1d3564c7fe2fae3c85cc017d3ae6222e0f6104138",
+  "source_pdf_size_bytes": 19486,
+  "preview_paths": [
+    "previews/e3c0421b30cb__outputs__step3_near_winner_sparse__plots__position_sync_ratio_scatter-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/e3c0421b30cb__outputs__step3_near_winner_sparse__plots__position_sync_ratio_scatter.json",
+  "render_timestamp_utc": "2026-06-08T20:19:06.744785+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-near-winner-sparse",
+  "commit": "df9fcaf"
+}
