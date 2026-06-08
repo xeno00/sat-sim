@@ -1,18 +1,21 @@
 {
   "artifact_status": "non_final_plot_gallery",
-  "generated_at_utc": "2026-06-08T00:10:54.147243+00:00",
+  "generated_at_utc": "2026-06-08T00:41:29.829813+00:00",
   "source_roots": [
     "outputs/legacy_replay",
     "outputs/package_diagnostic",
     "outputs/manuscript_candidate",
     "outputs/human_review",
+    "outputs/migration_baseline",
+    "outputs/migration_ladder",
     "v24_notebook_regression_outputs",
     "v24_human_review_outputs",
     "v24_manuscript_candidate_outputs",
     "v24_figure_outputs"
   ],
-  "entry_count": 26,
+  "entry_count": 38,
   "groups": [
+    "controlled migration ladder",
     "human-review",
     "legacy CRLB replay",
     "legacy clock-sweep full",
@@ -20,6 +23,7 @@
     "legacy network-size medium",
     "legacy network-size smoke",
     "manuscript-candidate",
+    "migration baseline",
     "package diagnostic"
   ],
   "entries": [
@@ -92,7 +96,7 @@
       "warning": "Legacy notebook CRLB logic replayed safely into diagnostics, but match to existing artifact is unverified and V24 caveats remain.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "4fc8ba71deb4f1b62cd77da81898a342b7835a87d354b6410970b01e3c15bcff",
+      "source_pdf_sha256": "075528395e1eda66a1ec2dc8ac1fa4f9136c3d68f8805ec076bf3b894b229c9f",
       "source_pdf_size_bytes": 22330
     },
     {
@@ -116,7 +120,7 @@
       "warning": "Legacy notebook CRLB logic replayed safely into diagnostics, but match to existing artifact is unverified and V24 caveats remain.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "66a1a6fb793b6b2128a2515fa428c914d89bafab684251fedb70e3b67448d676",
+      "source_pdf_sha256": "4adf8b13b3e7e01877cc3c7e16b1320b10e30f64ee064d21bffe2de70ceac147",
       "source_pdf_size_bytes": 21490
     },
     {
@@ -212,6 +216,294 @@
       "render_error": null,
       "source_pdf_sha256": "be53b7c5d94f1bc7e0dbc8bc75222060f6c94c20d94ce466a7a3abebd9eb9688",
       "source_pdf_size_bytes": 19199
+    },
+    {
+      "figure_name": "pos_vary_clock.pdf",
+      "group": "migration baseline",
+      "source_pdf_path": "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/pos_vary_clock.pdf",
+      "preview_paths": [
+        "previews/277b63b60501__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__pos_vary_clock-1.png"
+      ],
+      "metadata_path": "previews/277b63b60501__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__pos_vary_clock.json",
+      "raw_data_paths": [
+        "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_arrays.npz",
+        "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_raw.csv",
+        "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_metadata.json"
+      ],
+      "status": "legacy_full_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "49a45f1120cf8292f0ac9d32657d2441b573c1fae62f34cbf4aff59a1d42e628",
+      "source_pdf_size_bytes": 22759
+    },
+    {
+      "figure_name": "sync_vary_clock.pdf",
+      "group": "migration baseline",
+      "source_pdf_path": "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/sync_vary_clock.pdf",
+      "preview_paths": [
+        "previews/5812b3fb37b1__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__sync_vary_clock-1.png"
+      ],
+      "metadata_path": "previews/5812b3fb37b1__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__sync_vary_clock.json",
+      "raw_data_paths": [
+        "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_arrays.npz",
+        "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_raw.csv",
+        "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_metadata.json"
+      ],
+      "status": "legacy_full_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "ae08a237944c1772f11ad9ada2453cec956dbdaef30d1ffeecfec75977a20604",
+      "source_pdf_size_bytes": 22497
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "migration baseline",
+      "source_pdf_path": "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/818b910f9e60__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/818b910f9e60__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_arrays.npz",
+        "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_raw.csv",
+        "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "210a07354fff235353b346401880c335588213b15864a96a7ee7c3a48e51928a",
+      "source_pdf_size_bytes": 18722
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "migration baseline",
+      "source_pdf_path": "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/1601e22bd10d__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/1601e22bd10d__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_arrays.npz",
+        "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_raw.csv",
+        "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "be53b7c5d94f1bc7e0dbc8bc75222060f6c94c20d94ce466a7a3abebd9eb9688",
+      "source_pdf_size_bytes": 19199
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/legacy_staged_compatible/medium/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/9e6045a6dec8__outputs__migration_ladder__legacy_staged_compatible__medium__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/9e6045a6dec8__outputs__migration_ladder__legacy_staged_compatible__medium__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/legacy_staged_compatible/medium/migration_arrays.npz",
+        "outputs/migration_ladder/legacy_staged_compatible/medium/migration_raw.csv",
+        "outputs/migration_ladder/legacy_staged_compatible/medium/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/legacy_staged_compatible/medium/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "ff81894ff7e31200ed2b190bc6fe4358a06042aa1f186d3780f8030cf1269112",
+      "source_pdf_size_bytes": 18722
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/legacy_staged_compatible/medium/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/05e1c1073107__outputs__migration_ladder__legacy_staged_compatible__medium__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/05e1c1073107__outputs__migration_ladder__legacy_staged_compatible__medium__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/legacy_staged_compatible/medium/migration_arrays.npz",
+        "outputs/migration_ladder/legacy_staged_compatible/medium/migration_raw.csv",
+        "outputs/migration_ladder/legacy_staged_compatible/medium/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/legacy_staged_compatible/medium/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "2b31ee8269654c75238b28d92c54e2e388e5df1af13a4f7305b7da15db4c1b2e",
+      "source_pdf_size_bytes": 19199
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/legacy_staged_compatible/tiny/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/f01df346aead__outputs__migration_ladder__legacy_staged_compatible__tiny__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/f01df346aead__outputs__migration_ladder__legacy_staged_compatible__tiny__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_arrays.npz",
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_raw.csv",
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "096b9f2eed188d2f3bb3eff615877bf06e5c944458554883523506960b1000d3",
+      "source_pdf_size_bytes": 17626
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/legacy_staged_compatible/tiny/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/4e5734f83ba5__outputs__migration_ladder__legacy_staged_compatible__tiny__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/4e5734f83ba5__outputs__migration_ladder__legacy_staged_compatible__tiny__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_arrays.npz",
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_raw.csv",
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "400cf2c0de8eef92cdb71910d32ef8b98eeedde79efd9a14ea53115049d2f97d",
+      "source_pdf_size_bytes": 18076
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/4fc66071c85e__outputs__migration_ladder__step_a_no_display_smoothing__medium__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/4fc66071c85e__outputs__migration_ladder__step_a_no_display_smoothing__medium__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_arrays.npz",
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_raw.csv",
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "700b8b576d64563e57d8c937daca08c577db9a13b1e4f6c6bc3403e3d9fa5b36",
+      "source_pdf_size_bytes": 18722
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/9e6a52dd1ced__outputs__migration_ladder__step_a_no_display_smoothing__medium__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/9e6a52dd1ced__outputs__migration_ladder__step_a_no_display_smoothing__medium__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_arrays.npz",
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_raw.csv",
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "9a8c404136114497d2340075ee87d31adf66d8d7a21274dc7a3e382328fbe404",
+      "source_pdf_size_bytes": 19199
+    },
+    {
+      "figure_name": "pos_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_a_no_display_smoothing/tiny/pos_vary_ues.pdf",
+      "preview_paths": [
+        "previews/c041ed65a095__outputs__migration_ladder__step_a_no_display_smoothing__tiny__pos_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/c041ed65a095__outputs__migration_ladder__step_a_no_display_smoothing__tiny__pos_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_arrays.npz",
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_raw.csv",
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "51042de37411e74c64b1112104b18a6644e8939d3f2d8827408dd47400a95911",
+      "source_pdf_size_bytes": 17626
+    },
+    {
+      "figure_name": "sync_vary_ues.pdf",
+      "group": "controlled migration ladder",
+      "source_pdf_path": "outputs/migration_ladder/step_a_no_display_smoothing/tiny/sync_vary_ues.pdf",
+      "preview_paths": [
+        "previews/b8db1d2a6340__outputs__migration_ladder__step_a_no_display_smoothing__tiny__sync_vary_ues-1.png"
+      ],
+      "metadata_path": "previews/b8db1d2a6340__outputs__migration_ladder__step_a_no_display_smoothing__tiny__sync_vary_ues.json",
+      "raw_data_paths": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_arrays.npz",
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_raw.csv",
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_summary.csv"
+      ],
+      "nearby_metadata_paths": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_step_metadata.json"
+      ],
+      "status": "legacy_network_size_medium_replayed_unverified_match",
+      "manuscript_ready": false,
+      "warning": "Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "46f3b2f18418893f96c8e38cffabd961681efe45a3f0276a16cda3ce34dcc829",
+      "source_pdf_size_bytes": 18076
     },
     {
       "figure_name": "fig4_localization_vs_satellites.pdf",
@@ -650,6 +942,6 @@
       "source_pdf_size_bytes": 23711
     }
   ],
-  "branch": "codex/legacy-network-size-and-v24-port-plan",
-  "commit": "093fbdf"
+  "branch": "codex/controlled-legacy-to-v24-migration",
+  "commit": "a608cdd"
 }

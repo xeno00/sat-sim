@@ -1,33 +1,37 @@
 MODE: PLAN_ONLY
 
-# Next Task: Plan V24-Clean Staged Estimator Port
+# Next Task: Plan Step B Truth-Gate Replacement
 
 ## Purpose
 
-Use the medium legacy-compatible network-size replay and the
-legacy-to-package port plan to design the next package-native V24 estimator
-hardening task. Do not generate manuscript figures.
+Use the controlled migration ladder to design the next correction: replacing
+legacy truth-gated LM acceptance with observable weighted-residual/trust-region
+criteria while keeping all other legacy behavior fixed.
 
-Current useful artifacts:
+Current ladder status:
 
-- `outputs/legacy_replay/network_size_medium/`
-- `outputs/reports/LEGACY_NETWORK_SIZE_REPLAY_REPORT.md`
-- `outputs/reports/V24_FIGURE_REPLACEMENT_PLAN.md`
+- Baseline freeze: healthy.
+- `legacy_staged_compatible`: healthy.
+- `step_a_no_display_smoothing`: healthy.
+- First degraded step: none.
+
+Relevant artifacts:
+
+- `outputs/reports/CONTROLLED_MIGRATION_LADDER.md`
+- `outputs/migration_ladder/step_a_no_display_smoothing/`
 - `outputs/reports/LEGACY_TO_PACKAGE_PORT_PLAN.md`
-- `outputs/reports/CURRENT_GRAPH_STATUS.md`
+- `scripts/run_controlled_migration_ladder.py`
+- `jcls_sim/migration.py`
 
 ## Scope
 
 Inspect:
 
-- `jcls_sim/algorithm.py`
-- `jcls_sim/estimators.py`
-- `jcls_sim/figure_generation.py`
-- `jcls_sim/metrics.py`
-- `jcls_sim/bounds.py`
-- `scripts/run_v24_figures_4_7.py`
-- `outputs/reports/LEGACY_TO_PACKAGE_PORT_PLAN.md`
-- existing tests for algorithm, estimators, metrics, and figure generation
+- legacy truth-gated acceptance in `scripts/replay_legacy_clock_sweep_figures.py`
+- current package estimators in `jcls_sim/estimators.py`
+- current package algorithm flow in `jcls_sim/algorithm.py`
+- migration step definitions in `jcls_sim/migration.py`
+- controlled ladder runner/tests
 
 Do not edit:
 
@@ -38,30 +42,27 @@ Do not edit:
 - Work-In-Progress figure files
 - PSFrag files
 - generated manuscript PDFs
-- generated manuscript figure PDFs/EPS/PNGs
 - existing manuscript result files
 
 ## Required Analysis
 
-1. Identify where package-native Step 1/2/3 acceptance/fallback behavior still
-   differs from the successful legacy staged path.
-2. Design truth-free acceptance gates using weighted residual decrease,
-   innovation consistency, covariance trace, rank status, and finite-value
-   checks.
-3. Decide how rank-tolerant/pseudoinverse updates should be reported without
-   being mislabeled as convergence.
-4. Define raw-vs-display transform separation for future figure scripts.
-5. Specify focused tests that prove no truth-state access is used in active
-   estimator acceptance.
+1. Identify exact truth-state gates in the legacy replay path.
+2. Propose observable replacement gates based on weighted residual decrease,
+   trust-region/damping, finite values, rank status, and optional prior
+   innovation consistency.
+3. Define the smallest Step B implementation that changes only
+   `acceptance_mode` while preserving all-clock internals and legacy metrics.
+4. Define tiny and medium graph checks.
+5. Define tests proving no true-state error is used by Step B acceptance.
 
 ## Expected Output
 
 Return an implementation plan with:
 
-- exact package files to edit;
-- exact tests to add/update;
-- risk level;
-- stop conditions;
-- expected diagnostic outputs;
-- confirmation no manuscript or notebook edits are needed.
+- exact files to edit;
+- exact step/config names;
+- tests to add/update;
+- stop rule;
+- expected outputs under `outputs/migration_ladder/step_b_*`;
+- risk level and remaining blockers.
 

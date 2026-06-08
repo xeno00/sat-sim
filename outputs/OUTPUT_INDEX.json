@@ -32,6 +32,18 @@
       "safe_to_delete_regenerate": true
     },
     {
+      "path": "outputs/migration_baseline",
+      "contains": "frozen legacy behavior baseline for controlled migration comparisons",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "path": "outputs/migration_ladder",
+      "contains": "controlled legacy-to-V24 migration step outputs",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
       "path": "outputs/cache",
       "contains": "validated replay cache/checkpoint entries",
       "safe_to_cite": false,
@@ -81,6 +93,16 @@
       "name": "Legacy-compatible network-size synchronization medium replay",
       "path": "outputs/legacy_replay/network_size_medium/sync_vary_ues.pdf",
       "status": "medium legacy replay, unverified match"
+    },
+    {
+      "name": "Migration Step A localization medium replay",
+      "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
+      "status": "controlled migration Step A, non-final"
+    },
+    {
+      "name": "Migration Step A synchronization medium replay",
+      "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf",
+      "status": "controlled migration Step A, non-final"
     }
   ]
 }

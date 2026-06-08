@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/migration_ladder/legacy_staged_compatible/medium/sync_vary_ues.pdf",
+  "source_pdf_sha256": "2b31ee8269654c75238b28d92c54e2e388e5df1af13a4f7305b7da15db4c1b2e",
+  "source_pdf_size_bytes": 19199,
+  "preview_paths": [
+    "previews/05e1c1073107__outputs__migration_ladder__legacy_staged_compatible__medium__sync_vary_ues-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/05e1c1073107__outputs__migration_ladder__legacy_staged_compatible__medium__sync_vary_ues.json",
+  "render_timestamp_utc": "2026-06-08T00:38:55.676731+00:00",
+  "render_status": "rendered",
+  "branch": "codex/controlled-legacy-to-v24-migration",
+  "commit": "a608cdd"
+}

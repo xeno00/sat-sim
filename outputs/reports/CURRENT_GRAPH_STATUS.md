@@ -10,6 +10,8 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - [Full legacy clock-sweep synchronization replay](../legacy_replay/clock_sweep_full/sync_vary_clock.pdf) - legacy replay, unverified match
 - [Legacy-compatible network-size localization medium replay](../legacy_replay/network_size_medium/pos_vary_ues.pdf) - medium legacy replay, unverified match
 - [Legacy-compatible network-size synchronization medium replay](../legacy_replay/network_size_medium/sync_vary_ues.pdf) - medium legacy replay, unverified match
+- [Migration Step A localization medium replay](../migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf) - controlled migration Step A, non-final
+- [Migration Step A synchronization medium replay](../migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf) - controlled migration Step A, non-final
 
 ## Suspect/Broken Graphs
 - `v24_human_review_outputs`: package-native human-review Fig. 4--7 path can degrade at later JCLS stages; preserve as suspect diagnostics only
@@ -19,3 +21,4 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - No graph is manuscript-ready.
 - Legacy CRLB is all-clock/post-hoc and not V24-clean.
 - Legacy estimator replays use truth-gated acceptance behavior and all-clock synchronization metrics.
+- Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures.

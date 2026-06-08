@@ -1,0 +1,2 @@
+mode,row_count,successful_rows,rows_with_failures,total_fallback_events,il_failures,lm_failures,map_failures,cache_hit_count,cache_miss_count
+full,7,7,0,175,0,0,0.0,7,0

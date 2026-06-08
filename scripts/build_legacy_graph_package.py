@@ -183,6 +183,8 @@ def build_output_index(status_report: dict[str, Any]) -> None:
             {"path": "outputs/package_diagnostic", "contains": "package diagnostic aliases/status only", "safe_to_cite": False, "safe_to_delete_regenerate": True},
             {"path": "outputs/manuscript_candidate", "contains": "candidate-only graph provenance/status", "safe_to_cite": False, "safe_to_delete_regenerate": True},
             {"path": "outputs/human_review", "contains": "human-review diagnostics/status", "safe_to_cite": False, "safe_to_delete_regenerate": True},
+            {"path": "outputs/migration_baseline", "contains": "frozen legacy behavior baseline for controlled migration comparisons", "safe_to_cite": False, "safe_to_delete_regenerate": True},
+            {"path": "outputs/migration_ladder", "contains": "controlled legacy-to-V24 migration step outputs", "safe_to_cite": False, "safe_to_delete_regenerate": True},
             {"path": "outputs/cache", "contains": "validated replay cache/checkpoint entries", "safe_to_cite": False, "safe_to_delete_regenerate": True},
             {"path": "outputs/reports", "contains": "human-readable reports and machine JSON", "safe_to_cite": False, "safe_to_delete_regenerate": True},
         ],
@@ -265,8 +267,25 @@ def build_current_graph_status(los: dict[str, Any], nlos: dict[str, Any], clock:
             "No graph is manuscript-ready.",
             "Legacy CRLB is all-clock/post-hoc and not V24-clean.",
             "Legacy estimator replays use truth-gated acceptance behavior and all-clock synchronization metrics.",
+            "Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures.",
         ],
     }
+    migration_root = OUTPUTS / "migration_ladder" / "step_a_no_display_smoothing" / "medium"
+    if (migration_root / "pos_vary_ues.pdf").exists() and (migration_root / "sync_vary_ues.pdf").exists():
+        status["current_best_graphs"].extend(
+            [
+                {
+                    "name": "Migration Step A localization medium replay",
+                    "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
+                    "status": "controlled migration Step A, non-final",
+                },
+                {
+                    "name": "Migration Step A synchronization medium replay",
+                    "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf",
+                    "status": "controlled migration Step A, non-final",
+                },
+            ]
+        )
     REPORTS.mkdir(parents=True, exist_ok=True)
     (REPORTS / "CURRENT_GRAPH_STATUS.json").write_text(json.dumps(status, indent=2), encoding="utf-8")
     md = [

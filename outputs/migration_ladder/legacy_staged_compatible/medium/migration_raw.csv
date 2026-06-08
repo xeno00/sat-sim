@@ -1,0 +1,13 @@
+num_users,num_satellites,cooperative_jcls_attempted,map_position_error_m,map_sync_error_s,fallback_count,failure_count,success,single_ue_policy
+1,4,False,0.26229065223009157,2.1421024323915456e-10,1,0,True,noncooperative_clockless_baseline_only
+1,8,False,0.23928421797729885,3.740229093377279e-10,1,0,True,noncooperative_clockless_baseline_only
+1,12,False,0.39234181975549676,6.288413967376565e-10,1,0,True,noncooperative_clockless_baseline_only
+3,4,True,0.21319409915203305,1.3353240451837242e-10,5,0,True,not_applicable
+3,8,True,0.04951813969782118,2.5173518048411375e-10,5,0,True,not_applicable
+3,12,True,0.022860978636266894,7.454770834242266e-11,5,0,True,not_applicable
+5,4,True,0.17026681986561443,1.449542456696202e-10,5,0,True,not_applicable
+5,8,True,0.04523822055677505,7.746589040340847e-11,5,0,True,not_applicable
+5,12,True,0.023888532487448325,5.121284393643718e-11,5,0,True,not_applicable
+7,4,True,0.05961863409535174,7.161226681172911e-11,5,0,True,not_applicable
+7,8,True,0.004970218455125127,9.301141359463511e-11,5,0,True,not_applicable
+7,12,True,0.0030018135793038075,1.3199284779043226e-10,5,0,True,not_applicable

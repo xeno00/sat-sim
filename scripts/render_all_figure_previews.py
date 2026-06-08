@@ -26,6 +26,8 @@ SOURCE_ROOTS = [
     SAT_SIM_ROOT / "outputs" / "package_diagnostic",
     SAT_SIM_ROOT / "outputs" / "manuscript_candidate",
     SAT_SIM_ROOT / "outputs" / "human_review",
+    SAT_SIM_ROOT / "outputs" / "migration_baseline",
+    SAT_SIM_ROOT / "outputs" / "migration_ladder",
     SAT_SIM_ROOT / "v24_notebook_regression_outputs",
     SAT_SIM_ROOT / "v24_human_review_outputs",
     SAT_SIM_ROOT / "v24_manuscript_candidate_outputs",
@@ -130,6 +132,10 @@ def _group_for(path: Path) -> str:
         return "legacy network-size medium"
     if "outputs/legacy_replay/network_size" in text:
         return "legacy network-size smoke"
+    if "outputs/migration_baseline" in text:
+        return "migration baseline"
+    if "outputs/migration_ladder" in text:
+        return "controlled migration ladder"
     if "outputs/legacy_replay/clock_sweep_full" in text:
         return "legacy clock-sweep full"
     if "crlb_replay" in text:

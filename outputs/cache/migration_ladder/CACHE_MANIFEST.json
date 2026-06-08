@@ -1,0 +1,37 @@
+{
+  "artifact_status": "non_final_migration_ladder_cache_manifest",
+  "cache_schema_version": "controlled-migration-ladder-v1",
+  "entry_count": 4,
+  "entries": [
+    {
+      "step": "legacy_staged_compatible",
+      "grid": "tiny",
+      "cache_key": "6f0dd4a08b142293d56f2c37e6427605157d2bc33fc9eb79a313627dd68bc3a2",
+      "cache_path": "outputs/cache/migration_ladder/6f0dd4a08b142293/metadata.json",
+      "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9"
+    },
+    {
+      "step": "legacy_staged_compatible",
+      "grid": "medium",
+      "cache_key": "d7482a05f14473b16c81e153568aef80119280ef0ae9826043f234952896a56d",
+      "cache_path": "outputs/cache/migration_ladder/d7482a05f14473b1/metadata.json",
+      "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
+    },
+    {
+      "step": "step_a_no_display_smoothing",
+      "grid": "tiny",
+      "cache_key": "967c85126f5de02ffdf4368a1c4b1a0082a92863598a27170ff7275c4b3bfe06",
+      "cache_path": "outputs/cache/migration_ladder/967c85126f5de02f/metadata.json",
+      "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9"
+    },
+    {
+      "step": "step_a_no_display_smoothing",
+      "grid": "medium",
+      "cache_key": "11fdaf6334b3357044b7f022dee7e2abe27c80e454abff794aeafa69eabce0f3",
+      "cache_path": "outputs/cache/migration_ladder/11fdaf6334b33570/metadata.json",
+      "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
+    }
+  ],
+  "fresh_hit_count": 0,
+  "miss_or_stale_count": 4
+}

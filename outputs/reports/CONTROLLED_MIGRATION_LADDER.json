@@ -1,0 +1,286 @@
+{
+  "artifact_status": "non_final_controlled_migration_ladder",
+  "baseline": {
+    "artifact_status": "non_final_legacy_behavior_freeze",
+    "status": "healthy",
+    "manuscript_ready": false,
+    "copied_output_roots": [
+      "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium",
+      "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full"
+    ],
+    "baseline_health": {
+      "status": "healthy",
+      "comparison_count": 9,
+      "position_improvement_count": 9,
+      "sync_improvement_count": 9,
+      "does_jcls_help_localization": true,
+      "does_jcls_help_synchronization": true,
+      "healthy_rows": 12,
+      "failed_rows": 0,
+      "fallback_count": 48,
+      "performance_degraded_vs_previous": false,
+      "strongest_position_improvement": {
+        "num_users": 7,
+        "num_satellites": 12,
+        "position_improvement_m": 0.38934000617619297,
+        "sync_improvement_ns": 0.49684854894722424
+      },
+      "strongest_sync_improvement": {
+        "num_users": 5,
+        "num_satellites": 12,
+        "position_improvement_m": 0.36845328726804843,
+        "sync_improvement_ns": 0.5776285528012194
+      }
+    },
+    "legacy_caveats": {
+      "all_clock_internal_state": true,
+      "truth_gated_acceptance": true,
+      "legacy_all_clock_sync_metric": true,
+      "map_global_fallback": true,
+      "non_v24_gauged_internals": true
+    }
+  },
+  "steps": [
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "legacy_staged_compatible",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "truth_gated_legacy",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "legacy_replay_display",
+        "exact_change": "Expose the legacy staged behavior as a package-described estimator mode without changing behavior.",
+        "expected_raw_metric_change": "none"
+      },
+      "grid": "tiny",
+      "status": "healthy",
+      "manuscript_ready": false,
+      "plot_outputs": [
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/legacy_staged_compatible/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "healthy",
+        "comparison_count": 2,
+        "position_improvement_count": 2,
+        "sync_improvement_count": 2,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 12,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18976607827947767,
+          "sync_improvement_ns": 0.12228772885361414
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18976607827947767,
+          "sync_improvement_ns": 0.12228772885361414
+        }
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "6f0dd4a08b142293d56f2c37e6427605157d2bc33fc9eb79a313627dd68bc3a2",
+        "cache_path": "outputs/cache/migration_ladder/6f0dd4a08b142293/metadata.json",
+        "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "legacy_staged_compatible",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "truth_gated_legacy",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "legacy_replay_display",
+        "exact_change": "Expose the legacy staged behavior as a package-described estimator mode without changing behavior.",
+        "expected_raw_metric_change": "none"
+      },
+      "grid": "medium",
+      "status": "healthy",
+      "manuscript_ready": false,
+      "plot_outputs": [
+        "outputs/migration_ladder/legacy_staged_compatible/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/legacy_staged_compatible/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/legacy_staged_compatible/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/legacy_staged_compatible/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/legacy_staged_compatible/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "healthy",
+        "comparison_count": 9,
+        "position_improvement_count": 9,
+        "sync_improvement_count": 9,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 48,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.38934000617619297,
+          "sync_improvement_ns": 0.49684854894722424
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.36845328726804843,
+          "sync_improvement_ns": 0.5776285528012194
+        }
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "d7482a05f14473b16c81e153568aef80119280ef0ae9826043f234952896a56d",
+        "cache_path": "outputs/cache/migration_ladder/d7482a05f14473b1/metadata.json",
+        "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_a_no_display_smoothing",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "truth_gated_legacy",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "exact_change": "Remove display smoothing/fitting from graph metrics; raw metrics are unchanged.",
+        "expected_raw_metric_change": "none"
+      },
+      "grid": "tiny",
+      "status": "healthy",
+      "manuscript_ready": false,
+      "plot_outputs": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_a_no_display_smoothing/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "healthy",
+        "comparison_count": 2,
+        "position_improvement_count": 2,
+        "sync_improvement_count": 2,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 12,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18976607827947767,
+          "sync_improvement_ns": 0.12228772885361414
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18976607827947767,
+          "sync_improvement_ns": 0.12228772885361414
+        }
+      },
+      "change_vs_previous": {
+        "display_transform_mode": [
+          "legacy_replay_display",
+          "raw_metrics_no_smoothing"
+        ]
+      },
+      "cache": {
+        "cache_key": "967c85126f5de02ffdf4368a1c4b1a0082a92863598a27170ff7275c4b3bfe06",
+        "cache_path": "outputs/cache/migration_ladder/967c85126f5de02f/metadata.json",
+        "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_a_no_display_smoothing",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "truth_gated_legacy",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "exact_change": "Remove display smoothing/fitting from graph metrics; raw metrics are unchanged.",
+        "expected_raw_metric_change": "none"
+      },
+      "grid": "medium",
+      "status": "healthy",
+      "manuscript_ready": false,
+      "plot_outputs": [
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "healthy",
+        "comparison_count": 9,
+        "position_improvement_count": 9,
+        "sync_improvement_count": 9,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 48,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.38934000617619297,
+          "sync_improvement_ns": 0.49684854894722424
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.36845328726804843,
+          "sync_improvement_ns": 0.5776285528012194
+        }
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "11fdaf6334b3357044b7f022dee7e2abe27c80e454abff794aeafa69eabce0f3",
+        "cache_path": "outputs/cache/migration_ladder/11fdaf6334b33570/metadata.json",
+        "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
+      }
+    }
+  ],
+  "first_degraded_step": null,
+  "current_best_migration_step": "step_a_no_display_smoothing",
+  "stop_rule_triggered": false,
+  "manuscript_ready": false,
+  "gallery": {
+    "path": "outputs/gallery/PLOT_GALLERY.md",
+    "entry_count": 38
+  }
+}

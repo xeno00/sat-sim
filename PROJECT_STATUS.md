@@ -287,6 +287,13 @@ outputs under `outputs/legacy_replay/network_size_medium/`. It also writes
 `V24_FIGURE_REPLACEMENT_PLAN` and `LEGACY_TO_PACKAGE_PORT_PLAN` reports. The
 medium replay shows JCLS improvement in all baseline comparisons, but remains
 legacy/all-clock/truth-gated provenance and is not manuscript-ready.
+A controlled legacy-to-V24 migration ladder is implemented on branch
+`codex/controlled-legacy-to-v24-migration`. It freezes the working legacy
+behavior under `outputs/migration_baseline/legacy_behavior_freeze/`, exposes a
+package-described `legacy_staged_compatible` mode via `jcls_sim.migration`, and
+tests Step A (`raw_metrics_no_smoothing`) on tiny and medium grids under
+`outputs/migration_ladder/`. Step A preserves localization/synchronization
+improvements and does not trigger the stop rule. No output is manuscript-ready.
 
 ## Next task
 
@@ -335,3 +342,7 @@ See `docs/tasks/NEXT.md`.
   `outputs/reports/LEGACY_TO_PACKAGE_PORT_PLAN.md` identify the next technical
   direction: port the helpful legacy staged-estimation behavior into
   package-native V24 code without truth leakage before final figure reruns.
+- `outputs/reports/CONTROLLED_MIGRATION_LADDER.md` is the current source of
+  truth for correction-by-correction migration health. The first tested
+  correction, removing display smoothing from metrics, is healthy; truth-gate
+  replacement remains the next major risk.

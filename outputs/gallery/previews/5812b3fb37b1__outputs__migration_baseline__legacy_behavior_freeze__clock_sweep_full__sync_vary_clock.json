@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/sync_vary_clock.pdf",
+  "source_pdf_sha256": "ae08a237944c1772f11ad9ada2453cec956dbdaef30d1ffeecfec75977a20604",
+  "source_pdf_size_bytes": 22497,
+  "preview_paths": [
+    "previews/5812b3fb37b1__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__sync_vary_clock-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/5812b3fb37b1__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__sync_vary_clock.json",
+  "render_timestamp_utc": "2026-06-08T00:36:36.000719+00:00",
+  "render_status": "rendered",
+  "branch": "codex/controlled-legacy-to-v24-migration",
+  "commit": "a608cdd"
+}

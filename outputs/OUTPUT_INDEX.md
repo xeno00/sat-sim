@@ -11,6 +11,8 @@ Canonical graph-package outputs now live under `outputs/`. Existing `v24_*` fold
 | `outputs/package_diagnostic` | package diagnostic aliases/status only | False | True |
 | `outputs/manuscript_candidate` | candidate-only graph provenance/status | False | True |
 | `outputs/human_review` | human-review diagnostics/status | False | True |
+| `outputs/migration_baseline` | frozen legacy behavior baseline for controlled migration comparisons | False | True |
+| `outputs/migration_ladder` | controlled legacy-to-V24 migration step outputs | False | True |
 | `outputs/cache` | validated replay cache/checkpoint entries | False | True |
 | `outputs/reports` | human-readable reports and machine JSON | False | True |
 
@@ -21,6 +23,8 @@ Canonical graph-package outputs now live under `outputs/`. Existing `v24_*` fold
 - [Full legacy clock-sweep synchronization replay](legacy_replay/clock_sweep_full/sync_vary_clock.pdf) - legacy replay, unverified match
 - [Legacy-compatible network-size localization medium replay](legacy_replay/network_size_medium/pos_vary_ues.pdf) - medium legacy replay, unverified match
 - [Legacy-compatible network-size synchronization medium replay](legacy_replay/network_size_medium/sync_vary_ues.pdf) - medium legacy replay, unverified match
+- [Migration Step A localization medium replay](migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf) - controlled migration Step A, non-final
+- [Migration Step A synchronization medium replay](migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf) - controlled migration Step A, non-final
 
 ## Legacy/Provenance Paths
 - `v24_notebook_regression_outputs` remains for provenance; prefer canonical `outputs/` links for review.

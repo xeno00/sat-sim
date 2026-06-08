@@ -1,0 +1,5 @@
+num_users,num_satellites,cooperative_jcls_attempted,map_position_error_m,map_sync_error_s,fallback_count,failure_count,success,single_ue_policy
+1,4,False,0.26229065223009157,2.1421024323915456e-10,1,0,True,noncooperative_clockless_baseline_only
+1,8,False,0.23928421797729885,3.740229093377279e-10,1,0,True,noncooperative_clockless_baseline_only
+3,4,True,0.21319409915203305,1.3353240451837242e-10,5,0,True,not_applicable
+3,8,True,0.04951813969782118,2.5173518048411375e-10,5,0,True,not_applicable

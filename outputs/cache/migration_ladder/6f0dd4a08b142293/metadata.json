@@ -1,0 +1,133 @@
+{
+  "status": "complete",
+  "cache_key": "6f0dd4a08b142293d56f2c37e6427605157d2bc33fc9eb79a313627dd68bc3a2",
+  "identity": {
+    "cache_schema_version": "controlled-migration-ladder-v1",
+    "network_cache_schema_version": "legacy-network-size-grid-row-v2",
+    "script_sha256": "129296f72e5db2a1163a56a0ada07bb855f06468fbf9439b3557ba92120521f6",
+    "source_network_raw_sha256": "10f1173dcd19355d53dc97fa0aa4675bf88d0b3260ae917b5d7dcfa12fbb2f51",
+    "notebook_sha256": "39a3b434a64fa8631df287a980e3e2330824c6bec3e4e3c014095399dcff9916",
+    "extracted_cell_hashes": [
+      {
+        "cell_index_zero_based": 7,
+        "cell_number_one_based": 8,
+        "name": "Node",
+        "sha256": "2a9b6f743de67706553f482b2d1fb449bdf24ae36c5fa9fd0a76c77af9858ee5"
+      },
+      {
+        "cell_index_zero_based": 9,
+        "cell_number_one_based": 10,
+        "name": "User",
+        "sha256": "8ee038f5f0b8aaed570bf4729c53c0d67c842478413a372c16b1de8be2e816d8"
+      },
+      {
+        "cell_index_zero_based": 11,
+        "cell_number_one_based": 12,
+        "name": "Satellite",
+        "sha256": "f455ec76acc4adee13494f100f420e17e0996d4986190fc1e76f6105ff0453b3"
+      },
+      {
+        "cell_index_zero_based": 13,
+        "cell_number_one_based": 14,
+        "name": "Datalink",
+        "sha256": "a146f6f4003b1981cc633c52ab82288726dcac3139f654e572ba0f2d91bf5e15"
+      },
+      {
+        "cell_index_zero_based": 15,
+        "cell_number_one_based": 16,
+        "name": "Scenario",
+        "sha256": "7ff80bf541d3858e2a67af7be975c651f420d474a40dad511d3b1d96f067b8f0"
+      },
+      {
+        "cell_index_zero_based": 17,
+        "cell_number_one_based": 18,
+        "name": "Optimizer",
+        "sha256": "f9ebfc9ad0ed2058ab952224628dba43cb8619e8532ee1d855330e3337f9a7d8"
+      },
+      {
+        "cell_index_zero_based": 25,
+        "cell_number_one_based": 26,
+        "name": "fit_helpers",
+        "sha256": "12a61f043dbb13bdc220ecb1edc54b3fd72562b0c663bf14feca348227e0ce6c"
+      }
+    ],
+    "step": {
+      "name": "legacy_staged_compatible",
+      "estimator_mode": "legacy_staged_compatible",
+      "internal_clock_mode": "all_clock",
+      "acceptance_mode": "truth_gated_legacy",
+      "metric_mode": "legacy_all_clock_sync",
+      "weighting_mode": "legacy_notebook",
+      "geometry_noise_mode": "legacy_replay",
+      "display_transform_mode": "legacy_replay_display",
+      "exact_change": "Expose the legacy staged behavior as a package-described estimator mode without changing behavior.",
+      "expected_raw_metric_change": "none"
+    },
+    "grid": "tiny",
+    "grid_parameters": {
+      "num_users": [
+        1,
+        3
+      ],
+      "num_satellites": [
+        4,
+        8
+      ],
+      "seed": 2042
+    }
+  },
+  "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9",
+  "metadata": {
+    "artifact_status": "non_final_controlled_migration_step",
+    "step": {
+      "name": "legacy_staged_compatible",
+      "estimator_mode": "legacy_staged_compatible",
+      "internal_clock_mode": "all_clock",
+      "acceptance_mode": "truth_gated_legacy",
+      "metric_mode": "legacy_all_clock_sync",
+      "weighting_mode": "legacy_notebook",
+      "geometry_noise_mode": "legacy_replay",
+      "display_transform_mode": "legacy_replay_display",
+      "exact_change": "Expose the legacy staged behavior as a package-described estimator mode without changing behavior.",
+      "expected_raw_metric_change": "none"
+    },
+    "grid": "tiny",
+    "status": "healthy",
+    "manuscript_ready": false,
+    "plot_outputs": [
+      "outputs/migration_ladder/legacy_staged_compatible/tiny/pos_vary_ues.pdf",
+      "outputs/migration_ladder/legacy_staged_compatible/tiny/sync_vary_ues.pdf"
+    ],
+    "raw_outputs": {
+      "raw_csv": "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_raw.csv",
+      "summary_csv": "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_summary.csv",
+      "arrays_npz": "outputs/migration_ladder/legacy_staged_compatible/tiny/migration_arrays.npz"
+    },
+    "health": {
+      "status": "healthy",
+      "comparison_count": 2,
+      "position_improvement_count": 2,
+      "sync_improvement_count": 2,
+      "does_jcls_help_localization": true,
+      "does_jcls_help_synchronization": true,
+      "healthy_rows": 4,
+      "failed_rows": 0,
+      "fallback_count": 12,
+      "performance_degraded_vs_previous": false,
+      "strongest_position_improvement": {
+        "num_users": 3,
+        "num_satellites": 8,
+        "position_improvement_m": 0.18976607827947767,
+        "sync_improvement_ns": 0.12228772885361414
+      },
+      "strongest_sync_improvement": {
+        "num_users": 3,
+        "num_satellites": 8,
+        "position_improvement_m": 0.18976607827947767,
+        "sync_improvement_ns": 0.12228772885361414
+      }
+    },
+    "change_vs_previous": null
+  },
+  "timestamp_utc": "2026-06-08T00:38:48Z"
+}

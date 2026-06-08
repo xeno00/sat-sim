@@ -31,6 +31,16 @@
       "name": "Legacy-compatible network-size synchronization medium replay",
       "path": "outputs/legacy_replay/network_size_medium/sync_vary_ues.pdf",
       "status": "medium legacy replay, unverified match"
+    },
+    {
+      "name": "Migration Step A localization medium replay",
+      "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
+      "status": "controlled migration Step A, non-final"
+    },
+    {
+      "name": "Migration Step A synchronization medium replay",
+      "path": "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf",
+      "status": "controlled migration Step A, non-final"
     }
   ],
   "suspect_graphs": [
@@ -57,6 +67,7 @@
   "warnings": [
     "No graph is manuscript-ready.",
     "Legacy CRLB is all-clock/post-hoc and not V24-clean.",
-    "Legacy estimator replays use truth-gated acceptance behavior and all-clock synchronization metrics."
+    "Legacy estimator replays use truth-gated acceptance behavior and all-clock synchronization metrics.",
+    "Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures."
   ]
 }

@@ -3,8 +3,138 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 26
-- Generated at: 2026-06-08T00:10:54.147243+00:00
+- Generated entries: 38
+- Generated at: 2026-06-08T00:41:29.829813+00:00
+
+## controlled migration ladder
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/legacy_staged_compatible/medium/pos_vary_ues.pdf](../migration_ladder/legacy_staged_compatible/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/9e6045a6dec8__outputs__migration_ladder__legacy_staged_compatible__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/9e6045a6dec8__outputs__migration_ladder__legacy_staged_compatible__medium__pos_vary_ues.json](previews/9e6045a6dec8__outputs__migration_ladder__legacy_staged_compatible__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/legacy_staged_compatible/medium/migration_arrays.npz](../migration_ladder/legacy_staged_compatible/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/legacy_staged_compatible/medium/migration_raw.csv](../migration_ladder/legacy_staged_compatible/medium/migration_raw.csv)
+  - [outputs/migration_ladder/legacy_staged_compatible/medium/migration_summary.csv](../migration_ladder/legacy_staged_compatible/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/legacy_staged_compatible/medium/migration_step_metadata.json](../migration_ladder/legacy_staged_compatible/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/legacy_staged_compatible/medium/sync_vary_ues.pdf](../migration_ladder/legacy_staged_compatible/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/05e1c1073107__outputs__migration_ladder__legacy_staged_compatible__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/05e1c1073107__outputs__migration_ladder__legacy_staged_compatible__medium__sync_vary_ues.json](previews/05e1c1073107__outputs__migration_ladder__legacy_staged_compatible__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/legacy_staged_compatible/medium/migration_arrays.npz](../migration_ladder/legacy_staged_compatible/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/legacy_staged_compatible/medium/migration_raw.csv](../migration_ladder/legacy_staged_compatible/medium/migration_raw.csv)
+  - [outputs/migration_ladder/legacy_staged_compatible/medium/migration_summary.csv](../migration_ladder/legacy_staged_compatible/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/legacy_staged_compatible/medium/migration_step_metadata.json](../migration_ladder/legacy_staged_compatible/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/legacy_staged_compatible/tiny/pos_vary_ues.pdf](../migration_ladder/legacy_staged_compatible/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/f01df346aead__outputs__migration_ladder__legacy_staged_compatible__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/f01df346aead__outputs__migration_ladder__legacy_staged_compatible__tiny__pos_vary_ues.json](previews/f01df346aead__outputs__migration_ladder__legacy_staged_compatible__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/legacy_staged_compatible/tiny/migration_arrays.npz](../migration_ladder/legacy_staged_compatible/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/legacy_staged_compatible/tiny/migration_raw.csv](../migration_ladder/legacy_staged_compatible/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/legacy_staged_compatible/tiny/migration_summary.csv](../migration_ladder/legacy_staged_compatible/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/legacy_staged_compatible/tiny/migration_step_metadata.json](../migration_ladder/legacy_staged_compatible/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/legacy_staged_compatible/tiny/sync_vary_ues.pdf](../migration_ladder/legacy_staged_compatible/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/4e5734f83ba5__outputs__migration_ladder__legacy_staged_compatible__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/4e5734f83ba5__outputs__migration_ladder__legacy_staged_compatible__tiny__sync_vary_ues.json](previews/4e5734f83ba5__outputs__migration_ladder__legacy_staged_compatible__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/legacy_staged_compatible/tiny/migration_arrays.npz](../migration_ladder/legacy_staged_compatible/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/legacy_staged_compatible/tiny/migration_raw.csv](../migration_ladder/legacy_staged_compatible/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/legacy_staged_compatible/tiny/migration_summary.csv](../migration_ladder/legacy_staged_compatible/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/legacy_staged_compatible/tiny/migration_step_metadata.json](../migration_ladder/legacy_staged_compatible/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf](../migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/4fc66071c85e__outputs__migration_ladder__step_a_no_display_smoothing__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/4fc66071c85e__outputs__migration_ladder__step_a_no_display_smoothing__medium__pos_vary_ues.json](previews/4fc66071c85e__outputs__migration_ladder__step_a_no_display_smoothing__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_arrays.npz](../migration_ladder/step_a_no_display_smoothing/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_raw.csv](../migration_ladder/step_a_no_display_smoothing/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_summary.csv](../migration_ladder/step_a_no_display_smoothing/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_step_metadata.json](../migration_ladder/step_a_no_display_smoothing/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf](../migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/9e6a52dd1ced__outputs__migration_ladder__step_a_no_display_smoothing__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/9e6a52dd1ced__outputs__migration_ladder__step_a_no_display_smoothing__medium__sync_vary_ues.json](previews/9e6a52dd1ced__outputs__migration_ladder__step_a_no_display_smoothing__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_arrays.npz](../migration_ladder/step_a_no_display_smoothing/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_raw.csv](../migration_ladder/step_a_no_display_smoothing/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_summary.csv](../migration_ladder/step_a_no_display_smoothing/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_a_no_display_smoothing/medium/migration_step_metadata.json](../migration_ladder/step_a_no_display_smoothing/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_a_no_display_smoothing/tiny/pos_vary_ues.pdf](../migration_ladder/step_a_no_display_smoothing/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/c041ed65a095__outputs__migration_ladder__step_a_no_display_smoothing__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/c041ed65a095__outputs__migration_ladder__step_a_no_display_smoothing__tiny__pos_vary_ues.json](previews/c041ed65a095__outputs__migration_ladder__step_a_no_display_smoothing__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_arrays.npz](../migration_ladder/step_a_no_display_smoothing/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_raw.csv](../migration_ladder/step_a_no_display_smoothing/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_summary.csv](../migration_ladder/step_a_no_display_smoothing/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_step_metadata.json](../migration_ladder/step_a_no_display_smoothing/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_a_no_display_smoothing/tiny/sync_vary_ues.pdf](../migration_ladder/step_a_no_display_smoothing/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/b8db1d2a6340__outputs__migration_ladder__step_a_no_display_smoothing__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/b8db1d2a6340__outputs__migration_ladder__step_a_no_display_smoothing__tiny__sync_vary_ues.json](previews/b8db1d2a6340__outputs__migration_ladder__step_a_no_display_smoothing__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_arrays.npz](../migration_ladder/step_a_no_display_smoothing/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_raw.csv](../migration_ladder/step_a_no_display_smoothing/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_summary.csv](../migration_ladder/step_a_no_display_smoothing/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_a_no_display_smoothing/tiny/migration_step_metadata.json](../migration_ladder/step_a_no_display_smoothing/tiny/migration_step_metadata.json)
 
 ## human-review
 
@@ -373,6 +503,72 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
   - [v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_summary.csv](../../v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_summary.csv)
 - Nearby metadata:
   - [v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_metadata.json](../../v24_manuscript_candidate_outputs/fig7_synchronization_vs_clock_std_candidate/fig7_synchronization_vs_clock_std_candidate_metadata.json)
+
+## migration baseline
+
+### pos_vary_clock.pdf
+
+- Status: `legacy_full_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/pos_vary_clock.pdf](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/pos_vary_clock.pdf)
+- Warning: Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.
+
+![pos_vary_clock.pdf](previews/277b63b60501__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__pos_vary_clock-1.png)
+- Preview metadata: [previews/277b63b60501__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__pos_vary_clock.json](previews/277b63b60501__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__pos_vary_clock.json)
+- Raw data:
+  - [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_arrays.npz](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_arrays.npz)
+  - [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_raw.csv](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_raw.csv)
+  - [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_summary.csv](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_metadata.json](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_metadata.json)
+
+### sync_vary_clock.pdf
+
+- Status: `legacy_full_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/sync_vary_clock.pdf](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/sync_vary_clock.pdf)
+- Warning: Full legacy notebook clock-sweep logic replayed in redirected diagnostics; match is unverified and legacy caveats remain.
+
+![sync_vary_clock.pdf](previews/5812b3fb37b1__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__sync_vary_clock-1.png)
+- Preview metadata: [previews/5812b3fb37b1__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__sync_vary_clock.json](previews/5812b3fb37b1__outputs__migration_baseline__legacy_behavior_freeze__clock_sweep_full__sync_vary_clock.json)
+- Raw data:
+  - [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_arrays.npz](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_arrays.npz)
+  - [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_raw.csv](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_raw.csv)
+  - [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_summary.csv](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_metadata.json](../migration_baseline/legacy_behavior_freeze/clock_sweep_full/legacy_clock_sweep_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/pos_vary_ues.pdf](../migration_baseline/legacy_behavior_freeze/network_size_medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/818b910f9e60__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/818b910f9e60__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__pos_vary_ues.json](previews/818b910f9e60__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_arrays.npz](../migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_arrays.npz)
+  - [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_raw.csv](../migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_raw.csv)
+  - [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_summary.csv](../migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_metadata.json](../migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/sync_vary_ues.pdf](../migration_baseline/legacy_behavior_freeze/network_size_medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/1601e22bd10d__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/1601e22bd10d__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__sync_vary_ues.json](previews/1601e22bd10d__outputs__migration_baseline__legacy_behavior_freeze__network_size_medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_arrays.npz](../migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_arrays.npz)
+  - [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_raw.csv](../migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_raw.csv)
+  - [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_summary.csv](../migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_metadata.json](../migration_baseline/legacy_behavior_freeze/network_size_medium/legacy_network_size_metadata.json)
 
 ## package diagnostic
 

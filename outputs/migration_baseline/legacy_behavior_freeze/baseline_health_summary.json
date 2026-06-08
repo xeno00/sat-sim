@@ -1,0 +1,40 @@
+{
+  "artifact_status": "non_final_legacy_behavior_freeze",
+  "status": "healthy",
+  "manuscript_ready": false,
+  "copied_output_roots": [
+    "outputs/migration_baseline/legacy_behavior_freeze/network_size_medium",
+    "outputs/migration_baseline/legacy_behavior_freeze/clock_sweep_full"
+  ],
+  "baseline_health": {
+    "status": "healthy",
+    "comparison_count": 9,
+    "position_improvement_count": 9,
+    "sync_improvement_count": 9,
+    "does_jcls_help_localization": true,
+    "does_jcls_help_synchronization": true,
+    "healthy_rows": 12,
+    "failed_rows": 0,
+    "fallback_count": 48,
+    "performance_degraded_vs_previous": false,
+    "strongest_position_improvement": {
+      "num_users": 7,
+      "num_satellites": 12,
+      "position_improvement_m": 0.38934000617619297,
+      "sync_improvement_ns": 0.49684854894722424
+    },
+    "strongest_sync_improvement": {
+      "num_users": 5,
+      "num_satellites": 12,
+      "position_improvement_m": 0.36845328726804843,
+      "sync_improvement_ns": 0.5776285528012194
+    }
+  },
+  "legacy_caveats": {
+    "all_clock_internal_state": true,
+    "truth_gated_acceptance": true,
+    "legacy_all_clock_sync_metric": true,
+    "map_global_fallback": true,
+    "non_v24_gauged_internals": true
+  }
+}

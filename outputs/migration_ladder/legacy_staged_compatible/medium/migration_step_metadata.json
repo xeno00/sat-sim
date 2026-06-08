@@ -1,0 +1,57 @@
+{
+  "artifact_status": "non_final_controlled_migration_step",
+  "step": {
+    "name": "legacy_staged_compatible",
+    "estimator_mode": "legacy_staged_compatible",
+    "internal_clock_mode": "all_clock",
+    "acceptance_mode": "truth_gated_legacy",
+    "metric_mode": "legacy_all_clock_sync",
+    "weighting_mode": "legacy_notebook",
+    "geometry_noise_mode": "legacy_replay",
+    "display_transform_mode": "legacy_replay_display",
+    "exact_change": "Expose the legacy staged behavior as a package-described estimator mode without changing behavior.",
+    "expected_raw_metric_change": "none"
+  },
+  "grid": "medium",
+  "status": "healthy",
+  "manuscript_ready": false,
+  "plot_outputs": [
+    "outputs/migration_ladder/legacy_staged_compatible/medium/pos_vary_ues.pdf",
+    "outputs/migration_ladder/legacy_staged_compatible/medium/sync_vary_ues.pdf"
+  ],
+  "raw_outputs": {
+    "raw_csv": "outputs/migration_ladder/legacy_staged_compatible/medium/migration_raw.csv",
+    "summary_csv": "outputs/migration_ladder/legacy_staged_compatible/medium/migration_summary.csv",
+    "arrays_npz": "outputs/migration_ladder/legacy_staged_compatible/medium/migration_arrays.npz"
+  },
+  "health": {
+    "status": "healthy",
+    "comparison_count": 9,
+    "position_improvement_count": 9,
+    "sync_improvement_count": 9,
+    "does_jcls_help_localization": true,
+    "does_jcls_help_synchronization": true,
+    "healthy_rows": 12,
+    "failed_rows": 0,
+    "fallback_count": 48,
+    "performance_degraded_vs_previous": false,
+    "strongest_position_improvement": {
+      "num_users": 7,
+      "num_satellites": 12,
+      "position_improvement_m": 0.38934000617619297,
+      "sync_improvement_ns": 0.49684854894722424
+    },
+    "strongest_sync_improvement": {
+      "num_users": 5,
+      "num_satellites": 12,
+      "position_improvement_m": 0.36845328726804843,
+      "sync_improvement_ns": 0.5776285528012194
+    }
+  },
+  "change_vs_previous": null,
+  "cache": {
+    "cache_key": "d7482a05f14473b16c81e153568aef80119280ef0ae9826043f234952896a56d",
+    "cache_path": "outputs/cache/migration_ladder/d7482a05f14473b1/metadata.json",
+    "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
+  }
+}
