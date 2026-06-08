@@ -3,8 +3,8 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 112
-- Generated at: 2026-06-08T20:59:59.142652+00:00
+- Generated entries: 117
+- Generated at: 2026-06-08T21:24:42.426233+00:00
 
 ## Step 3 covariance exploration
 
@@ -315,6 +315,58 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
 
 ![update_norm_by_block.pdf](previews/c81b4dd289b5__outputs__step3_near_winner_sparse__plots__update_norm_by_block-1.png)
 - Preview metadata: [previews/c81b4dd289b5__outputs__step3_near_winner_sparse__plots__update_norm_by_block.json](previews/c81b4dd289b5__outputs__step3_near_winner_sparse__plots__update_norm_by_block.json)
+
+## Step 3 residual covariance robust candidates
+
+### block_diag_vs_full_covariance_row_comparison.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_residual_cov_robust_candidates/plots/block_diag_vs_full_covariance_row_comparison.pdf](../step3_residual_cov_robust_candidates/plots/block_diag_vs_full_covariance_row_comparison.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![block_diag_vs_full_covariance_row_comparison.pdf](previews/2ec88275c011___step3_residual_cov_robust_candidates__plots__block_diag_vs_full_covariance_row_comparison-1.png)
+- Preview metadata: [previews/2ec88275c011___step3_residual_cov_robust_candidates__plots__block_diag_vs_full_covariance_row_comparison.json](previews/2ec88275c011___step3_residual_cov_robust_candidates__plots__block_diag_vs_full_covariance_row_comparison.json)
+
+### failure_row_update_norm_by_block.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_residual_cov_robust_candidates/plots/failure_row_update_norm_by_block.pdf](../step3_residual_cov_robust_candidates/plots/failure_row_update_norm_by_block.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![failure_row_update_norm_by_block.pdf](previews/fc0a336690ef__outputs__step3_residual_cov_robust_candidates__plots__failure_row_update_norm_by_block-1.png)
+- Preview metadata: [previews/fc0a336690ef__outputs__step3_residual_cov_robust_candidates__plots__failure_row_update_norm_by_block.json](previews/fc0a336690ef__outputs__step3_residual_cov_robust_candidates__plots__failure_row_update_norm_by_block.json)
+
+### medium_row_position_sync_ratio_heatmap.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_residual_cov_robust_candidates/plots/medium_row_position_sync_ratio_heatmap.pdf](../step3_residual_cov_robust_candidates/plots/medium_row_position_sync_ratio_heatmap.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![medium_row_position_sync_ratio_heatmap.pdf](previews/5aa5e6b0d820__tputs__step3_residual_cov_robust_candidates__plots__medium_row_position_sync_ratio_heatmap-1.png)
+- Preview metadata: [previews/5aa5e6b0d820__tputs__step3_residual_cov_robust_candidates__plots__medium_row_position_sync_ratio_heatmap.json](previews/5aa5e6b0d820__tputs__step3_residual_cov_robust_candidates__plots__medium_row_position_sync_ratio_heatmap.json)
+
+### robust_candidate_max_ratio_comparison.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_residual_cov_robust_candidates/plots/robust_candidate_max_ratio_comparison.pdf](../step3_residual_cov_robust_candidates/plots/robust_candidate_max_ratio_comparison.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![robust_candidate_max_ratio_comparison.pdf](previews/b851b050e8ec__utputs__step3_residual_cov_robust_candidates__plots__robust_candidate_max_ratio_comparison-1.png)
+- Preview metadata: [previews/b851b050e8ec__utputs__step3_residual_cov_robust_candidates__plots__robust_candidate_max_ratio_comparison.json](previews/b851b050e8ec__utputs__step3_residual_cov_robust_candidates__plots__robust_candidate_max_ratio_comparison.json)
+
+### robust_candidate_mean_ratio_comparison.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step3_residual_cov_robust_candidates/plots/robust_candidate_mean_ratio_comparison.pdf](../step3_residual_cov_robust_candidates/plots/robust_candidate_mean_ratio_comparison.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![robust_candidate_mean_ratio_comparison.pdf](previews/515547a5ff54__tputs__step3_residual_cov_robust_candidates__plots__robust_candidate_mean_ratio_comparison-1.png)
+- Preview metadata: [previews/515547a5ff54__tputs__step3_residual_cov_robust_candidates__plots__robust_candidate_mean_ratio_comparison.json](previews/515547a5ff54__tputs__step3_residual_cov_robust_candidates__plots__robust_candidate_mean_ratio_comparison.json)
 
 ## controlled migration ladder
 

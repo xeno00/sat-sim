@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/step3_residual_cov_robust_candidates/plots/block_diag_vs_full_covariance_row_comparison.pdf",
+  "source_pdf_sha256": "1e5824f47d4f3ab288c641ff5be6994d49bbcf95e08b3ab30dca1c7d0d0a8324",
+  "source_pdf_size_bytes": 13233,
+  "preview_paths": [
+    "previews/2ec88275c011___step3_residual_cov_robust_candidates__plots__block_diag_vs_full_covariance_row_comparison-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/2ec88275c011___step3_residual_cov_robust_candidates__plots__block_diag_vs_full_covariance_row_comparison.json",
+  "render_timestamp_utc": "2026-06-08T21:24:38.529973+00:00",
+  "render_status": "rendered",
+  "branch": "codex/step3-residual-cov-audit",
+  "commit": "da444d7"
+}

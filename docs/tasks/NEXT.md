@@ -1,26 +1,28 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Review Step 3 Covariance/Dynamics Exploration
+# Next Task: Review Step 3 Residual Covariance Audit
 
 ## Purpose
 
-Review branch `codex/step3-covariance-exploration` before merge. Do not edit
-files, do not run notebook code, do not run full ladders, do not run
-network-size graphs, and do not generate manuscript figures.
+Review branch `codex/step3-residual-cov-audit` before merge. Do not edit
+files, do not run notebook code, do not run full ladders, do not run broad
+exploration, do not generate manuscript figures, and do not update manuscript
+claims.
 
 ## Scope
 
 Inspect:
 
-- `scripts/explore_step3_covariance.py`
+- `scripts/audit_step3_residual_covariance.py`
+- `tests/test_step3_residual_covariance_audit.py`
 - `scripts/render_all_figure_previews.py`
-- `tests/test_step3_covariance_exploration.py`
-- `outputs/step3_covariance_exploration/`
-- `outputs/reports/STEP3_COVARIANCE_EXPLORATION_TASK_MATRIX.md`
-- `outputs/reports/STEP3_COVARIANCE_EXPLORATION_TASK_MATRIX.json`
-- `outputs/reports/STEP3_COVARIANCE_EXPLORATION_REPORT.md`
-- `outputs/reports/STEP3_COVARIANCE_EXPLORATION_REPORT.json`
-- Step 3 covariance exploration entries under `outputs/gallery/`
+- `outputs/step3_residual_cov_failure_audit/`
+- `outputs/step3_residual_cov_robust_candidates/`
+- `outputs/reports/STEP3_RESIDUAL_COV_FAILURE_AUDIT.md`
+- `outputs/reports/STEP3_RESIDUAL_COV_FAILURE_AUDIT.json`
+- `outputs/reports/STEP3_RESIDUAL_COV_ROBUST_CANDIDATE_REPORT.md`
+- `outputs/reports/STEP3_RESIDUAL_COV_ROBUST_CANDIDATE_REPORT.json`
+- Step 3 residual covariance entries under `outputs/gallery/`
 - `PROJECT_STATUS.md`
 
 Do not edit:
@@ -36,32 +38,31 @@ Do not edit:
 
 ## Required Review Checks
 
-1. Confirm the branch stays code/diagnostic-only and does not touch notebook or
-   manuscript artifacts.
-2. Confirm default execution uses only sparse cases:
-   `(N_u,N_s)=(3,8),(7,8),(7,12)`.
-3. Confirm lane variants are bounded to 3--6 variants per lane and cover:
-   LM curvature covariance, residual-scaled LM covariance,
-   position-freeze/damping, block-scaled drift tuning, gauge/common-clock
-   control, and Schur/reduced nuisance-clock updates.
-4. Confirm default execution does not run medium validation, network-size
-   graphs, full ladders, notebook code, or manuscript figure generation.
-5. Confirm explicit medium validation includes only promoted variants and not
-   all variants.
-6. Confirm diagnostics include Step B and Step 3 position/sync errors, ratios,
-   improvement flags, block update norms, covariance block statistics,
-   objective components, accept/reject counts, truth-use flags, runtime, and
-   cache keys.
-7. Confirm no truth-state acceptance or truth-derived covariance is used.
-8. Confirm report and metadata mark outputs non-final and not manuscript-ready.
-9. Confirm gallery previews exist for the covariance exploration diagnostic
-   plots.
+1. Confirm the audit uses only the residual-scaled covariance family and does
+   not rerun broad Step 3 lanes.
+2. Confirm failure rows are correctly identified for sync/position worsening,
+   objective decrease with metric worsening, and unusually large update norms.
+3. Confirm block-diagonal and full residual-scaled covariance comparison is
+   row-by-row and correctly reports whether off-diagonal cross-covariance is
+   actually used.
+4. Confirm robust C7 candidates are limited to:
+   `residual_scaled_block_diag_base`,
+   `residual_scaled_block_diag_with_sync_safeguard`,
+   `residual_scaled_block_diag_clock_only_fallback`, and
+   `residual_scaled_block_diag_position_damped`.
+5. Confirm safeguards use only non-truth diagnostics and that truth-state
+   metrics are used only for diagnostic labels.
+6. Confirm fallback behavior is recorded for each candidate row.
+7. Confirm candidate summaries include both-improved counts, position/sync
+   improved counts, mean/max ratios, failure rows, and fallback counts.
+8. Confirm gallery previews exist for audit and robust candidate plots.
+9. Confirm outputs are non-final and not manuscript-ready.
 10. Confirm focused and full tests pass.
 
 Run:
 
 ```powershell
-python -m unittest tests.test_step3_covariance_exploration
+python -m unittest tests.test_step3_residual_covariance_audit
 powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
 ```
 
@@ -72,8 +73,8 @@ Return:
 - PASS / FAIL / PASS WITH CAVEAT;
 - merge recommendation;
 - required fixes before merge, if any;
-- subagent/fallback status;
-- promoted variants and medium-validation result;
-- best position, synchronization, and balanced variants;
+- failure-row summary;
+- whether block-diagonal and full covariance differ;
+- best robust candidate and max/mean ratios;
 - whether Step B/LM-only remains the current clean estimator baseline;
 - next recommended action after merge.

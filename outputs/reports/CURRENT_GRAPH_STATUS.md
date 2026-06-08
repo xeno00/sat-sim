@@ -38,6 +38,8 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - `v24_figure_outputs`: package-native diagnostics are not legacy-compatible and not best available
 - `outputs/step3_low_cost_exploration`: low-cost Step 3 triage/proxy diagnostics only; not figure-ready and not a manuscript output
 - `outputs/step3_covariance_exploration`: covariance/dynamics Step 3 diagnostics only; promoted variants require review before any larger validation or estimator integration
+- `outputs/step3_residual_cov_failure_audit`: residual-scaled covariance failure audit only; not figure-ready and not a manuscript output
+- `outputs/step3_residual_cov_robust_candidates`: residual-scaled robust candidate diagnostics only; not figure-ready and not a manuscript output
 
 ## Warnings
 - No graph is manuscript-ready.
@@ -46,3 +48,4 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures.
 - Low-cost Step 3 exploration did not identify a medium-validation candidate and uses proxy evidence for clock-drift and Schur/nuisance-clock lanes.
 - Step 3 covariance exploration uses deterministic sparse diagnostics and promoted-only medium validation; it is not a final figure workflow.
+- Step 3 residual covariance robust candidates use bounded medium-grid diagnostics; the best candidate still requires review before estimator integration.

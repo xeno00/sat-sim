@@ -419,6 +419,19 @@ Default execution is sparse-only; promoted medium validation is explicit and
 limited to at most two promoted variants. These outputs are non-final and not
 manuscript figures.
 
+Residual-scaled Step 3 covariance failure audit and C7 robust candidate
+validation are implemented on branch `codex/step3-residual-cov-audit`. The
+audit identifies medium-grid failure rows for the residual-scaled covariance
+variants and records that the block-diagonal and full variants are effectively
+identical because off-diagonal cross-covariance is discarded by diagonal
+clipping. The robust-candidate validation tests four residual-scaled
+block-diagonal candidates on the medium grid only. The best current robust
+candidate is `residual_scaled_block_diag_with_sync_safeguard`, which uses
+non-truth diagnostics to revert clock/drift updates on single-UE rows. Outputs
+are under `outputs/step3_residual_cov_failure_audit/` and
+`outputs/step3_residual_cov_robust_candidates/`; these diagnostics are
+non-final and not manuscript figures.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -510,3 +523,8 @@ See `docs/tasks/NEXT.md`.
   lane-separated covariance/dynamics exploration. It is still diagnostic-only;
   the next decision should be read-only review before any larger validation or
   estimator integration.
+- `outputs/reports/STEP3_RESIDUAL_COV_FAILURE_AUDIT.md` and
+  `outputs/reports/STEP3_RESIDUAL_COV_ROBUST_CANDIDATE_REPORT.md` record a
+  narrow residual-scaled covariance failure audit and robust-candidate
+  validation. They are still diagnostic-only; the best candidate requires
+  read-only review before any estimator integration.
