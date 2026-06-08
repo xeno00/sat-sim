@@ -36,6 +36,13 @@ from .fim import (
     gaussian_fim_from_jacobian,
     range_covariance_from_std_devs_km,
 )
+from .algorithm import (
+    STEP_C7_ESTIMATOR_MODE,
+    StepC7BlockSlices,
+    StepC7Config,
+    step_c7_residual_cov_sync_safeguard_refinement,
+    step_c7_residual_scaled_block_covariance,
+)
 from .jacobian import (
     analytic_toa_jacobian_km,
     node_position_km,
@@ -68,6 +75,9 @@ from .parameters import (
 __all__ = [
     "C_KM_PER_S",
     "C_M_PER_S",
+    "STEP_C7_ESTIMATOR_MODE",
+    "StepC7BlockSlices",
+    "StepC7Config",
     "V24ScenarioConfig",
     "all_clock_node_ids",
     "all_non_reference_clock_error",
@@ -100,6 +110,8 @@ __all__ = [
     "reference_satellite_node_id",
     "relative_clock_dict",
     "subspace_is_estimable_from_fim",
+    "step_c7_residual_cov_sync_safeguard_refinement",
+    "step_c7_residual_scaled_block_covariance",
     "toa_range_model_km",
     "toa_range_vector_from_theta_km",
     "toa_range_vector_km",

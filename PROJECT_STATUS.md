@@ -528,3 +528,14 @@ See `docs/tasks/NEXT.md`.
   narrow residual-scaled covariance failure audit and robust-candidate
   validation. They are still diagnostic-only; the best candidate requires
   read-only review before any estimator integration.
+- `outputs/reports/STEP_C7_RESIDUAL_COV_SYNC_SAFEGUARD_REPORT.md` records the
+  promoted C7 residual-scaled block-covariance sync-safeguard estimator mode.
+  C7 is now implemented as a package estimator helper and package figure
+  generation mode, with medium validation under
+  `outputs/step_c7_residual_cov_sync_safeguard/`. The validation reproduces
+  the audit-level best-candidate behavior: 9/12 rows improve both metrics,
+  12/12 improve localization, 9/12 improve synchronization, max sync ratio is
+  1.0, and three single-UE clock/drift updates are reverted by non-truth
+  safeguards. These outputs remain non-final and not manuscript-ready; the next
+  task is read-only human/agent graph review before any broader figure-candidate
+  run.

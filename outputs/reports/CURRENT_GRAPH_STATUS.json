@@ -1,6 +1,23 @@
 {
-  "artifact_status": "current_graph_status",
-  "overall": "legacy-compatible graphs are best available for visual review; none are manuscript-ready",
+  "artifact_status": "current_graph_status_with_step_c7",
+  "c7_main_candidate_summary": {
+    "both_improved_count": 9,
+    "candidate": "step_c7_residual_cov_sync_safeguard",
+    "fallback_count": 3,
+    "fallback_reasons": [
+      "single_user_clock_update_not_observable"
+    ],
+    "max_position_ratio": 0.14448710044194635,
+    "max_sync_ratio": 1.0,
+    "mean_position_ratio": 0.054160465424072914,
+    "mean_sync_ratio": 0.38561149595048044,
+    "position_improved_count": 12,
+    "position_worse_rows": [],
+    "row_count": 12,
+    "sync_improved_count": 9,
+    "sync_worse_rows": []
+  },
+  "c7_ready_for_human_graph_review": true,
   "current_best_graphs": [
     {
       "name": "Corrected LOS localization CRLB replay",
@@ -143,6 +160,21 @@
       "status": "controlled Migration Step C4 composite acceptance, non-final"
     }
   ],
+  "latest_step3_mode": "step_c7_residual_cov_sync_safeguard",
+  "nlos_status": {
+    "artifact_status": "non_final_nlos_crlb_failure_report",
+    "dl_sl_nlos_scope": "not generated",
+    "failure_reason": "No executable legacy Rayleigh/NLOS CRLB path or package score-covariance NLOS FIM path exists in the current merged repository. Search found only Gaussian/Rician FIM helpers.",
+    "los_nlos": "NLOS",
+    "manuscript_ready": false,
+    "noise_fim_model": "none; generation blocked to avoid faking NLOS CRLB curves",
+    "output_root": "outputs/legacy_replay/crlb_nlos",
+    "required_next_step": "Implement and test a defensible NLOS score-covariance/FIM path before generating NLOS CRLB figures.",
+    "status": "nlos_crlb_not_generated"
+  },
+  "not_for_manuscript_submission": true,
+  "overall": "legacy-compatible graphs are best available for visual review; none are manuscript-ready",
+  "recommended_next_action": "Human graph review of C7 diagnostics, then decide whether to run a bounded clock/network figure-candidate validation.",
   "suspect_graphs": [
     {
       "path": "v24_human_review_outputs",
@@ -151,27 +183,11 @@
     {
       "path": "v24_figure_outputs",
       "reason": "package-native diagnostics are not legacy-compatible and not best available"
+    },
+    {
+      "path": "outputs/step_c7_residual_cov_sync_safeguard",
+      "reason": "C7 medium validation diagnostics only; ready for human graph review but not manuscript-ready"
     }
-  ],
-  "nlos_status": {
-    "artifact_status": "non_final_nlos_crlb_failure_report",
-    "status": "nlos_crlb_not_generated",
-    "manuscript_ready": false,
-    "los_nlos": "NLOS",
-    "failure_reason": "No executable legacy Rayleigh/NLOS CRLB path or package score-covariance NLOS FIM path exists in the current merged repository. Search found only Gaussian/Rician FIM helpers.",
-    "dl_sl_nlos_scope": "not generated",
-    "noise_fim_model": "none; generation blocked to avoid faking NLOS CRLB curves",
-    "output_root": "outputs/legacy_replay/crlb_nlos",
-    "required_next_step": "Implement and test a defensible NLOS score-covariance/FIM path before generating NLOS CRLB figures."
-  },
-  "warnings": [
-    "No graph is manuscript-ready.",
-    "Legacy CRLB is all-clock/post-hoc and not V24-clean.",
-    "Legacy estimator replays use truth-gated acceptance behavior and all-clock synchronization metrics.",
-    "Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures.",
-    "Low-cost Step 3 exploration did not identify a medium-validation candidate and uses proxy evidence for clock-drift and Schur/nuisance-clock lanes.",
-    "Step 3 covariance exploration uses deterministic sparse diagnostics and promoted-only medium validation; it is not a final figure workflow.",
-    "Step 3 residual covariance robust candidates use bounded medium-grid diagnostics; the best candidate still requires review before estimator integration."
   ],
   "suspect_or_broken_graphs": [
     {
@@ -194,5 +210,15 @@
       "path": "outputs/step3_residual_cov_robust_candidates/",
       "status": "robust candidate diagnostics only; not figure-ready and not manuscript-ready"
     }
+  ],
+  "warnings": [
+    "No graph is manuscript-ready.",
+    "Legacy CRLB is all-clock/post-hoc and not V24-clean.",
+    "Legacy estimator replays use truth-gated acceptance behavior and all-clock synchronization metrics.",
+    "Controlled migration ladder outputs preserve legacy behavior first; use them to isolate breaking corrections, not as final figures.",
+    "Low-cost Step 3 exploration did not identify a medium-validation candidate and uses proxy evidence for clock-drift and Schur/nuisance-clock lanes.",
+    "Step 3 covariance exploration uses deterministic sparse diagnostics and promoted-only medium validation; it is not a final figure workflow.",
+    "Step 3 residual covariance robust candidates use bounded medium-grid diagnostics; the best candidate still requires review before estimator integration.",
+    "Step C7 residual-covariance sync-safeguard outputs are non-final diagnostics, not manuscript figures."
   ]
 }

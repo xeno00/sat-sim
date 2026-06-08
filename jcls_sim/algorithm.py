@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Callable
 
 import numpy as np
 
@@ -43,6 +43,374 @@ class EstimatorResult:
     success: bool
     diagnostics: dict[str, Any]
     covariance: np.ndarray | None = None
+
+
+STEP_C7_ESTIMATOR_MODE = "step_c7_residual_cov_sync_safeguard"
+
+
+@dataclass(frozen=True)
+class StepC7BlockSlices:
+    """State-vector slices used by the C7 block covariance and safeguard."""
+
+    position: slice
+    ue_clock: slice
+    satellite_clock: slice
+    clock_drift: slice
+
+
+@dataclass(frozen=True)
+class StepC7Config:
+    """Configuration for residual-scaled C7 Step 3 refinement."""
+
+    damping_lambda: float = 1.0e-5
+    covariance_rcond: float = 1.0e-10
+    update_rcond: float = 1.0e-10
+    position_floor_km2: float = 0.002**2
+    position_ceiling_km2: float = 1.0**2
+    clock_floor_km2: float = 0.0002**2
+    clock_ceiling_km2: float = 0.020**2
+    drift_floor_km2_per_s2: float = 0.00005**2
+    drift_ceiling_km2_per_s2: float = 0.010**2
+    objective_tolerance: float = 1.0e-9
+    clock_update_covariance_sigma_limit: float = 3.0
+    common_clock_ratio_limit: float = 0.95
+    single_user_clock_safeguard: bool = True
+    sync_safeguard: bool = True
+    residual_scale_enabled: bool = True
+
+
+def _slice_length(slc: slice) -> int:
+    """Return a nonnegative slice length for Step C7 contiguous slices."""
+
+    return max(0, int(slc.stop or 0) - int(slc.start or 0))
+
+
+def _validate_c7_inputs(
+    state: np.ndarray,
+    jacobian: np.ndarray,
+    residual: np.ndarray,
+    sigmas: np.ndarray,
+    block_slices: StepC7BlockSlices,
+    num_users: int,
+    config: StepC7Config,
+) -> None:
+    """Validate C7 array dimensions and scalar controls."""
+
+    if num_users < 1:
+        raise ValueError("num_users must be at least 1.")
+    if state.ndim != 1:
+        raise ValueError("initial_state must be one-dimensional.")
+    if jacobian.ndim != 2 or jacobian.shape[1] != state.size:
+        raise ValueError("jacobian must have shape (N_z, state_dim).")
+    if residual.shape != (jacobian.shape[0],):
+        raise ValueError("residual must have one entry per measurement row.")
+    if sigmas.shape != residual.shape:
+        raise ValueError("sigmas must have one entry per measurement row.")
+    if np.any(sigmas <= 0.0):
+        raise ValueError("sigmas must be strictly positive.")
+    for name, slc in (
+        ("position", block_slices.position),
+        ("ue_clock", block_slices.ue_clock),
+        ("satellite_clock", block_slices.satellite_clock),
+        ("clock_drift", block_slices.clock_drift),
+    ):
+        start = int(slc.start or 0)
+        stop = int(slc.stop or 0)
+        if start < 0 or stop < start or stop > state.size:
+            raise ValueError(f"{name} slice is outside the state vector.")
+    if config.damping_lambda < 0.0:
+        raise ValueError("damping_lambda must be nonnegative.")
+
+
+def _clip_diagonal_block(
+    variances: np.ndarray,
+    slc: slice,
+    floor: float,
+    ceiling: float,
+) -> None:
+    """Clip a diagonal covariance block in place."""
+
+    if _slice_length(slc) == 0:
+        return
+    if floor < 0.0 or ceiling <= 0.0 or floor > ceiling:
+        raise ValueError("covariance floors/ceilings must be nonnegative and ordered.")
+    variances[slc] = np.clip(variances[slc], floor, ceiling)
+
+
+def step_c7_residual_scaled_block_covariance(
+    jacobian: np.ndarray,
+    residual: np.ndarray,
+    sigmas: np.ndarray,
+    block_slices: StepC7BlockSlices,
+    *,
+    config: StepC7Config | None = None,
+) -> tuple[np.ndarray, dict[str, Any]]:
+    """Return residual-scaled block-diagonal LM covariance for C7."""
+
+    cfg = config or StepC7Config()
+    jac = np.asarray(jacobian, dtype=float)
+    res = np.asarray(residual, dtype=float)
+    sigma = np.asarray(sigmas, dtype=float)
+    dummy_state = np.zeros(jac.shape[1], dtype=float)
+    _validate_c7_inputs(dummy_state, jac, res, sigma, block_slices, 1, cfg)
+
+    r_inv_diag = 1.0 / np.square(sigma)
+    information = jac.T @ (jac * r_inv_diag[:, None])
+    damped_information = information + cfg.damping_lambda * np.eye(information.shape[0], dtype=float)
+    covariance = np.linalg.pinv(damped_information, rcond=cfg.covariance_rcond)
+    covariance = 0.5 * (covariance + covariance.T)
+    residual_cost = float(np.sum(np.square(res / sigma)))
+    dof = max(1, int(res.size - jac.shape[1]))
+    residual_scale_factor = residual_cost / dof if cfg.residual_scale_enabled else 1.0
+    covariance *= residual_scale_factor
+
+    block_diagonal = np.zeros_like(covariance)
+    for slc in (
+        block_slices.position,
+        block_slices.ue_clock,
+        block_slices.satellite_clock,
+        block_slices.clock_drift,
+    ):
+        if _slice_length(slc) > 0:
+            block_diagonal[slc, slc] = covariance[slc, slc]
+    variances = np.diag(block_diagonal).copy()
+    _clip_diagonal_block(variances, block_slices.position, cfg.position_floor_km2, cfg.position_ceiling_km2)
+    _clip_diagonal_block(variances, block_slices.ue_clock, cfg.clock_floor_km2, cfg.clock_ceiling_km2)
+    _clip_diagonal_block(variances, block_slices.satellite_clock, cfg.clock_floor_km2, cfg.clock_ceiling_km2)
+    _clip_diagonal_block(
+        variances,
+        block_slices.clock_drift,
+        cfg.drift_floor_km2_per_s2,
+        cfg.drift_ceiling_km2_per_s2,
+    )
+    clipped_covariance = np.diag(variances)
+    return clipped_covariance, {
+        "covariance_source": "residual_scaled_lm_curvature_block_diagonal_diagonal_clipped",
+        "residual_cost": residual_cost,
+        "degrees_of_freedom": dof,
+        "residual_scale_factor": residual_scale_factor,
+        "residual_scale_enabled": bool(cfg.residual_scale_enabled),
+        "information_rank": int(np.linalg.matrix_rank(information)),
+        "covariance_rank": int(np.linalg.matrix_rank(clipped_covariance)),
+        "covariance_shape": list(clipped_covariance.shape),
+        "state_dimension": int(jac.shape[1]),
+        "damping_lambda": float(cfg.damping_lambda),
+        "truth_state_used_for_covariance": False,
+    }
+
+
+def _block_stats(matrix: np.ndarray, slc: slice) -> dict[str, float]:
+    """Return trace and eigenvalue diagnostics for one matrix block."""
+
+    if _slice_length(slc) == 0:
+        return {"trace": 0.0, "eig_min": 0.0, "eig_max": 0.0}
+    block = matrix[slc, slc]
+    eigvals = np.linalg.eigvalsh(0.5 * (block + block.T))
+    return {
+        "trace": float(np.trace(block)),
+        "eig_min": float(np.min(eigvals)),
+        "eig_max": float(np.max(eigvals)),
+    }
+
+
+def _combined_clock_slice(block_slices: StepC7BlockSlices) -> slice:
+    """Return the contiguous clock-bias slice for C7 state layouts."""
+
+    if int(block_slices.ue_clock.stop or 0) != int(block_slices.satellite_clock.start or 0):
+        raise ValueError("C7 expects adjacent UE and satellite clock blocks.")
+    return slice(block_slices.ue_clock.start, block_slices.satellite_clock.stop)
+
+
+def _c7_safeguard_diagnostics(
+    update: np.ndarray,
+    covariance: np.ndarray,
+    block_slices: StepC7BlockSlices,
+    num_users: int,
+    objective_before: float,
+    objective_after_full_update: float,
+    finite_output: bool,
+    config: StepC7Config,
+) -> dict[str, Any]:
+    """Return C7 non-truth safeguard diagnostics."""
+
+    clock_slice = _combined_clock_slice(block_slices)
+    clock_update = update[clock_slice]
+    drift_update = update[block_slices.clock_drift] if _slice_length(block_slices.clock_drift) else np.asarray([], dtype=float)
+    p_clock_trace = float(np.trace(covariance[clock_slice, clock_slice]))
+    clock_update_norm = float(np.linalg.norm(clock_update))
+    drift_update_norm = float(np.linalg.norm(drift_update))
+    common_clock_component = abs(float(np.mean(clock_update))) if clock_update.size else 0.0
+    clock_update_to_cov_scale = clock_update_norm / max(np.sqrt(max(p_clock_trace, 1.0e-18)), 1.0e-18)
+    common_ratio = common_clock_component / max(clock_update_norm / max(np.sqrt(clock_update.size), 1.0), 1.0e-18)
+    reasons: list[str] = []
+    if not finite_output:
+        reasons.append("nonfinite_update")
+    if objective_after_full_update > objective_before + config.objective_tolerance:
+        reasons.append("observable_objective_not_decreased")
+    if config.single_user_clock_safeguard and num_users < 2 and clock_update_norm > 0.0:
+        reasons.append("single_user_clock_update_not_observable")
+    if clock_update_to_cov_scale > config.clock_update_covariance_sigma_limit:
+        reasons.append("clock_update_exceeds_covariance_scale")
+    if common_ratio > config.common_clock_ratio_limit and common_clock_component > 0.0:
+        reasons.append("large_common_clock_component")
+    return {
+        "nis": objective_before,
+        "clock_update_to_cov_scale": clock_update_to_cov_scale,
+        "common_clock_component": common_clock_component,
+        "common_clock_ratio": common_ratio,
+        "drift_update_norm_before_fallback": drift_update_norm,
+        "safeguard_failed": bool(reasons),
+        "safeguard_reasons": reasons,
+        "truth_state_used_for_safeguard": False,
+    }
+
+
+def step_c7_residual_cov_sync_safeguard_refinement(
+    initial_state: np.ndarray,
+    jacobian: np.ndarray,
+    residual: np.ndarray,
+    sigmas: np.ndarray,
+    block_slices: StepC7BlockSlices,
+    *,
+    num_users: int,
+    residual_at_state: Callable[[np.ndarray], np.ndarray] | None = None,
+    config: StepC7Config | None = None,
+) -> EstimatorResult:
+    """Run C7 residual-scaled block-covariance Step 3 with sync safeguard."""
+
+    cfg = config or StepC7Config()
+    state = np.asarray(initial_state, dtype=float).copy()
+    jac = np.asarray(jacobian, dtype=float)
+    res = np.asarray(residual, dtype=float)
+    sigma = np.asarray(sigmas, dtype=float)
+    _validate_c7_inputs(state, jac, res, sigma, block_slices, num_users, cfg)
+
+    covariance, covariance_info = step_c7_residual_scaled_block_covariance(
+        jac,
+        res,
+        sigma,
+        block_slices,
+        config=cfg,
+    )
+    p_inv = np.linalg.pinv(covariance, rcond=cfg.covariance_rcond)
+    r_inv_diag = 1.0 / np.square(sigma)
+    information = jac.T @ (jac * r_inv_diag[:, None])
+    normal = information + p_inv
+    rhs = jac.T @ (r_inv_diag * res)
+    raw_update = np.linalg.pinv(normal, rcond=cfg.update_rcond) @ rhs
+
+    def residual_for(candidate_state: np.ndarray) -> np.ndarray:
+        if residual_at_state is not None:
+            return np.asarray(residual_at_state(candidate_state), dtype=float)
+        return res - jac @ (candidate_state - state)
+
+    full_candidate = state + raw_update
+    full_residual_after = residual_for(full_candidate)
+    objective_before = float(np.sum(np.square(res / sigma)))
+    residual_cost_after_full = float(np.sum(np.square(full_residual_after / sigma)))
+    prior_cost_after_full = float(raw_update.T @ p_inv @ raw_update)
+    objective_after_full = residual_cost_after_full + prior_cost_after_full
+    finite_full = bool(np.all(np.isfinite(full_candidate)) and np.isfinite(objective_after_full))
+    safeguard = _c7_safeguard_diagnostics(
+        raw_update,
+        covariance,
+        block_slices,
+        num_users,
+        objective_before,
+        objective_after_full,
+        finite_full,
+        cfg,
+    )
+
+    update = raw_update.copy()
+    fallback_behavior = "none"
+    fallback_event = False
+    affected_state_blocks: list[str] = []
+    if cfg.sync_safeguard and safeguard["safeguard_failed"]:
+        update[block_slices.ue_clock] = 0.0
+        update[block_slices.satellite_clock] = 0.0
+        affected_state_blocks.extend(["ue_clock", "satellite_clock"])
+        if _slice_length(block_slices.clock_drift) > 0:
+            update[block_slices.clock_drift] = 0.0
+            affected_state_blocks.append("clock_drift")
+        fallback_behavior = "clock_and_drift_reverted_to_step_b"
+        fallback_event = True
+
+    final_state = state + update
+    residual_after = residual_for(final_state)
+    residual_cost_after = float(np.sum(np.square(residual_after / sigma)))
+    prior_cost = float(update.T @ p_inv @ update)
+    objective_after = residual_cost_after + prior_cost
+    position_stats = _block_stats(covariance, block_slices.position)
+    ue_clock_stats = _block_stats(covariance, block_slices.ue_clock)
+    satellite_clock_stats = _block_stats(covariance, block_slices.satellite_clock)
+    clock_stats = _block_stats(covariance, _combined_clock_slice(block_slices))
+    drift_stats = _block_stats(covariance, block_slices.clock_drift)
+    clock_update = update[_combined_clock_slice(block_slices)]
+    diagnostics = {
+        "stage": "step3_residual_cov_sync_safeguard",
+        "estimator_mode": STEP_C7_ESTIMATOR_MODE,
+        "map_acceptance_mode": "nontruth_sync_safeguard",
+        "map_covariance_mode": "residual_scaled_lm_block_diagonal",
+        "truth_state_used_for_acceptance": False,
+        "truth_state_used_for_covariance": False,
+        "truth_state_used_for_safeguard": False,
+        "truth_state_used_for_diagnostics": False,
+        "residual_scaled_covariance_formula": "sigma_hat_squared * pinv(J.T R^-1 J + lambda I)",
+        "sigma_hat_squared_formula": "r.T R^-1 r / max(1, N_z - N_theta)",
+        "status": "updated_with_clock_fallback" if fallback_event else "updated",
+        "converged": True,
+        "numerical_failure": not bool(np.all(np.isfinite(final_state)) and np.isfinite(objective_after)),
+        "update_completed": True,
+        "accepted_steps": int(objective_after <= objective_before + cfg.objective_tolerance),
+        "rejected_steps": int(objective_after > objective_before + cfg.objective_tolerance),
+        "objective_before": objective_before,
+        "objective_after": objective_after,
+        "objective_after_full_update": objective_after_full,
+        "objective_decreased": objective_after <= objective_before + cfg.objective_tolerance,
+        "residual_cost_before": objective_before,
+        "residual_cost_after": residual_cost_after,
+        "residual_cost_after_full_update": residual_cost_after_full,
+        "prior_cost": prior_cost,
+        "prior_cost_after_full_update": prior_cost_after_full,
+        "fallback_event": fallback_event,
+        "fallback_behavior": fallback_behavior,
+        "fallback_trigger": ";".join(safeguard["safeguard_reasons"]) if fallback_event else "none",
+        "fallback_reason": safeguard["safeguard_reasons"][0] if fallback_event and safeguard["safeguard_reasons"] else "none",
+        "affected_state_blocks": affected_state_blocks,
+        "safeguard": safeguard,
+        "raw_position_update_norm": float(np.linalg.norm(raw_update[block_slices.position])),
+        "raw_ue_clock_update_norm": float(np.linalg.norm(raw_update[block_slices.ue_clock])),
+        "raw_satellite_clock_update_norm": float(np.linalg.norm(raw_update[block_slices.satellite_clock])),
+        "raw_clock_drift_update_norm": float(np.linalg.norm(raw_update[block_slices.clock_drift])),
+        "position_update_norm": float(np.linalg.norm(update[block_slices.position])),
+        "ue_clock_update_norm": float(np.linalg.norm(update[block_slices.ue_clock])),
+        "satellite_clock_update_norm": float(np.linalg.norm(update[block_slices.satellite_clock])),
+        "clock_drift_update_norm": float(np.linalg.norm(update[block_slices.clock_drift])),
+        "common_clock_update_component": abs(float(np.mean(clock_update))) if clock_update.size else 0.0,
+        "normal_rank": int(np.linalg.matrix_rank(normal)),
+        "information_rank": int(np.linalg.matrix_rank(information)),
+        "normal_condition_number": float(np.linalg.cond(normal)),
+        "p_position_trace": position_stats["trace"],
+        "p_position_eig_min": position_stats["eig_min"],
+        "p_position_eig_max": position_stats["eig_max"],
+        "p_ue_clock_trace": ue_clock_stats["trace"],
+        "p_satellite_clock_trace": satellite_clock_stats["trace"],
+        "p_clock_trace": clock_stats["trace"],
+        "p_clock_eig_min": clock_stats["eig_min"],
+        "p_clock_eig_max": clock_stats["eig_max"],
+        "p_clock_drift_trace": drift_stats["trace"],
+        "p_clock_drift_eig_min": drift_stats["eig_min"],
+        "p_clock_drift_eig_max": drift_stats["eig_max"],
+        "clock_drift_prior_scale": cfg.drift_floor_km2_per_s2,
+        **covariance_info,
+    }
+    return EstimatorResult(
+        theta=final_state,
+        success=not diagnostics["numerical_failure"],
+        covariance=covariance,
+        diagnostics=diagnostics,
+    )
 
 
 def identity_theta_state_model(theta_dim: int, process_noise_std_km: float = 1e-5) -> V24StateModel:

@@ -23,12 +23,16 @@ import numpy as np
 from scipy.optimize import least_squares
 
 from .algorithm import (
+    STEP_C7_ESTIMATOR_MODE,
+    StepC7BlockSlices,
+    StepC7Config,
     coarse_individual_localization,
     deterministic_position_initialization,
     deterministic_position_initialization_candidates,
     dynamic_soft_information_refinement,
     initial_covariance_from_linearization,
     joint_lm_jcls,
+    step_c7_residual_cov_sync_safeguard_refinement,
 )
 from .configs import V24ScenarioConfig, directed_sidelink_links, downlink_links
 from .constants import C_KM_PER_S
@@ -905,6 +909,180 @@ def run_single_trial_v24_algorithm(
     return rows
 
 
+def _c7_state_residual_jacobian(
+    scenario: V24ScenarioConfig,
+    measurements: list[np.ndarray],
+    state: np.ndarray,
+    theta_dim: int,
+    clock_slice: slice,
+    drift_slice: slice,
+    *,
+    epoch_dt_seconds: float = 0.5,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Return residual and Jacobian for theta plus clock-drift C7 state."""
+
+    residuals: list[np.ndarray] = []
+    jacobians: list[np.ndarray] = []
+    for epoch_index, z in enumerate(measurements):
+        t = float(epoch_index) * epoch_dt_seconds
+        theta_epoch = np.asarray(state[:theta_dim], dtype=float).copy()
+        theta_epoch[clock_slice] += t * state[drift_slice]
+        prediction = toa_range_vector_from_theta_km(
+            theta_epoch,
+            scenario.links,
+            scenario.satellite_positions_km,
+            scenario.num_users,
+            scenario.num_satellites,
+        )
+        jac_theta = analytic_toa_jacobian_km(
+            theta_epoch,
+            scenario.links,
+            scenario.satellite_positions_km,
+            scenario.num_users,
+            scenario.num_satellites,
+        )
+        jac_state = np.zeros((jac_theta.shape[0], state.size), dtype=float)
+        jac_state[:, :theta_dim] = jac_theta
+        jac_state[:, drift_slice] = t * jac_theta[:, clock_slice]
+        residuals.append(np.asarray(z, dtype=float) - prediction)
+        jacobians.append(jac_state)
+    return np.concatenate(residuals), np.vstack(jacobians), np.tile(scenario.range_std_devs_km, len(measurements))
+
+
+def run_single_trial_step_c7_algorithm(
+    scenario: V24ScenarioConfig,
+    *,
+    trial_seed: int,
+    refinement_epochs: int,
+    noise_scale: float = 1.0,
+    process_noise_std_km: float = 1e-5,
+) -> list[dict[str, Any]]:
+    """Run package-native Step C7 residual-covariance refinement."""
+
+    rng = np.random.default_rng(int(trial_seed))
+    measurements = [
+        _measurement_vector(scenario, rng, noise_scale=noise_scale)
+        for _ in range(max(1, int(refinement_epochs)))
+    ]
+    first_measurement = measurements[0]
+    true_positions = scenario.ue_positions_km
+    true_clocks = scenario.full_clock_dict_km()
+    rows: list[dict[str, Any]] = []
+
+    step1 = coarse_individual_localization(scenario, first_measurement)
+    step1_positions, _, _ = unpack_v24_theta(step1.theta, scenario.num_users, scenario.num_satellites)
+    no_coop_clock_estimate = {node_id: 0.0 for node_id in true_clocks}
+    rows.append(
+        _with_algorithm_diagnostics(
+            _metric_row(
+                scenario,
+                "without_cooperation",
+                step1_positions,
+                no_coop_clock_estimate,
+                true_positions,
+                true_clocks,
+                success=step1.success,
+                cost=None,
+                nfev=None,
+                rank={**_rank_diagnostics(scenario, 1), **_baseline_observability_diagnostics(scenario, "without_cooperation", epoch_count=1)},
+            ),
+            estimator_mode=STEP_C7_ESTIMATOR_MODE,
+            algorithm_stage="step1_coarse_individual_dl_gn",
+            diagnostics=step1.diagnostics,
+            process_noise_std_km=process_noise_std_km,
+        )
+    )
+
+    step2 = joint_lm_jcls(scenario, first_measurement, step1.theta)
+    step2_positions, _, _ = unpack_v24_theta(step2.theta, scenario.num_users, scenario.num_satellites)
+    rows.append(
+        _with_algorithm_diagnostics(
+            _metric_row(
+                scenario,
+                "coarse_jcls",
+                step2_positions,
+                _full_clock_dict_from_theta(step2.theta, scenario.num_users, scenario.num_satellites),
+                true_positions,
+                true_clocks,
+                success=step2.success,
+                cost=None,
+                nfev=step2.diagnostics.get("iteration_count"),
+                rank={**_rank_diagnostics(scenario, 1), **_baseline_observability_diagnostics(scenario, "coarse_jcls", epoch_count=1)},
+            ),
+            estimator_mode=STEP_C7_ESTIMATOR_MODE,
+            algorithm_stage="step2_joint_lm_jcls",
+            diagnostics=step2.diagnostics,
+            process_noise_std_km=process_noise_std_km,
+        )
+    )
+
+    theta_dim = expected_v24_parameter_dim(scenario.num_users, scenario.num_satellites)
+    clock_count = scenario.num_users + scenario.num_satellites - 1
+    clock_slice = slice(3 * scenario.num_users, theta_dim)
+    drift_slice = slice(theta_dim, theta_dim + clock_count)
+    state0 = np.concatenate([step2.theta, np.zeros(clock_count, dtype=float)])
+    residual, jacobian, sigmas = _c7_state_residual_jacobian(
+        scenario,
+        measurements,
+        state0,
+        theta_dim,
+        clock_slice,
+        drift_slice,
+    )
+
+    def residual_at_state(state: np.ndarray) -> np.ndarray:
+        return _c7_state_residual_jacobian(
+            scenario,
+            measurements,
+            state,
+            theta_dim,
+            clock_slice,
+            drift_slice,
+        )[0]
+
+    step3 = step_c7_residual_cov_sync_safeguard_refinement(
+        state0,
+        jacobian,
+        residual,
+        sigmas,
+        StepC7BlockSlices(
+            position=slice(0, 3 * scenario.num_users),
+            ue_clock=slice(3 * scenario.num_users, 3 * scenario.num_users + scenario.num_users),
+            satellite_clock=slice(3 * scenario.num_users + scenario.num_users, theta_dim),
+            clock_drift=drift_slice,
+        ),
+        num_users=scenario.num_users,
+        residual_at_state=residual_at_state,
+        config=StepC7Config(drift_floor_km2_per_s2=process_noise_std_km**2),
+    )
+    c7_theta = step3.theta[:theta_dim]
+    step3_positions, _, _ = unpack_v24_theta(c7_theta, scenario.num_users, scenario.num_satellites)
+    rows.append(
+        _with_algorithm_diagnostics(
+            _metric_row(
+                scenario,
+                "refined_jcls",
+                step3_positions,
+                _full_clock_dict_from_theta(c7_theta, scenario.num_users, scenario.num_satellites),
+                true_positions,
+                true_clocks,
+                success=step3.success,
+                cost=None,
+                nfev=step3.diagnostics.get("accepted_steps"),
+                rank={
+                    **_rank_diagnostics(scenario, max(1, int(refinement_epochs))),
+                    **_baseline_observability_diagnostics(scenario, "refined_jcls", epoch_count=max(1, int(refinement_epochs))),
+                },
+            ),
+            estimator_mode=STEP_C7_ESTIMATOR_MODE,
+            algorithm_stage="step3_residual_cov_sync_safeguard",
+            diagnostics=step3.diagnostics,
+            process_noise_std_km=process_noise_std_km,
+        )
+    )
+    return rows
+
+
 def _with_algorithm_diagnostics(
     row: dict[str, Any],
     *,
@@ -1064,6 +1242,13 @@ def run_figure_config(
             trial_seed = case_seed + 7919 * (trial + 1)
             if estimator_mode == "v24_three_stage_dynamic":
                 trial_rows = run_single_trial_v24_algorithm(
+                    scenario,
+                    trial_seed=trial_seed,
+                    refinement_epochs=int(config["refinement_epochs"]),
+                    process_noise_std_km=process_noise_std_km,
+                )
+            elif estimator_mode == STEP_C7_ESTIMATOR_MODE:
+                trial_rows = run_single_trial_step_c7_algorithm(
                     scenario,
                     trial_seed=trial_seed,
                     refinement_epochs=int(config["refinement_epochs"]),
@@ -1331,6 +1516,14 @@ def _metadata_payload(
                 "step3": "dynamic SCI/SFI information-form update",
                 "state_model": "x=theta, F=I, Pi=I, Q=process_noise_std_km^2 I",
                 "process_noise_std_km": float(config.get("process_noise_std_km", 1e-5)),
+            },
+            STEP_C7_ESTIMATOR_MODE: {
+                "step1": "weighted GN UE-only DL localization with clock states fixed to zero",
+                "step2": "weighted LM over the full gauged V24 theta vector",
+                "step3": "residual-scaled block covariance with non-truth synchronization safeguard",
+                "truth_state_used_for_acceptance": False,
+                "truth_state_used_for_covariance": False,
+                "truth_state_used_for_safeguard": False,
             },
         },
         "rank_metadata": {

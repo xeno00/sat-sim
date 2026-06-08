@@ -36,10 +36,13 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 ## Suspect/Broken Graphs
 - `v24_human_review_outputs`: package-native human-review Fig. 4--7 path can degrade at later JCLS stages; preserve as suspect diagnostics only
 - `v24_figure_outputs`: package-native diagnostics are not legacy-compatible and not best available
-- `outputs/step3_low_cost_exploration`: low-cost Step 3 triage/proxy diagnostics only; not figure-ready and not a manuscript output
-- `outputs/step3_covariance_exploration`: covariance/dynamics Step 3 diagnostics only; promoted variants require review before any larger validation or estimator integration
-- `outputs/step3_residual_cov_failure_audit`: residual-scaled covariance failure audit only; not figure-ready and not a manuscript output
-- `outputs/step3_residual_cov_robust_candidates`: residual-scaled robust candidate diagnostics only; not figure-ready and not a manuscript output
+- `outputs/step_c7_residual_cov_sync_safeguard`: C7 medium validation diagnostics only; ready for human graph review but not manuscript-ready
+
+## Latest C7 Diagnostic
+- Latest Step 3 diagnostic mode: `step_c7_residual_cov_sync_safeguard`.
+- C7 outputs are non-final and not manuscript-ready.
+- C7 is ready for human graph review.
+- Recommended next action: Human graph review of C7 diagnostics, then decide whether to run a bounded clock/network figure-candidate validation.
 
 ## Warnings
 - No graph is manuscript-ready.
@@ -49,3 +52,4 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - Low-cost Step 3 exploration did not identify a medium-validation candidate and uses proxy evidence for clock-drift and Schur/nuisance-clock lanes.
 - Step 3 covariance exploration uses deterministic sparse diagnostics and promoted-only medium validation; it is not a final figure workflow.
 - Step 3 residual covariance robust candidates use bounded medium-grid diagnostics; the best candidate still requires review before estimator integration.
+- Step C7 residual-covariance sync-safeguard outputs are non-final diagnostics, not manuscript figures.

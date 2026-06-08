@@ -252,6 +252,29 @@ def step_c5_sliding_window_map() -> MigrationStep:
     )
 
 
+def step_c7_residual_cov_sync_safeguard() -> MigrationStep:
+    """Return C7: residual-scaled covariance with non-truth sync safeguard."""
+
+    return MigrationStep(
+        name="step_c7_residual_cov_sync_safeguard",
+        estimator_mode="step_c7_residual_cov_sync_safeguard",
+        internal_clock_mode="all_clock",
+        acceptance_mode="residual_trust_region_plus_nontruth_sync_safeguard",
+        metric_mode="legacy_all_clock_sync",
+        weighting_mode="legacy_notebook",
+        geometry_noise_mode="legacy_replay",
+        display_transform_mode="raw_metrics_no_smoothing",
+        map_covariance_mode="residual_scaled_lm_block_diagonal",
+        map_update_mode="clock_drift_step3_nontruth_sync_safeguard",
+        exact_change=(
+            "Start from Step B residual-LM behavior, initialize Step 3 with "
+            "residual-scaled block-diagonal LM covariance, and revert unsafe "
+            "clock/drift updates using non-truth observability diagnostics."
+        ),
+        expected_raw_metric_change="possible; this is the promoted robust Step C estimator mode",
+    )
+
+
 def migration_ladder_steps() -> list[MigrationStep]:
     """Return the implemented controlled migration ladder steps."""
 
@@ -270,6 +293,7 @@ def migration_ladder_steps() -> list[MigrationStep]:
         step_c3_cov_residual_scaled(),
         step_c4_composite_map_acceptance(),
         step_c5_sliding_window_map(),
+        step_c7_residual_cov_sync_safeguard(),
     ]
 
 

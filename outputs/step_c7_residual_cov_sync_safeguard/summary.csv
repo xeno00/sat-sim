@@ -1,0 +1,5 @@
+candidate,row_count,both_improved_count,position_improved_count,sync_improved_count,fallback_count,mean_position_ratio,max_position_ratio,mean_sync_ratio,max_sync_ratio
+step_c7_residual_cov_sync_safeguard,12,9,12,9,3,0.054160465424072914,0.14448710044194635,0.38561149595048044,1.0
+c7_ablation_without_safeguard,12,9,12,9,0,0.054160465424072914,0.14448710044194635,0.4623240434169573,1.679045010559675
+c7_ablation_without_residual_scaling,12,5,12,5,3,0.17838789254822496,0.36932099519872846,1.1582847803012266,1.8794262506653694
+c7_ablation_without_drift,12,9,12,9,3,0.038374118690825215,0.09671039630640818,0.4731330739999628,1.0

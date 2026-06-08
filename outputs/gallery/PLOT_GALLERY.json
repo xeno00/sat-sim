@@ -1,6 +1,6 @@
 {
   "artifact_status": "non_final_plot_gallery",
-  "generated_at_utc": "2026-06-08T21:24:42.426233+00:00",
+  "generated_at_utc": "2026-06-08T23:51:50.145502+00:00",
   "source_roots": [
     "outputs/legacy_replay",
     "outputs/package_diagnostic",
@@ -15,12 +15,13 @@
     "outputs/step3_covariance_exploration",
     "outputs/step3_residual_cov_failure_audit",
     "outputs/step3_residual_cov_robust_candidates",
+    "outputs/step_c7_residual_cov_sync_safeguard",
     "v24_notebook_regression_outputs",
     "v24_human_review_outputs",
     "v24_manuscript_candidate_outputs",
     "v24_figure_outputs"
   ],
-  "entry_count": 117,
+  "entry_count": 125,
   "groups": [
     "Step 3 covariance exploration",
     "Step 3 gate exploration",
@@ -28,6 +29,7 @@
     "Step 3 micro-benchmarks",
     "Step 3 near-winner sparse",
     "Step 3 residual covariance robust candidates",
+    "Step C7 residual covariance sync safeguard",
     "controlled migration ladder",
     "human-review",
     "legacy CRLB replay",
@@ -1637,7 +1639,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "9e733c80c5a07e17018ec9f7adfddb35d00c663665e3adc0be677d0470d748a4",
+      "source_pdf_sha256": "94dba8fdc6d58ce54f2487addb62cbae8a9d181e22c424b24313732a8b350ae3",
       "source_pdf_size_bytes": 13976
     },
     {
@@ -1655,7 +1657,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "7da2fef35ca81dc6ba6025cfe58de10ad6bcf7a5e398227bdccddfa4ab530ad9",
+      "source_pdf_sha256": "49618898b5ce59d272f82335d540a430bdc2d720c418aeea77735b248a52d116",
       "source_pdf_size_bytes": 14867
     },
     {
@@ -1673,7 +1675,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "119517c5d29a9f4ed7f8401496884eda896077ab8531932547d50e6a099079dd",
+      "source_pdf_sha256": "537af7cbb0b70f6dd8739b4bfaae9ea7e1123ea5667e28b537fe6a79657fa8f7",
       "source_pdf_size_bytes": 18051
     },
     {
@@ -1691,7 +1693,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "85bb040a7ca01ab0d48e9cfc9d16b728fe8e7c1dc7eb30142831463e1419e39e",
+      "source_pdf_sha256": "30354a2a5a0b47d931e85f01414d34cbc0ac3571706ef7231083378a58a44f5e",
       "source_pdf_size_bytes": 17911
     },
     {
@@ -1709,7 +1711,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "087d336e18ce10d81e8e270b85c6ef04f4377e230cbb6670ad4ff5a6c169122e",
+      "source_pdf_sha256": "0c260d6460ec8cc932320927f28d1eee9cd21d8ca66bbc34692875d8c19b9e70",
       "source_pdf_size_bytes": 19479
     },
     {
@@ -1727,8 +1729,8 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "d855f43ae8943ea000431b11d2e1f0071e98df784eea515e7dd5ead7a326d9b7",
-      "source_pdf_size_bytes": 13547
+      "source_pdf_sha256": "5cf16c90e2f2385664a42fbf42c5289b135bbc03457302c73bd53cbe0f4d6133",
+      "source_pdf_size_bytes": 13512
     },
     {
       "figure_name": "update_norm_by_block.pdf",
@@ -1745,7 +1747,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "761608de8ceac4f0c3ab1dceae0f91df66a9064a3c1fe1b28c32f8da9045e9f1",
+      "source_pdf_sha256": "b23e8e6e43665fa3061c3eb9c98a97779644452d3746c928f5fc8d43767fbf3b",
       "source_pdf_size_bytes": 14257
     },
     {
@@ -1963,7 +1965,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "e5aa7a48657e5a8b4d7a14729a912938fe53f210bb0292db16343f119be32a8c",
+      "source_pdf_sha256": "1029982444b6b45cbc838b752789b8facde932f0db9eecf2cf042768caee8111",
       "source_pdf_size_bytes": 18840
     },
     {
@@ -1981,7 +1983,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "ff4a21cad1227523fe8514aa4d40c7cde36203c787d5b458220b1b0d1c769d4a",
+      "source_pdf_sha256": "083f8d728a298554f2c841b7c3f8a9d61aed6ea4646e41e3e2202fbdb0642331",
       "source_pdf_size_bytes": 16730
     },
     {
@@ -1999,7 +2001,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "7154b059151e07a9a6d56562d0da4b46fd21287a950e483c2873ec8bfa85d4c2",
+      "source_pdf_sha256": "d75df510ddbc3a75f45e95acc1fd4594ac4cab3563c1347ae2a188344f7ea83e",
       "source_pdf_size_bytes": 12263
     },
     {
@@ -2017,7 +2019,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "efbe8658dc6dc0df40b65c6baefdacd4bb1c22ba4914ed911b80c51d976c1554",
+      "source_pdf_sha256": "08124815fddae349285fa4e6ac104e6c1f0c9623c84c8f245e2e6f0048997158",
       "source_pdf_size_bytes": 19429
     },
     {
@@ -2035,7 +2037,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "1cc5b04308ad5a42896d194fdfcd9fe10f8234aa54fdb857d336431551f34f41",
+      "source_pdf_sha256": "b5e7eec5384a32ced0f58f5723601ca3af36e1def43f38131ae60f92a9abd832",
       "source_pdf_size_bytes": 16416
     },
     {
@@ -2053,7 +2055,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "ed17e0a18a4f92da3a8dc67e8e3d69444de6a80b4542eef39f13ee226f1d4a51",
+      "source_pdf_sha256": "856e733e534ab7cf743e3b2f4ca2ea6eb94c6ee8d6f066c033e3cc34f3a7069d",
       "source_pdf_size_bytes": 13448
     },
     {
@@ -2071,7 +2073,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "7b41aa8e2bda806849010b2bfd0395262d5379da1e380f140c7211717c9ecd38",
+      "source_pdf_sha256": "0023e50cb9de88c2c0504ada67969dea13415e6635c90b58b7c2c0858359befc",
       "source_pdf_size_bytes": 17362
     },
     {
@@ -2089,7 +2091,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "268427354b408dbc83ad2df1d3564c7fe2fae3c85cc017d3ae6222e0f6104138",
+      "source_pdf_sha256": "6752bc4e90cb076162cb90cda55a93eeda99bfe73bf0e099e0a48ca1fe06c786",
       "source_pdf_size_bytes": 19486
     },
     {
@@ -2107,8 +2109,8 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "5591a9ac41beedc37ba8acc95d8d350de9a52214f3b3a23fbc253566eb3c19d1",
-      "source_pdf_size_bytes": 13715
+      "source_pdf_sha256": "66ba652b66228d3381feb2e8b72ac48557190cbc35563ebbbc9b439ed111f9f4",
+      "source_pdf_size_bytes": 13716
     },
     {
       "figure_name": "sync_ratio_heatmap.pdf",
@@ -2125,7 +2127,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "76ee082d632c1329518ca8afd1be425e83b8ed875979d38ecb822dc80c2b526d",
+      "source_pdf_sha256": "7d33e55cc5dc852694f83f388061041088391b301eff9bd085feb70a8e52408b",
       "source_pdf_size_bytes": 18020
     },
     {
@@ -2143,7 +2145,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "d0ad8375ad6f705fad1c527e4449a22952e91d5518b960b257146dcb8bf7e137",
+      "source_pdf_sha256": "3a1d245d40761a931e3b4997f9c82ba8051c280346212ad5db706c05758a4f9a",
       "source_pdf_size_bytes": 14572
     },
     {
@@ -2161,7 +2163,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "1e5824f47d4f3ab288c641ff5be6994d49bbcf95e08b3ab30dca1c7d0d0a8324",
+      "source_pdf_sha256": "43215d07838f4a4eccd9834463feb23ff048f4f2e0e1d27c2dccea8f71cf8b99",
       "source_pdf_size_bytes": 13233
     },
     {
@@ -2179,7 +2181,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "37d54e2f5affa50a15aa88509c1b81ff6886d9e67817e61165243adca0073c7d",
+      "source_pdf_sha256": "a382dd5d2de3cf0f215d41e9dc97fbd3a3aeade196f7c1a06574af1a2aa80660",
       "source_pdf_size_bytes": 15697
     },
     {
@@ -2197,7 +2199,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "64d2123b45dda79b6e19d8390ec80c7aff4e4405d4afb7d2c9c4696325e20081",
+      "source_pdf_sha256": "dd416aa0e419357d12e98775a7e1dbe8faeafa42fac089c8dfe84063a1d2b873",
       "source_pdf_size_bytes": 18424
     },
     {
@@ -2215,7 +2217,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "9cc43a2692e8c45e9f868ed199fa506534a8aafb21f16b9fd3757e2b1b74ee12",
+      "source_pdf_sha256": "865b4bee277077d0812c538f0ff08ca009990a5d12c57e4965ee58857d20ea8e",
       "source_pdf_size_bytes": 15241
     },
     {
@@ -2233,8 +2235,152 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "72c8bbeff995f7b2e0d337fd3ca3775fb8e8fab1c16c23ba42a8b94b27e0c6c6",
+      "source_pdf_sha256": "051ecee0d796b0f26eb6d4db67af39e8eb22159fe358bdd75bc0958c637bb1b4",
       "source_pdf_size_bytes": 14979
+    },
+    {
+      "figure_name": "ablation_comparison.pdf",
+      "group": "Step C7 residual covariance sync safeguard",
+      "source_pdf_path": "outputs/step_c7_residual_cov_sync_safeguard/plots/ablation_comparison.pdf",
+      "preview_paths": [
+        "previews/0b59cc2dfe5a__outputs__step_c7_residual_cov_sync_safeguard__plots__ablation_comparison-1.png"
+      ],
+      "metadata_path": "previews/0b59cc2dfe5a__outputs__step_c7_residual_cov_sync_safeguard__plots__ablation_comparison.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "a4fbd62b385a6d32bce623d59a8c6ed95997c7e4994b5dd303252c8cc991b270",
+      "source_pdf_size_bytes": 14796
+    },
+    {
+      "figure_name": "covariance_eigenvalue_diagnostics.pdf",
+      "group": "Step C7 residual covariance sync safeguard",
+      "source_pdf_path": "outputs/step_c7_residual_cov_sync_safeguard/plots/covariance_eigenvalue_diagnostics.pdf",
+      "preview_paths": [
+        "previews/c90bdbb09638__outputs__step_c7_residual_cov_sync_safeguard__plots__covariance_eigenvalue_diagnostics-1.png"
+      ],
+      "metadata_path": "previews/c90bdbb09638__outputs__step_c7_residual_cov_sync_safeguard__plots__covariance_eigenvalue_diagnostics.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "bb04e5a4edf0fd065962540eec2882b87da22a6fce6e1b777dfd2985ec37987d",
+      "source_pdf_size_bytes": 12364
+    },
+    {
+      "figure_name": "fallback_count_by_nu_ns.pdf",
+      "group": "Step C7 residual covariance sync safeguard",
+      "source_pdf_path": "outputs/step_c7_residual_cov_sync_safeguard/plots/fallback_count_by_nu_ns.pdf",
+      "preview_paths": [
+        "previews/0462a609df8e__outputs__step_c7_residual_cov_sync_safeguard__plots__fallback_count_by_nu_ns-1.png"
+      ],
+      "metadata_path": "previews/0462a609df8e__outputs__step_c7_residual_cov_sync_safeguard__plots__fallback_count_by_nu_ns.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "aab6cd05f715d9a05ff8417a886b516a23275302c7534850cba380d3c09b0291",
+      "source_pdf_size_bytes": 13213
+    },
+    {
+      "figure_name": "localization_error_vs_satellites.pdf",
+      "group": "Step C7 residual covariance sync safeguard",
+      "source_pdf_path": "outputs/step_c7_residual_cov_sync_safeguard/plots/localization_error_vs_satellites.pdf",
+      "preview_paths": [
+        "previews/0712aeacc211__outputs__step_c7_residual_cov_sync_safeguard__plots__localization_error_vs_satellites-1.png"
+      ],
+      "metadata_path": "previews/0712aeacc211__outputs__step_c7_residual_cov_sync_safeguard__plots__localization_error_vs_satellites.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "bc4e9c65c0fa17f3646621a5234095f16b05dd08bda43bd3e0195b6b5c81e799",
+      "source_pdf_size_bytes": 19815
+    },
+    {
+      "figure_name": "position_ratio_heatmap.pdf",
+      "group": "Step C7 residual covariance sync safeguard",
+      "source_pdf_path": "outputs/step_c7_residual_cov_sync_safeguard/plots/position_ratio_heatmap.pdf",
+      "preview_paths": [
+        "previews/aab2e28a6b68__outputs__step_c7_residual_cov_sync_safeguard__plots__position_ratio_heatmap-1.png"
+      ],
+      "metadata_path": "previews/aab2e28a6b68__outputs__step_c7_residual_cov_sync_safeguard__plots__position_ratio_heatmap.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "7721629a48f613c6cc0972b290a8745aa2d32d54850e730daeb49c9a0c9892d6",
+      "source_pdf_size_bytes": 15602
+    },
+    {
+      "figure_name": "sync_ratio_heatmap.pdf",
+      "group": "Step C7 residual covariance sync safeguard",
+      "source_pdf_path": "outputs/step_c7_residual_cov_sync_safeguard/plots/sync_ratio_heatmap.pdf",
+      "preview_paths": [
+        "previews/8f9e42bdc81b__outputs__step_c7_residual_cov_sync_safeguard__plots__sync_ratio_heatmap-1.png"
+      ],
+      "metadata_path": "previews/8f9e42bdc81b__outputs__step_c7_residual_cov_sync_safeguard__plots__sync_ratio_heatmap.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "6e51e1cf9eb19ff5289722e793ba1edfa8771e2081e95112c02d0bfb7319e377",
+      "source_pdf_size_bytes": 16325
+    },
+    {
+      "figure_name": "synchronization_error_vs_satellites.pdf",
+      "group": "Step C7 residual covariance sync safeguard",
+      "source_pdf_path": "outputs/step_c7_residual_cov_sync_safeguard/plots/synchronization_error_vs_satellites.pdf",
+      "preview_paths": [
+        "previews/cb47f18458de__outputs__step_c7_residual_cov_sync_safeguard__plots__synchronization_error_vs_satellites-1.png"
+      ],
+      "metadata_path": "previews/cb47f18458de__outputs__step_c7_residual_cov_sync_safeguard__plots__synchronization_error_vs_satellites.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "7fe21632cb650d986872fcffecc466a8e508cd897b0c9600219c368e16cf1dad",
+      "source_pdf_size_bytes": 19619
+    },
+    {
+      "figure_name": "update_norm_by_state_block.pdf",
+      "group": "Step C7 residual covariance sync safeguard",
+      "source_pdf_path": "outputs/step_c7_residual_cov_sync_safeguard/plots/update_norm_by_state_block.pdf",
+      "preview_paths": [
+        "previews/d1a04863e464__outputs__step_c7_residual_cov_sync_safeguard__plots__update_norm_by_state_block-1.png"
+      ],
+      "metadata_path": "previews/d1a04863e464__outputs__step_c7_residual_cov_sync_safeguard__plots__update_norm_by_state_block.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "e0e3f3ed76f955fc7d4cb8c39a2d630bac4c1fea5f6afa0f19865a3dbf470899",
+      "source_pdf_size_bytes": 12619
     },
     {
       "figure_name": "fig4_localization_vs_satellites.pdf",
@@ -2673,6 +2819,6 @@
       "source_pdf_size_bytes": 23711
     }
   ],
-  "branch": "codex/step3-residual-cov-audit",
-  "commit": "da444d7"
+  "branch": "codex/step-c7-residual-cov-sync-safeguard",
+  "commit": "1cda0a6"
 }

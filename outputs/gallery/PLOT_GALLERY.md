@@ -3,8 +3,8 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 117
-- Generated at: 2026-06-08T21:24:42.426233+00:00
+- Generated entries: 125
+- Generated at: 2026-06-08T23:51:50.145502+00:00
 
 ## Step 3 covariance exploration
 
@@ -367,6 +367,88 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
 
 ![robust_candidate_mean_ratio_comparison.pdf](previews/515547a5ff54__tputs__step3_residual_cov_robust_candidates__plots__robust_candidate_mean_ratio_comparison-1.png)
 - Preview metadata: [previews/515547a5ff54__tputs__step3_residual_cov_robust_candidates__plots__robust_candidate_mean_ratio_comparison.json](previews/515547a5ff54__tputs__step3_residual_cov_robust_candidates__plots__robust_candidate_mean_ratio_comparison.json)
+
+## Step C7 residual covariance sync safeguard
+
+### ablation_comparison.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step_c7_residual_cov_sync_safeguard/plots/ablation_comparison.pdf](../step_c7_residual_cov_sync_safeguard/plots/ablation_comparison.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![ablation_comparison.pdf](previews/0b59cc2dfe5a__outputs__step_c7_residual_cov_sync_safeguard__plots__ablation_comparison-1.png)
+- Preview metadata: [previews/0b59cc2dfe5a__outputs__step_c7_residual_cov_sync_safeguard__plots__ablation_comparison.json](previews/0b59cc2dfe5a__outputs__step_c7_residual_cov_sync_safeguard__plots__ablation_comparison.json)
+
+### covariance_eigenvalue_diagnostics.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step_c7_residual_cov_sync_safeguard/plots/covariance_eigenvalue_diagnostics.pdf](../step_c7_residual_cov_sync_safeguard/plots/covariance_eigenvalue_diagnostics.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![covariance_eigenvalue_diagnostics.pdf](previews/c90bdbb09638__outputs__step_c7_residual_cov_sync_safeguard__plots__covariance_eigenvalue_diagnostics-1.png)
+- Preview metadata: [previews/c90bdbb09638__outputs__step_c7_residual_cov_sync_safeguard__plots__covariance_eigenvalue_diagnostics.json](previews/c90bdbb09638__outputs__step_c7_residual_cov_sync_safeguard__plots__covariance_eigenvalue_diagnostics.json)
+
+### fallback_count_by_nu_ns.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step_c7_residual_cov_sync_safeguard/plots/fallback_count_by_nu_ns.pdf](../step_c7_residual_cov_sync_safeguard/plots/fallback_count_by_nu_ns.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![fallback_count_by_nu_ns.pdf](previews/0462a609df8e__outputs__step_c7_residual_cov_sync_safeguard__plots__fallback_count_by_nu_ns-1.png)
+- Preview metadata: [previews/0462a609df8e__outputs__step_c7_residual_cov_sync_safeguard__plots__fallback_count_by_nu_ns.json](previews/0462a609df8e__outputs__step_c7_residual_cov_sync_safeguard__plots__fallback_count_by_nu_ns.json)
+
+### localization_error_vs_satellites.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step_c7_residual_cov_sync_safeguard/plots/localization_error_vs_satellites.pdf](../step_c7_residual_cov_sync_safeguard/plots/localization_error_vs_satellites.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![localization_error_vs_satellites.pdf](previews/0712aeacc211__outputs__step_c7_residual_cov_sync_safeguard__plots__localization_error_vs_satellites-1.png)
+- Preview metadata: [previews/0712aeacc211__outputs__step_c7_residual_cov_sync_safeguard__plots__localization_error_vs_satellites.json](previews/0712aeacc211__outputs__step_c7_residual_cov_sync_safeguard__plots__localization_error_vs_satellites.json)
+
+### position_ratio_heatmap.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step_c7_residual_cov_sync_safeguard/plots/position_ratio_heatmap.pdf](../step_c7_residual_cov_sync_safeguard/plots/position_ratio_heatmap.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![position_ratio_heatmap.pdf](previews/aab2e28a6b68__outputs__step_c7_residual_cov_sync_safeguard__plots__position_ratio_heatmap-1.png)
+- Preview metadata: [previews/aab2e28a6b68__outputs__step_c7_residual_cov_sync_safeguard__plots__position_ratio_heatmap.json](previews/aab2e28a6b68__outputs__step_c7_residual_cov_sync_safeguard__plots__position_ratio_heatmap.json)
+
+### sync_ratio_heatmap.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step_c7_residual_cov_sync_safeguard/plots/sync_ratio_heatmap.pdf](../step_c7_residual_cov_sync_safeguard/plots/sync_ratio_heatmap.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![sync_ratio_heatmap.pdf](previews/8f9e42bdc81b__outputs__step_c7_residual_cov_sync_safeguard__plots__sync_ratio_heatmap-1.png)
+- Preview metadata: [previews/8f9e42bdc81b__outputs__step_c7_residual_cov_sync_safeguard__plots__sync_ratio_heatmap.json](previews/8f9e42bdc81b__outputs__step_c7_residual_cov_sync_safeguard__plots__sync_ratio_heatmap.json)
+
+### synchronization_error_vs_satellites.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step_c7_residual_cov_sync_safeguard/plots/synchronization_error_vs_satellites.pdf](../step_c7_residual_cov_sync_safeguard/plots/synchronization_error_vs_satellites.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![synchronization_error_vs_satellites.pdf](previews/cb47f18458de__outputs__step_c7_residual_cov_sync_safeguard__plots__synchronization_error_vs_satellites-1.png)
+- Preview metadata: [previews/cb47f18458de__outputs__step_c7_residual_cov_sync_safeguard__plots__synchronization_error_vs_satellites.json](previews/cb47f18458de__outputs__step_c7_residual_cov_sync_safeguard__plots__synchronization_error_vs_satellites.json)
+
+### update_norm_by_state_block.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/step_c7_residual_cov_sync_safeguard/plots/update_norm_by_state_block.pdf](../step_c7_residual_cov_sync_safeguard/plots/update_norm_by_state_block.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![update_norm_by_state_block.pdf](previews/d1a04863e464__outputs__step_c7_residual_cov_sync_safeguard__plots__update_norm_by_state_block-1.png)
+- Preview metadata: [previews/d1a04863e464__outputs__step_c7_residual_cov_sync_safeguard__plots__update_norm_by_state_block.json](previews/d1a04863e464__outputs__step_c7_residual_cov_sync_safeguard__plots__update_norm_by_state_block.json)
 
 ## controlled migration ladder
 

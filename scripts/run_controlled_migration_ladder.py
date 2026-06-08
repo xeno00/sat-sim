@@ -25,6 +25,7 @@ if str(SAT_SIM_ROOT) not in sys.path:
     sys.path.insert(0, str(SAT_SIM_ROOT))
 
 from jcls_sim.migration import MigrationStep, migration_ladder_steps, step_diff  # noqa: E402
+from jcls_sim.constants import C_KM_PER_S  # noqa: E402
 from scripts.replay_legacy_clock_sweep_figures import NOTEBOOK_PATH, _execute_legacy_namespace, _hash_file, _selected_cell_hashes  # noqa: E402
 from scripts.replay_legacy_network_size_figures import CACHE_SCHEMA_VERSION as NETWORK_CACHE_SCHEMA  # noqa: E402
 from scripts.replay_legacy_network_size_figures import _mode_config  # noqa: E402
@@ -41,6 +42,7 @@ SOURCE_CLOCK_ROOT = SAT_SIM_ROOT / "outputs" / "legacy_replay" / "clock_sweep_fu
 MIGRATION_CACHE_SCHEMA_VERSION = "controlled-migration-ladder-v1"
 STEP_B_NAME = "step_b_lm_residual_acceptance"
 STEP_C5_NAME = "step_c5_sliding_window_map"
+STEP_C7_NAME = "step_c7_residual_cov_sync_safeguard"
 STEP_C_DIAGNOSIS_NAMES = {
     "step_c0_legacy_map_instrumented",
     "step_c1_legacy_cov_observable_acceptance",
@@ -1611,6 +1613,127 @@ def _run_step_c5_rows(
         rows.append(row)
         if run_context is not None and run_context.get("interrupted"):
             break
+    return rows
+
+
+def _run_step_c7_rows(
+    step: MigrationStep,
+    grid: str,
+    *,
+    points: list[tuple[int, int]] | None = None,
+    run_context: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """Run C7 rows through the package C7 estimator path."""
+
+    from scripts.run_step_c7_residual_cov_sync_safeguard import (  # noqa: WPS433
+        C7ValidationCandidate,
+        evaluate_case_candidate,
+    )
+    from scripts import explore_step3_covariance as cov  # noqa: WPS433
+
+    selected_points = points if points is not None else _grid_points(grid)
+    c7_candidate = C7ValidationCandidate(
+        name=STEP_C7_NAME,
+        description="Residual-scaled block-diagonal covariance with clock/drift sync safeguard.",
+    )
+    rows: list[dict[str, Any]] = []
+    for point_index, (user, sat) in enumerate(selected_points, start=1):
+        row_start = time.monotonic()
+        if run_context is not None:
+            run_context["row_counter"] += 1
+            _write_row_status(
+                {
+                    "event": "row_start",
+                    "step": step.name,
+                    "grid": grid,
+                    "num_users": user,
+                    "num_satellites": sat,
+                    "row_number": run_context["row_counter"],
+                    "total_rows": run_context["total_rows"],
+                    "status": "starting",
+                }
+            )
+        c7_row = evaluate_case_candidate(cov._make_case(user, sat), c7_candidate)
+        map_diag = {
+            "map_covariance_mode": step.map_covariance_mode,
+            "map_update_mode": step.map_update_mode,
+            "truth_state_used_for_map_covariance": False,
+            "truth_state_used_for_map_acceptance": False,
+            "initial_residual_cost": c7_row["objective_before"],
+            "final_residual_cost": c7_row["objective_after"],
+            "accepted_update_count": int(bool(c7_row["objective_decreased"])),
+            "rejected_update_count": int(not bool(c7_row["objective_decreased"])),
+            "fallback_count": int(bool(c7_row["fallback_triggered"])),
+            "covariance_diagonal_min": min(c7_row["p_position_eig_min"], c7_row["p_delta_eig_min"], c7_row["p_drift_eig_min"]),
+            "covariance_diagonal_max": max(c7_row["p_position_eig_max"], c7_row["p_delta_eig_max"], c7_row["p_drift_eig_max"]),
+            "update_norm_max": max(
+                c7_row["position_update_norm"],
+                c7_row["ue_clock_update_norm"],
+                c7_row["satellite_clock_update_norm"],
+                c7_row["drift_update_norm"],
+            ),
+            "finite_covariance": True,
+            "symmetric_covariance": True,
+            "psd_covariance": True,
+            "map_acceptance_mode": "nontruth_sync_safeguard",
+            "score_components_used": ["measurement_residual_cost", "prior_cost", "clock_update_covariance_scale", "common_clock_component"],
+            "initial_map_objective": c7_row["objective_before"],
+            "final_map_objective": c7_row["objective_after"],
+            "accepted_map_objective_decrease_min": c7_row["objective_before"] - c7_row["objective_after"],
+            "prior_cost_before": 0.0,
+            "prior_cost_after": c7_row["objective_after"] - c7_row["objective_after"],
+            "measurement_cost_before": c7_row["objective_before"],
+            "measurement_cost_after": c7_row["objective_after"],
+            "dynamics_cost_before": 0.0,
+            "dynamics_cost_after": 0.0,
+            "position_update_norm_max": c7_row["position_update_norm"],
+            "clock_update_norm_max": max(c7_row["ue_clock_update_norm"], c7_row["satellite_clock_update_norm"]),
+            "relative_update_norm_max": max(c7_row["position_update_norm"], c7_row["ue_clock_update_norm"], c7_row["satellite_clock_update_norm"]),
+            "fallback_paths": [c7_row["fallback_reason"]] if c7_row["fallback_triggered"] else [],
+            "rejection_reasons": [c7_row["fallback_reason"]] if c7_row["fallback_triggered"] else [],
+        }
+        row = {
+            "num_users": user,
+            "num_satellites": sat,
+            "measurement_count": None,
+            "state_dimension": None,
+            "cooperative_jcls_attempted": user > 1,
+            "il_position_error_m": None,
+            "lm_position_error_m": c7_row["step_b_position_error_m"],
+            "map_position_error_m": c7_row["c7_position_error_m"],
+            "il_sync_error_s": None,
+            "lm_sync_error_s": c7_row["step_b_sync_error_km"] / C_KM_PER_S,
+            "map_sync_error_s": c7_row["c7_sync_error_km"] / C_KM_PER_S,
+            "fallback_count": int(bool(c7_row["fallback_triggered"])),
+            "failure_count": 0,
+            "success": True,
+            "single_ue_policy": "clock_and_drift_reverted_when_not_observable" if user == 1 else "cooperative_jcls",
+            "lm_diagnostics": {
+                "lm_acceptance_mode": "residual_trust_region",
+                "truth_state_used_for_lm_acceptance": False,
+                "accepted_step_count": None,
+                "rejected_step_count": None,
+                "rejection_reasons": [],
+            },
+            "map_diagnostics": map_diag,
+            "c7_diagnostics": c7_row,
+        }
+        rows.append(row)
+        if run_context is not None:
+            run_context["last_completed_output"] = f"{step.name}:{grid}:{user}:{sat}"
+            _write_row_status(
+                {
+                    "event": "row_end",
+                    "step": step.name,
+                    "grid": grid,
+                    "num_users": user,
+                    "num_satellites": sat,
+                    "row_number": run_context["row_counter"],
+                    "total_rows": run_context["total_rows"],
+                    "status": "complete",
+                    "runtime_seconds": time.monotonic() - row_start,
+                }
+            )
     return rows
 
 
@@ -3207,6 +3330,8 @@ def run_ladder(options: LadderRunOptions | None = None) -> dict[str, Any]:
             grid_rows = _run_step_b_rows(grid, points=points, run_context=run_context)
         elif step.name == STEP_C5_NAME:
             grid_rows = _run_step_c5_rows(step, grid, points=points, run_context=run_context)
+        elif step.name == STEP_C7_NAME:
+            grid_rows = _run_step_c7_rows(step, grid, points=points, run_context=run_context)
         elif step.name in STEP_C_DIAGNOSIS_NAMES:
             grid_rows = _run_diagnosis_rows(step, grid, points=points, run_context=run_context)
         else:

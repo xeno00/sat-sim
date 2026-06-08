@@ -1,0 +1,74 @@
+{
+  "arrays_npz": "outputs/step_c7_residual_cov_sync_safeguard/arrays.npz",
+  "artifact_status": "non_final_step_c7_residual_cov_sync_safeguard",
+  "candidate_count": 4,
+  "estimator_mode": "step_c7_residual_cov_sync_safeguard",
+  "medium_case_count": 12,
+  "not_for_manuscript_submission": true,
+  "plots": [
+    "outputs/step_c7_residual_cov_sync_safeguard/plots/localization_error_vs_satellites.pdf",
+    "outputs/step_c7_residual_cov_sync_safeguard/plots/synchronization_error_vs_satellites.pdf",
+    "outputs/step_c7_residual_cov_sync_safeguard/plots/position_ratio_heatmap.pdf",
+    "outputs/step_c7_residual_cov_sync_safeguard/plots/sync_ratio_heatmap.pdf",
+    "outputs/step_c7_residual_cov_sync_safeguard/plots/fallback_count_by_nu_ns.pdf",
+    "outputs/step_c7_residual_cov_sync_safeguard/plots/update_norm_by_state_block.pdf",
+    "outputs/step_c7_residual_cov_sync_safeguard/plots/covariance_eigenvalue_diagnostics.pdf",
+    "outputs/step_c7_residual_cov_sync_safeguard/plots/ablation_comparison.pdf"
+  ],
+  "raw_csv": "outputs/step_c7_residual_cov_sync_safeguard/raw.csv",
+  "row_count": 48,
+  "runtime_seconds": 6.952999999979511,
+  "summary_csv": "outputs/step_c7_residual_cov_sync_safeguard/summary.csv",
+  "task_matrix": {
+    "artifact_status": "step_c7_task_matrix",
+    "lanes": [
+      {
+        "agent": "Agent A",
+        "blocker": null,
+        "expected_output_files": "C7 package helper and validation runner call path",
+        "fallback_owner": "orchestrator",
+        "lane": "Estimator Integration Review",
+        "status": "orchestrator_completed"
+      },
+      {
+        "agent": "Agent B",
+        "blocker": null,
+        "expected_output_files": "residual-scaled covariance and block diagnostics",
+        "fallback_owner": "orchestrator",
+        "lane": "Covariance Math Review",
+        "status": "orchestrator_completed"
+      },
+      {
+        "agent": "Agent C",
+        "blocker": null,
+        "expected_output_files": "acceptance/covariance/safeguard truth flags",
+        "fallback_owner": "orchestrator",
+        "lane": "No-Truth-Leak Review",
+        "status": "orchestrator_completed"
+      },
+      {
+        "agent": "Agent D",
+        "blocker": null,
+        "expected_output_files": "medium validation outputs and gallery previews",
+        "fallback_owner": "orchestrator",
+        "lane": "Results and Graph Review",
+        "status": "orchestrator_completed"
+      },
+      {
+        "agent": "Agent E",
+        "blocker": null,
+        "expected_output_files": "Markdown/JSON report readability",
+        "fallback_owner": "orchestrator",
+        "lane": "Human-Readable Report Review",
+        "status": "orchestrator_completed"
+      }
+    ],
+    "mode": "IMPLEMENT_APPROVED",
+    "subagent_policy": "subagents used when available; orchestrator fallback recorded for lanes completed locally"
+  },
+  "truth_state_used_for_acceptance": false,
+  "truth_state_used_for_covariance": false,
+  "truth_state_used_for_safeguard": false,
+  "truth_used_for_offline_metrics": true,
+  "uses_package_estimator_helper": true
+}
