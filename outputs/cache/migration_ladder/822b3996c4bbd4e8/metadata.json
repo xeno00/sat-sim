@@ -1,0 +1,176 @@
+{
+  "status": "complete",
+  "cache_key": "822b3996c4bbd4e8fa4d11f2e4735e3ec36ebecc9a0744c1c995df18717e2e1a",
+  "identity": {
+    "cache_schema_version": "controlled-migration-ladder-v1",
+    "network_cache_schema_version": "legacy-network-size-grid-row-v2",
+    "script_sha256": "7608a39badacc9448100a2839cd345f203b9cf04055b89c1a52e56b89879b7f8",
+    "source_network_raw_sha256": "10f1173dcd19355d53dc97fa0aa4675bf88d0b3260ae917b5d7dcfa12fbb2f51",
+    "notebook_sha256": "39a3b434a64fa8631df287a980e3e2330824c6bec3e4e3c014095399dcff9916",
+    "extracted_cell_hashes": [
+      {
+        "cell_index_zero_based": 7,
+        "cell_number_one_based": 8,
+        "name": "Node",
+        "sha256": "2a9b6f743de67706553f482b2d1fb449bdf24ae36c5fa9fd0a76c77af9858ee5"
+      },
+      {
+        "cell_index_zero_based": 9,
+        "cell_number_one_based": 10,
+        "name": "User",
+        "sha256": "8ee038f5f0b8aaed570bf4729c53c0d67c842478413a372c16b1de8be2e816d8"
+      },
+      {
+        "cell_index_zero_based": 11,
+        "cell_number_one_based": 12,
+        "name": "Satellite",
+        "sha256": "f455ec76acc4adee13494f100f420e17e0996d4986190fc1e76f6105ff0453b3"
+      },
+      {
+        "cell_index_zero_based": 13,
+        "cell_number_one_based": 14,
+        "name": "Datalink",
+        "sha256": "a146f6f4003b1981cc633c52ab82288726dcac3139f654e572ba0f2d91bf5e15"
+      },
+      {
+        "cell_index_zero_based": 15,
+        "cell_number_one_based": 16,
+        "name": "Scenario",
+        "sha256": "7ff80bf541d3858e2a67af7be975c651f420d474a40dad511d3b1d96f067b8f0"
+      },
+      {
+        "cell_index_zero_based": 17,
+        "cell_number_one_based": 18,
+        "name": "Optimizer",
+        "sha256": "f9ebfc9ad0ed2058ab952224628dba43cb8619e8532ee1d855330e3337f9a7d8"
+      },
+      {
+        "cell_index_zero_based": 25,
+        "cell_number_one_based": 26,
+        "name": "fit_helpers",
+        "sha256": "12a61f043dbb13bdc220ecb1edc54b3fd72562b0c663bf14feca348227e0ce6c"
+      }
+    ],
+    "step": {
+      "name": "step_c3_cov_damped_inverse",
+      "estimator_mode": "legacy_staged_compatible",
+      "internal_clock_mode": "all_clock",
+      "acceptance_mode": "residual_trust_region",
+      "metric_mode": "legacy_all_clock_sync",
+      "weighting_mode": "legacy_notebook",
+      "geometry_noise_mode": "legacy_replay",
+      "display_transform_mode": "raw_metrics_no_smoothing",
+      "map_covariance_mode": "damped_inverse_normal_matrix",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "exact_change": "Use a non-truth damped inverse normal-matrix covariance with observable MAP acceptance.",
+      "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+    },
+    "grid": "medium",
+    "grid_parameters": {
+      "num_users": [
+        1,
+        3,
+        5,
+        7
+      ],
+      "num_satellites": [
+        4,
+        8,
+        12
+      ],
+      "seed": 2042
+    }
+  },
+  "raw_result_hash": "51747854f341e457c29f053b4000637c11611083baa5f7f6d740e8625437fc2a",
+  "metadata": {
+    "artifact_status": "non_final_controlled_migration_step",
+    "step": {
+      "name": "step_c3_cov_damped_inverse",
+      "estimator_mode": "legacy_staged_compatible",
+      "internal_clock_mode": "all_clock",
+      "acceptance_mode": "residual_trust_region",
+      "metric_mode": "legacy_all_clock_sync",
+      "weighting_mode": "legacy_notebook",
+      "geometry_noise_mode": "legacy_replay",
+      "display_transform_mode": "raw_metrics_no_smoothing",
+      "map_covariance_mode": "damped_inverse_normal_matrix",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "exact_change": "Use a non-truth damped inverse normal-matrix covariance with observable MAP acceptance.",
+      "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+    },
+    "grid": "medium",
+    "status": "failed",
+    "manuscript_ready": false,
+    "lm_acceptance_mode": "residual_trust_region",
+    "truth_state_used_for_lm_acceptance": true,
+    "map_covariance_mode": "damped_inverse_normal_matrix",
+    "map_update_mode": "observable_residual_covariance_checks",
+    "plot_outputs": [
+      "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/pos_vary_ues.pdf",
+      "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/sync_vary_ues.pdf"
+    ],
+    "raw_outputs": {
+      "raw_csv": "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_raw.csv",
+      "summary_csv": "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_summary.csv",
+      "arrays_npz": "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_arrays.npz"
+    },
+    "health": {
+      "status": "failed",
+      "comparison_count": 9,
+      "position_improvement_count": 7,
+      "sync_improvement_count": 8,
+      "does_jcls_help_localization": true,
+      "does_jcls_help_synchronization": true,
+      "healthy_rows": 12,
+      "failed_rows": 0,
+      "fallback_count": 3,
+      "lm_cost_increase_rows": 0,
+      "map_accepted_cost_increase_rows": 0,
+      "map_invalid_covariance_rows": 1,
+      "lm_or_map_worse_than_il_rows": 0,
+      "catastrophic_failure": true,
+      "performance_degraded_vs_previous": false,
+      "strongest_position_improvement": {
+        "num_users": 7,
+        "num_satellites": 12,
+        "position_improvement_m": 0.3832555370373193,
+        "sync_improvement_ns": 0.49672735942227847
+      },
+      "strongest_sync_improvement": {
+        "num_users": 5,
+        "num_satellites": 12,
+        "position_improvement_m": 0.35922868285880266,
+        "sync_improvement_ns": 0.5762242777747181
+      }
+    },
+    "lm_acceptance_diagnostics": {
+      "truth_state_used_for_lm_acceptance": true,
+      "accepted_step_count": 18,
+      "rejected_step_count": 0,
+      "rows_with_residual_cost_increase": 0,
+      "rejection_reasons": []
+    },
+    "map_update_diagnostics": {
+      "truth_state_used_for_map_covariance": false,
+      "truth_state_used_for_map_acceptance": false,
+      "accepted_update_count": 35,
+      "rejected_update_count": 10,
+      "rejected_candidate_count": 10,
+      "fallback_count": 0,
+      "rows_with_accepted_residual_cost_increase": 0,
+      "invalid_covariance_rows": 1,
+      "covariance_trace_after_min": 100.08562536032323,
+      "covariance_trace_after_max": 972331538586430.9,
+      "covariance_condition_after_max": 7276396282304536.0,
+      "update_norm_max": 0.001982511458121259,
+      "fallback_paths": [
+        "optimizer_method"
+      ],
+      "rejection_reasons": [
+        "residual_cost_increased"
+      ]
+    },
+    "change_vs_previous": null
+  },
+  "timestamp_utc": "2026-06-08T06:59:40Z"
+}

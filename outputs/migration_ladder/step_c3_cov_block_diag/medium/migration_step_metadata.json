@@ -1,0 +1,95 @@
+{
+  "artifact_status": "non_final_controlled_migration_step",
+  "step": {
+    "name": "step_c3_cov_block_diag",
+    "estimator_mode": "legacy_staged_compatible",
+    "internal_clock_mode": "all_clock",
+    "acceptance_mode": "residual_trust_region",
+    "metric_mode": "legacy_all_clock_sync",
+    "weighting_mode": "legacy_notebook",
+    "geometry_noise_mode": "legacy_replay",
+    "display_transform_mode": "raw_metrics_no_smoothing",
+    "map_covariance_mode": "block_diagonal_position_clock",
+    "map_update_mode": "observable_residual_covariance_checks",
+    "exact_change": "Use a non-truth block-diagonal position/clock covariance with observable MAP acceptance.",
+    "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+  },
+  "grid": "medium",
+  "status": "partially_degraded",
+  "manuscript_ready": false,
+  "lm_acceptance_mode": "residual_trust_region",
+  "truth_state_used_for_lm_acceptance": true,
+  "map_covariance_mode": "block_diagonal_position_clock",
+  "map_update_mode": "observable_residual_covariance_checks",
+  "plot_outputs": [
+    "outputs/migration_ladder/step_c3_cov_block_diag/medium/pos_vary_ues.pdf",
+    "outputs/migration_ladder/step_c3_cov_block_diag/medium/sync_vary_ues.pdf"
+  ],
+  "raw_outputs": {
+    "raw_csv": "outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_raw.csv",
+    "summary_csv": "outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_summary.csv",
+    "arrays_npz": "outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_arrays.npz"
+  },
+  "health": {
+    "status": "partially_degraded",
+    "comparison_count": 9,
+    "position_improvement_count": 7,
+    "sync_improvement_count": 8,
+    "does_jcls_help_localization": true,
+    "does_jcls_help_synchronization": true,
+    "healthy_rows": 12,
+    "failed_rows": 0,
+    "fallback_count": 3,
+    "lm_cost_increase_rows": 0,
+    "map_accepted_cost_increase_rows": 0,
+    "map_invalid_covariance_rows": 0,
+    "lm_or_map_worse_than_il_rows": 0,
+    "catastrophic_failure": false,
+    "performance_degraded_vs_previous": false,
+    "strongest_position_improvement": {
+      "num_users": 7,
+      "num_satellites": 12,
+      "position_improvement_m": 0.3877298559477514,
+      "sync_improvement_ns": 0.49673096669975797
+    },
+    "strongest_sync_improvement": {
+      "num_users": 5,
+      "num_satellites": 12,
+      "position_improvement_m": 0.3684532867515761,
+      "sync_improvement_ns": 0.5777427293930988
+    }
+  },
+  "lm_acceptance_diagnostics": {
+    "truth_state_used_for_lm_acceptance": true,
+    "accepted_step_count": 18,
+    "rejected_step_count": 0,
+    "rows_with_residual_cost_increase": 0,
+    "rejection_reasons": []
+  },
+  "map_update_diagnostics": {
+    "truth_state_used_for_map_covariance": false,
+    "truth_state_used_for_map_acceptance": false,
+    "accepted_update_count": 9,
+    "rejected_update_count": 36,
+    "rejected_candidate_count": 36,
+    "fallback_count": 0,
+    "rows_with_accepted_residual_cost_increase": 0,
+    "invalid_covariance_rows": 0,
+    "covariance_trace_after_min": 400.25820909490096,
+    "covariance_trace_after_max": 47731.5909090909,
+    "covariance_condition_after_max": 41949727301.42025,
+    "update_norm_max": 0.0019743058475011816,
+    "fallback_paths": [
+      "optimizer_method"
+    ],
+    "rejection_reasons": [
+      "residual_cost_increased"
+    ]
+  },
+  "change_vs_previous": null,
+  "cache": {
+    "cache_key": "8e96d18ddd9915df2d013edefaa275ca492948e100118c9c8cb85a2e8ad048c8",
+    "cache_path": "outputs/cache/migration_ladder/8e96d18ddd9915df/metadata.json",
+    "raw_result_hash": "b60b44662d91908f27000be4cbbfdced3d1555e0fb16d53f7f3e06d4a813ec5e"
+  }
+}

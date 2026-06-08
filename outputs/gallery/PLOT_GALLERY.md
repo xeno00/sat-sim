@@ -3,8 +3,8 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 42
-- Generated at: 2026-06-08T01:28:24.711279+00:00
+- Generated entries: 74
+- Generated at: 2026-06-08T07:39:42.561273+00:00
 
 ## controlled migration ladder
 
@@ -199,6 +199,518 @@ This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews
   - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_summary.csv](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_summary.csv)
 - Nearby metadata:
   - [outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/migration_step_metadata.json](../migration_ladder/step_b_lm_residual_acceptance/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/pos_vary_ues.pdf](../migration_ladder/step_c0_legacy_map_instrumented/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/0b695870ba34__outputs__migration_ladder__step_c0_legacy_map_instrumented__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/0b695870ba34__outputs__migration_ladder__step_c0_legacy_map_instrumented__medium__pos_vary_ues.json](previews/0b695870ba34__outputs__migration_ladder__step_c0_legacy_map_instrumented__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_arrays.npz](../migration_ladder/step_c0_legacy_map_instrumented/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_raw.csv](../migration_ladder/step_c0_legacy_map_instrumented/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_summary.csv](../migration_ladder/step_c0_legacy_map_instrumented/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_step_metadata.json](../migration_ladder/step_c0_legacy_map_instrumented/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/sync_vary_ues.pdf](../migration_ladder/step_c0_legacy_map_instrumented/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/1c048c9aef4f__outputs__migration_ladder__step_c0_legacy_map_instrumented__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/1c048c9aef4f__outputs__migration_ladder__step_c0_legacy_map_instrumented__medium__sync_vary_ues.json](previews/1c048c9aef4f__outputs__migration_ladder__step_c0_legacy_map_instrumented__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_arrays.npz](../migration_ladder/step_c0_legacy_map_instrumented/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_raw.csv](../migration_ladder/step_c0_legacy_map_instrumented/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_summary.csv](../migration_ladder/step_c0_legacy_map_instrumented/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_step_metadata.json](../migration_ladder/step_c0_legacy_map_instrumented/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/pos_vary_ues.pdf](../migration_ladder/step_c0_legacy_map_instrumented/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/a6e6f3c97874__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/a6e6f3c97874__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny__pos_vary_ues.json](previews/a6e6f3c97874__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_arrays.npz](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_raw.csv](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_summary.csv](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_step_metadata.json](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/sync_vary_ues.pdf](../migration_ladder/step_c0_legacy_map_instrumented/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/027fab6ade0d__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/027fab6ade0d__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny__sync_vary_ues.json](previews/027fab6ade0d__outputs__migration_ladder__step_c0_legacy_map_instrumented__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_arrays.npz](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_raw.csv](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_summary.csv](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_step_metadata.json](../migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/pos_vary_ues.pdf](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/5d768626f7e1__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/5d768626f7e1__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__medium__pos_vary_ues.json](previews/5d768626f7e1__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_arrays.npz](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_raw.csv](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_summary.csv](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_step_metadata.json](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/sync_vary_ues.pdf](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/a9727ff0a19b__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/a9727ff0a19b__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__medium__sync_vary_ues.json](previews/a9727ff0a19b__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_arrays.npz](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_raw.csv](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_summary.csv](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_step_metadata.json](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/pos_vary_ues.pdf](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/3c04ccb4c988__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/3c04ccb4c988__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__tiny__pos_vary_ues.json](previews/3c04ccb4c988__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_arrays.npz](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_raw.csv](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_summary.csv](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_step_metadata.json](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/sync_vary_ues.pdf](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/7cc7eccb1453__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/7cc7eccb1453__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__tiny__sync_vary_ues.json](previews/7cc7eccb1453__outputs__migration_ladder__step_c1_legacy_cov_observable_acceptance__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_arrays.npz](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_raw.csv](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_summary.csv](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_step_metadata.json](../migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/pos_vary_ues.pdf](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/1b3301ff9127__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/1b3301ff9127__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__medium__pos_vary_ues.json](previews/1b3301ff9127__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_arrays.npz](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_raw.csv](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_summary.csv](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_step_metadata.json](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/sync_vary_ues.pdf](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/3787abd6210c__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/3787abd6210c__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__medium__sync_vary_ues.json](previews/3787abd6210c__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_arrays.npz](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_raw.csv](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_summary.csv](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_step_metadata.json](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/pos_vary_ues.pdf](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/493b63bbd9a1__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/493b63bbd9a1__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__tiny__pos_vary_ues.json](previews/493b63bbd9a1__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_arrays.npz](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_raw.csv](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_summary.csv](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_step_metadata.json](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/sync_vary_ues.pdf](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/8d96821855a8__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/8d96821855a8__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__tiny__sync_vary_ues.json](previews/8d96821855a8__outputs__migration_ladder__step_c2_observable_cov_legacy_acceptance__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_arrays.npz](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_raw.csv](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_summary.csv](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_step_metadata.json](../migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_block_diag/medium/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_block_diag/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/6883ceacf3fd__outputs__migration_ladder__step_c3_cov_block_diag__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/6883ceacf3fd__outputs__migration_ladder__step_c3_cov_block_diag__medium__pos_vary_ues.json](previews/6883ceacf3fd__outputs__migration_ladder__step_c3_cov_block_diag__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_block_diag/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_raw.csv](../migration_ladder/step_c3_cov_block_diag/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_summary.csv](../migration_ladder/step_c3_cov_block_diag/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_block_diag/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_block_diag/medium/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_block_diag/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/3517aaf9f492__outputs__migration_ladder__step_c3_cov_block_diag__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/3517aaf9f492__outputs__migration_ladder__step_c3_cov_block_diag__medium__sync_vary_ues.json](previews/3517aaf9f492__outputs__migration_ladder__step_c3_cov_block_diag__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_block_diag/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_raw.csv](../migration_ladder/step_c3_cov_block_diag/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_summary.csv](../migration_ladder/step_c3_cov_block_diag/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_block_diag/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_block_diag/tiny/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_block_diag/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/631efca683a8__outputs__migration_ladder__step_c3_cov_block_diag__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/631efca683a8__outputs__migration_ladder__step_c3_cov_block_diag__tiny__pos_vary_ues.json](previews/631efca683a8__outputs__migration_ladder__step_c3_cov_block_diag__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_block_diag/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_block_diag/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_block_diag/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_block_diag/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_block_diag/tiny/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_block_diag/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/82c27c7ff323__outputs__migration_ladder__step_c3_cov_block_diag__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/82c27c7ff323__outputs__migration_ladder__step_c3_cov_block_diag__tiny__sync_vary_ues.json](previews/82c27c7ff323__outputs__migration_ladder__step_c3_cov_block_diag__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_block_diag/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_block_diag/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_block_diag/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_block_diag/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_damped_inverse/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/a83a69ca7201__outputs__migration_ladder__step_c3_cov_damped_inverse__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/a83a69ca7201__outputs__migration_ladder__step_c3_cov_damped_inverse__medium__pos_vary_ues.json](previews/a83a69ca7201__outputs__migration_ladder__step_c3_cov_damped_inverse__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_damped_inverse/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_raw.csv](../migration_ladder/step_c3_cov_damped_inverse/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_summary.csv](../migration_ladder/step_c3_cov_damped_inverse/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_damped_inverse/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_damped_inverse/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/3e29a5dfb05e__outputs__migration_ladder__step_c3_cov_damped_inverse__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/3e29a5dfb05e__outputs__migration_ladder__step_c3_cov_damped_inverse__medium__sync_vary_ues.json](previews/3e29a5dfb05e__outputs__migration_ladder__step_c3_cov_damped_inverse__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_damped_inverse/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_raw.csv](../migration_ladder/step_c3_cov_damped_inverse/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_summary.csv](../migration_ladder/step_c3_cov_damped_inverse/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_damped_inverse/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_damped_inverse/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/4cc61216d474__outputs__migration_ladder__step_c3_cov_damped_inverse__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/4cc61216d474__outputs__migration_ladder__step_c3_cov_damped_inverse__tiny__pos_vary_ues.json](previews/4cc61216d474__outputs__migration_ladder__step_c3_cov_damped_inverse__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_damped_inverse/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_damped_inverse/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_damped_inverse/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_damped_inverse/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_damped_inverse/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/af510949672e__outputs__migration_ladder__step_c3_cov_damped_inverse__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/af510949672e__outputs__migration_ladder__step_c3_cov_damped_inverse__tiny__sync_vary_ues.json](previews/af510949672e__outputs__migration_ladder__step_c3_cov_damped_inverse__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_damped_inverse/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_damped_inverse/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_damped_inverse/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_damped_inverse/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_damped_pinv/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/ace76f8a9661__outputs__migration_ladder__step_c3_cov_damped_pinv__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/ace76f8a9661__outputs__migration_ladder__step_c3_cov_damped_pinv__medium__pos_vary_ues.json](previews/ace76f8a9661__outputs__migration_ladder__step_c3_cov_damped_pinv__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_damped_pinv/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_raw.csv](../migration_ladder/step_c3_cov_damped_pinv/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_summary.csv](../migration_ladder/step_c3_cov_damped_pinv/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_damped_pinv/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_damped_pinv/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/41d79dc0688a__outputs__migration_ladder__step_c3_cov_damped_pinv__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/41d79dc0688a__outputs__migration_ladder__step_c3_cov_damped_pinv__medium__sync_vary_ues.json](previews/41d79dc0688a__outputs__migration_ladder__step_c3_cov_damped_pinv__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_damped_pinv/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_raw.csv](../migration_ladder/step_c3_cov_damped_pinv/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_summary.csv](../migration_ladder/step_c3_cov_damped_pinv/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_damped_pinv/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_damped_pinv/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/166efc93db9a__outputs__migration_ladder__step_c3_cov_damped_pinv__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/166efc93db9a__outputs__migration_ladder__step_c3_cov_damped_pinv__tiny__pos_vary_ues.json](previews/166efc93db9a__outputs__migration_ladder__step_c3_cov_damped_pinv__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_damped_pinv/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_damped_pinv/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_damped_pinv/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_damped_pinv/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_damped_pinv/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/051d3482d1fb__outputs__migration_ladder__step_c3_cov_damped_pinv__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/051d3482d1fb__outputs__migration_ladder__step_c3_cov_damped_pinv__tiny__sync_vary_ues.json](previews/051d3482d1fb__outputs__migration_ladder__step_c3_cov_damped_pinv__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_damped_pinv/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_damped_pinv/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_damped_pinv/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_damped_pinv/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_diag_prior/medium/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_diag_prior/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/70d12eae5f46__outputs__migration_ladder__step_c3_cov_diag_prior__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/70d12eae5f46__outputs__migration_ladder__step_c3_cov_diag_prior__medium__pos_vary_ues.json](previews/70d12eae5f46__outputs__migration_ladder__step_c3_cov_diag_prior__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_diag_prior/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_raw.csv](../migration_ladder/step_c3_cov_diag_prior/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_summary.csv](../migration_ladder/step_c3_cov_diag_prior/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_diag_prior/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_diag_prior/medium/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_diag_prior/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/a7169c69f94a__outputs__migration_ladder__step_c3_cov_diag_prior__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/a7169c69f94a__outputs__migration_ladder__step_c3_cov_diag_prior__medium__sync_vary_ues.json](previews/a7169c69f94a__outputs__migration_ladder__step_c3_cov_diag_prior__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_diag_prior/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_raw.csv](../migration_ladder/step_c3_cov_diag_prior/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_summary.csv](../migration_ladder/step_c3_cov_diag_prior/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_diag_prior/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_diag_prior/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/60c33514b9ef__outputs__migration_ladder__step_c3_cov_diag_prior__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/60c33514b9ef__outputs__migration_ladder__step_c3_cov_diag_prior__tiny__pos_vary_ues.json](previews/60c33514b9ef__outputs__migration_ladder__step_c3_cov_diag_prior__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_diag_prior/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_diag_prior/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_diag_prior/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_diag_prior/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_diag_prior/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/7f4a0d1f4a28__outputs__migration_ladder__step_c3_cov_diag_prior__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/7f4a0d1f4a28__outputs__migration_ladder__step_c3_cov_diag_prior__tiny__sync_vary_ues.json](previews/7f4a0d1f4a28__outputs__migration_ladder__step_c3_cov_diag_prior__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_diag_prior/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_diag_prior/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_diag_prior/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_diag_prior/tiny/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_residual_scaled/medium/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/3282438f8381__outputs__migration_ladder__step_c3_cov_residual_scaled__medium__pos_vary_ues-1.png)
+- Preview metadata: [previews/3282438f8381__outputs__migration_ladder__step_c3_cov_residual_scaled__medium__pos_vary_ues.json](previews/3282438f8381__outputs__migration_ladder__step_c3_cov_residual_scaled__medium__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_residual_scaled/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_raw.csv](../migration_ladder/step_c3_cov_residual_scaled/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_summary.csv](../migration_ladder/step_c3_cov_residual_scaled/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_residual_scaled/medium/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_residual_scaled/medium/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/6f56611b5969__outputs__migration_ladder__step_c3_cov_residual_scaled__medium__sync_vary_ues-1.png)
+- Preview metadata: [previews/6f56611b5969__outputs__migration_ladder__step_c3_cov_residual_scaled__medium__sync_vary_ues.json](previews/6f56611b5969__outputs__migration_ladder__step_c3_cov_residual_scaled__medium__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_arrays.npz](../migration_ladder/step_c3_cov_residual_scaled/medium/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_raw.csv](../migration_ladder/step_c3_cov_residual_scaled/medium/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_summary.csv](../migration_ladder/step_c3_cov_residual_scaled/medium/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_step_metadata.json](../migration_ladder/step_c3_cov_residual_scaled/medium/migration_step_metadata.json)
+
+### pos_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/pos_vary_ues.pdf](../migration_ladder/step_c3_cov_residual_scaled/tiny/pos_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![pos_vary_ues.pdf](previews/a04096d7f8f3__outputs__migration_ladder__step_c3_cov_residual_scaled__tiny__pos_vary_ues-1.png)
+- Preview metadata: [previews/a04096d7f8f3__outputs__migration_ladder__step_c3_cov_residual_scaled__tiny__pos_vary_ues.json](previews/a04096d7f8f3__outputs__migration_ladder__step_c3_cov_residual_scaled__tiny__pos_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_step_metadata.json)
+
+### sync_vary_ues.pdf
+
+- Status: `legacy_network_size_medium_replayed_unverified_match`
+- Manuscript ready: `False`
+- Source PDF: [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/sync_vary_ues.pdf](../migration_ladder/step_c3_cov_residual_scaled/tiny/sync_vary_ues.pdf)
+- Warning: Legacy-compatible network-size medium replay completed under canonical outputs; match is unverified and legacy caveats remain.
+
+![sync_vary_ues.pdf](previews/4f4d2a61fd57__outputs__migration_ladder__step_c3_cov_residual_scaled__tiny__sync_vary_ues-1.png)
+- Preview metadata: [previews/4f4d2a61fd57__outputs__migration_ladder__step_c3_cov_residual_scaled__tiny__sync_vary_ues.json](previews/4f4d2a61fd57__outputs__migration_ladder__step_c3_cov_residual_scaled__tiny__sync_vary_ues.json)
+- Raw data:
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_arrays.npz](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_arrays.npz)
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_raw.csv](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_raw.csv)
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_summary.csv](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_summary.csv)
+- Nearby metadata:
+  - [outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_step_metadata.json](../migration_ladder/step_c3_cov_residual_scaled/tiny/migration_step_metadata.json)
 
 ## human-review
 

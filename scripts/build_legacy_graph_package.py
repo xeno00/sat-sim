@@ -273,6 +273,14 @@ def build_current_graph_status(los: dict[str, Any], nlos: dict[str, Any], clock:
     for step_name, label in [
         ("step_a_no_display_smoothing", "Migration Step A"),
         ("step_b_lm_residual_acceptance", "Migration Step B"),
+        ("step_c0_legacy_map_instrumented", "Migration Step C0"),
+        ("step_c1_legacy_cov_observable_acceptance", "Migration Step C1"),
+        ("step_c2_observable_cov_legacy_acceptance", "Migration Step C2"),
+        ("step_c3_cov_diag_prior", "Migration Step C3 diag prior"),
+        ("step_c3_cov_block_diag", "Migration Step C3 block diag"),
+        ("step_c3_cov_damped_inverse", "Migration Step C3 damped inverse"),
+        ("step_c3_cov_damped_pinv", "Migration Step C3 damped pinv"),
+        ("step_c3_cov_residual_scaled", "Migration Step C3 residual scaled"),
     ]:
         migration_root = OUTPUTS / "migration_ladder" / step_name / "medium"
         if (migration_root / "pos_vary_ues.pdf").exists() and (migration_root / "sync_vary_ues.pdf").exists():

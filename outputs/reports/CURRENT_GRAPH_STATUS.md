@@ -14,6 +14,22 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - [Migration Step A synchronization medium replay](../migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf) - controlled Migration Step A, non-final
 - [Migration Step B localization medium replay](../migration_ladder/step_b_lm_residual_acceptance/medium/pos_vary_ues.pdf) - controlled Migration Step B, non-final
 - [Migration Step B synchronization medium replay](../migration_ladder/step_b_lm_residual_acceptance/medium/sync_vary_ues.pdf) - controlled Migration Step B, non-final
+- [Migration Step C0 localization medium replay](../migration_ladder/step_c0_legacy_map_instrumented/medium/pos_vary_ues.pdf) - controlled Migration Step C0, non-final
+- [Migration Step C0 synchronization medium replay](../migration_ladder/step_c0_legacy_map_instrumented/medium/sync_vary_ues.pdf) - controlled Migration Step C0, non-final
+- [Migration Step C1 localization medium replay](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/pos_vary_ues.pdf) - controlled Migration Step C1, non-final
+- [Migration Step C1 synchronization medium replay](../migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/sync_vary_ues.pdf) - controlled Migration Step C1, non-final
+- [Migration Step C2 localization medium replay](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/pos_vary_ues.pdf) - controlled Migration Step C2, non-final
+- [Migration Step C2 synchronization medium replay](../migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/sync_vary_ues.pdf) - controlled Migration Step C2, non-final
+- [Migration Step C3 diag prior localization medium replay](../migration_ladder/step_c3_cov_diag_prior/medium/pos_vary_ues.pdf) - controlled Migration Step C3 diag prior, non-final
+- [Migration Step C3 diag prior synchronization medium replay](../migration_ladder/step_c3_cov_diag_prior/medium/sync_vary_ues.pdf) - controlled Migration Step C3 diag prior, non-final
+- [Migration Step C3 block diag localization medium replay](../migration_ladder/step_c3_cov_block_diag/medium/pos_vary_ues.pdf) - controlled Migration Step C3 block diag, non-final
+- [Migration Step C3 block diag synchronization medium replay](../migration_ladder/step_c3_cov_block_diag/medium/sync_vary_ues.pdf) - controlled Migration Step C3 block diag, non-final
+- [Migration Step C3 damped inverse localization medium replay](../migration_ladder/step_c3_cov_damped_inverse/medium/pos_vary_ues.pdf) - controlled Migration Step C3 damped inverse, non-final
+- [Migration Step C3 damped inverse synchronization medium replay](../migration_ladder/step_c3_cov_damped_inverse/medium/sync_vary_ues.pdf) - controlled Migration Step C3 damped inverse, non-final
+- [Migration Step C3 damped pinv localization medium replay](../migration_ladder/step_c3_cov_damped_pinv/medium/pos_vary_ues.pdf) - controlled Migration Step C3 damped pinv, non-final
+- [Migration Step C3 damped pinv synchronization medium replay](../migration_ladder/step_c3_cov_damped_pinv/medium/sync_vary_ues.pdf) - controlled Migration Step C3 damped pinv, non-final
+- [Migration Step C3 residual scaled localization medium replay](../migration_ladder/step_c3_cov_residual_scaled/medium/pos_vary_ues.pdf) - controlled Migration Step C3 residual scaled, non-final
+- [Migration Step C3 residual scaled synchronization medium replay](../migration_ladder/step_c3_cov_residual_scaled/medium/sync_vary_ues.pdf) - controlled Migration Step C3 residual scaled, non-final
 
 ## Suspect/Broken Graphs
 - `v24_human_review_outputs`: package-native human-review Fig. 4--7 path can degrade at later JCLS stages; preserve as suspect diagnostics only

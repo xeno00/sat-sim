@@ -9,6 +9,8 @@
     "weighting_mode": "legacy_notebook",
     "geometry_noise_mode": "legacy_replay",
     "display_transform_mode": "legacy_replay_display",
+    "map_covariance_mode": "truth_error_diagonal",
+    "map_update_mode": "truth_gated_legacy",
     "exact_change": "Expose the legacy staged behavior as a package-described estimator mode without changing behavior.",
     "expected_raw_metric_change": "none"
   },
@@ -17,6 +19,8 @@
   "manuscript_ready": false,
   "lm_acceptance_mode": "truth_gated_legacy",
   "truth_state_used_for_lm_acceptance": true,
+  "map_covariance_mode": "truth_error_diagonal",
+  "map_update_mode": "truth_gated_legacy",
   "plot_outputs": [
     "outputs/migration_ladder/legacy_staged_compatible/tiny/pos_vary_ues.pdf",
     "outputs/migration_ladder/legacy_staged_compatible/tiny/sync_vary_ues.pdf"
@@ -37,6 +41,8 @@
     "failed_rows": 0,
     "fallback_count": 12,
     "lm_cost_increase_rows": 0,
+    "map_accepted_cost_increase_rows": 0,
+    "map_invalid_covariance_rows": 0,
     "lm_or_map_worse_than_il_rows": 0,
     "catastrophic_failure": false,
     "performance_degraded_vs_previous": false,
@@ -60,10 +66,26 @@
     "rows_with_residual_cost_increase": 0,
     "rejection_reasons": []
   },
+  "map_update_diagnostics": {
+    "truth_state_used_for_map_covariance": false,
+    "truth_state_used_for_map_acceptance": false,
+    "accepted_update_count": 0,
+    "rejected_update_count": 0,
+    "rejected_candidate_count": 0,
+    "fallback_count": 0,
+    "rows_with_accepted_residual_cost_increase": 0,
+    "invalid_covariance_rows": 0,
+    "covariance_trace_after_min": null,
+    "covariance_trace_after_max": null,
+    "covariance_condition_after_max": null,
+    "update_norm_max": null,
+    "fallback_paths": [],
+    "rejection_reasons": []
+  },
   "change_vs_previous": null,
   "cache": {
-    "cache_key": "b9d926f8a203a85960fc86121d2c4b9dc60511f41ce17fccb10eaeb37f00bef4",
-    "cache_path": "outputs/cache/migration_ladder/b9d926f8a203a859/metadata.json",
+    "cache_key": "e28bd39c7ceb4ae2e6981aa9c319396e381ec22499dae71d475788bae30985d0",
+    "cache_path": "outputs/cache/migration_ladder/e28bd39c7ceb4ae2/metadata.json",
     "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9"
   }
 }

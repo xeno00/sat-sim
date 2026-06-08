@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/pos_vary_ues.pdf",
+  "source_pdf_sha256": "229bbcc3432539cc66afa8b640aa3973b7d280343f604c587fbbb58c5d6fc221",
+  "source_pdf_size_bytes": 18719,
+  "preview_paths": [
+    "previews/0b695870ba34__outputs__migration_ladder__step_c0_legacy_map_instrumented__medium__pos_vary_ues-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/0b695870ba34__outputs__migration_ladder__step_c0_legacy_map_instrumented__medium__pos_vary_ues.json",
+  "render_timestamp_utc": "2026-06-08T07:36:56.985163+00:00",
+  "render_status": "rendered",
+  "branch": "codex/migration-step-c-diagnosis",
+  "commit": "c9cf524"
+}

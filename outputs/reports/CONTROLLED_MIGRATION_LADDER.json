@@ -19,6 +19,8 @@
       "failed_rows": 0,
       "fallback_count": 48,
       "lm_cost_increase_rows": 0,
+      "map_accepted_cost_increase_rows": 0,
+      "map_invalid_covariance_rows": 0,
       "lm_or_map_worse_than_il_rows": 0,
       "catastrophic_failure": false,
       "performance_degraded_vs_previous": false,
@@ -55,6 +57,8 @@
         "weighting_mode": "legacy_notebook",
         "geometry_noise_mode": "legacy_replay",
         "display_transform_mode": "legacy_replay_display",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "truth_gated_legacy",
         "exact_change": "Expose the legacy staged behavior as a package-described estimator mode without changing behavior.",
         "expected_raw_metric_change": "none"
       },
@@ -63,6 +67,8 @@
       "manuscript_ready": false,
       "lm_acceptance_mode": "truth_gated_legacy",
       "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "truth_gated_legacy",
       "plot_outputs": [
         "outputs/migration_ladder/legacy_staged_compatible/tiny/pos_vary_ues.pdf",
         "outputs/migration_ladder/legacy_staged_compatible/tiny/sync_vary_ues.pdf"
@@ -83,6 +89,8 @@
         "failed_rows": 0,
         "fallback_count": 12,
         "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
         "lm_or_map_worse_than_il_rows": 0,
         "catastrophic_failure": false,
         "performance_degraded_vs_previous": false,
@@ -106,10 +114,26 @@
         "rows_with_residual_cost_increase": 0,
         "rejection_reasons": []
       },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 0,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": null,
+        "covariance_trace_after_max": null,
+        "covariance_condition_after_max": null,
+        "update_norm_max": null,
+        "fallback_paths": [],
+        "rejection_reasons": []
+      },
       "change_vs_previous": {},
       "cache": {
-        "cache_key": "b9d926f8a203a85960fc86121d2c4b9dc60511f41ce17fccb10eaeb37f00bef4",
-        "cache_path": "outputs/cache/migration_ladder/b9d926f8a203a859/metadata.json",
+        "cache_key": "e28bd39c7ceb4ae2e6981aa9c319396e381ec22499dae71d475788bae30985d0",
+        "cache_path": "outputs/cache/migration_ladder/e28bd39c7ceb4ae2/metadata.json",
         "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9"
       }
     },
@@ -124,6 +148,8 @@
         "weighting_mode": "legacy_notebook",
         "geometry_noise_mode": "legacy_replay",
         "display_transform_mode": "legacy_replay_display",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "truth_gated_legacy",
         "exact_change": "Expose the legacy staged behavior as a package-described estimator mode without changing behavior.",
         "expected_raw_metric_change": "none"
       },
@@ -132,6 +158,8 @@
       "manuscript_ready": false,
       "lm_acceptance_mode": "truth_gated_legacy",
       "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "truth_gated_legacy",
       "plot_outputs": [
         "outputs/migration_ladder/legacy_staged_compatible/medium/pos_vary_ues.pdf",
         "outputs/migration_ladder/legacy_staged_compatible/medium/sync_vary_ues.pdf"
@@ -152,6 +180,8 @@
         "failed_rows": 0,
         "fallback_count": 48,
         "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
         "lm_or_map_worse_than_il_rows": 0,
         "catastrophic_failure": false,
         "performance_degraded_vs_previous": false,
@@ -175,10 +205,26 @@
         "rows_with_residual_cost_increase": 0,
         "rejection_reasons": []
       },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 0,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": null,
+        "covariance_trace_after_max": null,
+        "covariance_condition_after_max": null,
+        "update_norm_max": null,
+        "fallback_paths": [],
+        "rejection_reasons": []
+      },
       "change_vs_previous": {},
       "cache": {
-        "cache_key": "948e0cb58c0ccbe9070e84797f11f823fac3dad8948d91124e2cd900346bfc28",
-        "cache_path": "outputs/cache/migration_ladder/948e0cb58c0ccbe9/metadata.json",
+        "cache_key": "4c077b595534b798d6cb95ebed2d3444041126271e8839e7fdde8e4ea351815c",
+        "cache_path": "outputs/cache/migration_ladder/4c077b595534b798/metadata.json",
         "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
       }
     },
@@ -193,6 +239,8 @@
         "weighting_mode": "legacy_notebook",
         "geometry_noise_mode": "legacy_replay",
         "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "truth_gated_legacy",
         "exact_change": "Remove display smoothing/fitting from graph metrics; raw metrics are unchanged.",
         "expected_raw_metric_change": "none"
       },
@@ -201,6 +249,8 @@
       "manuscript_ready": false,
       "lm_acceptance_mode": "truth_gated_legacy",
       "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "truth_gated_legacy",
       "plot_outputs": [
         "outputs/migration_ladder/step_a_no_display_smoothing/tiny/pos_vary_ues.pdf",
         "outputs/migration_ladder/step_a_no_display_smoothing/tiny/sync_vary_ues.pdf"
@@ -221,6 +271,8 @@
         "failed_rows": 0,
         "fallback_count": 12,
         "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
         "lm_or_map_worse_than_il_rows": 0,
         "catastrophic_failure": false,
         "performance_degraded_vs_previous": false,
@@ -244,6 +296,22 @@
         "rows_with_residual_cost_increase": 0,
         "rejection_reasons": []
       },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 0,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": null,
+        "covariance_trace_after_max": null,
+        "covariance_condition_after_max": null,
+        "update_norm_max": null,
+        "fallback_paths": [],
+        "rejection_reasons": []
+      },
       "change_vs_previous": {
         "display_transform_mode": [
           "legacy_replay_display",
@@ -251,8 +319,8 @@
         ]
       },
       "cache": {
-        "cache_key": "d4552a0eb993a66747e5b1d31a5995167578bac4de670c7d5f271a55de16da4a",
-        "cache_path": "outputs/cache/migration_ladder/d4552a0eb993a667/metadata.json",
+        "cache_key": "0427b73453d88fad3e78ed9d89b304d7af1e5daf1bbab6d4084edb60ede563c7",
+        "cache_path": "outputs/cache/migration_ladder/0427b73453d88fad/metadata.json",
         "raw_result_hash": "4e15705535c27e2b0fa18ed0bee05ddb7e6df810ffd98592d9359084a9ad77f9"
       }
     },
@@ -267,6 +335,8 @@
         "weighting_mode": "legacy_notebook",
         "geometry_noise_mode": "legacy_replay",
         "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "truth_gated_legacy",
         "exact_change": "Remove display smoothing/fitting from graph metrics; raw metrics are unchanged.",
         "expected_raw_metric_change": "none"
       },
@@ -275,6 +345,8 @@
       "manuscript_ready": false,
       "lm_acceptance_mode": "truth_gated_legacy",
       "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "truth_gated_legacy",
       "plot_outputs": [
         "outputs/migration_ladder/step_a_no_display_smoothing/medium/pos_vary_ues.pdf",
         "outputs/migration_ladder/step_a_no_display_smoothing/medium/sync_vary_ues.pdf"
@@ -295,6 +367,8 @@
         "failed_rows": 0,
         "fallback_count": 48,
         "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
         "lm_or_map_worse_than_il_rows": 0,
         "catastrophic_failure": false,
         "performance_degraded_vs_previous": false,
@@ -318,10 +392,26 @@
         "rows_with_residual_cost_increase": 0,
         "rejection_reasons": []
       },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 0,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": null,
+        "covariance_trace_after_max": null,
+        "covariance_condition_after_max": null,
+        "update_norm_max": null,
+        "fallback_paths": [],
+        "rejection_reasons": []
+      },
       "change_vs_previous": {},
       "cache": {
-        "cache_key": "3c134a447d124dd38a858c15c6c3434267bdfda5341295aa0fb7d472b3143e5d",
-        "cache_path": "outputs/cache/migration_ladder/3c134a447d124dd3/metadata.json",
+        "cache_key": "3fd496bdea424db35f45448f96f712301305e253141fbd9201e4a58feacafa59",
+        "cache_path": "outputs/cache/migration_ladder/3fd496bdea424db3/metadata.json",
         "raw_result_hash": "619ca1d2522b5bbe74e49c0dc035b09d198417ea9469e7f280d39e31cc39f446"
       }
     },
@@ -336,6 +426,8 @@
         "weighting_mode": "legacy_notebook",
         "geometry_noise_mode": "legacy_replay",
         "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "truth_gated_legacy",
         "exact_change": "Replace LM true-state acceptance with observable residual-cost, finite-candidate, and bounded-step checks; keep all other legacy internals fixed.",
         "expected_raw_metric_change": "possible; this is the first estimator-decision migration step"
       },
@@ -344,6 +436,8 @@
       "manuscript_ready": false,
       "lm_acceptance_mode": "residual_trust_region",
       "truth_state_used_for_lm_acceptance": false,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "truth_gated_legacy",
       "plot_outputs": [
         "outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/pos_vary_ues.pdf",
         "outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/sync_vary_ues.pdf"
@@ -364,6 +458,8 @@
         "failed_rows": 0,
         "fallback_count": 12,
         "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
         "lm_or_map_worse_than_il_rows": 0,
         "catastrophic_failure": false,
         "performance_degraded_vs_previous": true,
@@ -387,6 +483,22 @@
         "rows_with_residual_cost_increase": 0,
         "rejection_reasons": []
       },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": true,
+        "truth_state_used_for_map_acceptance": true,
+        "accepted_update_count": 0,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 10,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": null,
+        "covariance_trace_after_max": null,
+        "covariance_condition_after_max": null,
+        "update_norm_max": null,
+        "fallback_paths": [],
+        "rejection_reasons": []
+      },
       "change_vs_previous": {
         "acceptance_mode": [
           "truth_gated_legacy",
@@ -394,9 +506,9 @@
         ]
       },
       "cache": {
-        "cache_key": "0cedfb063bdb506d774d527e3c03b46fac48425743557a32a0242761301613c1",
-        "cache_path": "outputs/cache/migration_ladder/0cedfb063bdb506d/metadata.json",
-        "raw_result_hash": "43497c0297c6fe3f55f5f5e64ce2923c3b24f54cd1505b66a9d0b3f3c44b6e06"
+        "cache_key": "2ef2d0a26590e94ac0e26e1e4043fa20b6212198e52f10bd04d345a9201d8d1c",
+        "cache_path": "outputs/cache/migration_ladder/2ef2d0a26590e94a/metadata.json",
+        "raw_result_hash": "6c4bcbfc693ee66e2ab7e0d80ee4a51da5e87986e4fa6face13c4853dfd2397d"
       }
     },
     {
@@ -410,6 +522,8 @@
         "weighting_mode": "legacy_notebook",
         "geometry_noise_mode": "legacy_replay",
         "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "truth_gated_legacy",
         "exact_change": "Replace LM true-state acceptance with observable residual-cost, finite-candidate, and bounded-step checks; keep all other legacy internals fixed.",
         "expected_raw_metric_change": "possible; this is the first estimator-decision migration step"
       },
@@ -418,6 +532,8 @@
       "manuscript_ready": false,
       "lm_acceptance_mode": "residual_trust_region",
       "truth_state_used_for_lm_acceptance": false,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "truth_gated_legacy",
       "plot_outputs": [
         "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/pos_vary_ues.pdf",
         "outputs/migration_ladder/step_b_lm_residual_acceptance/medium/sync_vary_ues.pdf"
@@ -438,6 +554,8 @@
         "failed_rows": 0,
         "fallback_count": 48,
         "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
         "lm_or_map_worse_than_il_rows": 0,
         "catastrophic_failure": false,
         "performance_degraded_vs_previous": false,
@@ -461,11 +579,1589 @@
         "rows_with_residual_cost_increase": 0,
         "rejection_reasons": []
       },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": true,
+        "truth_state_used_for_map_acceptance": true,
+        "accepted_update_count": 0,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 45,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": null,
+        "covariance_trace_after_max": null,
+        "covariance_condition_after_max": null,
+        "update_norm_max": null,
+        "fallback_paths": [],
+        "rejection_reasons": []
+      },
       "change_vs_previous": {},
       "cache": {
-        "cache_key": "dcd2b6982cb04a6658c3d1254c9ac229743e59a23a9dc7c07bb3c46a6f7675c6",
-        "cache_path": "outputs/cache/migration_ladder/dcd2b6982cb04a66/metadata.json",
-        "raw_result_hash": "a5aa939206fd55f4b3da0a572b792a3f7a47020351c5248c2fe6cfc649df4ef2"
+        "cache_key": "0be180dc130dd2873c1083e52f4459dbbcae78fe8ec73accb2f019e038df0628",
+        "cache_path": "outputs/cache/migration_ladder/0be180dc130dd287/metadata.json",
+        "raw_result_hash": "dd5077d89e19622b56a2c2fe019cb470521dfd33ca6a888a1796882001efb4a4"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c0_legacy_map_instrumented",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "truth_gated_legacy_instrumented",
+        "exact_change": "Instrument legacy MAP covariance/update behavior without changing behavior.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "truth_gated_legacy_instrumented",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c0_legacy_map_instrumented/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 2,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 2,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.20518099458954553,
+          "sync_improvement_ns": 0.08758455602889806
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.20518099458954553,
+          "sync_improvement_ns": 0.08758455602889806
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": true,
+        "truth_state_used_for_map_acceptance": true,
+        "accepted_update_count": 2,
+        "rejected_update_count": 8,
+        "rejected_candidate_count": 8,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 500.00069915948666,
+        "covariance_trace_after_max": 500.0297255101123,
+        "covariance_condition_after_max": 48484563602.59191,
+        "update_norm_max": 0.000537885686481216,
+        "fallback_paths": [
+          "global_fallback"
+        ],
+        "rejection_reasons": [
+          "legacy_truth_reverted"
+        ]
+      },
+      "change_vs_previous": {
+        "map_update_mode": [
+          "truth_gated_legacy",
+          "truth_gated_legacy_instrumented"
+        ]
+      },
+      "cache": {
+        "cache_key": "c0797fbc699a2f1110dca4168a93db29dd3db49b727be78afe14de2865458a53",
+        "cache_path": "outputs/cache/migration_ladder/c0797fbc699a2f11/metadata.json",
+        "raw_result_hash": "795c046fe2c5381775bfee9c6829cbe154b7404fc40b5cc4f54ae25037b864aa"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c0_legacy_map_instrumented",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "truth_gated_legacy_instrumented",
+        "exact_change": "Instrument legacy MAP covariance/update behavior without changing behavior.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "medium",
+      "status": "healthy",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "truth_gated_legacy_instrumented",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c0_legacy_map_instrumented/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "healthy",
+        "comparison_count": 9,
+        "position_improvement_count": 9,
+        "sync_improvement_count": 9,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 3,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3891444962935921,
+          "sync_improvement_ns": 0.4967347384231532
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3684532867515761,
+          "sync_improvement_ns": 0.5777427293930988
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": true,
+        "truth_state_used_for_map_acceptance": true,
+        "accepted_update_count": 6,
+        "rejected_update_count": 39,
+        "rejected_candidate_count": 39,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 500.0005701916074,
+        "covariance_trace_after_max": 500.0666119511186,
+        "covariance_condition_after_max": 49807494008.99016,
+        "update_norm_max": 0.001363438050976329,
+        "fallback_paths": [
+          "global_fallback"
+        ],
+        "rejection_reasons": [
+          "legacy_truth_reverted"
+        ]
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "bd5016b1f4f55c6cfad22cbb969f6effeda05ae49dccf76f2832db19f2577183",
+        "cache_path": "outputs/cache/migration_ladder/bd5016b1f4f55c6c/metadata.json",
+        "raw_result_hash": "ac7ff50836258312067c2671b8bef25d4c447c71b86ffedac9c443e31ef84761"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c1_legacy_cov_observable_acceptance",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Keep legacy truth-derived MAP covariance but replace MAP acceptance/reversion with observable checks.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 1,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 2,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 1,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": true,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18767358638927323,
+          "sync_improvement_ns": 0.08758358029443115
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18767358638927323,
+          "sync_improvement_ns": 0.08758358029443115
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": true,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 10,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 500.00074639138785,
+        "covariance_trace_after_max": 500.0349482017509,
+        "covariance_condition_after_max": 47535337718.00891,
+        "update_norm_max": 0.0041255411078656495,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": []
+      },
+      "change_vs_previous": {
+        "map_update_mode": [
+          "truth_gated_legacy_instrumented",
+          "observable_residual_covariance_checks"
+        ]
+      },
+      "cache": {
+        "cache_key": "1ba1b7bb3da557c75c646696f86465b4b1f8dd1161fffcc17f0cbaa70b01f259",
+        "cache_path": "outputs/cache/migration_ladder/1ba1b7bb3da557c7/metadata.json",
+        "raw_result_hash": "9ec76287e75452e0fd7f06bc03ebee398cf6eb56ae98fd76b41b67cdd38fbfaf"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c1_legacy_cov_observable_acceptance",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "truth_error_diagonal",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Keep legacy truth-derived MAP covariance but replace MAP acceptance/reversion with observable checks.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "medium",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "truth_error_diagonal",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 9,
+        "position_improvement_count": 7,
+        "sync_improvement_count": 8,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 3,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": true,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3833540226959053,
+          "sync_improvement_ns": 0.496736266677672
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3589708373112318,
+          "sync_improvement_ns": 0.5762150400553615
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": true,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 43,
+        "rejected_update_count": 2,
+        "rejected_candidate_count": 2,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 400.00654553235006,
+        "covariance_trace_after_max": 500.0478590773216,
+        "covariance_condition_after_max": 49901964256.57262,
+        "update_norm_max": 0.0028340135977937557,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "48d12203954fc5ba3299a36a0df942c4a5b18eb58183214e23605c19432224b3",
+        "cache_path": "outputs/cache/migration_ladder/48d12203954fc5ba/metadata.json",
+        "raw_result_hash": "e673f94ae83835c66769cfa532d48d4f7d4ac5e65c07a1ec61ad3d620bbe5b91"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c2_observable_cov_legacy_acceptance",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "damped_information_pseudoinverse",
+        "map_update_mode": "truth_gated_legacy",
+        "exact_change": "Replace MAP covariance with a non-truth damped information pseudoinverse while preserving legacy truth-gated MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "damped_information_pseudoinverse",
+      "map_update_mode": "truth_gated_legacy",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 2,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 2,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.20347226646292915,
+          "sync_improvement_ns": 0.08757416535479692
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.20347226646292915,
+          "sync_improvement_ns": 0.08757416535479692
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": true,
+        "accepted_update_count": 2,
+        "rejected_update_count": 8,
+        "rejected_candidate_count": 8,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 500.00064221705077,
+        "covariance_trace_after_max": 500.03684140341437,
+        "covariance_condition_after_max": 45143964607.45263,
+        "update_norm_max": 0.0005308246422839108,
+        "fallback_paths": [
+          "global_fallback"
+        ],
+        "rejection_reasons": [
+          "legacy_truth_reverted"
+        ]
+      },
+      "change_vs_previous": {
+        "map_covariance_mode": [
+          "truth_error_diagonal",
+          "damped_information_pseudoinverse"
+        ],
+        "map_update_mode": [
+          "observable_residual_covariance_checks",
+          "truth_gated_legacy"
+        ]
+      },
+      "cache": {
+        "cache_key": "b5325313008bf4c9e772b5a2648f5d939e1d1358be67229b5b115d0ce0311d4b",
+        "cache_path": "outputs/cache/migration_ladder/b5325313008bf4c9/metadata.json",
+        "raw_result_hash": "85903119fb54c2e7c6d7d507ec40e7f0bf8153ca926b305fb261db88a57a24cd"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c2_observable_cov_legacy_acceptance",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "damped_information_pseudoinverse",
+        "map_update_mode": "truth_gated_legacy",
+        "exact_change": "Replace MAP covariance with a non-truth damped information pseudoinverse while preserving legacy truth-gated MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "medium",
+      "status": "healthy",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "damped_information_pseudoinverse",
+      "map_update_mode": "truth_gated_legacy",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "healthy",
+        "comparison_count": 9,
+        "position_improvement_count": 9,
+        "sync_improvement_count": 9,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 3,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3891892856564973,
+          "sync_improvement_ns": 0.4967341710194525
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3684532867515761,
+          "sync_improvement_ns": 0.5777427293930988
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": true,
+        "accepted_update_count": 7,
+        "rejected_update_count": 38,
+        "rejected_candidate_count": 38,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 500.00061772655454,
+        "covariance_trace_after_max": 500.05918609001503,
+        "covariance_condition_after_max": 49760721310.44193,
+        "update_norm_max": 0.0013067200772744153,
+        "fallback_paths": [
+          "global_fallback"
+        ],
+        "rejection_reasons": [
+          "legacy_truth_reverted"
+        ]
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "870cf26d3af231384137905805f9f92d391be57c081c0c035d1400666ddd9397",
+        "cache_path": "outputs/cache/migration_ladder/870cf26d3af23138/metadata.json",
+        "raw_result_hash": "59a2c6d537dd0dff958310b7b04bb4546a198547d11e6690fc35c94a66f918f1"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_diag_prior",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "diagonal_prior",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth diagonal prior covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "diagonal_prior",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_diag_prior/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_diag_prior/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_diag_prior/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 1,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 2,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 1,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": true,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18117770978210204,
+          "sync_improvement_ns": 0.08758398333077361
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18117770978210204,
+          "sync_improvement_ns": 0.08758398333077361
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 4,
+        "rejected_update_count": 6,
+        "rejected_candidate_count": 6,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 200.9095368980358,
+        "covariance_trace_after_max": 200.9280611920242,
+        "covariance_condition_after_max": 19663813030.15505,
+        "update_norm_max": 0.0040598165011588435,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {
+        "map_covariance_mode": [
+          "damped_information_pseudoinverse",
+          "diagonal_prior"
+        ],
+        "map_update_mode": [
+          "truth_gated_legacy",
+          "observable_residual_covariance_checks"
+        ]
+      },
+      "cache": {
+        "cache_key": "53173072463d7bd59ddc5e79443c31867f6273603152f9439000a5c23ac2115f",
+        "cache_path": "outputs/cache/migration_ladder/53173072463d7bd5/metadata.json",
+        "raw_result_hash": "c6b1d081efe635d3d2c848cf5d93fd5ac3260376b2217b2a3e7efe5e3c270258"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_diag_prior",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "diagonal_prior",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth diagonal prior covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "medium",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "diagonal_prior",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_diag_prior/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_diag_prior/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_diag_prior/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 9,
+        "position_improvement_count": 7,
+        "sync_improvement_count": 8,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 3,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": true,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3877298559477514,
+          "sync_improvement_ns": 0.49673096669975797
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3684532867515761,
+          "sync_improvement_ns": 0.5777427293930988
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 6,
+        "rejected_update_count": 39,
+        "rejected_candidate_count": 39,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 100.90909130343023,
+        "covariance_trace_after_max": 190926.3636363636,
+        "covariance_condition_after_max": 50078230184.365364,
+        "update_norm_max": 0.0019833563671700356,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "508cd81bc0d6ca68e4d21edad46f6dcdd620dd41e13628d201502b6497ad89dd",
+        "cache_path": "outputs/cache/migration_ladder/508cd81bc0d6ca68/metadata.json",
+        "raw_result_hash": "4e4bd4761ed2eab61e94bf15cb47552c96e563749144cad327dc76eb5b799689"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_block_diag",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "block_diagonal_position_clock",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth block-diagonal position/clock covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "block_diagonal_position_clock",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_block_diag/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_block_diag/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_block_diag/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 1,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 2,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 1,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.17954872275886058,
+          "sync_improvement_ns": 0.08758417567504086
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.17954872275886058,
+          "sync_improvement_ns": 0.08758417567504086
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 4,
+        "rejected_update_count": 6,
+        "rejected_candidate_count": 6,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 200.2277271213668,
+        "covariance_trace_after_max": 200.25458290552064,
+        "covariance_condition_after_max": 19452189762.63467,
+        "update_norm_max": 0.003929376290398765,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {
+        "map_covariance_mode": [
+          "diagonal_prior",
+          "block_diagonal_position_clock"
+        ]
+      },
+      "cache": {
+        "cache_key": "5fd4f8f8354857b2ddbf8a8a5e8bffaa8ed6f2f425735eae931633a04b4784cd",
+        "cache_path": "outputs/cache/migration_ladder/5fd4f8f8354857b2/metadata.json",
+        "raw_result_hash": "e11135aaa7585c10ce00ebe6e7f2ba468438bdab698a389057f30293b499b244"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_block_diag",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "block_diagonal_position_clock",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth block-diagonal position/clock covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "medium",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "block_diagonal_position_clock",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_block_diag/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_block_diag/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_block_diag/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 9,
+        "position_improvement_count": 7,
+        "sync_improvement_count": 8,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 3,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3877298559477514,
+          "sync_improvement_ns": 0.49673096669975797
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3684532867515761,
+          "sync_improvement_ns": 0.5777427293930988
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 9,
+        "rejected_update_count": 36,
+        "rejected_candidate_count": 36,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 400.25820909490096,
+        "covariance_trace_after_max": 47731.5909090909,
+        "covariance_condition_after_max": 41949727301.42025,
+        "update_norm_max": 0.0019743058475011816,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "8e96d18ddd9915df2d013edefaa275ca492948e100118c9c8cb85a2e8ad048c8",
+        "cache_path": "outputs/cache/migration_ladder/8e96d18ddd9915df/metadata.json",
+        "raw_result_hash": "b60b44662d91908f27000be4cbbfdced3d1555e0fb16d53f7f3e06d4a813ec5e"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_damped_inverse",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "damped_inverse_normal_matrix",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth damped inverse normal-matrix covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "damped_inverse_normal_matrix",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_damped_inverse/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 1,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 2,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 1,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.17978765471132457,
+          "sync_improvement_ns": 0.08759243802366319
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.17978765471132457,
+          "sync_improvement_ns": 0.08759243802366319
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 7,
+        "rejected_update_count": 3,
+        "rejected_candidate_count": 3,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 200.03842393834057,
+        "covariance_trace_after_max": 3758.182541417571,
+        "covariance_condition_after_max": 363765916436.123,
+        "update_norm_max": 0.004137092266130371,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {
+        "map_covariance_mode": [
+          "block_diagonal_position_clock",
+          "damped_inverse_normal_matrix"
+        ]
+      },
+      "cache": {
+        "cache_key": "fa07b8463f4bbd38e304af2c6e26dc30a695ee818f7c7570b62d9e0b5c09de9f",
+        "cache_path": "outputs/cache/migration_ladder/fa07b8463f4bbd38/metadata.json",
+        "raw_result_hash": "9660264dfb9205b40ea235838641bf2ed5b446e1a838cfb0707c49f838b75c12"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_damped_inverse",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "damped_inverse_normal_matrix",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth damped inverse normal-matrix covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "medium",
+      "status": "failed",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "damped_inverse_normal_matrix",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_damped_inverse/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "failed",
+        "comparison_count": 9,
+        "position_improvement_count": 7,
+        "sync_improvement_count": 8,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 3,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 1,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": true,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.3832555370373193,
+          "sync_improvement_ns": 0.49672735942227847
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.35922868285880266,
+          "sync_improvement_ns": 0.5762242777747181
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 35,
+        "rejected_update_count": 10,
+        "rejected_candidate_count": 10,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 1,
+        "covariance_trace_after_min": 100.08562536032323,
+        "covariance_trace_after_max": 972331538586430.9,
+        "covariance_condition_after_max": 7276396282304536.0,
+        "update_norm_max": 0.001982511458121259,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "822b3996c4bbd4e8fa4d11f2e4735e3ec36ebecc9a0744c1c995df18717e2e1a",
+        "cache_path": "outputs/cache/migration_ladder/822b3996c4bbd4e8/metadata.json",
+        "raw_result_hash": "51747854f341e457c29f053b4000637c11611083baa5f7f6d740e8625437fc2a"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_damped_pinv",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "damped_pseudoinverse_information_matrix",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth damped pseudoinverse information covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "damped_pseudoinverse_information_matrix",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_damped_pinv/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 1,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 2,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 1,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18150050731521264,
+          "sync_improvement_ns": 0.08757996486598554
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18150050731521264,
+          "sync_improvement_ns": 0.08757996486598554
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 10,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 500.0005634886159,
+        "covariance_trace_after_max": 500.0269324972479,
+        "covariance_condition_after_max": 49036796698.75108,
+        "update_norm_max": 0.004130896475013204,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": []
+      },
+      "change_vs_previous": {
+        "map_covariance_mode": [
+          "damped_inverse_normal_matrix",
+          "damped_pseudoinverse_information_matrix"
+        ]
+      },
+      "cache": {
+        "cache_key": "8fcd5768563aaf8fc3df25eb6408cb142a5cabddf6034aaa2a700f26ad646e0e",
+        "cache_path": "outputs/cache/migration_ladder/8fcd5768563aaf8f/metadata.json",
+        "raw_result_hash": "09d3fb6e916d9351e8b7ff3e8664c38cab38a714ff07fd53757901f3e520eba5"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_damped_pinv",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "damped_pseudoinverse_information_matrix",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth damped pseudoinverse information covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "medium",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "damped_pseudoinverse_information_matrix",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_damped_pinv/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_damped_pinv/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_damped_pinv/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 9,
+        "position_improvement_count": 7,
+        "sync_improvement_count": 8,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 3,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.38332459081754416,
+          "sync_improvement_ns": 0.49674272639053624
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.35872567257313537,
+          "sync_improvement_ns": 0.576159007519723
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 43,
+        "rejected_update_count": 2,
+        "rejected_candidate_count": 2,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 400.00451519911894,
+        "covariance_trace_after_max": 500.0828002233146,
+        "covariance_condition_after_max": 49980461256.52457,
+        "update_norm_max": 0.002799464978815082,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "9d4ec31807cf6f38e471044dfdc53c7e1b2aa67c45cde24c0a18422344e371d2",
+        "cache_path": "outputs/cache/migration_ladder/9d4ec31807cf6f38/metadata.json",
+        "raw_result_hash": "2b8d95be76edf750aeb01be25942b780b50dd1ec81862f920488c0d0d629d9d0"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_residual_scaled",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "residual_scaled_information_pseudoinverse",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth residual-scaled information covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "tiny",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "residual_scaled_information_pseudoinverse",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_residual_scaled/tiny/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 2,
+        "position_improvement_count": 1,
+        "sync_improvement_count": 1,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 4,
+        "failed_rows": 0,
+        "fallback_count": 2,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 1,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18722638307793837,
+          "sync_improvement_ns": 0.08757870650121896
+        },
+        "strongest_sync_improvement": {
+          "num_users": 3,
+          "num_satellites": 8,
+          "position_improvement_m": 0.18722638307793837,
+          "sync_improvement_ns": 0.08757870650121896
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 4,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 10,
+        "rejected_update_count": 0,
+        "rejected_candidate_count": 0,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 500.0004157145639,
+        "covariance_trace_after_max": 500.0288252103349,
+        "covariance_condition_after_max": 46051076501.08161,
+        "update_norm_max": 0.004125688858205262,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": []
+      },
+      "change_vs_previous": {
+        "map_covariance_mode": [
+          "damped_pseudoinverse_information_matrix",
+          "residual_scaled_information_pseudoinverse"
+        ]
+      },
+      "cache": {
+        "cache_key": "3f7e342d6db4788af3bed9269cfb3ed4257f65f3ac9ac1a779ebd81b3cb2bb4b",
+        "cache_path": "outputs/cache/migration_ladder/3f7e342d6db4788a/metadata.json",
+        "raw_result_hash": "947a2f04b61e96edb31ad5b3d4760f272989dbdb63c03234fbc087cd8c7ec865"
+      }
+    },
+    {
+      "artifact_status": "non_final_controlled_migration_step",
+      "step": {
+        "name": "step_c3_cov_residual_scaled",
+        "estimator_mode": "legacy_staged_compatible",
+        "internal_clock_mode": "all_clock",
+        "acceptance_mode": "residual_trust_region",
+        "metric_mode": "legacy_all_clock_sync",
+        "weighting_mode": "legacy_notebook",
+        "geometry_noise_mode": "legacy_replay",
+        "display_transform_mode": "raw_metrics_no_smoothing",
+        "map_covariance_mode": "residual_scaled_information_pseudoinverse",
+        "map_update_mode": "observable_residual_covariance_checks",
+        "exact_change": "Use a non-truth residual-scaled information covariance with observable MAP acceptance.",
+        "expected_raw_metric_change": "possible; this is a Step C MAP/EKF diagnosis sub-ablation"
+      },
+      "grid": "medium",
+      "status": "partially_degraded",
+      "manuscript_ready": false,
+      "lm_acceptance_mode": "residual_trust_region",
+      "truth_state_used_for_lm_acceptance": true,
+      "map_covariance_mode": "residual_scaled_information_pseudoinverse",
+      "map_update_mode": "observable_residual_covariance_checks",
+      "plot_outputs": [
+        "outputs/migration_ladder/step_c3_cov_residual_scaled/medium/pos_vary_ues.pdf",
+        "outputs/migration_ladder/step_c3_cov_residual_scaled/medium/sync_vary_ues.pdf"
+      ],
+      "raw_outputs": {
+        "raw_csv": "outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_raw.csv",
+        "summary_csv": "outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_summary.csv",
+        "arrays_npz": "outputs/migration_ladder/step_c3_cov_residual_scaled/medium/migration_arrays.npz"
+      },
+      "health": {
+        "status": "partially_degraded",
+        "comparison_count": 9,
+        "position_improvement_count": 7,
+        "sync_improvement_count": 8,
+        "does_jcls_help_localization": true,
+        "does_jcls_help_synchronization": true,
+        "healthy_rows": 12,
+        "failed_rows": 0,
+        "fallback_count": 3,
+        "lm_cost_increase_rows": 0,
+        "map_accepted_cost_increase_rows": 0,
+        "map_invalid_covariance_rows": 0,
+        "lm_or_map_worse_than_il_rows": 0,
+        "catastrophic_failure": false,
+        "performance_degraded_vs_previous": false,
+        "strongest_position_improvement": {
+          "num_users": 7,
+          "num_satellites": 12,
+          "position_improvement_m": 0.38340878671788414,
+          "sync_improvement_ns": 0.49672610055028543
+        },
+        "strongest_sync_improvement": {
+          "num_users": 5,
+          "num_satellites": 12,
+          "position_improvement_m": 0.35919984617526973,
+          "sync_improvement_ns": 0.5762801967873764
+        }
+      },
+      "lm_acceptance_diagnostics": {
+        "truth_state_used_for_lm_acceptance": true,
+        "accepted_step_count": 18,
+        "rejected_step_count": 0,
+        "rows_with_residual_cost_increase": 0,
+        "rejection_reasons": []
+      },
+      "map_update_diagnostics": {
+        "truth_state_used_for_map_covariance": false,
+        "truth_state_used_for_map_acceptance": false,
+        "accepted_update_count": 44,
+        "rejected_update_count": 1,
+        "rejected_candidate_count": 1,
+        "fallback_count": 0,
+        "rows_with_accepted_residual_cost_increase": 0,
+        "invalid_covariance_rows": 0,
+        "covariance_trace_after_min": 400.0049588078029,
+        "covariance_trace_after_max": 500.05413680439403,
+        "covariance_condition_after_max": 49753856126.07397,
+        "update_norm_max": 0.002799975237036193,
+        "fallback_paths": [
+          "optimizer_method"
+        ],
+        "rejection_reasons": [
+          "residual_cost_increased"
+        ]
+      },
+      "change_vs_previous": {},
+      "cache": {
+        "cache_key": "3cad546922fb0ecd9385a3ea7d320184c0e588814beddd7392836fd4dc2bc9ab",
+        "cache_path": "outputs/cache/migration_ladder/3cad546922fb0ecd/metadata.json",
+        "raw_result_hash": "2445da776c73570d607aeb81d723becffcc65f1c50b57ed3b290a260bed24835"
       }
     }
   ],
@@ -477,8 +2173,13 @@
     "path": "outputs/reports/STEP_B_LM_ACCEPTANCE_COMPARISON.md",
     "overall_status": "healthy"
   },
+  "step_c_diagnosis": {
+    "path": "outputs/reports/STEP_C_DIAGNOSIS_REPORT.md",
+    "breaking_factor": "acceptance_replacement",
+    "best_non_truth_covariance_candidate": null
+  },
   "gallery": {
     "path": "outputs/gallery/PLOT_GALLERY.md",
-    "entry_count": 42
+    "entry_count": 74
   }
 }

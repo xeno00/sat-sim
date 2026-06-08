@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/migration_ladder/step_c3_cov_block_diag/medium/sync_vary_ues.pdf",
+  "source_pdf_sha256": "5d27479d89ee9c15d429bf0670eae8d87d5405e4b81142cbab7162a1bc51066e",
+  "source_pdf_size_bytes": 19197,
+  "preview_paths": [
+    "previews/3517aaf9f492__outputs__migration_ladder__step_c3_cov_block_diag__medium__sync_vary_ues-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/3517aaf9f492__outputs__migration_ladder__step_c3_cov_block_diag__medium__sync_vary_ues.json",
+  "render_timestamp_utc": "2026-06-08T07:37:07.337527+00:00",
+  "render_status": "rendered",
+  "branch": "codex/migration-step-c-diagnosis",
+  "commit": "c9cf524"
+}

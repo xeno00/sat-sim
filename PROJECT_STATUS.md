@@ -314,6 +314,15 @@ Step B (`step_b_lm_residual_acceptance`) is implemented on branch
 and records residual/trust-region diagnostics. Medium is healthy, tiny is
 partially degraded, and the ladder conservatively marks Step B as the first
 degraded correction pending review.
+Step C diagnosis is implemented on branch `codex/migration-step-c-diagnosis`.
+It splits MAP/EKF truth-dependence into C0/C1/C2/C3 sub-ablations under
+`outputs/migration_ladder/` and writes
+`outputs/reports/STEP_C_DIAGNOSIS_REPORT.md`. The current diagnosis isolates
+`acceptance_replacement` as the primary breaking factor: C1 (legacy truth
+covariance with observable MAP acceptance) is majorly degraded, while C2
+(non-truth covariance with legacy truth acceptance) is only mildly degraded.
+No C3 non-truth covariance candidate is healthy when paired with observable
+MAP acceptance. These outputs are non-final and not manuscript-ready.
 
 ## Next task
 
@@ -366,3 +375,8 @@ See `docs/tasks/NEXT.md`.
   truth for correction-by-correction migration health. The first tested
   correction, removing display smoothing from metrics, is healthy; truth-gate
   replacement remains the next major risk.
+- `outputs/reports/STEP_C_DIAGNOSIS_REPORT.md` is the current source of truth
+  for MAP/EKF truth-dependence diagnosis. It indicates MAP truth acceptance is
+  the primary breaking factor; covariance replacement alone is not the primary
+  failure in the current medium grid, but no fully non-truth candidate is yet
+  healthy.

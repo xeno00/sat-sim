@@ -17,6 +17,8 @@
     "failed_rows": 0,
     "fallback_count": 48,
     "lm_cost_increase_rows": 0,
+    "map_accepted_cost_increase_rows": 0,
+    "map_invalid_covariance_rows": 0,
     "lm_or_map_worse_than_il_rows": 0,
     "catastrophic_failure": false,
     "performance_degraded_vs_previous": false,

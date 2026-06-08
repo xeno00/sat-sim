@@ -1,13 +1,12 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Review Migration Step B Before Merge
+# Next Task: Review Step C Diagnosis Before Merge
 
 ## Purpose
 
-Review branch `codex/migration-step-b-lm-no-truth-gate` before merge. Step B
-replaces the legacy LM true-state acceptance gate with observable
-residual/trust-region criteria while keeping all other legacy-compatible
-behavior fixed.
+Review branch `codex/migration-step-c-diagnosis` before merge. This branch
+starts from Step B and splits the degraded Step C MAP/EKF correction into
+smaller C0/C1/C2/C3 sub-ablations.
 
 ## Scope
 
@@ -17,9 +16,16 @@ Inspect:
 - `scripts/run_controlled_migration_ladder.py`
 - `scripts/build_legacy_graph_package.py`
 - `tests/test_controlled_migration_ladder.py`
-- `outputs/migration_ladder/step_b_lm_residual_acceptance/`
-- `outputs/reports/STEP_B_LM_ACCEPTANCE_COMPARISON.md`
-- `outputs/reports/STEP_B_LM_ACCEPTANCE_COMPARISON.json`
+- `outputs/migration_ladder/step_c0_legacy_map_instrumented/`
+- `outputs/migration_ladder/step_c1_legacy_cov_observable_acceptance/`
+- `outputs/migration_ladder/step_c2_observable_cov_legacy_acceptance/`
+- `outputs/migration_ladder/step_c3_cov_diag_prior/`
+- `outputs/migration_ladder/step_c3_cov_block_diag/`
+- `outputs/migration_ladder/step_c3_cov_damped_inverse/`
+- `outputs/migration_ladder/step_c3_cov_damped_pinv/`
+- `outputs/migration_ladder/step_c3_cov_residual_scaled/`
+- `outputs/reports/STEP_C_DIAGNOSIS_REPORT.md`
+- `outputs/reports/STEP_C_DIAGNOSIS_REPORT.json`
 - `outputs/reports/CONTROLLED_MIGRATION_LADDER.md`
 - `outputs/reports/CONTROLLED_MIGRATION_LADDER.json`
 - `outputs/gallery/PLOT_GALLERY.md`
@@ -38,24 +44,25 @@ Do not edit:
 
 ## Required Review Checks
 
-1. Confirm Step B changes only `acceptance_mode` relative to Step A.
-2. Confirm Step B LM acceptance does not call `scenario.get_true_state()` or
-   otherwise use true-state error for accepting/rejecting LM steps.
-3. Confirm true-state errors are used only after estimation for diagnostics and
-   plotting.
-4. Confirm all-clock internals, legacy IL, MAP/global fallback, legacy sync
-   metric, geometry/noise settings, single-UE policy, and raw/display separation
-   are preserved.
-5. Confirm tiny and medium Step B outputs exist, are non-final, and are not
-   manuscript-ready.
-6. Confirm residual-cost diagnostics are recorded and accepted LM steps do not
-   increase weighted residual cost beyond tolerance.
-7. Confirm `STEP_B_LM_ACCEPTANCE_COMPARISON` compares Step B against Step A
-   medium rows and reports localization/synchronization behavior per grid row.
-8. Confirm the ladder conservatively marks Step B as the first degraded
-   correction because tiny synchronization is partially degraded, while medium
-   Step B is healthy.
-9. Confirm gallery/index/status reports include Step B previews.
+1. Confirm C0 changes no behavior relative to Step B and only instruments
+   legacy MAP/global fallback behavior.
+2. Confirm C1 keeps legacy truth-derived MAP covariance and replaces only MAP
+   acceptance/reversion with observable residual/covariance checks.
+3. Confirm C2 replaces only MAP covariance and preserves legacy truth-gated MAP
+   acceptance/reversion.
+4. Confirm C3 candidates use non-truth covariance and observable acceptance.
+5. Confirm all substeps preserve all-clock internals, legacy symbolic ordering,
+   legacy IL/clockless preconditioning, Step B residual LM acceptance, legacy
+   sync metric, geometry/noise settings, single-UE policy, and raw/display
+   separation.
+6. Confirm every output is non-final and not manuscript-ready.
+7. Confirm `STEP_C_DIAGNOSIS_REPORT` identifies the breaking factor and that
+   its conclusion is supported by C1/C2 statuses.
+8. Confirm covariance diagnostics include trace/range/condition, update counts,
+   residual costs, true-state usage flags, and fallback paths.
+9. Confirm no manuscript, response-letter, bibliography, notebook, PSFrag,
+   Work-In-Progress figure, generated manuscript PDF, or existing manuscript
+   result files were edited.
 10. Run:
 
 ```powershell
@@ -69,7 +76,7 @@ Return:
 - PASS / FAIL / PASS WITH CAVEAT;
 - merge recommendation;
 - required fixes before merge, if any;
-- nonblocking caveats;
-- whether Step B is healthy or first degraded/breaking correction;
-- next recommended correction after merge or after fixing.
-
+- whether Step C degradation is caused primarily by MAP acceptance replacement,
+  covariance replacement, or both;
+- whether any C3 non-truth covariance candidate is healthy;
+- next recommended Step C replacement strategy.

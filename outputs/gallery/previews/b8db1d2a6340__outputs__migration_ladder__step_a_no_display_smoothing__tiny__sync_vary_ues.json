@@ -1,14 +1,14 @@
 {
   "source_pdf_path": "outputs/migration_ladder/step_a_no_display_smoothing/tiny/sync_vary_ues.pdf",
-  "source_pdf_sha256": "fb7a2c0bcbe231eda4f86dc2cb4122313e201c21bf70e2744c9cf13328287b60",
+  "source_pdf_sha256": "c0e4fdf4db4f1de2a9a789c48bf01c2ef9435665e66b5cf282aa2aa86a0c2c29",
   "source_pdf_size_bytes": 18076,
   "preview_paths": [
     "previews/b8db1d2a6340__outputs__migration_ladder__step_a_no_display_smoothing__tiny__sync_vary_ues-1.png"
   ],
   "preview_count": 1,
   "metadata_path": "previews/b8db1d2a6340__outputs__migration_ladder__step_a_no_display_smoothing__tiny__sync_vary_ues.json",
-  "render_timestamp_utc": "2026-06-08T01:24:59.338556+00:00",
+  "render_timestamp_utc": "2026-06-08T07:36:53.185953+00:00",
   "render_status": "rendered",
-  "branch": "codex/migration-step-b-lm-no-truth-gate",
-  "commit": "27e83d0"
+  "branch": "codex/migration-step-c-diagnosis",
+  "commit": "c9cf524"
 }

@@ -9,6 +9,8 @@
     "weighting_mode": "legacy_notebook",
     "geometry_noise_mode": "legacy_replay",
     "display_transform_mode": "raw_metrics_no_smoothing",
+    "map_covariance_mode": "truth_error_diagonal",
+    "map_update_mode": "truth_gated_legacy",
     "exact_change": "Replace LM true-state acceptance with observable residual-cost, finite-candidate, and bounded-step checks; keep all other legacy internals fixed.",
     "expected_raw_metric_change": "possible; this is the first estimator-decision migration step"
   },
@@ -17,6 +19,8 @@
   "manuscript_ready": false,
   "lm_acceptance_mode": "residual_trust_region",
   "truth_state_used_for_lm_acceptance": false,
+  "map_covariance_mode": "truth_error_diagonal",
+  "map_update_mode": "truth_gated_legacy",
   "plot_outputs": [
     "outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/pos_vary_ues.pdf",
     "outputs/migration_ladder/step_b_lm_residual_acceptance/tiny/sync_vary_ues.pdf"
@@ -37,6 +41,8 @@
     "failed_rows": 0,
     "fallback_count": 12,
     "lm_cost_increase_rows": 0,
+    "map_accepted_cost_increase_rows": 0,
+    "map_invalid_covariance_rows": 0,
     "lm_or_map_worse_than_il_rows": 0,
     "catastrophic_failure": false,
     "performance_degraded_vs_previous": true,
@@ -60,10 +66,26 @@
     "rows_with_residual_cost_increase": 0,
     "rejection_reasons": []
   },
+  "map_update_diagnostics": {
+    "truth_state_used_for_map_covariance": true,
+    "truth_state_used_for_map_acceptance": true,
+    "accepted_update_count": 0,
+    "rejected_update_count": 0,
+    "rejected_candidate_count": 0,
+    "fallback_count": 10,
+    "rows_with_accepted_residual_cost_increase": 0,
+    "invalid_covariance_rows": 0,
+    "covariance_trace_after_min": null,
+    "covariance_trace_after_max": null,
+    "covariance_condition_after_max": null,
+    "update_norm_max": null,
+    "fallback_paths": [],
+    "rejection_reasons": []
+  },
   "change_vs_previous": null,
   "cache": {
-    "cache_key": "0cedfb063bdb506d774d527e3c03b46fac48425743557a32a0242761301613c1",
-    "cache_path": "outputs/cache/migration_ladder/0cedfb063bdb506d/metadata.json",
-    "raw_result_hash": "43497c0297c6fe3f55f5f5e64ce2923c3b24f54cd1505b66a9d0b3f3c44b6e06"
+    "cache_key": "2ef2d0a26590e94ac0e26e1e4043fa20b6212198e52f10bd04d345a9201d8d1c",
+    "cache_path": "outputs/cache/migration_ladder/2ef2d0a26590e94a/metadata.json",
+    "raw_result_hash": "6c4bcbfc693ee66e2ab7e0d80ee4a51da5e87986e4fa6face13c4853dfd2397d"
   }
 }

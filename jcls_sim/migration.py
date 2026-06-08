@@ -23,6 +23,8 @@ class MigrationStep:
     weighting_mode: str
     geometry_noise_mode: str
     display_transform_mode: str
+    map_covariance_mode: str
+    map_update_mode: str
     exact_change: str
     expected_raw_metric_change: str
 
@@ -44,6 +46,8 @@ def legacy_behavior_freeze_step() -> MigrationStep:
         weighting_mode="legacy_notebook",
         geometry_noise_mode="legacy_replay",
         display_transform_mode="legacy_replay_display",
+        map_covariance_mode="truth_error_diagonal",
+        map_update_mode="truth_gated_legacy",
         exact_change="None; this is the frozen behavioral baseline.",
         expected_raw_metric_change="none",
     )
@@ -61,6 +65,8 @@ def legacy_staged_compatible_step() -> MigrationStep:
         weighting_mode="legacy_notebook",
         geometry_noise_mode="legacy_replay",
         display_transform_mode="legacy_replay_display",
+        map_covariance_mode="truth_error_diagonal",
+        map_update_mode="truth_gated_legacy",
         exact_change="Expose the legacy staged behavior as a package-described estimator mode without changing behavior.",
         expected_raw_metric_change="none",
     )
@@ -78,6 +84,8 @@ def step_a_no_display_smoothing() -> MigrationStep:
         weighting_mode="legacy_notebook",
         geometry_noise_mode="legacy_replay",
         display_transform_mode="raw_metrics_no_smoothing",
+        map_covariance_mode="truth_error_diagonal",
+        map_update_mode="truth_gated_legacy",
         exact_change="Remove display smoothing/fitting from graph metrics; raw metrics are unchanged.",
         expected_raw_metric_change="none",
     )
@@ -95,12 +103,121 @@ def step_b_lm_residual_acceptance() -> MigrationStep:
         weighting_mode="legacy_notebook",
         geometry_noise_mode="legacy_replay",
         display_transform_mode="raw_metrics_no_smoothing",
+        map_covariance_mode="truth_error_diagonal",
+        map_update_mode="truth_gated_legacy",
         exact_change=(
             "Replace LM true-state acceptance with observable residual-cost, "
             "finite-candidate, and bounded-step checks; keep all other legacy "
             "internals fixed."
         ),
         expected_raw_metric_change="possible; this is the first estimator-decision migration step",
+    )
+
+
+def _diagnosis_step(name: str, covariance_mode: str, update_mode: str, exact_change: str) -> MigrationStep:
+    """Return a Step C diagnosis configuration."""
+
+    return MigrationStep(
+        name=name,
+        estimator_mode="legacy_staged_compatible",
+        internal_clock_mode="all_clock",
+        acceptance_mode="residual_trust_region",
+        metric_mode="legacy_all_clock_sync",
+        weighting_mode="legacy_notebook",
+        geometry_noise_mode="legacy_replay",
+        display_transform_mode="raw_metrics_no_smoothing",
+        map_covariance_mode=covariance_mode,
+        map_update_mode=update_mode,
+        exact_change=exact_change,
+        expected_raw_metric_change="possible; this is a Step C MAP/EKF diagnosis sub-ablation",
+    )
+
+
+def step_c0_legacy_map_instrumented() -> MigrationStep:
+    """Return C0: instrument legacy MAP without behavior change."""
+
+    return _diagnosis_step(
+        name="step_c0_legacy_map_instrumented",
+        covariance_mode="truth_error_diagonal",
+        update_mode="truth_gated_legacy_instrumented",
+        exact_change="Instrument legacy MAP covariance/update behavior without changing behavior.",
+    )
+
+
+def step_c1_legacy_cov_observable_acceptance() -> MigrationStep:
+    """Return C1: legacy covariance with observable MAP acceptance."""
+
+    return _diagnosis_step(
+        name="step_c1_legacy_cov_observable_acceptance",
+        covariance_mode="truth_error_diagonal",
+        update_mode="observable_residual_covariance_checks",
+        exact_change="Keep legacy truth-derived MAP covariance but replace MAP acceptance/reversion with observable checks.",
+    )
+
+
+def step_c2_observable_cov_legacy_acceptance() -> MigrationStep:
+    """Return C2: observable covariance with legacy MAP acceptance."""
+
+    return _diagnosis_step(
+        name="step_c2_observable_cov_legacy_acceptance",
+        covariance_mode="damped_information_pseudoinverse",
+        update_mode="truth_gated_legacy",
+        exact_change="Replace MAP covariance with a non-truth damped information pseudoinverse while preserving legacy truth-gated MAP acceptance.",
+    )
+
+
+def step_c3_cov_diag_prior() -> MigrationStep:
+    """Return C3 diagonal-prior covariance candidate."""
+
+    return _diagnosis_step(
+        name="step_c3_cov_diag_prior",
+        covariance_mode="diagonal_prior",
+        update_mode="observable_residual_covariance_checks",
+        exact_change="Use a non-truth diagonal prior covariance with observable MAP acceptance.",
+    )
+
+
+def step_c3_cov_block_diag() -> MigrationStep:
+    """Return C3 block-diagonal covariance candidate."""
+
+    return _diagnosis_step(
+        name="step_c3_cov_block_diag",
+        covariance_mode="block_diagonal_position_clock",
+        update_mode="observable_residual_covariance_checks",
+        exact_change="Use a non-truth block-diagonal position/clock covariance with observable MAP acceptance.",
+    )
+
+
+def step_c3_cov_damped_inverse() -> MigrationStep:
+    """Return C3 damped inverse covariance candidate."""
+
+    return _diagnosis_step(
+        name="step_c3_cov_damped_inverse",
+        covariance_mode="damped_inverse_normal_matrix",
+        update_mode="observable_residual_covariance_checks",
+        exact_change="Use a non-truth damped inverse normal-matrix covariance with observable MAP acceptance.",
+    )
+
+
+def step_c3_cov_damped_pinv() -> MigrationStep:
+    """Return C3 damped pseudoinverse covariance candidate."""
+
+    return _diagnosis_step(
+        name="step_c3_cov_damped_pinv",
+        covariance_mode="damped_pseudoinverse_information_matrix",
+        update_mode="observable_residual_covariance_checks",
+        exact_change="Use a non-truth damped pseudoinverse information covariance with observable MAP acceptance.",
+    )
+
+
+def step_c3_cov_residual_scaled() -> MigrationStep:
+    """Return C3 residual-scaled covariance candidate."""
+
+    return _diagnosis_step(
+        name="step_c3_cov_residual_scaled",
+        covariance_mode="residual_scaled_information_pseudoinverse",
+        update_mode="observable_residual_covariance_checks",
+        exact_change="Use a non-truth residual-scaled information covariance with observable MAP acceptance.",
     )
 
 
@@ -112,6 +229,14 @@ def migration_ladder_steps() -> list[MigrationStep]:
         legacy_staged_compatible_step(),
         step_a_no_display_smoothing(),
         step_b_lm_residual_acceptance(),
+        step_c0_legacy_map_instrumented(),
+        step_c1_legacy_cov_observable_acceptance(),
+        step_c2_observable_cov_legacy_acceptance(),
+        step_c3_cov_diag_prior(),
+        step_c3_cov_block_diag(),
+        step_c3_cov_damped_inverse(),
+        step_c3_cov_damped_pinv(),
+        step_c3_cov_residual_scaled(),
     ]
 
 
