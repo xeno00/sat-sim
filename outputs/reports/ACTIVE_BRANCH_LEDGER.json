@@ -1,6 +1,7 @@
 {
-  "active_branch_count": 8,
+  "active_branch_count": 9,
   "active_branches": [
+    "codex/minimal-legacy-corrected-pipeline",
     "codex/gps-gnss-baseline-exploration",
     "codex/jcls-wave-results-exploration",
     "codex/jcls-sim-pipeline-schema",
@@ -11,6 +12,46 @@
     "codex/wave-observability-estimator-gap-audit"
   ],
   "branches": [
+    {
+      "active_worktree": true,
+      "ancestor_of_main": false,
+      "branch_name": "codex/minimal-legacy-corrected-pipeline",
+      "changed_files_count": 12,
+      "changed_files_sample": [
+        "scripts/minimal_legacy_corrected_jcls.py",
+        "outputs/minimal_legacy_corrected/raw.csv",
+        "outputs/reports/MINIMAL_LEGACY_CORRECTED_PIPELINE_REPORT.md",
+        "tests/test_minimal_legacy_corrected.py",
+        "PROJECT_STATUS.md",
+        "docs/tasks/NEXT.md"
+      ],
+      "delete_condition": "Delete after PR #8 is merged, superseded, parked, or quarantined.",
+      "disposition": "open_pr_review",
+      "disposition_reason": "Minimal corrected legacy-compatible JCLS pipeline is pushed and open as draft PR #8 for review.",
+      "last_reviewed_utc": "2026-06-09T19:32:11.833234+00:00",
+      "latest_commit": "f042009",
+      "latest_commit_full": "f0420091b3ee70f45f21e5a23bc7c392b1a53ff5",
+      "local_remote_state": "both",
+      "merge_condition": "Review primary standard row, truth-use ledger, and sparse-run plan; merge after human approval if this is the chosen pipeline direction.",
+      "next_action": "Review PR #8; if accepted, run sparse manuscript mode only after explicit approval.",
+      "open_pr": true,
+      "owner": "Codex/human integration coordinator",
+      "pr_number": 8,
+      "pr_status": "open_draft",
+      "pr_url": "https://github.com/xeno00/sat-sim/pull/8",
+      "protected_file_risk": "none_detected_by_check",
+      "result_lineage_status": "registered",
+      "risk_class": "scientific_candidate",
+      "safe_to_delete": false,
+      "science_readiness": "human_review_only",
+      "unique_commit_count": 1,
+      "unique_commits": [
+        "f042009 Add minimal corrected legacy JCLS pipeline"
+      ],
+      "unique_commits_not_on_main": true,
+      "units_status": "units_consistent_but_legacy",
+      "worktree_path": "C:/Users/James/MIT Dropbox/James Morrison/Academics/MIT/WINSLab/WINS Manuscripts/Morrison, J/SCL-NTN-TAES-2025/sat-sim"
+    },
     {
       "active_worktree": true,
       "ancestor_of_main": false,
@@ -220,8 +261,8 @@
       "worktree_path": ""
     },
     {
-      "active_worktree": true,
-      "ancestor_of_main": false,
+      "active_worktree": false,
+      "ancestor_of_main": true,
       "branch_name": "codex/normalized-benchmark-adapters-v1",
       "changed_files_count": 40,
       "changed_files_sample": [
@@ -233,32 +274,30 @@
         "tests/test_pipeline_adapters.py",
         "tests/test_benchmark_runner.py"
       ],
-      "delete_condition": "Delete after PR #7 is merged, superseded, or explicitly parked/quarantined.",
-      "disposition": "open_pr_review",
-      "disposition_reason": "Normalized benchmark-card adapter v1 is pushed and open as draft PR #7 for review.",
-      "last_reviewed_utc": "2026-06-09T18:39:42.464694+00:00",
-      "latest_commit": "b4a01fc",
-      "latest_commit_full": "b4a01fc888b2b74bc695258cec7ad9532fe24233",
+      "delete_condition": "Safe to delete local and remote refs after confirming no active worktree owns the branch.",
+      "disposition": "merged_delete_safe",
+      "disposition_reason": "PR #7 merged into main at 0e7371b; branch ref is safe to delete during branch cleanup.",
+      "last_reviewed_utc": "2026-06-09T19:32:11.833234+00:00",
+      "latest_commit": "773d0dd",
+      "latest_commit_full": "773d0dd784de521ce315e557ce8922edf2eecaa4",
       "local_remote_state": "both",
-      "merge_condition": "Focused adapter/schema tests and protected-file check pass; merge after PR #7 review or explicit approval.",
-      "next_action": "Review PR #7; if accepted, merge normalized benchmark adapter layer and keep outputs non-final/debugging-only.",
-      "open_pr": true,
+      "merge_condition": "Already merged via PR #7.",
+      "next_action": "Delete local/remote normalized benchmark adapter branch during the next branch-cleanup pass.",
+      "open_pr": false,
       "owner": "Codex/human integration coordinator",
       "pr_number": 7,
-      "pr_status": "open_draft",
+      "pr_status": "closed_merged",
       "pr_url": "https://github.com/xeno00/sat-sim/pull/7",
       "protected_file_risk": "none_detected_by_check",
       "result_lineage_status": "registered",
       "risk_class": "diagnostic_only",
-      "safe_to_delete": false,
+      "safe_to_delete": true,
       "science_readiness": "debug_only",
-      "unique_commit_count": 1,
-      "unique_commits": [
-        "b4a01fc Add normalized benchmark adapter cards"
-      ],
-      "unique_commits_not_on_main": true,
+      "unique_commit_count": 0,
+      "unique_commits": [],
+      "unique_commits_not_on_main": false,
       "units_status": "units_consistent",
-      "worktree_path": "C:/Users/James/MIT Dropbox/James Morrison/Academics/MIT/WINSLab/WINS Manuscripts/Morrison, J/SCL-NTN-TAES-2025/sat-sim"
+      "worktree_path": ""
     },
     {
       "active_worktree": false,
@@ -513,18 +552,18 @@
   ],
   "canonical": true,
   "drift_warnings": [
-    "PR #6 merged into main; codex/jcls-sim-pipeline-schema is now merged/delete-safe.",
-    "PR #7 is open as the active normalized benchmark adapter review branch.",
+    "PR #7 merged into main; codex/normalized-benchmark-adapters-v1 is now merged/delete-safe.",
+    "PR #8 is open as the active minimal corrected legacy pipeline review branch.",
     "codex/wave-observability-estimator-gap-audit is local-only and points to the same commit as codex/jcls-wave-results-exploration, but it is attached to an active worktree.",
     "codex/legacy-surgical-prior-region-initialization and codex/legacy-surgical-truth-gate-removal are merged into main but local refs remain because active worktrees own them."
   ],
-  "generated_at_utc": "2026-06-09T18:39:42.464694+00:00",
-  "merged_delete_safe_count": 3,
+  "generated_at_utc": "2026-06-09T19:32:11.833234+00:00",
+  "merged_delete_safe_count": 4,
   "needs_human_review_count": 1,
   "open_pr_count": 1,
   "parked_count": 3,
   "quarantined_count": 0,
-  "safe_to_delete_count": 1,
-  "snapshot_base_main_commit": "4e2a6da",
-  "snapshot_base_main_full_commit": "4e2a6dad8e04276f3d0b0fdd4e9e25fa8198624d"
+  "safe_to_delete_count": 2,
+  "snapshot_base_main_commit": "0e7371b",
+  "snapshot_base_main_full_commit": "0e7371b9767b3c6790009033b237341a4c3d1d73"
 }
