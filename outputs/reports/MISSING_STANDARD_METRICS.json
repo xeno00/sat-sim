@@ -12,12 +12,12 @@
       "next_action": "Include in normalized benchmark-card runner."
     },
     {
-      "pipeline_id": "package_native_c7_diagnostic",
+      "pipeline_id": "package_native_c7",
       "missing_fields": [
-        "exact primary benchmark card under same geometry/noise as legacy-surgical"
+        "pre-Step-A initialization metric"
       ],
-      "why_it_matters": "The C7 path must be compared under the same assumptions before downselect is final.",
-      "next_action": "Include in normalized benchmark-card runner."
+      "why_it_matters": "The normalized runner now has the exact primary Step A/B/C card, but the package-native adapter does not yet report a distinct pre-Step-A initialization metric.",
+      "next_action": "Add initialization metric capture if needed; otherwise use the current card for package-native Step A/B/C comparison only."
     },
     {
       "pipeline_id": "legacy_surgical_prior_region",
@@ -54,5 +54,5 @@
       "next_action": "Keep parked until lineage/units entry and human review."
     }
   ],
-  "minimal_next_run": "normalized benchmark-card runner for std_nu3_ns10_fullmesh_los_clock1us_seed0"
+  "minimal_next_run": "add safe adapters for controlled_migration_step_b_lm_only and legacy_surgical_prior_region, then rerun the same std_nu3_ns10 benchmark-card command"
 }

@@ -96,12 +96,24 @@ The next implementation step should add schema-only package modules under
 `jcls_sim/pipelines/` and `jcls_sim/benchmark/` before any new benchmark-card
 runner executes pipeline code.
 
-The schema-only package layer is now implemented on branch
-`codex/jcls-sim-pipeline-schema`. See
-`outputs/reports/JCLS_SIM_PIPELINE_SCHEMA_IMPLEMENTATION_REPORT.md`. The layer
-defines canonical pipeline specs, truth-use ledgers, standard cases, missing
-metric semantics, and a no-execution runner stub. It does not execute adapters,
-run simulations, generate figures, or produce benchmark cards.
+The schema-only package layer is merged, and the first normalized benchmark-card
+adapter layer is implemented on branch
+`codex/normalized-benchmark-adapters-v1`. See
+`outputs/reports/NORMALIZED_BENCHMARK_ADAPTER_IMPLEMENTATION_REPORT.md` and
+`outputs/reports/NORMALIZED_STANDARD_BENCHMARK_REPORT.md`. The runner executes
+only genuinely available adapters and preserves missing metrics for unavailable
+pipelines. In the first primary-standard card, `package_native_c7` is the only
+executable adapter; controlled Step B, legacy-surgical prior-region, and legacy
+truth-gated L0 remain explicit missing/unavailable cards.
+
+The first primary-standard benchmark-card result for
+`std_nu3_ns10_fullmesh_los_clock1us_seed0` is non-final and debugging-only:
+`package_native_c7` reports Step A localization/synchronization
+`1105.1545455064208 m` / `937.2143214222392 ns`, Step B
+`4289.809278407522 m` / `3882.0609532939025 ns`, and Step C
+`4287.922982486913 m` / `3879.7855148947906 ns`. Step C slightly improves over
+Step B on this card, but both underperform Step A; this is interface evidence,
+not manuscript-result evidence.
 
 Gauge/metrics package and tests are implemented. Measurement-model and explicit
 V24 parameter-vector helpers/tests are implemented. Jacobian and gauged FIM

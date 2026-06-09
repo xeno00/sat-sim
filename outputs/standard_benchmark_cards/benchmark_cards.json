@@ -1,0 +1,424 @@
+{
+  "artifact_status": "non_final_standard_benchmark_card",
+  "benchmark_card": true,
+  "cards": [
+    {
+      "case": {
+        "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+        "channel_model": "LOS/Rician when supported",
+        "clock_std_seconds": 1e-06,
+        "geometry_model": "manuscript-like MIT/Stata UE geometry and Starlink-like LEO geometry when supported",
+        "notes": "Primary universal benchmark fingerprint; do not substitute the low-satellite stress case.",
+        "num_satellites": 10,
+        "num_users": 3,
+        "operation_time_seconds": 0.5,
+        "role": "primary_standard",
+        "seed": 0,
+        "sidelink_graph": "full_mesh",
+        "trial_count": 1
+      },
+      "pipeline": {
+        "adapter_module": "jcls_sim.pipelines.migration",
+        "display_name": "Controlled migration Step B LM-only",
+        "implementation_status": "adapter_planned",
+        "notes": "Current defensible Step B backbone; package execution adapter is planned, not available.",
+        "pipeline_id": "controlled_migration_step_b_lm_only",
+        "readiness": "human_review_only",
+        "recommended_use": "defensible_step_b_backbone",
+        "result_lineage_status": "registered",
+        "runner_script": "scripts/run_controlled_migration_ladder.py",
+        "stage_versions": {
+          "initialization_version": "A0_legacy_il_clockless_preconditioning",
+          "metric_version": "legacy_all_clock_metric_pending_v24_reference_relative_recompute",
+          "stage_a_version": "A0_legacy_il_clockless_preconditioning",
+          "stage_b_version": "B1_residual_lm",
+          "stage_c_version": "C_none",
+          "system_model_version": "legacy_compatible_all_clock",
+          "units_version": "legacy_km_range_equivalent_clock_units_with_m_ns_reporting"
+        },
+        "truth_use": {
+          "summary": "Legacy initialization is retained, but LM acceptance is residual/trust-region based; truth is used for offline metrics.",
+          "truth_used_for_covariance": false,
+          "truth_used_for_fallback_or_reversion": false,
+          "truth_used_for_initialization": true,
+          "truth_used_for_lm_acceptance": false,
+          "truth_used_for_offline_metrics": true,
+          "truth_used_for_prior_construction": false,
+          "truth_used_for_step_c_acceptance": false
+        },
+        "units_status": "units_consistent_but_legacy"
+      },
+      "recommended_next_action": "Implement a safe adapter boundary before using this pipeline as benchmark evidence.",
+      "result": {
+        "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+        "initialization": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "controlled_step_b_adapter_not_executable_without_legacy_runner",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "pipeline_id": "controlled_migration_step_b_lm_only",
+        "readiness": "human_review_only",
+        "step_a": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "controlled_step_b_adapter_not_executable_without_legacy_runner",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "step_b": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "controlled_step_b_adapter_not_executable_without_legacy_runner",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "step_c": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "controlled_step_b_adapter_not_executable_without_legacy_runner",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "truth_use": {
+          "summary": "Legacy initialization is retained, but LM acceptance is residual/trust-region based; truth is used for offline metrics.",
+          "truth_used_for_covariance": false,
+          "truth_used_for_fallback_or_reversion": false,
+          "truth_used_for_initialization": true,
+          "truth_used_for_lm_acceptance": false,
+          "truth_used_for_offline_metrics": true,
+          "truth_used_for_prior_construction": false,
+          "truth_used_for_step_c_acceptance": false
+        },
+        "units_status": "units_consistent_but_legacy",
+        "warnings": [
+          "controlled_step_b_adapter_not_executable_without_legacy_runner"
+        ]
+      },
+      "safe_claims": [
+        "controlled_migration_step_b_lm_only is represented without fabricated metrics.",
+        "Unavailable adapter reason is explicit: controlled_step_b_adapter_not_executable_without_legacy_runner."
+      ],
+      "unsafe_claims": [
+        "No performance claim is available for this pipeline from this benchmark-card run.",
+        "Missing metrics must not be substituted from legacy or secondary stress cases."
+      ]
+    },
+    {
+      "case": {
+        "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+        "channel_model": "LOS/Rician when supported",
+        "clock_std_seconds": 1e-06,
+        "geometry_model": "manuscript-like MIT/Stata UE geometry and Starlink-like LEO geometry when supported",
+        "notes": "Primary universal benchmark fingerprint; do not substitute the low-satellite stress case.",
+        "num_satellites": 10,
+        "num_users": 3,
+        "operation_time_seconds": 0.5,
+        "role": "primary_standard",
+        "seed": 0,
+        "sidelink_graph": "full_mesh",
+        "trial_count": 1
+      },
+      "pipeline": {
+        "adapter_module": "jcls_sim.pipelines.legacy_surgical",
+        "display_name": "Legacy-surgical prior-region candidate",
+        "implementation_status": "adapter_planned",
+        "notes": "Recommended primary candidate family, but adapter execution is not implemented in this schema-only layer.",
+        "pipeline_id": "legacy_surgical_prior_region",
+        "readiness": "candidate_nonfinal",
+        "recommended_use": "pursue_as_primary_after_normalized_validation",
+        "result_lineage_status": "registered",
+        "runner_script": "scripts/run_legacy_surgical_prior_region_initialization.py",
+        "stage_versions": {
+          "initialization_version": "A0_prior_region_il",
+          "metric_version": "legacy_all_clock_metric_pending_v24_reference_relative_recompute",
+          "stage_a_version": "A0_prior_region_il",
+          "stage_b_version": "B1_residual_trust_region_lm_no_truth_gate",
+          "stage_c_version": "C_surgical_residual_scaled_info_map",
+          "system_model_version": "legacy_compatible_all_clock",
+          "units_version": "legacy_km_range_equivalent_clock_units_with_m_ns_reporting"
+        },
+        "truth_use": {
+          "summary": "Truth is used for simulation prior construction and offline metrics; estimator acceptance, covariance, and fallback decisions are non-truth.",
+          "truth_used_for_covariance": false,
+          "truth_used_for_fallback_or_reversion": false,
+          "truth_used_for_initialization": false,
+          "truth_used_for_lm_acceptance": false,
+          "truth_used_for_offline_metrics": true,
+          "truth_used_for_prior_construction": true,
+          "truth_used_for_step_c_acceptance": false
+        },
+        "units_status": "units_consistent_but_legacy"
+      },
+      "recommended_next_action": "Implement a safe adapter boundary before using this pipeline as benchmark evidence.",
+      "result": {
+        "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+        "initialization": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "legacy_surgical_adapter_not_integrated_on_main",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "pipeline_id": "legacy_surgical_prior_region",
+        "readiness": "candidate_nonfinal",
+        "step_a": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "legacy_surgical_adapter_not_integrated_on_main",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "step_b": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "legacy_surgical_adapter_not_integrated_on_main",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "step_c": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "legacy_surgical_adapter_not_integrated_on_main",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "truth_use": {
+          "summary": "Truth is used for simulation prior construction and offline metrics; estimator acceptance, covariance, and fallback decisions are non-truth.",
+          "truth_used_for_covariance": false,
+          "truth_used_for_fallback_or_reversion": false,
+          "truth_used_for_initialization": false,
+          "truth_used_for_lm_acceptance": false,
+          "truth_used_for_offline_metrics": true,
+          "truth_used_for_prior_construction": true,
+          "truth_used_for_step_c_acceptance": false
+        },
+        "units_status": "units_consistent_but_legacy",
+        "warnings": [
+          "legacy_surgical_adapter_not_integrated_on_main"
+        ]
+      },
+      "safe_claims": [
+        "legacy_surgical_prior_region is represented without fabricated metrics.",
+        "Unavailable adapter reason is explicit: legacy_surgical_adapter_not_integrated_on_main."
+      ],
+      "unsafe_claims": [
+        "No performance claim is available for this pipeline from this benchmark-card run.",
+        "Missing metrics must not be substituted from legacy or secondary stress cases."
+      ]
+    },
+    {
+      "case": {
+        "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+        "channel_model": "LOS/Rician when supported",
+        "clock_std_seconds": 1e-06,
+        "geometry_model": "manuscript-like MIT/Stata UE geometry and Starlink-like LEO geometry when supported",
+        "notes": "Primary universal benchmark fingerprint; do not substitute the low-satellite stress case.",
+        "num_satellites": 10,
+        "num_users": 3,
+        "operation_time_seconds": 0.5,
+        "role": "primary_standard",
+        "seed": 0,
+        "sidelink_graph": "full_mesh",
+        "trial_count": 1
+      },
+      "pipeline": {
+        "adapter_module": "legacy_provenance_only",
+        "display_name": "Legacy truth-gated L0 reference",
+        "implementation_status": "deprecated",
+        "notes": "Reference-only legacy path; not a manuscript-evidence pipeline.",
+        "pipeline_id": "legacy_truth_gated_l0_reference_only",
+        "readiness": "legacy_reference_only",
+        "recommended_use": "provenance_reference_only_not_manuscript_evidence",
+        "result_lineage_status": "registered",
+        "runner_script": "scripts/replay_legacy_clock_sweep_figures.py",
+        "stage_versions": {
+          "initialization_version": "A0_legacy_il_clockless_preconditioning",
+          "metric_version": "legacy_all_clock_metric",
+          "stage_a_version": "A0_legacy_il_clockless_preconditioning",
+          "stage_b_version": "B0_legacy_lm_truth_gate",
+          "stage_c_version": "C0_legacy_truth_cov_ekf",
+          "system_model_version": "legacy_all_clock",
+          "units_version": "legacy_km_range_equivalent_clock_units_with_m_ns_reporting"
+        },
+        "truth_use": {
+          "summary": "Legacy provenance reference uses truth-centered initialization, truth-gated acceptance/fallback, truth-derived covariance, and offline metrics.",
+          "truth_used_for_covariance": true,
+          "truth_used_for_fallback_or_reversion": true,
+          "truth_used_for_initialization": true,
+          "truth_used_for_lm_acceptance": true,
+          "truth_used_for_offline_metrics": true,
+          "truth_used_for_prior_construction": false,
+          "truth_used_for_step_c_acceptance": true
+        },
+        "units_status": "units_consistent_but_legacy"
+      },
+      "recommended_next_action": "Implement a safe adapter boundary before using this pipeline as benchmark evidence.",
+      "result": {
+        "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+        "initialization": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "truth_gated_provenance_adapter_not_executed_for_benchmark_cards",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "pipeline_id": "legacy_truth_gated_l0_reference_only",
+        "readiness": "legacy_reference_only",
+        "step_a": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "truth_gated_provenance_adapter_not_executed_for_benchmark_cards",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "step_b": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "truth_gated_provenance_adapter_not_executed_for_benchmark_cards",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "step_c": {
+          "available": false,
+          "metric_notes": "Adapter execution is not available on main.",
+          "missing_reason": "truth_gated_provenance_adapter_not_executed_for_benchmark_cards",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "truth_use": {
+          "summary": "Legacy provenance reference uses truth-centered initialization, truth-gated acceptance/fallback, truth-derived covariance, and offline metrics.",
+          "truth_used_for_covariance": true,
+          "truth_used_for_fallback_or_reversion": true,
+          "truth_used_for_initialization": true,
+          "truth_used_for_lm_acceptance": true,
+          "truth_used_for_offline_metrics": true,
+          "truth_used_for_prior_construction": false,
+          "truth_used_for_step_c_acceptance": true
+        },
+        "units_status": "units_consistent_but_legacy",
+        "warnings": [
+          "truth_gated_provenance_adapter_not_executed_for_benchmark_cards"
+        ]
+      },
+      "safe_claims": [
+        "legacy_truth_gated_l0_reference_only is represented without fabricated metrics.",
+        "Unavailable adapter reason is explicit: truth_gated_provenance_adapter_not_executed_for_benchmark_cards."
+      ],
+      "unsafe_claims": [
+        "No performance claim is available for this pipeline from this benchmark-card run.",
+        "Missing metrics must not be substituted from legacy or secondary stress cases."
+      ]
+    },
+    {
+      "case": {
+        "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+        "channel_model": "LOS/Rician when supported",
+        "clock_std_seconds": 1e-06,
+        "geometry_model": "manuscript-like MIT/Stata UE geometry and Starlink-like LEO geometry when supported",
+        "notes": "Primary universal benchmark fingerprint; do not substitute the low-satellite stress case.",
+        "num_satellites": 10,
+        "num_users": 3,
+        "operation_time_seconds": 0.5,
+        "role": "primary_standard",
+        "seed": 0,
+        "sidelink_graph": "full_mesh",
+        "trial_count": 1
+      },
+      "pipeline": {
+        "adapter_module": "jcls_sim.pipelines.adapters",
+        "display_name": "Package-native C7 reference",
+        "implementation_status": "adapter_available",
+        "notes": "V24-clean backup/reference path; bounded primary-standard benchmark-card adapter is available.",
+        "pipeline_id": "package_native_c7",
+        "readiness": "human_review_only",
+        "recommended_use": "v24_clean_backup_reference",
+        "result_lineage_status": "registered",
+        "runner_script": "scripts/run_standard_benchmark_cards.py",
+        "stage_versions": {
+          "initialization_version": "A1_package_dl_only",
+          "metric_version": "V24_reference_relative_excluding_reference_satellite",
+          "stage_a_version": "A1_package_dl_only",
+          "stage_b_version": "B1_residual_lm",
+          "stage_c_version": "C7_residual_cov_sync_safeguard",
+          "system_model_version": "package_native_current",
+          "units_version": "package_km_positions_range_equivalent_clocks_with_seconds_ns_reporting"
+        },
+        "truth_use": {
+          "summary": "No truth is used for estimator decisions; truth is used only for offline metrics.",
+          "truth_used_for_covariance": false,
+          "truth_used_for_fallback_or_reversion": false,
+          "truth_used_for_initialization": false,
+          "truth_used_for_lm_acceptance": false,
+          "truth_used_for_offline_metrics": true,
+          "truth_used_for_prior_construction": false,
+          "truth_used_for_step_c_acceptance": false
+        },
+        "units_status": "units_consistent"
+      },
+      "recommended_next_action": "Review benchmark card and implement remaining planned adapters before downselect.",
+      "result": {
+        "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+        "initialization": {
+          "available": false,
+          "metric_notes": "The current package-native C7 path reports Step A/B/C metrics, not a separate pre-Step-A initialization metric.",
+          "missing_reason": "package_native_c7_pre_step_initialization_metrics_not_reported",
+          "pos_error_m": null,
+          "sync_error_ns": null
+        },
+        "pipeline_id": "package_native_c7",
+        "readiness": "human_review_only",
+        "step_a": {
+          "available": true,
+          "metric_notes": "Stage A: package DL-only/coarse individual localization.",
+          "missing_reason": null,
+          "pos_error_m": 1105.1545455064208,
+          "sync_error_ns": 937.2143214222392
+        },
+        "step_b": {
+          "available": true,
+          "metric_notes": "Stage B: package residual LM JCLS.",
+          "missing_reason": null,
+          "pos_error_m": 4289.809278407522,
+          "sync_error_ns": 3882.0609532939025
+        },
+        "step_c": {
+          "available": true,
+          "metric_notes": "Stage C: package C7 residual-covariance sync safeguard.",
+          "missing_reason": null,
+          "pos_error_m": 4287.922982486913,
+          "sync_error_ns": 3879.7855148947906
+        },
+        "truth_use": {
+          "summary": "No truth is used for estimator decisions; truth is used only for offline metrics.",
+          "truth_used_for_covariance": false,
+          "truth_used_for_fallback_or_reversion": false,
+          "truth_used_for_initialization": false,
+          "truth_used_for_lm_acceptance": false,
+          "truth_used_for_offline_metrics": true,
+          "truth_used_for_prior_construction": false,
+          "truth_used_for_step_c_acceptance": false
+        },
+        "units_status": "units_consistent",
+        "warnings": [
+          "single_trial_non_final_benchmark_card",
+          "truth_used_only_for_offline_metric_calculation",
+          "scenario=manuscript_candidate_nu3_ns10_clock1000ns",
+          "geometry_model=manuscript_candidate_mit_stata_synthetic_leo"
+        ]
+      },
+      "safe_claims": [
+        "package_native_c7 produced a bounded single-trial card for std_nu3_ns10_fullmesh_los_clock1us_seed0.",
+        "Truth-use, units, readiness, and missing-stage semantics are recorded in the card."
+      ],
+      "unsafe_claims": [
+        "This is not a manuscript figure, sweep, Monte Carlo result, or final evidence.",
+        "One primary-standard fingerprint does not establish robustness."
+      ]
+    }
+  ],
+  "final_figure": false,
+  "manuscript_ready": false,
+  "not_for_manuscript_submission": true
+}

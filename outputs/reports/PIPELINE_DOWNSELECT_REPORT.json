@@ -46,12 +46,16 @@
     "C7 remains cleaner theoretically but currently weaker on manuscript-scale candidate outputs"
   ],
   "minimal_next_run": {
-    "name": "normalized_primary_benchmark_card_runner",
+    "name": "remaining_normalized_primary_benchmark_card_adapters",
     "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+    "runner_status": "implemented_v1",
+    "executed_adapters": [
+      "package_native_c7"
+    ],
+    "output_root": "outputs/standard_benchmark_cards",
     "include_pipelines": [
       "legacy_surgical_prior_region",
       "controlled_migration_step_b_lm_only",
-      "package_native_c7",
       "legacy_truth_gated_l0_as_reference_only"
     ],
     "required_metrics": [

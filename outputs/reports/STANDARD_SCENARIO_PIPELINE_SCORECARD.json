@@ -102,6 +102,28 @@
       "notes": "Stage B is excellent; Stage C worsens localization in this card."
     },
     {
+      "pipeline_id": "package_native_c7_normalized_card_v1",
+      "system_model_version": "package_native_current",
+      "stage_a_version": "A1_package_dl_only",
+      "stage_b_version": "B1_residual_lm",
+      "stage_c_version": "C7_residual_cov_sync_safeguard",
+      "truth_usage_summary": "no truth-state acceptance; truth only for offline metrics",
+      "units_status": "units_consistent",
+      "readiness": "human_review_only",
+      "standard_case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+      "initialization_pos_error_m": null,
+      "step_a_pos_error_m": 1105.1545455064208,
+      "step_b_pos_error_m": 4289.809278407522,
+      "step_c_pos_error_m": 4287.922982486913,
+      "initialization_sync_error_ns": null,
+      "step_a_sync_error_ns": 937.2143214222392,
+      "step_b_sync_error_ns": 3882.0609532939025,
+      "step_c_sync_error_ns": 3879.7855148947906,
+      "available_from_existing_outputs": true,
+      "requires_new_run": false,
+      "notes": "First normalized benchmark-card run. C7 slightly improves over Step B, but Step B/C are much worse than Step A and legacy-like primary cards."
+    },
+    {
       "pipeline_id": "legacy_surgical_prior_region_r0_10m",
       "system_model_version": "legacy_compatible_all_clock",
       "stage_a_version": "A0_prior_region_il",
@@ -220,5 +242,5 @@
       "units_version": "package_km_positions_range_equivalent_clocks_with_seconds_ns_reporting"
     }
   },
-  "minimal_next_run": "normalized benchmark-card runner for std_nu3_ns10_fullmesh_los_clock1us_seed0 covering legacy_surgical_prior_region, controlled Step B LM-only, and package-native C7 under identical geometry, clock, noise, metric, and reporting conventions"
+  "minimal_next_run": "add safe executable adapters for controlled_migration_step_b_lm_only and legacy_surgical_prior_region, then rerun the same normalized std_nu3_ns10 benchmark-card command"
 }

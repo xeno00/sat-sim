@@ -1,0 +1,106 @@
+{
+  "case": {
+    "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+    "channel_model": "LOS/Rician when supported",
+    "clock_std_seconds": 1e-06,
+    "geometry_model": "manuscript-like MIT/Stata UE geometry and Starlink-like LEO geometry when supported",
+    "notes": "Primary universal benchmark fingerprint; do not substitute the low-satellite stress case.",
+    "num_satellites": 10,
+    "num_users": 3,
+    "operation_time_seconds": 0.5,
+    "role": "primary_standard",
+    "seed": 0,
+    "sidelink_graph": "full_mesh",
+    "trial_count": 1
+  },
+  "pipeline": {
+    "adapter_module": "jcls_sim.pipelines.adapters",
+    "display_name": "Package-native C7 reference",
+    "implementation_status": "adapter_available",
+    "notes": "V24-clean backup/reference path; bounded primary-standard benchmark-card adapter is available.",
+    "pipeline_id": "package_native_c7",
+    "readiness": "human_review_only",
+    "recommended_use": "v24_clean_backup_reference",
+    "result_lineage_status": "registered",
+    "runner_script": "scripts/run_standard_benchmark_cards.py",
+    "stage_versions": {
+      "initialization_version": "A1_package_dl_only",
+      "metric_version": "V24_reference_relative_excluding_reference_satellite",
+      "stage_a_version": "A1_package_dl_only",
+      "stage_b_version": "B1_residual_lm",
+      "stage_c_version": "C7_residual_cov_sync_safeguard",
+      "system_model_version": "package_native_current",
+      "units_version": "package_km_positions_range_equivalent_clocks_with_seconds_ns_reporting"
+    },
+    "truth_use": {
+      "summary": "No truth is used for estimator decisions; truth is used only for offline metrics.",
+      "truth_used_for_covariance": false,
+      "truth_used_for_fallback_or_reversion": false,
+      "truth_used_for_initialization": false,
+      "truth_used_for_lm_acceptance": false,
+      "truth_used_for_offline_metrics": true,
+      "truth_used_for_prior_construction": false,
+      "truth_used_for_step_c_acceptance": false
+    },
+    "units_status": "units_consistent"
+  },
+  "recommended_next_action": "Review benchmark card and implement remaining planned adapters before downselect.",
+  "result": {
+    "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+    "initialization": {
+      "available": false,
+      "metric_notes": "The current package-native C7 path reports Step A/B/C metrics, not a separate pre-Step-A initialization metric.",
+      "missing_reason": "package_native_c7_pre_step_initialization_metrics_not_reported",
+      "pos_error_m": null,
+      "sync_error_ns": null
+    },
+    "pipeline_id": "package_native_c7",
+    "readiness": "human_review_only",
+    "step_a": {
+      "available": true,
+      "metric_notes": "Stage A: package DL-only/coarse individual localization.",
+      "missing_reason": null,
+      "pos_error_m": 1105.1545455064208,
+      "sync_error_ns": 937.2143214222392
+    },
+    "step_b": {
+      "available": true,
+      "metric_notes": "Stage B: package residual LM JCLS.",
+      "missing_reason": null,
+      "pos_error_m": 4289.809278407522,
+      "sync_error_ns": 3882.0609532939025
+    },
+    "step_c": {
+      "available": true,
+      "metric_notes": "Stage C: package C7 residual-covariance sync safeguard.",
+      "missing_reason": null,
+      "pos_error_m": 4287.922982486913,
+      "sync_error_ns": 3879.7855148947906
+    },
+    "truth_use": {
+      "summary": "No truth is used for estimator decisions; truth is used only for offline metrics.",
+      "truth_used_for_covariance": false,
+      "truth_used_for_fallback_or_reversion": false,
+      "truth_used_for_initialization": false,
+      "truth_used_for_lm_acceptance": false,
+      "truth_used_for_offline_metrics": true,
+      "truth_used_for_prior_construction": false,
+      "truth_used_for_step_c_acceptance": false
+    },
+    "units_status": "units_consistent",
+    "warnings": [
+      "single_trial_non_final_benchmark_card",
+      "truth_used_only_for_offline_metric_calculation",
+      "scenario=manuscript_candidate_nu3_ns10_clock1000ns",
+      "geometry_model=manuscript_candidate_mit_stata_synthetic_leo"
+    ]
+  },
+  "safe_claims": [
+    "package_native_c7 produced a bounded single-trial card for std_nu3_ns10_fullmesh_los_clock1us_seed0.",
+    "Truth-use, units, readiness, and missing-stage semantics are recorded in the card."
+  ],
+  "unsafe_claims": [
+    "This is not a manuscript figure, sweep, Monte Carlo result, or final evidence.",
+    "One primary-standard fingerprint does not establish robustness."
+  ]
+}
