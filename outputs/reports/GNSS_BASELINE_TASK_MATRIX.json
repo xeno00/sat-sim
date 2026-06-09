@@ -1,0 +1,58 @@
+{
+  "artifact_status": "non_final_gnss_baseline_exploration",
+  "bibliography_touched": false,
+  "candidate_only": true,
+  "existing_manuscript_result_files_touched": false,
+  "generated_manuscript_pdfs_touched": false,
+  "human_signoff_required": true,
+  "manuscript_directories_touched": false,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "notebook_used": false,
+  "psfrag_touched": false,
+  "response_letter_touched": false,
+  "tasks": [
+    {
+      "agent": "Agent A",
+      "branch_or_worktree": "read-only sidecar",
+      "files_allowed_to_edit": "none",
+      "role": "GNSS Literature Agent",
+      "scope_boundary": "No manuscript or notebook edits.",
+      "status": "completed_read_only_literature_scan"
+    },
+    {
+      "agent": "Agent B",
+      "branch_or_worktree": "read-only sidecar",
+      "files_allowed_to_edit": "none",
+      "role": "Baseline Taxonomy Agent",
+      "scope_boundary": "Conservative fair/oracle/reference labels only.",
+      "status": "completed_read_only_taxonomy"
+    },
+    {
+      "agent": "Agent C",
+      "branch_or_worktree": "read-only sidecar",
+      "files_allowed_to_edit": "none",
+      "role": "GNSS Prior Simulation Agent",
+      "scope_boundary": "No notebook or broad sweeps.",
+      "status": "completed_read_only_position_prior_plan"
+    },
+    {
+      "agent": "Agent D",
+      "branch_or_worktree": "read-only sidecar",
+      "files_allowed_to_edit": "none",
+      "role": "Clock Prior Simulation Agent",
+      "scope_boundary": "No final figure generation.",
+      "status": "completed_read_only_clock_prior_plan"
+    },
+    {
+      "agent": "Agent E",
+      "branch_or_worktree": "read-only sidecar",
+      "files_allowed_to_edit": "none",
+      "role": "Red-Team Agent",
+      "scope_boundary": "Check overclaims/comparability only.",
+      "status": "orchestrator_red_team_fallback"
+    }
+  ],
+  "work_in_progress_figures_touched": false
+}

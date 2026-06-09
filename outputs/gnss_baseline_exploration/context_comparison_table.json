@@ -1,0 +1,78 @@
+{
+  "artifact_status": "non_final_gnss_baseline_exploration",
+  "bibliography_touched": false,
+  "candidate_only": true,
+  "existing_manuscript_result_files_touched": false,
+  "generated_manuscript_pdfs_touched": false,
+  "human_signoff_required": true,
+  "manuscript_directories_touched": false,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "notebook_used": false,
+  "psfrag_touched": false,
+  "response_letter_touched": false,
+  "rows": [
+    {
+      "clock_assumptions": "GNSS time and receiver clock solved by GNSS",
+      "cooperation": "none",
+      "fair_comparison_caveat": "external PNT service reference",
+      "gnss_access_required": "continuous during fix",
+      "infrastructure_required": "GNSS constellation/control segment and receiver.",
+      "reported_or_modeled_accuracy": "meter-level context from GPS.gov under usable GNSS; not modeled here as a final value",
+      "row": "standalone GNSS",
+      "time_to_solution": "receiver-dependent"
+    },
+    {
+      "clock_assumptions": "GNSS time plus assistance data",
+      "cooperation": "none",
+      "fair_comparison_caveat": "aided baseline with external data path",
+      "gnss_access_required": "yes",
+      "infrastructure_required": "GNSS plus cellular/location server assistance.",
+      "reported_or_modeled_accuracy": "not assigned; protocol/infrastructure reference",
+      "row": "assisted GNSS",
+      "time_to_solution": "assistance-dependent"
+    },
+    {
+      "clock_assumptions": "precise GNSS orbit/clock correction products",
+      "cooperation": "none",
+      "fair_comparison_caveat": "high-infrastructure reference",
+      "gnss_access_required": "yes",
+      "infrastructure_required": "GNSS plus correction service, base station, CORS, or precise products.",
+      "reported_or_modeled_accuracy": "centimeter-class context under good correction-service conditions",
+      "row": "RTK/PPP/differential GNSS",
+      "time_to_solution": "convergence/setup dependent"
+    },
+    {
+      "clock_assumptions": "paper-dependent satellite and receiver clock/orbit treatment",
+      "cooperation": "usually none",
+      "fair_comparison_caveat": "literature context only unless assumptions are reproduced",
+      "gnss_access_required": "not necessarily",
+      "infrastructure_required": "LEO signals, orbit/clock knowledge or estimation, signal-specific receiver.",
+      "reported_or_modeled_accuracy": "literature examples from meters to tens of meters depending on aiding",
+      "row": "opportunistic LEO-PNT / Starlink",
+      "time_to_solution": "batch/EKF and signal-dependent"
+    },
+    {
+      "clock_assumptions": "GNSS prior may aid position or clocks",
+      "cooperation": "JCLS variants require UE cooperation",
+      "fair_comparison_caveat": "diagnostic with external prior information",
+      "gnss_access_required": "initial or intermittent",
+      "infrastructure_required": "brief or periodic GNSS plus NTN measurements.",
+      "reported_or_modeled_accuracy": "scenario sweep in this branch, non-final",
+      "row": "GNSS-aided NTN",
+      "time_to_solution": "modeled as bounded one-step diagnostic"
+    },
+    {
+      "clock_assumptions": "joint position/clock estimation relative to reference satellite",
+      "cooperation": "yes",
+      "fair_comparison_caveat": "main manuscript concept, but this branch is diagnostic only",
+      "gnss_access_required": "no, unless using an aided variant",
+      "infrastructure_required": "cooperative terrestrial/non-terrestrial measurements in the manuscript model.",
+      "reported_or_modeled_accuracy": "existing Stage B/C7 diagnostics reused; not final manuscript-ready",
+      "row": "JCLS",
+      "time_to_solution": "estimator/runtime dependent"
+    }
+  ],
+  "work_in_progress_figures_touched": false
+}

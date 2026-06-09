@@ -1,0 +1,91 @@
+{
+  "artifact_status": "non_final_gnss_baseline_exploration",
+  "artifacts": {
+    "baseline_taxonomy_matrix_pdf": "outputs/gnss_baseline_exploration/plots/baseline_taxonomy_matrix.pdf",
+    "clock_prior_json": "outputs/gnss_baseline_exploration/clock_prior_sensitivity.json",
+    "clock_prior_raw_csv": "outputs/gnss_baseline_exploration/clock_prior_sensitivity_raw.csv",
+    "clock_prior_sensitivity_localization_pdf": "outputs/gnss_baseline_exploration/plots/clock_prior_sensitivity_localization.pdf",
+    "clock_prior_sensitivity_synchronization_pdf": "outputs/gnss_baseline_exploration/plots/clock_prior_sensitivity_synchronization.pdf",
+    "clock_prior_summary_csv": "outputs/gnss_baseline_exploration/clock_prior_sensitivity_summary.csv",
+    "context_comparison_json": "outputs/gnss_baseline_exploration/context_comparison_table.json",
+    "context_comparison_md": "outputs/gnss_baseline_exploration/context_comparison_table.md",
+    "degraded_gnss_csv": "outputs/gnss_baseline_exploration/degraded_gnss_reference.csv",
+    "degraded_gnss_json": "outputs/gnss_baseline_exploration/degraded_gnss_reference.json",
+    "gnss_prior_sensitivity_localization_pdf": "outputs/gnss_baseline_exploration/plots/gnss_prior_sensitivity_localization.pdf",
+    "gnss_prior_sensitivity_synchronization_pdf": "outputs/gnss_baseline_exploration/plots/gnss_prior_sensitivity_synchronization.pdf",
+    "intermittent_csv": "outputs/gnss_baseline_exploration/intermittent_gnss_clock_drift.csv",
+    "intermittent_gnss_clock_drift_bias_pdf": "outputs/gnss_baseline_exploration/plots/intermittent_gnss_clock_drift_bias.pdf",
+    "intermittent_json": "outputs/gnss_baseline_exploration/intermittent_gnss_clock_drift.json",
+    "literature_json": "outputs/reports/GNSS_BASELINE_LITERATURE_TABLE.json",
+    "literature_md": "outputs/reports/GNSS_BASELINE_LITERATURE_TABLE.md",
+    "position_prior_json": "outputs/gnss_baseline_exploration/gnss_prior_sensitivity.json",
+    "position_prior_raw_csv": "outputs/gnss_baseline_exploration/gnss_prior_sensitivity_raw.csv",
+    "position_prior_summary_csv": "outputs/gnss_baseline_exploration/gnss_prior_sensitivity_summary.csv",
+    "report_json": "outputs/reports/GNSS_BASELINE_EXPLORATION_REPORT.json",
+    "report_md": "outputs/reports/GNSS_BASELINE_EXPLORATION_REPORT.md",
+    "task_matrix_json": "outputs/reports/GNSS_BASELINE_TASK_MATRIX.json",
+    "task_matrix_md": "outputs/reports/GNSS_BASELINE_TASK_MATRIX.md",
+    "taxonomy_csv": "outputs/gnss_baseline_exploration/gnss_baseline_taxonomy.csv",
+    "taxonomy_json": "outputs/gnss_baseline_exploration/gnss_baseline_taxonomy.json",
+    "taxonomy_md": "outputs/gnss_baseline_exploration/gnss_baseline_taxonomy.md"
+  },
+  "baseline_labels": [
+    "standalone_gnss_reference",
+    "degraded_gnss_reference",
+    "gnss_aided_initialization",
+    "gnss_clock_aided_ntn",
+    "intermittent_gnss_update",
+    "gnss_correction_service_reference",
+    "leo_pnt_literature_reference"
+  ],
+  "bibliography_touched": false,
+  "bounded_mode": true,
+  "branch": "codex/gps-gnss-baseline-exploration",
+  "candidate_only": true,
+  "clock_prior_sweep_ns": [
+    "perfect_clock_oracle",
+    1.0,
+    10.0,
+    100.0,
+    1000.0,
+    "unconstrained"
+  ],
+  "existing_manuscript_result_files_touched": false,
+  "final_manuscript_figures_generated": false,
+  "full_sweep_run": false,
+  "generated_manuscript_pdfs_touched": false,
+  "human_signoff_required": true,
+  "intermittent_update_seconds": [
+    1.0,
+    5.0,
+    15.0,
+    30.0
+  ],
+  "manuscript_directories_touched": false,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "notebook_used": false,
+  "position_prior_sweep_m": [
+    0.1,
+    1.0,
+    10.0,
+    100.0,
+    "unavailable"
+  ],
+  "psfrag_touched": false,
+  "representative_cases": [
+    "Nu3_Ns4",
+    "Nu5_Ns8",
+    "Nu7_Ns8"
+  ],
+  "response_letter_touched": false,
+  "subagent_status": {
+    "agent_a": "completed_read_only_literature_scan",
+    "agent_b": "completed_read_only_taxonomy",
+    "agent_c": "completed_read_only_position_prior_plan",
+    "agent_d": "completed_read_only_clock_prior_plan",
+    "agent_e": "orchestrator_red_team_fallback"
+  },
+  "work_in_progress_figures_touched": false
+}

@@ -1,0 +1,10 @@
+# GNSS/JCLS Context Comparison Table
+
+| row | infrastructure_required | gnss_access_required | time_to_solution | reported_or_modeled_accuracy | cooperation | clock_assumptions | fair_comparison_caveat |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| standalone GNSS | GNSS constellation/control segment and receiver. | continuous during fix | receiver-dependent | meter-level context from GPS.gov under usable GNSS; not modeled here as a final value | none | GNSS time and receiver clock solved by GNSS | external PNT service reference |
+| assisted GNSS | GNSS plus cellular/location server assistance. | yes | assistance-dependent | not assigned; protocol/infrastructure reference | none | GNSS time plus assistance data | aided baseline with external data path |
+| RTK/PPP/differential GNSS | GNSS plus correction service, base station, CORS, or precise products. | yes | convergence/setup dependent | centimeter-class context under good correction-service conditions | none | precise GNSS orbit/clock correction products | high-infrastructure reference |
+| opportunistic LEO-PNT / Starlink | LEO signals, orbit/clock knowledge or estimation, signal-specific receiver. | not necessarily | batch/EKF and signal-dependent | literature examples from meters to tens of meters depending on aiding | usually none | paper-dependent satellite and receiver clock/orbit treatment | literature context only unless assumptions are reproduced |
+| GNSS-aided NTN | brief or periodic GNSS plus NTN measurements. | initial or intermittent | modeled as bounded one-step diagnostic | scenario sweep in this branch, non-final | JCLS variants require UE cooperation | GNSS prior may aid position or clocks | diagnostic with external prior information |
+| JCLS | cooperative terrestrial/non-terrestrial measurements in the manuscript model. | no, unless using an aided variant | estimator/runtime dependent | existing Stage B/C7 diagnostics reused; not final manuscript-ready | yes | joint position/clock estimation relative to reference satellite | main manuscript concept, but this branch is diagnostic only |

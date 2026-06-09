@@ -1,0 +1,228 @@
+{
+  "artifact_status": "non_final_gnss_baseline_exploration",
+  "bibliography_touched": false,
+  "candidate_only": true,
+  "existing_manuscript_result_files_touched": false,
+  "generated_manuscript_pdfs_touched": false,
+  "human_signoff_required": true,
+  "manuscript_directories_touched": false,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "notebook_used": false,
+  "psfrag_touched": false,
+  "response_letter_touched": false,
+  "sources": [
+    {
+      "category": "GPS/GNSS standalone positioning performance",
+      "comparison_caveat": "User accuracy depends on geometry, blockage, atmosphere, multipath, and receiver quality; URE is not user position accuracy.",
+      "infrastructure_assumptions": "Open-sky GNSS, broadcast GNSS signals, GNSS control segment, receiver solution for position and time.",
+      "label": "standalone_gnss_reference",
+      "reported_or_relevant_value": "Smartphone open-sky example 4.9 m radius; high-quality single-frequency FAA data <=1.82 m horizontal, 95%; GPS URE <=2.0 m, 95%.",
+      "source_title": "GPS.gov: GPS Accuracy",
+      "url": "https://archive.gps.gov/systems/gps/performance/accuracy/",
+      "used_as_final_value": false
+    },
+    {
+      "category": "GPS SPS performance commitment",
+      "comparison_caveat": "Service commitment/global metric, not a particular UE, urban, or NTN receiver result.",
+      "infrastructure_assumptions": "Civil GPS SPS, healthy constellation, global service definitions, GPS control segment.",
+      "label": "standalone_gnss_reference",
+      "reported_or_relevant_value": "2024 SPS metrics include <=8 m horizontal 95% global average, <=13 m vertical 95% global average, and <=30 ns time transfer 95%.",
+      "source_title": "GPS.gov: GPS Performance",
+      "url": "https://prod-01-alb-www-gps.woc.noaa.gov/gps-performance",
+      "used_as_final_value": false
+    },
+    {
+      "category": "GPS timing reference",
+      "comparison_caveat": "Not a generic mobile UE clock guarantee.",
+      "infrastructure_assumptions": "Specialized time-transfer receiver, fixed site, GNSS time infrastructure.",
+      "label": "standalone_gnss_reference",
+      "reported_or_relevant_value": "GPS time-transfer accuracy relative to UTC(USNO) <=30 ns, 95%, for specialized fixed time-transfer receivers.",
+      "source_title": "GPS.gov: GPS Accuracy - timing",
+      "url": "https://archive.gps.gov/systems/gps/performance/accuracy/",
+      "used_as_final_value": false
+    },
+    {
+      "category": "A-GNSS / 3GPP NG-RAN positioning",
+      "comparison_caveat": "Standards support and architecture, not an accuracy guarantee.",
+      "infrastructure_assumptions": "NG-RAN and LMF positioning architecture.",
+      "label": "gnss_aided_initialization",
+      "reported_or_relevant_value": "NG-RAN positioning supports A-GNSS along with NR positioning methods such as DL-TDOA, DL-AoD, Multi-RTT, UL-TDOA, and UL-AoA.",
+      "source_title": "3GPP TS 38.305 UE positioning in NG-RAN",
+      "url": "https://www.3gpp.org/ftp/specs/archive/38_series/38.305/",
+      "used_as_final_value": false
+    },
+    {
+      "category": "Assisted GNSS / 3GPP LPP",
+      "comparison_caveat": "Protocol support is not a standalone accuracy claim.",
+      "infrastructure_assumptions": "Location server such as E-SMLC, LMF, or SLP; cellular control/user-plane assistance.",
+      "label": "gnss_aided_initialization",
+      "reported_or_relevant_value": "LPP covers E-UTRA and NR positioning and includes A-GNSS assistance/provide-location procedures.",
+      "source_title": "3GPP TS 37.355 LTE Positioning Protocol (LPP)",
+      "url": "https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3710",
+      "used_as_final_value": false
+    },
+    {
+      "category": "OMA SUPL / assisted GNSS",
+      "comparison_caveat": "Defines assistance architecture/test cases, not a universal accuracy number.",
+      "infrastructure_assumptions": "SUPL-enabled terminal, SUPL location platform/server, IP/user-plane connectivity.",
+      "label": "gnss_aided_initialization",
+      "reported_or_relevant_value": "SUPL test cases include A-GPS/A-GNSS SET-assisted and SET-based modes.",
+      "source_title": "OMA SUPL v2.0 enabler test specification",
+      "url": "https://www.openmobilealliance.org/release/supl/ETS/OMA-ETS-SUPL-V2_0-20100914-C.pdf",
+      "used_as_final_value": false
+    },
+    {
+      "category": "SBAS / WAAS",
+      "comparison_caveat": "Aviation augmentation infrastructure; not unaided GNSS or GNSS-denied JCLS.",
+      "infrastructure_assumptions": "WAAS reference stations, master stations, GEO broadcast, and aviation receiver modes.",
+      "label": "gnss_correction_service_reference",
+      "reported_or_relevant_value": "FAA monitored WAAS reports provide site-level horizontal/vertical 95% performance statistics under aviation integrity modes.",
+      "source_title": "FAA WAAS Performance Analysis Report",
+      "url": "https://www.nstb.tc.faa.gov/reports/waaspanreports.htm",
+      "used_as_final_value": false
+    },
+    {
+      "category": "Single-base RTK",
+      "comparison_caveat": "Precision and absolute accuracy differ; requires correction infrastructure and favorable GNSS conditions.",
+      "infrastructure_assumptions": "Known base station, rover, correction data link, calibration, and field quality control.",
+      "label": "gnss_correction_service_reference",
+      "reported_or_relevant_value": "Survey-grade real-time precision often cited around 1 cm + 1 ppm horizontal and 2 cm + 1 ppm vertical at 1 sigma, when procedures and ambiguity fixing are successful.",
+      "source_title": "NOAA NGS User Guidelines for Single Base Real Time GNSS Positioning",
+      "url": "https://www.ngs.noaa.gov/PUBS_LIB/NGSRealTimeUserGuidelines.v2.0.4.pdf",
+      "used_as_final_value": false
+    },
+    {
+      "category": "Network RTK / RTN",
+      "comparison_caveat": "Network correction infrastructure is not comparable to GNSS-denied cooperative JCLS.",
+      "infrastructure_assumptions": "CORS/RTN network, datum alignment, cellular/internet data link, and user QC.",
+      "label": "gnss_correction_service_reference",
+      "reported_or_relevant_value": "RTN guidelines discuss centimeter-class horizontal/vertical precision under controlled network and field procedures.",
+      "source_title": "NOAA NGS Guidelines for Real Time GNSS Networks",
+      "url": "https://www.ngs.noaa.gov/PUBS_LIB/NGSGuidelinesForRealTimeGNSSNetworksV2.2.pdf",
+      "used_as_final_value": false
+    },
+    {
+      "category": "CORS / postprocessed differential GNSS",
+      "comparison_caveat": "Postprocessed survey infrastructure, not real-time standalone GNSS or JCLS.",
+      "infrastructure_assumptions": "Reference-station network, code/carrier data, postprocessing, and NSRS alignment.",
+      "label": "gnss_correction_service_reference",
+      "reported_or_relevant_value": "CORS supports postprocessed high-accuracy positioning workflows through fiducial reference stations.",
+      "source_title": "NOAA CORS Network",
+      "url": "https://geodesy.noaa.gov/CORS/",
+      "used_as_final_value": false
+    },
+    {
+      "category": "RTK/PPP/differential GNSS",
+      "comparison_caveat": "High-infrastructure reference, not a fair GNSS-denied baseline.",
+      "infrastructure_assumptions": "Reference stations, correction streams, satellite/internet delivery, or commercial correction service.",
+      "label": "gnss_correction_service_reference",
+      "reported_or_relevant_value": "RTK, DGNSS, SBAS, and PPP are correction methods; RTK uses correction links, PPP can provide centimetre-level accuracy with global corrections.",
+      "source_title": "NovAtel: RTK vs PPP correction services",
+      "url": "https://novatel.com/tech-talk/an-introduction-to-gnss/resources/rtk-vs-ppp",
+      "used_as_final_value": false
+    },
+    {
+      "category": "PPP/correction products",
+      "comparison_caveat": "Correction products are external infrastructure and may have latency or service constraints.",
+      "infrastructure_assumptions": "Global GNSS monitoring and analysis-center infrastructure.",
+      "label": "gnss_correction_service_reference",
+      "reported_or_relevant_value": "IGS provides precise orbit and clock products; PPP-AR uses precise products and bias information.",
+      "source_title": "International GNSS Service products / PPP-AR",
+      "url": "https://www.igs.org/products/",
+      "used_as_final_value": false
+    },
+    {
+      "category": "Real-time PPP corrections",
+      "comparison_caveat": "Correction-stream performance is not direct user position accuracy and assumes external infrastructure.",
+      "infrastructure_assumptions": "Real-time global tracking, analysis centers, correction streams, and PPP receiver processing.",
+      "label": "gnss_correction_service_reference",
+      "reported_or_relevant_value": "IGS real-time correction literature reports centimeter-class orbit and sub-nanosecond clock correction targets/behavior for PPP inputs.",
+      "source_title": "Performance of real-time IGS satellite clocks for PPP",
+      "url": "https://doi.org/10.1007/s10291-014-0369-5",
+      "used_as_final_value": false
+    },
+    {
+      "category": "LEO-PNT / signal of opportunity survey",
+      "comparison_caveat": "Literature context only; assumptions differ from JCLS cooperative NTN.",
+      "infrastructure_assumptions": "Signal-specific receiver, TLE/orbit information, batching/EKF, sometimes altitude or other aiding.",
+      "label": "leo_pnt_literature_reference",
+      "reported_or_relevant_value": "Survey reports examples including 7.7 m 2D Starlink with altitude aiding, 25.9 m 2D and 33.5 m 3D without external altitude over 800 s using six satellites.",
+      "source_title": "Receiver architectures for positioning with low earth orbit satellite signals: a survey",
+      "url": "https://link.springer.com/article/10.1186/s13634-023-01022-1",
+      "used_as_final_value": false
+    },
+    {
+      "category": "Opportunistic Starlink PNT",
+      "comparison_caveat": "Proof-of-concept experiment, not an operational PNT service or infrastructure-matched JCLS baseline.",
+      "infrastructure_assumptions": "Passive/non-cooperative Starlink signal exploitation, carrier-phase tracking, static receiver, and aiding for best case.",
+      "label": "leo_pnt_literature_reference",
+      "reported_or_relevant_value": "Reported experimental examples include 7.7 m 2D error with known altitude and tens-of-meters 2D/3D errors without external altitude over an extended batch.",
+      "source_title": "The First Carrier Phase Tracking and Positioning Results With Starlink LEO Satellite Signals",
+      "url": "https://doi.org/10.1109/TAES.2021.3113880",
+      "used_as_final_value": false
+    },
+    {
+      "category": "LEO observability",
+      "comparison_caveat": "Observability context, not a general accuracy benchmark.",
+      "infrastructure_assumptions": "Known LEO satellite state over time and pseudorange extraction from LEO signals.",
+      "label": "leo_pnt_literature_reference",
+      "reported_or_relevant_value": "Analyzes observability from LEO pseudorange measurements over time and includes experimental demonstrations.",
+      "source_title": "Observability Analysis of Opportunistic Receiver Localization with LEO Satellite Pseudorange Measurements",
+      "url": "https://doi.org/10.33012/2022.18540",
+      "used_as_final_value": false
+    },
+    {
+      "category": "NR-NTN positioning with GNSS comparison",
+      "comparison_caveat": "Design-study context, not a reproduced baseline for this manuscript.",
+      "infrastructure_assumptions": "NR-NTN physical-layer enhancements, PRS resource design, LEO orbit/signal simulation framework.",
+      "label": "leo_pnt_literature_reference",
+      "reported_or_relevant_value": "Discusses LEO-based NR-NTN positioning as complementary infrastructure to GNSS and potentially an alternative with enhancements.",
+      "source_title": "LEO-based Positioning: Foundations, Signal Design, and Receiver Enhancements for 6G NTN",
+      "url": "https://arxiv.org/abs/2410.18301",
+      "used_as_final_value": false
+    },
+    {
+      "category": "NTN positioning and GNSS augmentation",
+      "comparison_caveat": "Useful for framing weak/unavailable GNSS, not for direct numerical comparison.",
+      "infrastructure_assumptions": "3GPP-related NTN positioning assumptions and CRLB simulation study.",
+      "label": "leo_pnt_literature_reference",
+      "reported_or_relevant_value": "Identifies multi-LEO positioning and GNSS-augmented LEO positioning when insufficient GNSS satellites are visible.",
+      "source_title": "NTN-based 6G Localization: Vision, Role of LEOs, and Open Problems",
+      "url": "https://arxiv.org/abs/2305.12259",
+      "used_as_final_value": false
+    },
+    {
+      "category": "LEO-enhanced GNSS PPP",
+      "comparison_caveat": "LEO-augmented GNSS, not standalone cooperative NTN JCLS.",
+      "infrastructure_assumptions": "GNSS PPP infrastructure plus simulated/augmented LEO observations.",
+      "label": "leo_pnt_literature_reference",
+      "reported_or_relevant_value": "Reports LEO-augmented GNSS PPP geometry/accuracy improvements under the paper's simulation and data assumptions.",
+      "source_title": "LEO enhanced GNSS precise point positioning with emphasis on model comparison",
+      "url": "https://doi.org/10.1016/j.asr.2024.06.006",
+      "used_as_final_value": false
+    },
+    {
+      "category": "TCXO drift scenario support",
+      "comparison_caveat": "The sweep values are scenario assumptions, not final literature-calibrated device models.",
+      "infrastructure_assumptions": "Local oscillator holdover after GNSS loss.",
+      "label": "intermittent_gnss_update",
+      "reported_or_relevant_value": "TCXO frequency stability options span roughly +/-0.05 to +/-1.5 ppm.",
+      "source_title": "Rakon TCXO product family",
+      "url": "https://www.rakon.com/products/tcxo",
+      "used_as_final_value": false
+    },
+    {
+      "category": "GNSS holdover",
+      "comparison_caveat": "Application-specific timing holdover, not UE-grade clock-drift model.",
+      "infrastructure_assumptions": "High-quality oscillator holdover and GPS timing application.",
+      "label": "intermittent_gnss_update",
+      "reported_or_relevant_value": "Reports maintaining timing within 1 us drift for more than 1.5 hours in a GPS holdover context.",
+      "source_title": "PMU holdover performance enhancement using double-oven controlled oscillator",
+      "url": "https://www.ornl.gov/publication/pmu-holdover-performance-enhancement-using-double-oven-controlled-oscillator",
+      "used_as_final_value": false
+    }
+  ],
+  "work_in_progress_figures_touched": false
+}
