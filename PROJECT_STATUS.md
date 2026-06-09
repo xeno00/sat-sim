@@ -619,3 +619,9 @@ See `docs/tasks/NEXT.md`.
   result-family lineage, system/stage tuples, truth usage, internal/plotted
   units, rough benchmark cards where available, contradictions, quarantine
   decisions, and the blunt current-use recommendation.
+- `outputs/reports/V24_THEORY_RED_TEAM_AUDIT.md` records a theory and
+  references red-team audit for the V24 manuscript chain. Verdict:
+  `theory_pass_with_required_edits`. The next recommended action is a
+  manuscript-theory patch for measurement index/sign convention, mixed
+  DL/SL row sets, fixed covariance assumptions, NLOS regularity, and CRLB
+  extraction/rank semantics before resubmission.

@@ -1,0 +1,24 @@
+# V24 Theory Reference Audit
+
+This audit checked repository bibliography entries and performed lightweight external spot checks for the most critical theory-chain references. No bibliography files were edited.
+
+| Citation key | Repo entry | Manuscript claim | Support verdict | External spot check |
+|---|---|---|---|---|
+| `kay` | Steven M. Kay, *Fundamentals of Statistical Signal Processing: Estimation Theory*, Prentice Hall, 1993 | Estimation theory, GN/linearization, CRLB/information inequality background | Supports general estimation and CRLB regularity background. | Not externally checked; repo entry sufficient for standard textbook citation. |
+| `WanSheMazShiWin:J14` | Tianheng Wang, Yuan Shen, Santiago Mazuelas, Hyundong Shin, Moe Z. Win, "On OFDM Ranging Accuracy in Multipath Channels," IEEE Systems Journal, 8(1):104-114, Mar. 2014 | Ranging Fisher information context in multipath OFDM channels | Supports ranging/EFIM context. It does not by itself derive the full JCLS clock-gauged parameter FIM. | Externally spot-checked via indexed publication page showing title, authors, venue, volume, pages, year, DOI. |
+| `OTDOA_RFAP` | Seung-Hyun Kong and Binhee Kim, "Error Analysis of the OTDOA From the Resolved First Arrival Path in LTE," IEEE TWC, 15(10):6598-6610, 2016 | RFAP multipath error decomposition and NLOS/Rician TOA error modeling | Supports RFAP/OTDOA error modeling and theoretical error distributions. Should not be overextended to NTN/PRS without saying the model is adapted. | Externally spot-checked via KOASAS summary and indexed metadata. |
+| `ConMazBarLinWin:J19` | Andrea Conti, Santiago Mazuelas, Stefania Bartoletti, William C. Lindsey, Moe Z. Win, "Soft Information for Localization-of-Things," Proceedings of the IEEE, 107(11):2240-2264, 2019 | SCI/SFI and soft-information localization framing | Supports soft-information framework. It does not validate C7-specific residual-scaled covariance/safeguards. | Externally spot-checked via DOI/indexed metadata. |
+| `WymLieWin:J09` | Henk Wymeersch, Jaime Lien, Moe Z. Win, "Cooperative Localization in Wireless Networks," Proceedings of the IEEE, 97(2):427-450, 2009 | Cooperative localization and random-walk/message-passing context | Supports cooperative localization background. | Not externally checked in this audit. |
+| `EmeDhiBue:TIT25` | Don-Roberts Emenonye, Harpreet S. Dhillon, R. Michael Buehrer, "Fundamentals of LEO-Based Localization," IEEE Transactions on Information Theory, 71(7):5277-5311, 2025 | Prior LEO localization FI/fundamental-limit context | Supports LEO localization FI context; does not replace JCLS derivation with clock gauge. | Externally spot-checked via arXiv/indexed metadata. |
+| `3GPP:TS:36.211:V18.0.1` | 3GPP TS 36.211 V18.0.1, E-UTRA physical channels and modulation, Release 18 | PRS/physical-channel resource description | Supports LTE/E-UTRA physical-channel details. If manuscript claims NR PRS specifically, add/verify NR physical-channel citation. | Externally spot-checked via ETSI TS 136 211 V18.0.1 PDF metadata. |
+| `3GPP:TR:38.811:V15.4.0` | 3GPP TR 38.811 V15.4.0, Study on NR to support NTN, Release 15 | NTN channel/LOS/NLOS context | Supports NTN context. For exact LOS/NLOS probability or channel tables, cite specific clauses/tables if used. | External check was secondary, not official 3GPP. |
+| `3GPP:TS:38.741:V18.0.1` | 3GPP TS 38.741 V18.0.1, NTN L/S-band for NR, Release 18 | PFD/regulatory table context | Supports operating-band/PFD table context, not the FIM derivation. | Repo checked only. |
+| `camajori_tedeschini_feasibility_2023` | Camajori Tedeschini et al., "A feasibility study of 5G positioning with current cellular network deployment," Scientific Reports, 2023 | 5G positioning feasibility and TOA/ranging variance modeling | Supports deployed-5G positioning context. The specific CRLB expression used for ranging variance should be described as the manuscript's modeling choice. | Externally spot-checked via institutional Scientific Reports metadata. |
+| `scl-ntn` | Local conference/proceedings entry | WNLS equivalence for Rician MLE | Supports only if the prior work contains the same Gaussian likelihood-to-WNLS argument; otherwise Kay/Gaussian likelihood is enough. | Not externally checked. |
+| `marquardt1963algorithm` | Donald W. Marquardt, "An algorithm for least-squares estimation of nonlinear parameters," 1963 | LM method | Supports LM algorithm citation. | Repo checked only. |
+
+Reference risks:
+
+- Add a standard CRLB/statistical regularity citation explicitly if reviewers may object that the information inequality appears without conditions.
+- Make sure the PRS/physical-channel citation matches the radio access technology claimed: LTE/E-UTRA TS 36.211 is not the same as NR TS 38.211.
+- Keep Kong-Kim as a model inspiration for RFAP error components; do not imply its LTE OTDOA distributions are exact NTN/PRS distributions without adaptation.
