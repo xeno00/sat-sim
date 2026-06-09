@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-06-09",
+  "primary_standard_case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+  "secondary_low_satellite_stress_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+  "missing_metrics": [
+    {
+      "pipeline_id": "controlled_migration_step_b_lm_only",
+      "missing_fields": [
+        "primary Ns=10/1us Step A/B card"
+      ],
+      "why_it_matters": "Cleanest legacy-compatible Step B baseline is not represented on the primary standard case.",
+      "next_action": "Include in normalized benchmark-card runner."
+    },
+    {
+      "pipeline_id": "package_native_c7_diagnostic",
+      "missing_fields": [
+        "exact primary benchmark card under same geometry/noise as legacy-surgical"
+      ],
+      "why_it_matters": "The C7 path must be compared under the same assumptions before downselect is final.",
+      "next_action": "Include in normalized benchmark-card runner."
+    },
+    {
+      "pipeline_id": "legacy_surgical_prior_region",
+      "missing_fields": [
+        "V24 reference-relative synchronization metric",
+        "multi-seed robustness",
+        "figure-family raw outputs"
+      ],
+      "why_it_matters": "This is the recommended primary candidate, but final defensibility needs V24 metrics and robustness.",
+      "next_action": "Recompute metrics under unified schema and run bounded candidate figure validation."
+    },
+    {
+      "pipeline_id": "legacy_network_size_replay",
+      "missing_fields": [
+        "primary 1us network-size row for Ns=10"
+      ],
+      "why_it_matters": "Existing replay uses a different clock standard deviation.",
+      "next_action": "Do not use as primary; optional legacy reference rerun only if needed."
+    },
+    {
+      "pipeline_id": "gnss_baseline_exploration",
+      "missing_fields": [
+        "all primary fields"
+      ],
+      "why_it_matters": "Parked branch is not integrated into main lineage.",
+      "next_action": "Keep parked until lineage/units entry and human review."
+    },
+    {
+      "pipeline_id": "wave_results_exploration",
+      "missing_fields": [
+        "all primary fields"
+      ],
+      "why_it_matters": "Parked branch is not integrated into main lineage.",
+      "next_action": "Keep parked until lineage/units entry and human review."
+    }
+  ],
+  "minimal_next_run": "normalized benchmark-card runner for std_nu3_ns10_fullmesh_los_clock1us_seed0"
+}

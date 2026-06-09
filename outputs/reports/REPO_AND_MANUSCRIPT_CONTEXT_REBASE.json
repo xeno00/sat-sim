@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-06-09",
+  "branch": "main",
+  "base_main_commit": "59b38dd",
+  "manuscripts_inspected": {
+    "v23_clean": "C:/Users/James/MIT Dropbox/James Morrison/Academics/MIT/WINSLab/WINS Manuscripts/Morrison, J/SCL-NTN-TAES-2025/All-Version-Archive/V23/SCL-NTN-TAES-2025-V23.tex",
+    "v23_tracked": "C:/Users/James/MIT Dropbox/James Morrison/Academics/MIT/WINSLab/WINS Manuscripts/Morrison, J/SCL-NTN-TAES-2025/All-Version-Archive/V23/SCL-NTN-TAES-2025-V23-Tracked-Changes.tex",
+    "wip_v24_clean": "C:/Users/James/MIT Dropbox/James Morrison/Academics/MIT/WINSLab/WINS Manuscripts/Morrison, J/SCL-NTN-TAES-2025/Work-In-Progress/SCL-NTN-TAES-2025-V24.tex",
+    "wip_v24_tracked": "C:/Users/James/MIT Dropbox/James Morrison/Academics/MIT/WINSLab/WINS Manuscripts/Morrison, J/SCL-NTN-TAES-2025/Work-In-Progress/SCL-NTN-TAES-2025-V24-Tracked-Changes.tex"
+  },
+  "reports_inspected": [
+    "RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md/json",
+    "RESULT_REGISTRY.md/json",
+    "CURRENT_GRAPH_STATUS.md/json",
+    "ACTIVE_BRANCH_LEDGER.md/json",
+    "C7_CANDIDATE_FIGURE_VALIDATION_REPORT.md/json",
+    "C7_MANUSCRIPT_FIGURE_RECREATION_REPORT.md/json",
+    "STEP_C7_RESIDUAL_COV_SYNC_SAFEGUARD_REPORT.md/json",
+    "STEP_C7_HUMAN_GRAPH_REVIEW.md/json",
+    "LEGACY_NETWORK_SIZE_REPLAY_REPORT.md/json",
+    "CRLB_LOS_REPLAY_REPORT.md/json",
+    "LEGACY_SURGICAL_TRUTH_GATE_REMOVAL_REPORT.md/json",
+    "LEGACY_SURGICAL_PRIOR_REGION_INITIALIZATION_REPORT.md/json",
+    "CONTROLLED_MIGRATION_LADDER_SELECTED.md/json",
+    "STEP_B_LM_ACCEPTANCE_COMPARISON.md/json",
+    "STEP_C_DIAGNOSIS_REPORT.md/json",
+    "STEP_C4_COMPOSITE_ACCEPTANCE_COMPARISON.md/json",
+    "STEP_C5_SLIDING_WINDOW_MAP_COMPARISON.md/json",
+    "STEP3_RESIDUAL_COV_ROBUST_CANDIDATE_REPORT.md/json",
+    "V24_THEORY_RED_TEAM_AUDIT.md/json"
+  ],
+  "primary_standard_case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+  "secondary_low_satellite_stress_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+  "recommended_primary_pipeline": {
+    "system_model_version": "legacy_compatible_all_clock",
+    "initialization_version": "coarse_prior_region_initialization",
+    "stage_a_version": "A0_prior_region_il",
+    "stage_b_version": "B1_residual_trust_region_lm_no_truth_gate",
+    "stage_c_version": "C_surgical_residual_scaled_info_map",
+    "metric_version": "legacy_all_clock_metric_pending_v24_reference_relative_recompute",
+    "truth_usage": "truth used for simulation prior construction and offline metrics; no truth-state acceptance or truth-derived covariance",
+    "units_version": "legacy_km_range_equivalent_clock_units_with_m_ns_reporting"
+  },
+  "backup_pipeline": {
+    "system_model_version": "package_native_current",
+    "initialization_version": "A1_package_dl_only",
+    "stage_a_version": "A1_package_dl_only",
+    "stage_b_version": "B1_residual_lm",
+    "stage_c_version": "C7_residual_cov_sync_safeguard",
+    "metric_version": "V24_reference_relative_excluding_reference_satellite",
+    "truth_usage": "truth only for offline metrics",
+    "units_version": "package_km_positions_range_equivalent_clocks_with_seconds_ns_reporting"
+  },
+  "primary_standard_metric_status": {
+    "legacy_surgical_prior_region": "available_but_needs_v24_metric_recompute_and_robustness",
+    "controlled_migration_step_b_lm_only": "missing_needs_benchmark_run",
+    "package_native_c7": "available_in_manuscript_recreation_but_needs_normalized_same-run_comparison",
+    "legacy_truth_gated_l0": "available_reference_only"
+  },
+  "minimal_next_experiment": "normalized benchmark-card runner for std_nu3_ns10_fullmesh_los_clock1us_seed0",
+  "no_manuscript_files_edited": true,
+  "no_broad_simulations_run": true,
+  "no_final_figures_generated": true
+}

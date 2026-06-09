@@ -2,7 +2,8 @@
 
 ## Current phase
 
-sat-sim architecture refactor for V24 conformance.
+sat-sim result-pipeline downselect and normalized primary benchmark-card
+preparation for V24 manuscript-result provenance.
 
 ## Workflow status
 
@@ -61,6 +62,25 @@ Standard benchmark bookkeeping now treats `N_u=3,N_s=10,\sigma_\delta=1 us`
 as the primary universal fingerprint. Several pipelines currently have
 `primary_standard_status=missing_needs_benchmark_run`; the next diagnostic
 should build a normalized benchmark-card runner for that case.
+
+A context-rebase and manuscript/result downselect pass was completed on
+2026-06-09. See:
+
+- `outputs/reports/REPO_AND_MANUSCRIPT_CONTEXT_REBASE.md`
+- `outputs/reports/PIPELINE_DOWNSELECT_REPORT.md`
+- `outputs/reports/STANDARD_SCENARIO_PIPELINE_SCORECARD.md`
+- `outputs/reports/MANUSCRIPT_RESULT_REQUIREMENTS_MATRIX.md`
+- `outputs/reports/MISSING_STANDARD_METRICS.md`
+
+The current recommended primary path to pursue is the legacy-compatible
+prior-region surgical pipeline:
+
+`legacy_compatible_all_clock + A0_prior_region_il + B1_residual_trust_region_lm_no_truth_gate + C_surgical_residual_scaled_info_map`.
+
+Within that path, Step B residual LM is the current evidentiary backbone. Step C
+should remain candidate/refinement only until normalized primary benchmark,
+V24 reference-relative synchronization recomputation, and bounded figure-family
+validation pass.
 
 Gauge/metrics package and tests are implemented. Measurement-model and explicit
 V24 parameter-vector helpers/tests are implemented. Jacobian and gauged FIM

@@ -1,22 +1,28 @@
-MODE: PLAN_ONLY
+MODE: IMPLEMENT_APPROVED
 
-# Next Task: V24 Theory Fix Plan
+# Next Task: Normalized Primary Benchmark-Card Runner
 
 ## Purpose
 
-Use `outputs/reports/V24_THEORY_RED_TEAM_AUDIT.md` and companion reports to
-prepare a minimal manuscript-theory patch plan. Do not edit manuscript source,
-response letters, bibliography, PSFrag, Work-In-Progress figures, generated
-manuscript PDFs, existing manuscript result files, or simulation outputs unless
-explicitly instructed.
+Build the smallest normalized benchmark-card runner needed to compare the
+current candidate result pipelines under the same primary standard case:
+
+`std_nu3_ns10_fullmesh_los_clock1us_seed0`
+
+Do not generate manuscript figures. Do not run broad sweeps. Do not edit
+manuscript source, response letters, bibliography, notebook source, PSFrag,
+Work-In-Progress figures, generated manuscript PDFs, or existing manuscript
+result files.
 
 ## Required Inputs
 
-- `outputs/reports/V24_THEORY_RED_TEAM_AUDIT.md`
-- `outputs/reports/V24_THEORY_DERIVATION_CHECKLIST.md`
-- `outputs/reports/V24_THEORY_REFERENCE_AUDIT.md`
-- `outputs/reports/V24_THEORY_FIX_RECOMMENDATIONS.md`
-- current V24 manuscript source in the manuscript repository/directory
+- `outputs/reports/REPO_AND_MANUSCRIPT_CONTEXT_REBASE.md`
+- `outputs/reports/PIPELINE_DOWNSELECT_REPORT.md`
+- `outputs/reports/STANDARD_SCENARIO_PIPELINE_SCORECARD.md`
+- `outputs/reports/MANUSCRIPT_RESULT_REQUIREMENTS_MATRIX.md`
+- `outputs/reports/MISSING_STANDARD_METRICS.md`
+- `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md`
+- `outputs/registry/RESULT_REGISTRY.md`
 
 ## Branch Ledger Policy
 
@@ -30,20 +36,34 @@ after safe disposition. A pushed branch alone is not a valid final state.
 
 ## Recommended Next Action
 
-Prepare a surgical manuscript edit plan for the required theory fixes:
+Create a normalized benchmark-card runner for
+`std_nu3_ns10_fullmesh_los_clock1us_seed0` that reports initialization, Step A,
+Step B, and Step C localization/synchronization metrics for:
 
-1. measurement index/sign convention;
-2. mixed DL/SL row-index sets;
-3. fixed range-domain covariance assumption;
-4. NLOS density regularity/support assumptions;
-5. CRLB extraction, units, clock group, reference exclusion, and rank semantics.
+1. `legacy_surgical_prior_region` as the recommended primary candidate;
+2. `controlled_migration_step_b_lm_only` as the Step B backbone;
+3. `package_native_c7` as the theory-clean backup/reference;
+4. `legacy_truth_gated_l0` as reference-only provenance.
+
+The runner must write non-final benchmark-card CSV/JSON outputs with:
+
+- pipeline tuple fields;
+- truth-use fields;
+- units fields;
+- initialization, Step A, Step B, and Step C metrics;
+- V24 reference-relative synchronization where possible;
+- legacy all-clock synchronization kept separate when needed;
+- readiness/recommended-use fields.
+
+After the run, update the result registry, lineage/units review, scorecard, and
+downselect report.
 
 ## Stop Gates
 
-- Need for new simulations or figure generation.
+- Need for broad simulations or manuscript figure generation.
 - Need to edit protected manuscript/result files without explicit approval.
-- Discovery that the intended clock sign convention conflicts with the code or
-  current manuscript equations.
+- Discovery that candidate pipelines cannot be normalized without a human
+  scientific decision.
 
 ## Final Response Checklist
 
