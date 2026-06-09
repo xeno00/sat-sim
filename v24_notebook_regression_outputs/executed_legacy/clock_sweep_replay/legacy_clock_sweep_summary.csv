@@ -1,2 +1,0 @@
-mode,row_count,successful_rows,rows_with_failures,total_fallback_events,il_failures,lm_failures,map_failures
-smoke,3,3,0,6,0,0,0
