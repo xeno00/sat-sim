@@ -15,6 +15,12 @@ Canonical graph-package outputs now live under `outputs/`. Existing `v24_*` fold
 | `outputs/migration_ladder` | controlled legacy-to-V24 migration step outputs | False | True |
 | `outputs/cache` | validated replay cache/checkpoint entries | False | True |
 | `outputs/reports` | human-readable reports and machine JSON | False | True |
+| `outputs/registry` | mandatory result registry and lineage/units cross-links | False | True |
+
+## Mandatory Result Bookkeeping
+- [Result lineage and units review](reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md) is the first-stop provenance and units artifact for all major result families.
+- [Result registry](registry/RESULT_REGISTRY.md) lists the registered result families and their system/stage tuples.
+- New result families must include a pipeline tuple, units verdict, readiness status, and recommended-use status before they are discussed as evidence.
 
 ## Current Best Graphs
 - [Corrected LOS localization CRLB replay](legacy_replay/crlb_los/pos_crlb_0dB_0dB.pdf) - legacy replay, not V24-clean

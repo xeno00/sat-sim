@@ -1,0 +1,69 @@
+{
+  "branches_merged_or_already_merged": [
+    "codex/c7-manuscript-figure-recreation",
+    "codex/controlled-legacy-to-v24-migration",
+    "codex/crlb-decision-sprint",
+    "codex/crlb-diagnostic-hardening",
+    "codex/crlb-figure-candidate-data",
+    "codex/crlb-geometry-diagnostics",
+    "codex/crlb-preview-candidates",
+    "codex/human-ready-figures-sprint",
+    "codex/integration-compliance-and-merge-discipline",
+    "codex/legacy-clock-sweep-replay",
+    "codex/legacy-crlb-figure-replay",
+    "codex/legacy-network-size-and-v24-port-plan",
+    "codex/manuscript-crlb-candidate",
+    "codex/manuscript-geometry-noise",
+    "codex/migration-step-b-lm-no-truth-gate",
+    "codex/migration-step-c-diagnosis",
+    "codex/notebook-manuscript-regression-sprint",
+    "codex/notebook-regression-execution-audit",
+    "codex/package-native-figures-4-7",
+    "codex/plot-gallery-cache",
+    "codex/step-c4-composite-map-acceptance",
+    "codex/step-c5-sliding-window-map",
+    "codex/step-c7-residual-cov-sync-safeguard",
+    "codex/step3-covariance-exploration",
+    "codex/step3-gate-exploration",
+    "codex/step3-low-cost-exploration",
+    "codex/step3-micro-benchmarks",
+    "codex/step3-near-winner-sparse",
+    "codex/step3-residual-cov-audit",
+    "codex/v24-algorithm-fidelity",
+    "main"
+  ],
+  "branches_parked": [
+    "codex/gps-gnss-baseline-exploration",
+    "codex/jcls-wave-results-exploration",
+    "codex/wave-observability-estimator-gap-audit"
+  ],
+  "branches_quarantined": [
+    "codex/legacy-surgical-prior-region-initialization",
+    "codex/legacy-surgical-truth-gate-removal"
+  ],
+  "branches_reviewed": 41,
+  "branches_superseded": [
+    "codex/c7-candidate-figure-validation",
+    "codex/legacy-figures-gallery-crlb-nlos",
+    "codex/manuscript-algorithm-parity-check",
+    "codex/manuscript-align-to-c7-support",
+    "codex/migration-step-c-map-no-truth-gate"
+  ],
+  "branches_unknown": [],
+  "conflicts_encountered": [],
+  "generated_at_utc": "2026-06-09T14:24:11.072662+00:00",
+  "integration_branch": "codex/integration-compliance-and-merge-discipline",
+  "integration_commit": "e068e77",
+  "next_recommended_action": "Review parked wave/GNSS/legacy-surgical branches and add lineage/units entries before considering merges.",
+  "protected_file_check": "No protected changes detected in the integration branch against main.",
+  "remaining_unmerged_work": [
+    "codex/gps-gnss-baseline-exploration",
+    "codex/jcls-wave-results-exploration",
+    "codex/wave-observability-estimator-gap-audit",
+    "codex/legacy-surgical-prior-region-initialization",
+    "codex/legacy-surgical-truth-gate-removal"
+  ],
+  "tests_run": [
+    "pending in this report; final response records exact commands/results"
+  ]
+}

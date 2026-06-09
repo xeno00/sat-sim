@@ -1,0 +1,18 @@
+{
+  "generated_at_utc": "2026-06-09T14:24:11.072662+00:00",
+  "policy": "A Codex branch is not complete until it is merged, parked, superseded, quarantined, or explicitly awaiting human review.",
+  "protected_file_checker": "scripts/check_protected_files.py",
+  "required_final_response_fields": [
+    "branch",
+    "commit",
+    "pushed",
+    "merged_to_main",
+    "merge_commit",
+    "if_not_merged_disposition",
+    "reason_not_merged",
+    "tests",
+    "protected_file_check",
+    "reports_outputs",
+    "next_action"
+  ]
+}

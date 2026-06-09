@@ -27,7 +27,9 @@ Default for simple tasks:
 
 Default merge policy: push branches and stop for human review. Merge only when
 the current task, `docs/tasks/QUEUE.md`, or direct human instruction explicitly
-allows it.
+allows it. When merge is allowed, the branch is not complete until it is merged
+or assigned an explicit disposition: parked, superseded, quarantined, or
+awaiting human review.
 
 ## Queue/sprint mode
 
@@ -87,7 +89,44 @@ Stop for:
 - Push task branches when possible.
 - Merge only if explicitly allowed.
 - Never force-push without explicit approval.
-- Report branch, commit, push, and merge state in the final response.
+- Run protected-file checks before merging:
+
+  ```powershell
+  python scripts/check_protected_files.py --base main --target HEAD --fail-on-protected
+  ```
+
+- Report branch, commit, push, merge state, and final disposition in the final
+  response.
+
+## Required branch disposition
+
+Every completed task must end with one of:
+
+- `merged_to_main`;
+- `parked_do_not_merge_yet`;
+- `superseded_do_not_merge`;
+- `quarantined_do_not_merge`;
+- `awaiting_human_review`.
+
+Use this final response schema:
+
+```text
+Branch:
+Commit:
+Pushed:
+Merged to main:
+Merge commit:
+If not merged, disposition:
+Reason not merged:
+Tests:
+Protected-file check:
+Reports/outputs:
+Next action:
+```
+
+Output-producing branches must include branch/commit/script metadata,
+candidate/final/diagnostic readiness, units status, and recommended use before
+their outputs are treated as evidence or merged without caveat.
 
 ## Tests
 

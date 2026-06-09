@@ -1,0 +1,207 @@
+baseline_id,baseline_label,candidate_only,family,manuscript_ready,mean,metric,non_final,series_value,success_rate,trial_count,x_value
+coarse_jcls,Coarse JCLS,True,clock_sweep,False,106.32225132941555,position_error_m,True,clock_sweep,1.0,1,0.1
+coarse_jcls,Coarse JCLS,True,clock_sweep,False,79.43169440640894,position_error_m,True,clock_sweep,0.0,1,10.0
+coarse_jcls,Coarse JCLS,True,clock_sweep,False,88.91264459964673,position_error_m,True,clock_sweep,1.0,1,1000.0
+coarse_jcls,Coarse JCLS,True,clock_sweep,False,102051.30130589443,position_error_m,True,clock_sweep,0.0,1,100000.0
+refined_jcls,"Refined JCLS, 0.5 s",True,clock_sweep,False,104.36713528678217,position_error_m,True,clock_sweep,1.0,1,0.1
+refined_jcls,"Refined JCLS, 0.5 s",True,clock_sweep,False,79.29968227393911,position_error_m,True,clock_sweep,1.0,1,10.0
+refined_jcls,"Refined JCLS, 0.5 s",True,clock_sweep,False,77.48539803995874,position_error_m,True,clock_sweep,1.0,1,1000.0
+refined_jcls,"Refined JCLS, 0.5 s",True,clock_sweep,False,136738.37243526967,position_error_m,True,clock_sweep,1.0,1,100000.0
+without_cooperation,Without cooperation,True,clock_sweep,False,0.3942136761448909,position_error_m,True,clock_sweep,1.0,1,0.1
+without_cooperation,Without cooperation,True,clock_sweep,False,1.7411216611615192,position_error_m,True,clock_sweep,1.0,1,10.0
+without_cooperation,Without cooperation,True,clock_sweep,False,374.9320865557513,position_error_m,True,clock_sweep,1.0,1,1000.0
+without_cooperation,Without cooperation,True,clock_sweep,False,64384.50677902048,position_error_m,True,clock_sweep,0.0,1,100000.0
+coarse_jcls,Coarse JCLS,True,clock_sweep,False,169.00494396272632,sync_error_ns,True,clock_sweep,1.0,1,0.1
+coarse_jcls,Coarse JCLS,True,clock_sweep,False,100.74707325440909,sync_error_ns,True,clock_sweep,0.0,1,10.0
+coarse_jcls,Coarse JCLS,True,clock_sweep,False,82.72267228060845,sync_error_ns,True,clock_sweep,1.0,1,1000.0
+coarse_jcls,Coarse JCLS,True,clock_sweep,False,70208.98143157338,sync_error_ns,True,clock_sweep,0.0,1,100000.0
+refined_jcls,"Refined JCLS, 0.5 s",True,clock_sweep,False,166.9697292782348,sync_error_ns,True,clock_sweep,1.0,1,0.1
+refined_jcls,"Refined JCLS, 0.5 s",True,clock_sweep,False,103.31405833851133,sync_error_ns,True,clock_sweep,1.0,1,10.0
+refined_jcls,"Refined JCLS, 0.5 s",True,clock_sweep,False,71.85969157204933,sync_error_ns,True,clock_sweep,1.0,1,1000.0
+refined_jcls,"Refined JCLS, 0.5 s",True,clock_sweep,False,70208.98143157338,sync_error_ns,True,clock_sweep,1.0,1,100000.0
+without_cooperation,Without cooperation,True,clock_sweep,False,0.07236079380437131,sync_error_ns,True,clock_sweep,1.0,1,0.1
+without_cooperation,Without cooperation,True,clock_sweep,False,5.295997433343076,sync_error_ns,True,clock_sweep,1.0,1,10.0
+without_cooperation,Without cooperation,True,clock_sweep,False,925.3890929155191,sync_error_ns,True,clock_sweep,1.0,1,1000.0
+without_cooperation,Without cooperation,True,clock_sweep,False,102763.9334240524,sync_error_ns,True,clock_sweep,0.0,1,100000.0
+coarse_jcls,Coarse JCLS,True,network_size,False,88.91264459964673,position_error_m,True,3,1.0,1,10
+coarse_jcls,Coarse JCLS,True,network_size,False,46.505782748345794,position_error_m,True,5,1.0,1,10
+coarse_jcls,Coarse JCLS,True,network_size,False,51.06633988648908,position_error_m,True,7,1.0,1,10
+coarse_jcls,Coarse JCLS,True,network_size,False,33.03518584615299,position_error_m,True,3,0.0,1,11
+coarse_jcls,Coarse JCLS,True,network_size,False,62.45585451458866,position_error_m,True,5,1.0,1,11
+coarse_jcls,Coarse JCLS,True,network_size,False,40.046035373312726,position_error_m,True,7,1.0,1,11
+coarse_jcls,Coarse JCLS,True,network_size,False,78.64307990901345,position_error_m,True,3,1.0,1,12
+coarse_jcls,Coarse JCLS,True,network_size,False,52.28536556198502,position_error_m,True,5,1.0,1,12
+coarse_jcls,Coarse JCLS,True,network_size,False,32.676625072090815,position_error_m,True,7,1.0,1,12
+coarse_jcls,Coarse JCLS,True,network_size,False,88.65935669209061,position_error_m,True,3,1.0,1,13
+coarse_jcls,Coarse JCLS,True,network_size,False,43.18455274033243,position_error_m,True,5,1.0,1,13
+coarse_jcls,Coarse JCLS,True,network_size,False,24.54857405640018,position_error_m,True,7,0.0,1,13
+coarse_jcls,Coarse JCLS,True,network_size,False,38.18004716871396,position_error_m,True,3,0.0,1,14
+coarse_jcls,Coarse JCLS,True,network_size,False,52.96516241418392,position_error_m,True,5,1.0,1,14
+coarse_jcls,Coarse JCLS,True,network_size,False,10.737489372243038,position_error_m,True,7,1.0,1,14
+coarse_jcls,Coarse JCLS,True,network_size,False,41.92541649198028,position_error_m,True,3,1.0,1,15
+coarse_jcls,Coarse JCLS,True,network_size,False,22.029672711598725,position_error_m,True,5,1.0,1,15
+coarse_jcls,Coarse JCLS,True,network_size,False,21.800033664974865,position_error_m,True,7,1.0,1,15
+coarse_jcls,Coarse JCLS,True,network_size,False,337.3861355334455,position_error_m,True,3,0.0,1,3
+coarse_jcls,Coarse JCLS,True,network_size,False,106.2746235063343,position_error_m,True,5,1.0,1,3
+coarse_jcls,Coarse JCLS,True,network_size,False,79.51749991047016,position_error_m,True,7,0.0,1,3
+coarse_jcls,Coarse JCLS,True,network_size,False,184.97887406185075,position_error_m,True,3,1.0,1,4
+coarse_jcls,Coarse JCLS,True,network_size,False,163.17790761558172,position_error_m,True,5,0.0,1,4
+coarse_jcls,Coarse JCLS,True,network_size,False,101.03894951414716,position_error_m,True,7,1.0,1,4
+coarse_jcls,Coarse JCLS,True,network_size,False,108.69221761786407,position_error_m,True,3,1.0,1,5
+coarse_jcls,Coarse JCLS,True,network_size,False,125.01448381159716,position_error_m,True,5,1.0,1,5
+coarse_jcls,Coarse JCLS,True,network_size,False,7.323387810962295,position_error_m,True,7,1.0,1,5
+coarse_jcls,Coarse JCLS,True,network_size,False,66.25102003960876,position_error_m,True,3,0.0,1,6
+coarse_jcls,Coarse JCLS,True,network_size,False,92.08601831796508,position_error_m,True,5,1.0,1,6
+coarse_jcls,Coarse JCLS,True,network_size,False,52.6472291866948,position_error_m,True,7,1.0,1,6
+coarse_jcls,Coarse JCLS,True,network_size,False,13.917177206780432,position_error_m,True,3,1.0,1,7
+coarse_jcls,Coarse JCLS,True,network_size,False,76.61078757070167,position_error_m,True,5,1.0,1,7
+coarse_jcls,Coarse JCLS,True,network_size,False,56.159810919469074,position_error_m,True,7,1.0,1,7
+coarse_jcls,Coarse JCLS,True,network_size,False,56.986494798410185,position_error_m,True,3,1.0,1,8
+coarse_jcls,Coarse JCLS,True,network_size,False,92.84270359152391,position_error_m,True,5,1.0,1,8
+coarse_jcls,Coarse JCLS,True,network_size,False,41.435406383878544,position_error_m,True,7,1.0,1,8
+coarse_jcls,Coarse JCLS,True,network_size,False,37.55493862555668,position_error_m,True,3,1.0,1,9
+coarse_jcls,Coarse JCLS,True,network_size,False,24.34792747616333,position_error_m,True,5,1.0,1,9
+coarse_jcls,Coarse JCLS,True,network_size,False,72.98132284388251,position_error_m,True,7,1.0,1,9
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,77.48539803995874,position_error_m,True,3,1.0,1,10
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,43.88564474757824,position_error_m,True,5,1.0,1,10
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,47.839877763826316,position_error_m,True,7,1.0,1,10
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,27.82540023794699,position_error_m,True,3,1.0,1,11
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,55.96633442891014,position_error_m,True,5,1.0,1,11
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,37.15327331450207,position_error_m,True,7,1.0,1,11
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,75.18770144285774,position_error_m,True,3,1.0,1,12
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,50.250950342292796,position_error_m,True,5,1.0,1,12
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,29.712291902799443,position_error_m,True,7,1.0,1,12
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,79.88301579513364,position_error_m,True,3,1.0,1,13
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,37.83788465452879,position_error_m,True,5,1.0,1,13
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,24.271141465776996,position_error_m,True,7,1.0,1,13
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,22.115957161918285,position_error_m,True,3,1.0,1,14
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,50.28578346960027,position_error_m,True,5,1.0,1,14
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,10.110942288243123,position_error_m,True,7,1.0,1,14
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,41.49207957198101,position_error_m,True,3,1.0,1,15
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,21.437976044730554,position_error_m,True,5,1.0,1,15
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,22.339860565922447,position_error_m,True,7,1.0,1,15
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,325.97015155849687,position_error_m,True,3,1.0,1,3
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,94.43341001927851,position_error_m,True,5,1.0,1,3
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,69.2927157197765,position_error_m,True,7,1.0,1,3
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,180.20289571016,position_error_m,True,3,1.0,1,4
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,139.38758531901829,position_error_m,True,5,1.0,1,4
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,82.03796106825403,position_error_m,True,7,1.0,1,4
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,91.2602389885072,position_error_m,True,3,1.0,1,5
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,103.32588737812337,position_error_m,True,5,1.0,1,5
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,8.590012521968069,position_error_m,True,7,1.0,1,5
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,46.78005169817087,position_error_m,True,3,1.0,1,6
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,84.44721936910244,position_error_m,True,5,1.0,1,6
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,49.08594451961981,position_error_m,True,7,1.0,1,6
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,15.412950953762852,position_error_m,True,3,1.0,1,7
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,70.04633246048135,position_error_m,True,5,1.0,1,7
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,47.53084707245931,position_error_m,True,7,1.0,1,7
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,43.59905865049179,position_error_m,True,3,1.0,1,8
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,90.30487120866616,position_error_m,True,5,1.0,1,8
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,36.17296165197408,position_error_m,True,7,1.0,1,8
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,30.229404717887462,position_error_m,True,3,1.0,1,9
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,23.609893070681956,position_error_m,True,5,1.0,1,9
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,66.72571479617548,position_error_m,True,7,1.0,1,9
+without_cooperation,Without cooperation,True,network_size,False,720.505493966283,position_error_m,True,1,1.0,1,10
+without_cooperation,Without cooperation,True,network_size,False,151.35199081336128,position_error_m,True,1,1.0,1,11
+without_cooperation,Without cooperation,True,network_size,False,566.1291356442636,position_error_m,True,1,1.0,1,12
+without_cooperation,Without cooperation,True,network_size,False,311.66216630887493,position_error_m,True,1,1.0,1,13
+without_cooperation,Without cooperation,True,network_size,False,842.1367826681625,position_error_m,True,1,1.0,1,14
+without_cooperation,Without cooperation,True,network_size,False,773.4565851264099,position_error_m,True,1,1.0,1,15
+without_cooperation,Without cooperation,True,network_size,False,823.5949743358883,position_error_m,True,1,1.0,1,3
+without_cooperation,Without cooperation,True,network_size,False,1473.9949802403803,position_error_m,True,1,1.0,1,4
+without_cooperation,Without cooperation,True,network_size,False,573.7139623609296,position_error_m,True,1,1.0,1,5
+without_cooperation,Without cooperation,True,network_size,False,693.8625950790548,position_error_m,True,1,1.0,1,6
+without_cooperation,Without cooperation,True,network_size,False,453.5996801144015,position_error_m,True,1,1.0,1,7
+without_cooperation,Without cooperation,True,network_size,False,325.7470488995654,position_error_m,True,1,1.0,1,8
+without_cooperation,Without cooperation,True,network_size,False,1112.230180278354,position_error_m,True,1,1.0,1,9
+coarse_jcls,Coarse JCLS,True,network_size,False,82.72267228060845,sync_error_ns,True,3,1.0,1,10
+coarse_jcls,Coarse JCLS,True,network_size,False,69.59118809046309,sync_error_ns,True,5,1.0,1,10
+coarse_jcls,Coarse JCLS,True,network_size,False,47.634115247964196,sync_error_ns,True,7,1.0,1,10
+coarse_jcls,Coarse JCLS,True,network_size,False,39.149592243515045,sync_error_ns,True,3,0.0,1,11
+coarse_jcls,Coarse JCLS,True,network_size,False,66.43924796742199,sync_error_ns,True,5,1.0,1,11
+coarse_jcls,Coarse JCLS,True,network_size,False,60.13387057384361,sync_error_ns,True,7,1.0,1,11
+coarse_jcls,Coarse JCLS,True,network_size,False,113.08929355056108,sync_error_ns,True,3,1.0,1,12
+coarse_jcls,Coarse JCLS,True,network_size,False,89.3557238716347,sync_error_ns,True,5,1.0,1,12
+coarse_jcls,Coarse JCLS,True,network_size,False,19.750266032668968,sync_error_ns,True,7,1.0,1,12
+coarse_jcls,Coarse JCLS,True,network_size,False,124.9235031987866,sync_error_ns,True,3,1.0,1,13
+coarse_jcls,Coarse JCLS,True,network_size,False,46.79259842733508,sync_error_ns,True,5,1.0,1,13
+coarse_jcls,Coarse JCLS,True,network_size,False,25.413749514568728,sync_error_ns,True,7,0.0,1,13
+coarse_jcls,Coarse JCLS,True,network_size,False,30.46024785952138,sync_error_ns,True,3,0.0,1,14
+coarse_jcls,Coarse JCLS,True,network_size,False,82.74536605777976,sync_error_ns,True,5,1.0,1,14
+coarse_jcls,Coarse JCLS,True,network_size,False,5.6276118300390126,sync_error_ns,True,7,1.0,1,14
+coarse_jcls,Coarse JCLS,True,network_size,False,58.61264244153287,sync_error_ns,True,3,1.0,1,15
+coarse_jcls,Coarse JCLS,True,network_size,False,19.33352963412694,sync_error_ns,True,5,1.0,1,15
+coarse_jcls,Coarse JCLS,True,network_size,False,35.80193035736469,sync_error_ns,True,7,1.0,1,15
+coarse_jcls,Coarse JCLS,True,network_size,False,640.0509783401469,sync_error_ns,True,3,0.0,1,3
+coarse_jcls,Coarse JCLS,True,network_size,False,32.44276619328487,sync_error_ns,True,5,1.0,1,3
+coarse_jcls,Coarse JCLS,True,network_size,False,22.86498739399907,sync_error_ns,True,7,0.0,1,3
+coarse_jcls,Coarse JCLS,True,network_size,False,308.754436467559,sync_error_ns,True,3,1.0,1,4
+coarse_jcls,Coarse JCLS,True,network_size,False,92.33499290610989,sync_error_ns,True,5,0.0,1,4
+coarse_jcls,Coarse JCLS,True,network_size,False,69.06010226968138,sync_error_ns,True,7,1.0,1,4
+coarse_jcls,Coarse JCLS,True,network_size,False,103.34128722270863,sync_error_ns,True,3,1.0,1,5
+coarse_jcls,Coarse JCLS,True,network_size,False,76.38489081978476,sync_error_ns,True,5,1.0,1,5
+coarse_jcls,Coarse JCLS,True,network_size,False,4.709927391921246,sync_error_ns,True,7,1.0,1,5
+coarse_jcls,Coarse JCLS,True,network_size,False,48.29643786295234,sync_error_ns,True,3,0.0,1,6
+coarse_jcls,Coarse JCLS,True,network_size,False,90.24405228264207,sync_error_ns,True,5,1.0,1,6
+coarse_jcls,Coarse JCLS,True,network_size,False,23.274756234553912,sync_error_ns,True,7,1.0,1,6
+coarse_jcls,Coarse JCLS,True,network_size,False,22.225343957814218,sync_error_ns,True,3,1.0,1,7
+coarse_jcls,Coarse JCLS,True,network_size,False,130.24295615548033,sync_error_ns,True,5,1.0,1,7
+coarse_jcls,Coarse JCLS,True,network_size,False,51.46644456359597,sync_error_ns,True,7,1.0,1,7
+coarse_jcls,Coarse JCLS,True,network_size,False,58.82830446657772,sync_error_ns,True,3,1.0,1,8
+coarse_jcls,Coarse JCLS,True,network_size,False,149.13145498038955,sync_error_ns,True,5,1.0,1,8
+coarse_jcls,Coarse JCLS,True,network_size,False,46.39642138186007,sync_error_ns,True,7,1.0,1,8
+coarse_jcls,Coarse JCLS,True,network_size,False,36.490524490736675,sync_error_ns,True,3,1.0,1,9
+coarse_jcls,Coarse JCLS,True,network_size,False,24.502855665803715,sync_error_ns,True,5,1.0,1,9
+coarse_jcls,Coarse JCLS,True,network_size,False,132.70641810802377,sync_error_ns,True,7,1.0,1,9
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,71.85969157204933,sync_error_ns,True,3,1.0,1,10
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,65.37598758566531,sync_error_ns,True,5,1.0,1,10
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,45.86643969697008,sync_error_ns,True,7,1.0,1,10
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,33.30477896178289,sync_error_ns,True,3,1.0,1,11
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,63.43151271307187,sync_error_ns,True,5,1.0,1,11
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,56.21939692702593,sync_error_ns,True,7,1.0,1,11
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,108.52263596969763,sync_error_ns,True,3,1.0,1,12
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,86.28221723779122,sync_error_ns,True,5,1.0,1,12
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,19.677055430208505,sync_error_ns,True,7,1.0,1,12
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,118.51338977562273,sync_error_ns,True,3,1.0,1,13
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,40.903691014412956,sync_error_ns,True,5,1.0,1,13
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,24.209561503465352,sync_error_ns,True,7,1.0,1,13
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,20.019375532943265,sync_error_ns,True,3,1.0,1,14
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,78.62951259171389,sync_error_ns,True,5,1.0,1,14
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,5.581412424955327,sync_error_ns,True,7,1.0,1,14
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,56.80952327943255,sync_error_ns,True,3,1.0,1,15
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,18.311087669425724,sync_error_ns,True,5,1.0,1,15
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,36.93839198608254,sync_error_ns,True,7,1.0,1,15
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,630.5944097750458,sync_error_ns,True,3,1.0,1,3
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,30.418618080476726,sync_error_ns,True,5,1.0,1,3
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,21.061578712325254,sync_error_ns,True,7,1.0,1,3
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,315.58350175371925,sync_error_ns,True,3,1.0,1,4
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,82.13360701837578,sync_error_ns,True,5,1.0,1,4
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,67.88505267480241,sync_error_ns,True,7,1.0,1,4
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,87.86273978745598,sync_error_ns,True,3,1.0,1,5
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,61.97972079816071,sync_error_ns,True,5,1.0,1,5
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,7.4495082485677635,sync_error_ns,True,7,1.0,1,5
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,31.99546071694812,sync_error_ns,True,3,1.0,1,6
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,93.0316017106956,sync_error_ns,True,5,1.0,1,6
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,20.986060288098123,sync_error_ns,True,7,1.0,1,6
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,20.12784396414809,sync_error_ns,True,3,1.0,1,7
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,116.71842258160211,sync_error_ns,True,5,1.0,1,7
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,45.94099148916693,sync_error_ns,True,7,1.0,1,7
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,52.868379278245584,sync_error_ns,True,3,1.0,1,8
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,146.138403808025,sync_error_ns,True,5,1.0,1,8
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,39.92740905818209,sync_error_ns,True,7,1.0,1,8
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,30.458860742105486,sync_error_ns,True,3,1.0,1,9
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,22.95055053834892,sync_error_ns,True,5,1.0,1,9
+refined_jcls,"Refined JCLS, 0.5 s",True,network_size,False,122.33394518568389,sync_error_ns,True,7,1.0,1,9
+without_cooperation,Without cooperation,True,network_size,False,808.5460132473526,sync_error_ns,True,1,1.0,1,10
+without_cooperation,Without cooperation,True,network_size,False,508.3689449987685,sync_error_ns,True,1,1.0,1,11
+without_cooperation,Without cooperation,True,network_size,False,937.4953463853432,sync_error_ns,True,1,1.0,1,12
+without_cooperation,Without cooperation,True,network_size,False,981.0376503864829,sync_error_ns,True,1,1.0,1,13
+without_cooperation,Without cooperation,True,network_size,False,818.8422246163873,sync_error_ns,True,1,1.0,1,14
+without_cooperation,Without cooperation,True,network_size,False,570.0630880161622,sync_error_ns,True,1,1.0,1,15
+without_cooperation,Without cooperation,True,network_size,False,1082.5522706879515,sync_error_ns,True,1,1.0,1,3
+without_cooperation,Without cooperation,True,network_size,False,1124.415014987164,sync_error_ns,True,1,1.0,1,4
+without_cooperation,Without cooperation,True,network_size,False,661.7915256642905,sync_error_ns,True,1,1.0,1,5
+without_cooperation,Without cooperation,True,network_size,False,911.2062225126856,sync_error_ns,True,1,1.0,1,6
+without_cooperation,Without cooperation,True,network_size,False,620.3453281116575,sync_error_ns,True,1,1.0,1,7
+without_cooperation,Without cooperation,True,network_size,False,819.4815904759175,sync_error_ns,True,1,1.0,1,8
+without_cooperation,Without cooperation,True,network_size,False,1048.1881285116729,sync_error_ns,True,1,1.0,1,9

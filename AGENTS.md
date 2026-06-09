@@ -128,6 +128,43 @@ Subagents must not independently merge to the target branch.
 - Never force-push without explicit approval.
 - Report branch, commit, push, and merge state in the final response.
 
+## Branch completion and merge discipline
+
+A Codex task branch is not complete merely because it was pushed. Every branch
+must end the task with exactly one explicit disposition:
+
+- merged to `main`;
+- parked for later, with the blocking reason;
+- superseded by a newer branch, with the replacement named;
+- quarantined, with the risk named;
+- awaiting human review, with the blocking item named.
+
+For ordinary safe code, test, script, documentation, or registered non-final
+diagnostic changes, merge to `main` after tests pass when the task permits
+integration. For scientific-output branches, do not merge confusing or
+contradictory outputs until they are registered with pipeline lineage, units
+status, readiness, and recommended-use metadata.
+
+Every final response must include:
+
+```text
+Branch:
+Commit:
+Pushed:
+Merged to main:
+Merge commit:
+If not merged, disposition:
+Reason not merged:
+Tests:
+Protected-file check:
+Reports/outputs:
+Next action:
+```
+
+Use `scripts/check_protected_files.py` before merging to ensure no protected
+manuscript, notebook, bibliography, PSFrag, generated manuscript PDF, or
+existing manuscript-result files are included accidentally.
+
 ### File ownership table
 
 Before parallel work begins, create:

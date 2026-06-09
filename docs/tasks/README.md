@@ -18,6 +18,16 @@ queue task. After each substantial implementation task, update
 `PROJECT_STATUS.md` and replace `docs/tasks/NEXT.md` with the next recommended
 task. Do not start the next task automatically.
 
+## Merge policy
+
+Every task file should state `MERGE_POLICY`, `DISPOSITION_REQUIRED`,
+`PROTECTED_FILES`, `POST_MERGE_CHECKS`, and `FINAL_RESPONSE_SCHEMA`.
+
+A branch is not complete merely because it was pushed. It must be merged,
+parked, superseded, quarantined, or explicitly awaiting human review. If it is
+not merged, the task report must say why and name the next disposition action.
+Use `scripts/check_protected_files.py` before merging any task branch.
+
 ## Python dependencies
 
 Do not add virtual-environment or bootstrap machinery unless the human
@@ -48,6 +58,7 @@ Tasks intended for parallel execution should declare:
 - stop gates;
 - whether the task may merge;
 - whether the task may generate outputs.
+- merge/disposition policy.
 
 Parallel edit-capable tasks must use branch/worktree isolation and explicit
 file ownership. `PROJECT_STATUS.md`, `docs/tasks/NEXT.md`, and
@@ -85,6 +96,22 @@ Stop if:
 - any other branch touches bounds.py or test_bounds.py
 May merge: no
 May run expensive simulations: no
+```
+
+## Final response schema
+
+```text
+Branch:
+Commit:
+Pushed:
+Merged to main:
+Merge commit:
+If not merged, disposition:
+Reason not merged:
+Tests:
+Protected-file check:
+Reports/outputs:
+Next action:
 ```
 
 ## Future command

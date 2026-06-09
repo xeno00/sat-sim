@@ -1,0 +1,164 @@
+{
+  "artifact_status": "non_final_c7_candidate_figure_validation",
+  "baseline": "Step B / LM-only",
+  "candidate_only": true,
+  "clock_sweep_status": "sparse_bounded_blocked_by_localization_instability",
+  "clock_sweep_summary": {
+    "both_improved_count": 2,
+    "fallback_count": 2,
+    "fallback_rows": [
+      {
+        "clock_std_seconds": 0.0001,
+        "fallback_reason": "clock_update_exceeds_covariance_scale",
+        "num_satellites": 8,
+        "num_users": 3
+      },
+      {
+        "clock_std_seconds": 1e-06,
+        "fallback_reason": "clock_update_exceeds_covariance_scale",
+        "num_satellites": 8,
+        "num_users": 3
+      }
+    ],
+    "family": "clock_sweep",
+    "max_position_ratio": 1002.9979861095624,
+    "max_sync_ratio": 1.0,
+    "mean_position_ratio": 253.2873569311025,
+    "mean_sync_ratio": 0.6074156136024965,
+    "position_improved_count": 2,
+    "row_count": 4,
+    "sync_improved_count": 2
+  },
+  "covariance_terminology": "typed block-extracted, diagonal-clipped residual-scaled covariance",
+  "estimator_mode": "step_c7_residual_cov_sync_safeguard",
+  "full_clock_sweep_run": false,
+  "human_signoff_required": true,
+  "manuscript_directories_touched": false,
+  "manuscript_ready": false,
+  "metadata_json": "outputs/c7_candidate_figures/metadata.json",
+  "network_summary": {
+    "both_improved_count": 9,
+    "fallback_count": 3,
+    "fallback_rows": [
+      {
+        "clock_std_seconds": "",
+        "fallback_reason": "single_user_clock_update_not_observable",
+        "num_satellites": 4,
+        "num_users": 1
+      },
+      {
+        "clock_std_seconds": "",
+        "fallback_reason": "single_user_clock_update_not_observable",
+        "num_satellites": 8,
+        "num_users": 1
+      },
+      {
+        "clock_std_seconds": "",
+        "fallback_reason": "single_user_clock_update_not_observable",
+        "num_satellites": 12,
+        "num_users": 1
+      }
+    ],
+    "family": "network_size",
+    "max_position_ratio": 0.14448710044194635,
+    "max_sync_ratio": 1.0,
+    "mean_position_ratio": 0.054160465424072914,
+    "mean_sync_ratio": 0.38561149595048044,
+    "position_improved_count": 12,
+    "row_count": 12,
+    "sync_improved_count": 9
+  },
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "notebook_used": false,
+  "plots": [
+    "outputs/c7_candidate_figures/plots/c7_network_localization_vs_satellites.pdf",
+    "outputs/c7_candidate_figures/plots/c7_network_synchronization_vs_satellites.pdf",
+    "outputs/c7_candidate_figures/plots/c7_clock_sweep_localization.pdf",
+    "outputs/c7_candidate_figures/plots/c7_clock_sweep_synchronization.pdf",
+    "outputs/c7_candidate_figures/plots/c7_fallback_annotations.pdf",
+    "outputs/c7_candidate_figures/plots/c7_ratio_summary.pdf"
+  ],
+  "raw_paths": {
+    "arrays_npz": "outputs/c7_candidate_figures/arrays.npz",
+    "clock_sweep_raw_csv": "outputs/c7_candidate_figures/clock_sweep_raw.csv",
+    "combined_raw_csv": "outputs/c7_candidate_figures/raw.csv",
+    "network_raw_csv": "outputs/c7_candidate_figures/network_size_raw.csv",
+    "summary_csv": "outputs/c7_candidate_figures/summary.csv"
+  },
+  "ready_for_bounded_candidate_validation": true,
+  "ready_for_human_review": true,
+  "recommended_next_action": "Human review of bounded C7 network-size candidate figures and sparse clock-sweep failure evidence. Do not run a denser clock sweep until the high-clock-standard-deviation localization instability is explained.",
+  "remaining_blockers": [
+    "Sparse clock-sweep C7 candidate is not suitable for candidate-figure use yet because at least one bounded clock-standard-deviation row worsens localization substantially."
+  ],
+  "runtime_seconds": 6.844000000040978,
+  "safe_claims": [
+    "C7 candidate outputs are non-final human-review diagnostics.",
+    "Step B / LM-only is the comparison baseline.",
+    "C7 improves localization on the bounded network grid.",
+    "C7 uses a non-truth single-UE synchronization safeguard.",
+    "Single-UE fallback rows preserve Step B synchronization by reverting unsafe clock/drift updates.",
+    "Sparse clock-sweep outputs were generated only for four bounded clock-standard-deviation points."
+  ],
+  "sync_units": "ns in plots; km retained in raw CSV",
+  "task_matrix": {
+    "artifact_status": "non_final_c7_candidate_figure_task_matrix",
+    "edit_owner": "orchestrator",
+    "lanes": [
+      {
+        "agent": "Agent A",
+        "blocker": null,
+        "expected_output_files": "network raw CSV, localization/synchronization PDFs and notes",
+        "fallback_owner": "orchestrator",
+        "lane": "Network-size Figures",
+        "status": "orchestrator_completed"
+      },
+      {
+        "agent": "Agent B",
+        "blocker": null,
+        "expected_output_files": "sparse clock-sweep raw CSV, PDFs and notes",
+        "fallback_owner": "orchestrator",
+        "lane": "Clock-sweep Figures",
+        "status": "orchestrator_completed"
+      },
+      {
+        "agent": "Agent C",
+        "blocker": null,
+        "expected_output_files": "labels, fallback markers, gallery previews",
+        "fallback_owner": "orchestrator",
+        "lane": "Figure Styling/Gallery",
+        "status": "orchestrator_completed"
+      },
+      {
+        "agent": "Agent D",
+        "blocker": null,
+        "expected_output_files": "safe/unsafe claims and caveat review",
+        "fallback_owner": "orchestrator",
+        "lane": "Scientific Red Team",
+        "status": "read_only_subagent_completed"
+      },
+      {
+        "agent": "Agent E",
+        "blocker": null,
+        "expected_output_files": "human-readable report and relative-link review",
+        "fallback_owner": "orchestrator",
+        "lane": "Report Quality",
+        "status": "read_only_subagent_completed"
+      }
+    ],
+    "mode": "IMPLEMENT_APPROVED"
+  },
+  "truth_state_used_for_acceptance": false,
+  "truth_state_used_for_covariance": false,
+  "truth_state_used_for_safeguard": false,
+  "truth_used_only_for_offline_metrics": true,
+  "unsafe_claims": [
+    "C7 outputs are manuscript-ready.",
+    "C7 validates final manuscript figures.",
+    "The covariance method uses dense block or cross-covariance.",
+    "Sparse clock-sweep behavior proves full legacy clock-sweep behavior.",
+    "Single-UE C7 improves synchronization rather than preserving Step B via fallback."
+  ],
+  "verdict": "PASS WITH CAVEAT"
+}
