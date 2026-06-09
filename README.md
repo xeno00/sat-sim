@@ -65,17 +65,49 @@ python scripts\minimal_legacy_corrected_jcls.py --list-plan --mode sparse-manusc
 Sparse manuscript execution is available but should be treated as a bounded
 candidate-data run, not final figure generation.
 
+By default, run outputs are stored under a timestamped run-history directory
+instead of overwriting the canonical output folder. For example:
+
+```powershell
+python scripts\minimal_legacy_corrected_jcls.py --run --mode sparse-manuscript --prior-radius-m 100000 --output-root outputs\minimal_legacy_corrected
+```
+
+This writes to:
+
+```text
+outputs/minimal_legacy_corrected/sparse_manuscript/run_history/<run_id>/
+```
+
+and updates:
+
+```text
+outputs/minimal_legacy_corrected/sparse_manuscript/LATEST_RUN.json
+outputs/minimal_legacy_corrected/sparse_manuscript/RUN_HISTORY.jsonl
+```
+
+Use `--run-id <name>` to choose a stable run directory. Use
+`--publish-canonical` only when you intentionally want to write directly to the
+canonical sparse output root.
+
 Generate manuscript-style sparse candidate plots from an existing sparse run:
 
 ```powershell
 python scripts\minimal_legacy_corrected_jcls.py --mode sparse-manuscript --output-root outputs\minimal_legacy_corrected --plot-sparse-figures
 ```
 
-The plotting layer writes non-final Fig. 4--7 traceability plots under:
+The plotting layer reads `LATEST_RUN.json` when available; otherwise it falls
+back to the canonical sparse output root. Use `--sparse-run-root <path>` to plot
+a specific stored run. For stored runs, it writes non-final Fig. 4--7
+traceability plots under a short per-run figure path:
 
 ```text
-outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/
+outputs/minimal_legacy_corrected/figures/<run_id>/
 ```
+
+The shorter figure path avoids Windows path-length failures while preserving
+the data provenance link through the figure traceability JSON. Canonical sparse
+outputs still use `outputs/minimal_legacy_corrected/sparse_manuscript/` only
+when `--publish-canonical` is explicitly requested.
 
 ## Output Policy
 

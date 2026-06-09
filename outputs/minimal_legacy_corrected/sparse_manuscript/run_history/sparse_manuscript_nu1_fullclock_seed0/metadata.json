@@ -1,0 +1,98 @@
+{
+  "canonical_output_root": "outputs/minimal_legacy_corrected/sparse_manuscript",
+  "case_count": 27,
+  "case_id": "sparse_manuscript_mixed",
+  "clock_std_seconds": null,
+  "diagnostic_only": true,
+  "git_commit": "67610dd",
+  "manuscript_ready": false,
+  "metric_version": "legacy_all_clock_metric_pending_v24_reference_relative_recompute",
+  "not_for_submission": true,
+  "num_satellites": null,
+  "num_users": null,
+  "output_policy": "run_history",
+  "prior_mode": "prior_ball_R0",
+  "prior_radius_m": 100000.0,
+  "publish_canonical": false,
+  "raw_csv": "outputs/minimal_legacy_corrected/sparse_manuscript/run_history/sparse_manuscript_nu1_fullclock_seed0/raw.csv",
+  "row_count": 27,
+  "run_id": "sparse_manuscript_nu1_fullclock_seed0",
+  "run_output_root": "outputs/minimal_legacy_corrected/sparse_manuscript/run_history/sparse_manuscript_nu1_fullclock_seed0",
+  "runtime_s": 2165.5132180000073,
+  "seed": 0,
+  "source_notebook_or_export": "JCLS_Simulation.ipynb",
+  "source_script": "scripts/minimal_legacy_corrected_jcls.py",
+  "sparse_grid_definition": {
+    "clock_sweep": {
+      "clock_std_seconds": [
+        1e-10,
+        1e-09,
+        1e-08,
+        1e-07,
+        1e-06,
+        1e-05,
+        0.0001
+      ],
+      "num_satellites": 10,
+      "num_users": 3,
+      "seed": 0
+    },
+    "network_size": {
+      "clock_std_seconds": 1e-06,
+      "num_satellites": [
+        4,
+        8,
+        10,
+        12,
+        14
+      ],
+      "num_users": [
+        3,
+        5,
+        7
+      ],
+      "seed": 0
+    },
+    "network_size_noncooperative_baseline": {
+      "clock_std_seconds": 1e-06,
+      "num_satellites": [
+        4,
+        8,
+        10,
+        12,
+        14
+      ],
+      "num_users": 1,
+      "seed": 0,
+      "stage_b_status": "not_applicable",
+      "stage_c_status": "not_applicable"
+    }
+  },
+  "sparse_manuscript_executed": true,
+  "sparse_manuscript_run": true,
+  "stage_a_version": "A0_prior_region_il",
+  "stage_b_version": "B1_residual_trust_region_lm_no_truth_gate",
+  "stage_c_version": "C_surgical_residual_scaled_info_map",
+  "summary_csv": "outputs/minimal_legacy_corrected/sparse_manuscript/run_history/sparse_manuscript_nu1_fullclock_seed0/summary.csv",
+  "system_model_version": "legacy_compatible_all_clock",
+  "trace_jsonl": "outputs/minimal_legacy_corrected/sparse_manuscript/run_history/sparse_manuscript_nu1_fullclock_seed0/trace.jsonl",
+  "truth_use_blocker": false,
+  "truth_used_for_covariance": false,
+  "truth_used_for_fallback_or_reversion": false,
+  "truth_used_for_initialization": false,
+  "truth_used_for_lm_acceptance": false,
+  "truth_used_for_offline_metrics": true,
+  "truth_used_for_prior_construction": true,
+  "truth_used_for_step_c_acceptance": false,
+  "units_ledger": {
+    "clock_sigma_input_units": "seconds",
+    "internal_clock_state_units": "legacy range-equivalent km",
+    "internal_position_units": "km",
+    "localization_error_units": "m",
+    "measurement_covariance_units": "legacy km^2/range-domain covariance",
+    "measurement_units": "km",
+    "synchronization_error_units": "ns",
+    "units_status": "units_consistent_but_legacy"
+  },
+  "units_version": "legacy_km_range_equivalent_clock_units_with_m_ns_reporting"
+}

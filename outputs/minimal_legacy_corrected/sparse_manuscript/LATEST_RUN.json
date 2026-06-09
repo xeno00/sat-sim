@@ -1,0 +1,14 @@
+{
+  "created_utc": "2026-06-09T22:22:13.166955+00:00",
+  "metadata_json": "outputs/minimal_legacy_corrected/sparse_manuscript/run_history/sparse_manuscript_nu1_fullclock_seed0/metadata.json",
+  "mode": "sparse-manuscript",
+  "output_policy": "run_history",
+  "publish_canonical": false,
+  "raw_csv": "outputs/minimal_legacy_corrected/sparse_manuscript/run_history/sparse_manuscript_nu1_fullclock_seed0/raw.csv",
+  "row_count": 27,
+  "run_id": "sparse_manuscript_nu1_fullclock_seed0",
+  "run_root": "outputs/minimal_legacy_corrected/sparse_manuscript/run_history/sparse_manuscript_nu1_fullclock_seed0",
+  "status": "completed",
+  "summary_csv": "outputs/minimal_legacy_corrected/sparse_manuscript/run_history/sparse_manuscript_nu1_fullclock_seed0/summary.csv",
+  "trace_jsonl": "outputs/minimal_legacy_corrected/sparse_manuscript/run_history/sparse_manuscript_nu1_fullclock_seed0/trace.jsonl"
+}

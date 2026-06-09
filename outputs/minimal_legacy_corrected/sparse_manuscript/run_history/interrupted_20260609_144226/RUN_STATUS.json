@@ -1,0 +1,6 @@
+{
+    "status":  "interrupted_by_user",
+    "partial_trace":  "trace.partial.jsonl",
+    "reason":  "Stopped to add run-history storage before expanded sparse rerun",
+    "created_utc":  "2026-06-09T21:42:27.0294070Z"
+}
