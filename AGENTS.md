@@ -58,6 +58,19 @@ outputs unless explicitly approved.
 14. Do not use old scalar NLOS expressions involving `a`, `b`, `q`, or `M` for
     V24 figures.
 
+## Standard benchmark policy
+
+The primary universal standard benchmark is
+`std_nu3_ns10_fullmesh_los_clock1us_seed0`: `N_u=3`, `N_s=10`,
+full-mesh sidelinks, LOS/Rician when supported, manuscript-like MIT/Stata UE
+geometry and Starlink-like LEO geometry when supported, clock standard
+deviation `1 microsecond`, seed `0`, operation time `0.5 s` when Stage C is
+available, and one trial for the standard fingerprint.
+
+The old `std_nu3_ns4_fullmesh_los_clock1us_seed0` case is only a
+`secondary_low_satellite_stress_case`. Do not call it the primary benchmark or
+substitute it into primary-standard fields.
+
 ## Current refactor order
 
 1. Gauge and metrics package.

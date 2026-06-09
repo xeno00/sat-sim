@@ -53,7 +53,10 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 ## Mandatory Result Lineage and Units Review
 - [Result lineage and units review](RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md) is the first-stop bookkeeping artifact before any generated result is discussed as evidence.
 - [Result registry](../registry/RESULT_REGISTRY.md) lists registered result families and their system/stage tuples.
-- No generated graph should be cited without a lineage row, units verdict, readiness status, and recommended-use status.
+- [Result registry JSON](../registry/RESULT_REGISTRY.json) records machine-readable primary and secondary standard-case status.
+- Primary standard case: `std_nu3_ns10_fullmesh_los_clock1us_seed0`.
+- Secondary low-satellite stress case only: `std_nu3_ns4_fullmesh_los_clock1us_seed0`.
+- No generated graph should be cited without a lineage row, units verdict, readiness status, recommended-use status, and primary-standard status.
 
 ## Warnings
 - No graph is manuscript-ready.
@@ -66,3 +69,4 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - Step C7 residual-covariance sync-safeguard outputs are non-final diagnostics, not manuscript figures.
 - C7 manuscript-figure recreation outputs are non-final and not manuscript-ready.
 - C7 clock-sweep recreation remains diagnostic/candidate-failed until high-clock localization instability is explained.
+- Primary-standard benchmark cards for `std_nu3_ns10_fullmesh_los_clock1us_seed0` are still missing for several pipelines.

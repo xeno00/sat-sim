@@ -18,7 +18,16 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "outputs" / "reports"
 REGISTRY = ROOT / "outputs" / "registry"
-STANDARD_CASE_ID = "std_nu3_ns4_fullmesh_los_clock1us_seed0"
+PRIMARY_STANDARD_CASE_ID = "std_nu3_ns10_fullmesh_los_clock1us_seed0"
+SECONDARY_LOW_SAT_CASE_ID = "std_nu3_ns4_fullmesh_los_clock1us_seed0"
+STANDARD_CASE_ID = PRIMARY_STANDARD_CASE_ID
+PRIMARY_STANDARD_RATIONALE = [
+    "it matches the manuscript clock-sweep network size",
+    "it is large enough that ordinary low-satellite observability failures should not dominate the fingerprint",
+    "it gives each pipeline a fairer chance to show intended JCLS behavior",
+    "it is still small enough to run quickly as a one-row standard benchmark",
+    "it directly tests the regime where the manuscript claims strong JCLS behavior",
+]
 C_KM_PER_S = 299_792.458
 
 
@@ -114,12 +123,12 @@ def build_result_families() -> list[ResultFamily]:
     current_branch = git_value("branch", "--show-current")
     current_commit = git_value("rev-parse", "--short", "HEAD")
 
-    step_b_row = first_row(
+    step_b_secondary_row = first_row(
         read_csv("outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_raw.csv"),
         num_users="3",
         num_satellites="4",
     )
-    c7_row = first_row(
+    c7_secondary_row = first_row(
         read_csv("outputs/step_c7_residual_cov_sync_safeguard/raw.csv"),
         candidate="step_c7_residual_cov_sync_safeguard",
         num_users="3",
@@ -130,14 +139,14 @@ def build_result_families() -> list[ResultFamily]:
         recreation_rows,
         family="network_size",
         num_users="3",
-        num_satellites="4",
+        num_satellites="10",
         baseline_id="coarse_jcls",
     )
     recreation_c = first_row(
         recreation_rows,
         family="network_size",
         num_users="3",
-        num_satellites="4",
+        num_satellites="10",
         baseline_id="refined_jcls",
     )
     candidate_report = read_json("outputs/reports/C7_CANDIDATE_FIGURE_VALIDATION_REPORT.json")
@@ -185,7 +194,7 @@ def build_result_families() -> list[ResultFamily]:
             "legacy",
             "truth-error LM/MAP acceptance and legacy fallbacks used; full notebook not executed",
             "units_consistent_but_legacy",
-            "clock_sweep_nu3_ns10_legacy_full",
+            STANDARD_CASE_ID,
             clock_report.get("per_clock_std_results", [{}])[2].get("il_position_error_m") if clock_report.get("per_clock_std_results") else None,
             clock_report.get("per_clock_std_results", [{}])[2].get("lm_position_error_m") if clock_report.get("per_clock_std_results") else None,
             clock_report.get("per_clock_std_results", [{}])[2].get("map_position_error_m") if clock_report.get("per_clock_std_results") else None,
@@ -210,7 +219,7 @@ def build_result_families() -> list[ResultFamily]:
             "legacy",
             "truth gates/fallbacks used in legacy estimator path",
             "units_consistent_but_legacy",
-            "legacy_medium_nu3_ns4_clock0p5ns_seed2042",
+            STANDARD_CASE_ID,
             None,
             None,
             None,
@@ -261,13 +270,13 @@ def build_result_families() -> list[ResultFamily]:
             "LM truth acceptance removed; later legacy MAP fields in CSV are not used as Step B evidence",
             "units_consistent_but_legacy",
             STANDARD_CASE_ID,
-            to_float(step_b_row.get("il_position_error_m") if step_b_row else None),
-            to_float(step_b_row.get("lm_position_error_m") if step_b_row else None),
             None,
-            (to_float(step_b_row.get("il_sync_error_s") if step_b_row else None) or 0) * 1e9 if step_b_row else None,
-            (to_float(step_b_row.get("lm_sync_error_s") if step_b_row else None) or 0) * 1e9 if step_b_row else None,
             None,
-            "healthy clean baseline on controlled migration grid",
+            None,
+            None,
+            None,
+            None,
+            "healthy clean baseline on controlled migration grid; primary Nu=3,Ns=10 benchmark missing",
             "use_for_human_review",
             "use_for_human_review",
             "",
@@ -287,12 +296,12 @@ def build_result_families() -> list[ResultFamily]:
             "units_consistent",
             STANDARD_CASE_ID,
             None,
-            to_float(c7_row.get("step_b_position_error_m") if c7_row else None),
-            to_float(c7_row.get("c7_position_error_m") if c7_row else None),
             None,
-            km_clock_to_ns(c7_row.get("step_b_sync_error_km") if c7_row else None),
-            km_clock_to_ns(c7_row.get("c7_sync_error_km") if c7_row else None),
-            "centimeter-level toy/medium diagnostic on selected standard row",
+            None,
+            None,
+            None,
+            None,
+            "medium-grid diagnostic is healthy, but primary Nu=3,Ns=10 benchmark is missing",
             "use_for_human_review",
             "use_for_human_review",
             "",
@@ -310,7 +319,7 @@ def build_result_families() -> list[ResultFamily]:
             "candidate",
             "truth used only for offline metrics; no truth acceptance/covariance/safeguard",
             "units_consistent",
-            "bounded_network_grid_and_sparse_clock_sweep",
+            STANDARD_CASE_ID,
             None,
             None,
             None,
@@ -325,8 +334,8 @@ def build_result_families() -> list[ResultFamily]:
         ResultFamily(
             "c7_manuscript_figure_recreation",
             "outputs/c7_manuscript_figure_recreation",
-            current_branch,
-            current_commit,
+            "codex/c7-manuscript-figure-recreation",
+            "0e6300b",
             "scripts/run_c7_manuscript_figure_recreation.py",
             "package_native_current_manuscript_style_geometry",
             "A1_package_dl_only",
@@ -335,7 +344,7 @@ def build_result_families() -> list[ResultFamily]:
             "candidate",
             "truth used only for offline metrics; no truth acceptance/covariance/safeguard; notebook not executed",
             "units_consistent",
-            "network_nu3_ns4_clock1us_trial0",
+            STANDARD_CASE_ID,
             None,
             to_float(recreation_b.get("position_error_mean_m") if recreation_b else None),
             to_float(recreation_c.get("position_error_mean_m") if recreation_c else None),
@@ -675,9 +684,9 @@ def build_contradictions() -> list[dict[str, Any]]:
             "source_a": "outputs/step_c7_residual_cov_sync_safeguard/raw.csv Nu=3,Ns=4",
             "source_b": "outputs/c7_manuscript_figure_recreation/raw.csv network Nu=3,Ns=4 refined_jcls",
             "numerical_mismatch": f"C7 diagnostic Stage C position {fmt(c7_pos)} m versus C7 manuscript recreation Stage C position {fmt(recreation_pos)} m; ratio about {fmt(ratio)}",
-            "likely_cause": "The rows are not a controlled same-system benchmark: diagnostic medium uses a small deterministic validation setup, while manuscript recreation uses notebook-inspired figure-family settings, different geometry/noise/clock assumptions, and manuscript-style output semantics.",
-            "quarantine_decision": "Do not compare these as evidence of algorithm performance until a normalized benchmark card is run across both paths.",
-            "next_diagnostic_action": "Create a single benchmark runner that drives Step B and C7 through the exact same geometry, noise, links, seeds, and clock sigma.",
+            "likely_cause": "This older contradiction is anchored to the secondary low-satellite stress case, not the primary universal benchmark. The rows are not a controlled same-system benchmark: diagnostic medium uses a small deterministic validation setup, while manuscript recreation uses notebook-inspired figure-family settings, different geometry/noise/clock assumptions, and manuscript-style output semantics.",
+            "quarantine_decision": "Treat the contradiction as unresolved secondary-stress evidence only; do not use it as the primary-standard comparison.",
+            "next_diagnostic_action": "Run the normalized primary benchmark std_nu3_ns10_fullmesh_los_clock1us_seed0 through both pipelines before making any primary-standard claim.",
         },
         {
             "contradiction_id": "legacy_clock_sweep_good_behavior_vs_c7_clock_sweep_instability",
@@ -725,8 +734,106 @@ def build_current_use_decisions(families: list[ResultFamily]) -> list[dict[str, 
     ]
 
 
+def secondary_low_sat_values(result_family: str) -> dict[str, Any]:
+    """Return secondary low-satellite stress metrics when that row exists."""
+    if result_family == "step_b_lm_only_results":
+        row = first_row(
+            read_csv("outputs/migration_ladder/step_b_lm_residual_acceptance/medium/migration_raw.csv"),
+            num_users="3",
+            num_satellites="4",
+        )
+        return {
+            "secondary_low_sat_stage_a_pos_m": to_float(row.get("il_position_error_m") if row else None),
+            "secondary_low_sat_stage_b_pos_m": to_float(row.get("lm_position_error_m") if row else None),
+            "secondary_low_sat_stage_c_pos_m": None,
+            "secondary_low_sat_stage_a_sync_ns": (to_float(row.get("il_sync_error_s") if row else None) or 0) * 1e9 if row else None,
+            "secondary_low_sat_stage_b_sync_ns": (to_float(row.get("lm_sync_error_s") if row else None) or 0) * 1e9 if row else None,
+            "secondary_low_sat_stage_c_sync_ns": None,
+            "secondary_low_sat_status": "available",
+        }
+    if result_family == "c7_residual_cov_sync_safeguard":
+        row = first_row(
+            read_csv("outputs/step_c7_residual_cov_sync_safeguard/raw.csv"),
+            candidate="step_c7_residual_cov_sync_safeguard",
+            num_users="3",
+            num_satellites="4",
+        )
+        return {
+            "secondary_low_sat_stage_a_pos_m": None,
+            "secondary_low_sat_stage_b_pos_m": to_float(row.get("step_b_position_error_m") if row else None),
+            "secondary_low_sat_stage_c_pos_m": to_float(row.get("c7_position_error_m") if row else None),
+            "secondary_low_sat_stage_a_sync_ns": None,
+            "secondary_low_sat_stage_b_sync_ns": km_clock_to_ns(row.get("step_b_sync_error_km") if row else None),
+            "secondary_low_sat_stage_c_sync_ns": km_clock_to_ns(row.get("c7_sync_error_km") if row else None),
+            "secondary_low_sat_status": "available",
+        }
+    if result_family == "c7_manuscript_figure_recreation":
+        rows = read_csv("outputs/c7_manuscript_figure_recreation/raw.csv")
+        row_b = first_row(rows, family="network_size", num_users="3", num_satellites="4", baseline_id="coarse_jcls")
+        row_c = first_row(rows, family="network_size", num_users="3", num_satellites="4", baseline_id="refined_jcls")
+        return {
+            "secondary_low_sat_stage_a_pos_m": None,
+            "secondary_low_sat_stage_b_pos_m": to_float(row_b.get("position_error_mean_m") if row_b else None),
+            "secondary_low_sat_stage_c_pos_m": to_float(row_c.get("position_error_mean_m") if row_c else None),
+            "secondary_low_sat_stage_a_sync_ns": None,
+            "secondary_low_sat_stage_b_sync_ns": to_float(row_b.get("sync_error_ns") if row_b else None),
+            "secondary_low_sat_stage_c_sync_ns": to_float(row_c.get("sync_error_ns") if row_c else None),
+            "secondary_low_sat_status": "available",
+        }
+    return {
+        "secondary_low_sat_stage_a_pos_m": None,
+        "secondary_low_sat_stage_b_pos_m": None,
+        "secondary_low_sat_stage_c_pos_m": None,
+        "secondary_low_sat_stage_a_sync_ns": None,
+        "secondary_low_sat_stage_b_sync_ns": None,
+        "secondary_low_sat_stage_c_sync_ns": None,
+        "secondary_low_sat_status": "not_applicable",
+    }
+
+
+def primary_status_for(row: dict[str, Any]) -> str:
+    """Classify the primary benchmark status for a result-family row."""
+    if row["standard_case_id"] in {"not_applicable_crlb_curve"}:
+        return "not_applicable"
+    if row["result_family"] in {"original_notebook_manuscript_results"}:
+        return "unknown_needs_review"
+    values = [
+        row.get("standard_case_stage_a_pos_m"),
+        row.get("standard_case_stage_b_pos_m"),
+        row.get("standard_case_stage_c_pos_m"),
+        row.get("standard_case_stage_a_sync_ns"),
+        row.get("standard_case_stage_b_sync_ns"),
+        row.get("standard_case_stage_c_sync_ns"),
+    ]
+    if any(value is not None for value in values):
+        return "available"
+    if row["pipeline_class"] == "not_found":
+        return "unknown_needs_review"
+    if row["result_family"] in {"wave_results_exploration", "gnss_baseline_exploration"}:
+        return "unknown_needs_review"
+    return "missing_needs_benchmark_run"
+
+
+def enrich_result_family(family: ResultFamily) -> dict[str, Any]:
+    """Add explicit primary and secondary benchmark fields to a family row."""
+    row = asdict(family)
+    row["primary_standard_case_id"] = PRIMARY_STANDARD_CASE_ID
+    row["primary_standard_stage_a_pos_m"] = row["standard_case_stage_a_pos_m"]
+    row["primary_standard_stage_b_pos_m"] = row["standard_case_stage_b_pos_m"]
+    row["primary_standard_stage_c_pos_m"] = row["standard_case_stage_c_pos_m"]
+    row["primary_standard_stage_a_sync_ns"] = row["standard_case_stage_a_sync_ns"]
+    row["primary_standard_stage_b_sync_ns"] = row["standard_case_stage_b_sync_ns"]
+    row["primary_standard_stage_c_sync_ns"] = row["standard_case_stage_c_sync_ns"]
+    row["primary_standard_status"] = primary_status_for(row)
+    row["secondary_low_sat_case_id"] = SECONDARY_LOW_SAT_CASE_ID
+    row["secondary_low_sat_case_role"] = "secondary_low_satellite_stress_case"
+    row.update(secondary_low_sat_values(row["result_family"]))
+    return row
+
+
 def build_payload() -> dict[str, Any]:
     families = build_result_families()
+    enriched_families = [enrich_result_family(family) for family in families]
     units_review = build_units_review()
     contradictions = build_contradictions()
     unit_counts: dict[str, int] = {}
@@ -739,17 +846,39 @@ def build_payload() -> dict[str, Any]:
         "artifact_status": "result_version_lineage_and_units_review",
         "branch": git_value("branch", "--show-current"),
         "commit": git_value("rev-parse", "--short", "HEAD"),
-        "standard_case_id": STANDARD_CASE_ID,
+        "standard_case_id": PRIMARY_STANDARD_CASE_ID,
+        "primary_standard_case_id": PRIMARY_STANDARD_CASE_ID,
+        "primary_standard_definition": {
+            "case_id": PRIMARY_STANDARD_CASE_ID,
+            "num_users": 3,
+            "num_satellites": 10,
+            "sidelink_graph": "full_mesh",
+            "channel_noise_model": "LOS/Rician when supported by the pipeline",
+            "geometry": "manuscript-like MIT/Stata UE geometry and Starlink-like LEO geometry when supported",
+            "clock_standard_deviation_seconds": 1e-6,
+            "seed": 0,
+            "operation_time_seconds": 0.5,
+            "trial_count": 1,
+            "rationale": PRIMARY_STANDARD_RATIONALE,
+        },
+        "secondary_low_satellite_stress_case": {
+            "case_id": SECONDARY_LOW_SAT_CASE_ID,
+            "role": "secondary_low_satellite_stress_case",
+            "num_users": 3,
+            "num_satellites": 4,
+            "clock_standard_deviation_seconds": 1e-6,
+            "seed": 0,
+        },
         "result_family_count": len(families),
         "unit_status_counts": unit_counts,
         "quarantine_count": quarantine_count,
-        "result_families": [asdict(family) for family in families],
+        "result_families": enriched_families,
         "units_review": units_review,
         "pipeline_tuples": build_pipeline_tuples(),
         "contradictions": contradictions,
         "current_use_decisions": build_current_use_decisions(families),
         "currently_recommended_result_family": "step_b_lm_only_results and c7_residual_cov_sync_safeguard for human review only; no family is manuscript-ready",
-        "next_diagnostic_action": "Create one normalized benchmark-card runner that compares Step B and C7 under identical geometry/noise/clock settings before any manuscript evidence claim.",
+        "next_diagnostic_action": "Build a normalized benchmark-card runner for std_nu3_ns10_fullmesh_los_clock1us_seed0, then run Step B and C7 under identical geometry/noise/clock settings before any manuscript evidence claim.",
     }
 
 
@@ -789,6 +918,23 @@ def write_reports(payload: dict[str, Any]) -> None:
         "standard_case_stage_a_sync_ns",
         "standard_case_stage_b_sync_ns",
         "standard_case_stage_c_sync_ns",
+        "primary_standard_case_id",
+        "primary_standard_status",
+        "primary_standard_stage_a_pos_m",
+        "primary_standard_stage_b_pos_m",
+        "primary_standard_stage_c_pos_m",
+        "primary_standard_stage_a_sync_ns",
+        "primary_standard_stage_b_sync_ns",
+        "primary_standard_stage_c_sync_ns",
+        "secondary_low_sat_case_id",
+        "secondary_low_sat_case_role",
+        "secondary_low_sat_status",
+        "secondary_low_sat_stage_a_pos_m",
+        "secondary_low_sat_stage_b_pos_m",
+        "secondary_low_sat_stage_c_pos_m",
+        "secondary_low_sat_stage_a_sync_ns",
+        "secondary_low_sat_stage_b_sync_ns",
+        "secondary_low_sat_stage_c_sync_ns",
         "rough_performance_tag",
         "readiness",
         "recommended_use",
@@ -802,6 +948,7 @@ def write_reports(payload: dict[str, Any]) -> None:
         "",
         f"- Result families covered: `{payload['result_family_count']}`",
         f"- Standard benchmark label: `{payload['standard_case_id']}`",
+        f"- Secondary low-satellite stress case: `{payload['secondary_low_satellite_stress_case']['case_id']}`",
         f"- Units-consistent families: `{payload['unit_status_counts'].get('units_consistent', 0)}`",
         f"- Units-uncertain families: `{payload['unit_status_counts'].get('units_uncertain', 0)}`",
         f"- Quarantined/debug-only/not-use families: `{payload['quarantine_count']}`",
@@ -847,7 +994,18 @@ def write_reports(payload: dict[str, Any]) -> None:
     lines += [
         "",
         "## Standard Benchmark Section",
-        f"The requested benchmark label is `{payload['standard_case_id']}`. Several historical families do not expose that exact case; those rows are explicitly marked `unknown`, `not_applicable`, or with a family-specific benchmark label.",
+        f"The primary universal benchmark label is `{payload['primary_standard_case_id']}`.",
+        "",
+        "The primary standard case is defined as `N_u=3`, `N_s=10`, full-mesh sidelinks, LOS/Rician where supported, manuscript-like MIT/Stata UE geometry and Starlink-like LEO geometry where supported, clock standard deviation `1 microsecond`, seed `0`, operation time `0.5 s` when Stage C/dynamic update is available, and one trial for the standard fingerprint.",
+        "",
+        "Rationale:",
+        *[f"- {item}." for item in payload["primary_standard_definition"]["rationale"]],
+        "",
+        f"The old `{payload['secondary_low_satellite_stress_case']['case_id']}` benchmark is retained only as `{payload['secondary_low_satellite_stress_case']['role']}`. It remains useful for low-satellite observability stress testing, but it is no longer the primary universal fingerprint.",
+        "",
+        "If a pipeline lacks the primary `N_u=3,N_s=10` row, `primary_standard_status` is marked `missing_needs_benchmark_run`, `unsupported`, `not_applicable`, or `unknown_needs_review`. The secondary low-satellite row is never substituted into the primary fields.",
+        "",
+        "Next required diagnostic: build normalized benchmark-card runner for `std_nu3_ns10_fullmesh_los_clock1us_seed0`.",
         "",
         "## Current-Use Decision",
         *md_table(["result_family", "current_use_status", "decision", "reason"], payload["current_use_decisions"]),
@@ -866,14 +1024,27 @@ def write_reports(payload: dict[str, Any]) -> None:
         "",
         "- [RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md](../reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md)",
         "- [RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json](../reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json)",
+        "- [RESULT_REGISTRY.json](RESULT_REGISTRY.json)",
         "",
         "Every new result family must include a pipeline tuple, unit verdict, readiness status, and recommended-use status before it is discussed as evidence.",
         "",
+        f"Primary standard case: `{payload['primary_standard_case_id']}`.",
+        f"Secondary low-satellite stress case: `{payload['secondary_low_satellite_stress_case']['case_id']}`.",
+        "",
         "## Registered Families",
-        *md_table(["result_family", "output_root", "system_model_version", "stage_a_version", "stage_b_version", "stage_c_version", "units_status", "readiness", "recommended_use"], payload["result_families"]),
+        *md_table(["result_family", "output_root", "system_model_version", "stage_a_version", "stage_b_version", "stage_c_version", "primary_standard_case_id", "primary_standard_status", "secondary_low_sat_case_id", "secondary_low_sat_status", "units_status", "readiness", "recommended_use"], payload["result_families"]),
         "",
     ]
     (REGISTRY / "RESULT_REGISTRY.md").write_text("\n".join(registry_lines), encoding="utf-8")
+    registry_payload = {
+        "artifact_status": "result_registry",
+        "primary_standard_case_id": payload["primary_standard_case_id"],
+        "secondary_low_satellite_stress_case": payload["secondary_low_satellite_stress_case"],
+        "result_families": payload["result_families"],
+        "lineage_units_review_md": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md",
+        "lineage_units_review_json": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json",
+    }
+    (REGISTRY / "RESULT_REGISTRY.json").write_text(json.dumps(registry_payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
 def main() -> None:

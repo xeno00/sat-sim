@@ -20,7 +20,10 @@ Canonical graph-package outputs now live under `outputs/`. Existing `v24_*` fold
 ## Mandatory Result Bookkeeping
 - [Result lineage and units review](reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md) is the first-stop provenance and units artifact for all major result families.
 - [Result registry](registry/RESULT_REGISTRY.md) lists the registered result families and their system/stage tuples.
-- New result families must include a pipeline tuple, units verdict, readiness status, and recommended-use status before they are discussed as evidence.
+- [Result registry JSON](registry/RESULT_REGISTRY.json) provides machine-readable primary/secondary standard-case fields.
+- Primary standard case: `std_nu3_ns10_fullmesh_los_clock1us_seed0`.
+- Secondary low-satellite stress case only: `std_nu3_ns4_fullmesh_los_clock1us_seed0`.
+- New result families must include a pipeline tuple, units verdict, readiness status, recommended-use status, and primary-standard status before they are discussed as evidence.
 
 ## Current Best Graphs
 - [Corrected LOS localization CRLB replay](legacy_replay/crlb_los/pos_crlb_0dB_0dB.pdf) - legacy replay, not V24-clean
