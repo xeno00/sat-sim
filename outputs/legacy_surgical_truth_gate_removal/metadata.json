@@ -1,0 +1,272 @@
+{
+  "manuscript_ready": false,
+  "non_final_diagnostic": true,
+  "output_root": "outputs\\legacy_surgical_truth_gate_removal",
+  "script": "scripts\\run_legacy_surgical_truth_gate_removal.py",
+  "script_sha256": "3b873e1c2edaa07cbc678316d9b6d5dc419e09db75fc163f49a985e8207bcca3",
+  "notebook_path": "JCLS_Simulation.ipynb",
+  "notebook_sha256": "39a3b434a64fa8631df287a980e3e2330824c6bec3e4e3c014095399dcff9916",
+  "extracted_cell_hashes": [
+    {
+      "cell_index_zero_based": 7,
+      "cell_number_one_based": 8,
+      "name": "Node",
+      "sha256": "2a9b6f743de67706553f482b2d1fb449bdf24ae36c5fa9fd0a76c77af9858ee5"
+    },
+    {
+      "cell_index_zero_based": 9,
+      "cell_number_one_based": 10,
+      "name": "User",
+      "sha256": "8ee038f5f0b8aaed570bf4729c53c0d67c842478413a372c16b1de8be2e816d8"
+    },
+    {
+      "cell_index_zero_based": 11,
+      "cell_number_one_based": 12,
+      "name": "Satellite",
+      "sha256": "f455ec76acc4adee13494f100f420e17e0996d4986190fc1e76f6105ff0453b3"
+    },
+    {
+      "cell_index_zero_based": 13,
+      "cell_number_one_based": 14,
+      "name": "Datalink",
+      "sha256": "a146f6f4003b1981cc633c52ab82288726dcac3139f654e572ba0f2d91bf5e15"
+    },
+    {
+      "cell_index_zero_based": 15,
+      "cell_number_one_based": 16,
+      "name": "Scenario",
+      "sha256": "7ff80bf541d3858e2a67af7be975c651f420d474a40dad511d3b1d96f067b8f0"
+    },
+    {
+      "cell_index_zero_based": 17,
+      "cell_number_one_based": 18,
+      "name": "Optimizer",
+      "sha256": "f9ebfc9ad0ed2058ab952224628dba43cb8619e8532ee1d855330e3337f9a7d8"
+    },
+    {
+      "cell_index_zero_based": 25,
+      "cell_number_one_based": 26,
+      "name": "fit_helpers",
+      "sha256": "12a61f043dbb13bdc220ecb1edc54b3fd72562b0c663bf14feca348227e0ce6c"
+    }
+  ],
+  "executed_cell_counts": {
+    "legacy_exact_truth_gated": 7,
+    "legacy_nontruth_lm": 7,
+    "legacy_surgical_nontruth": 7
+  },
+  "cases": [
+    {
+      "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+      "num_users": 3,
+      "num_satellites": 10,
+      "clock_std_dev_seconds": 1e-06,
+      "seed": 0,
+      "map_iterations": 2,
+      "error_range_km": 100.0,
+      "sidelink_topology": "fullmesh",
+      "propagation": "legacy_los_rician"
+    },
+    {
+      "case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+      "num_users": 3,
+      "num_satellites": 4,
+      "clock_std_dev_seconds": 1e-06,
+      "seed": 0,
+      "map_iterations": 2,
+      "error_range_km": 100.0,
+      "sidelink_topology": "fullmesh",
+      "propagation": "legacy_los_rician"
+    },
+    {
+      "case_id": "std_nu3_ns10_fullmesh_los_clock10ns_seed0",
+      "num_users": 3,
+      "num_satellites": 10,
+      "clock_std_dev_seconds": 1e-08,
+      "seed": 0,
+      "map_iterations": 2,
+      "error_range_km": 100.0,
+      "sidelink_topology": "fullmesh",
+      "propagation": "legacy_los_rician"
+    }
+  ],
+  "pipelines": [
+    {
+      "label": "legacy_exact_truth_gated",
+      "description": "Exact legacy notebook staged flow with legacy truth-gated LM and truth-derived MAP covariance/acceptance.",
+      "residual_lm": false,
+      "map_enabled": true,
+      "nontruth_map": false,
+      "status": "legacy provenance only; not deployable; not manuscript algorithm evidence",
+      "algorithmic_truth_use": "legacy_reproduction_truth_use_only",
+      "truth_state_used_for_initialization": true,
+      "truth_state_used_for_lm_acceptance": true,
+      "truth_state_used_for_map_covariance": true,
+      "truth_state_used_for_map_acceptance": true,
+      "truth_state_used_for_metrics": true
+    },
+    {
+      "label": "legacy_nontruth_lm",
+      "description": "Legacy IL and LM flow with residual/trust-region LM acceptance; Stage C is intentionally not run.",
+      "residual_lm": true,
+      "map_enabled": false,
+      "nontruth_map": false,
+      "status": "Stage B deployability diagnostic",
+      "algorithmic_truth_use": "algorithmic_truth_use_remove_for_lm; legacy_initialization_truth_preserved",
+      "truth_state_used_for_initialization": true,
+      "truth_state_used_for_lm_acceptance": false,
+      "truth_state_used_for_map_covariance": false,
+      "truth_state_used_for_map_acceptance": false,
+      "truth_state_used_for_metrics": true
+    },
+    {
+      "label": "legacy_surgical_nontruth",
+      "description": "Legacy IL/LM flow with residual/trust-region LM acceptance and residual-scaled information covariance for MAP.",
+      "residual_lm": true,
+      "map_enabled": true,
+      "nontruth_map": true,
+      "status": "surgical non-truth Stage A/B/C diagnostic",
+      "algorithmic_truth_use": "algorithmic_truth_use_remove_for_lm_map; legacy_initialization_truth_preserved",
+      "truth_state_used_for_initialization": true,
+      "truth_state_used_for_lm_acceptance": false,
+      "truth_state_used_for_map_covariance": false,
+      "truth_state_used_for_map_acceptance": false,
+      "truth_state_used_for_metrics": true
+    }
+  ],
+  "truth_use_inventory": [
+    {
+      "component": "Legacy initialization",
+      "source": "JCLS_Simulation.ipynb:1243-1255",
+      "legacy_behavior": "Samples UE initial positions around true UE positions.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "preserved by explicit branch constraint to keep legacy initial state logic",
+      "l2": "preserved by explicit branch constraint to keep legacy initial state logic"
+    },
+    {
+      "component": "LM acceptance",
+      "source": "JCLS_Simulation.ipynb:1413",
+      "legacy_behavior": "Accepts LM candidate only if true-state norm decreases.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "replaced by residual/trust-region acceptance",
+      "l2": "replaced by residual/trust-region acceptance"
+    },
+    {
+      "component": "check_output reversion",
+      "source": "JCLS_Simulation.ipynb:1287-1297,1551",
+      "legacy_behavior": "Returns initial state when final true-state error is worse.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "not used for residual-LM path",
+      "l2": "not used for residual-LM path"
+    },
+    {
+      "component": "MAP covariance",
+      "source": "JCLS_Simulation.ipynb:1258-1265",
+      "legacy_behavior": "Builds diagonal covariance from squared true-state error.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "Stage C not run",
+      "l2": "replaced by residual-scaled information pseudoinverse"
+    },
+    {
+      "component": "MAP acceptance/reversion",
+      "source": "JCLS_Simulation.ipynb:1728-1738",
+      "legacy_behavior": "Compares candidate and prior by true-state error.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "Stage C not run",
+      "l2": "replaced by observable residual/covariance checks"
+    },
+    {
+      "component": "Offline localization/synchronization metrics",
+      "source": "JCLS_Simulation.ipynb:1567-1620",
+      "legacy_behavior": "Computes reported errors against true state.",
+      "classification": "offline_metric_truth_use_ok",
+      "l0": "used for metrics only",
+      "l1": "used for metrics only",
+      "l2": "used for metrics only"
+    },
+    {
+      "component": "CRLB/Jacobian diagnostics at true state",
+      "source": "JCLS_Simulation.ipynb:2913,3500",
+      "legacy_behavior": "Evaluates diagnostics at the true state in separate notebook analysis cells.",
+      "classification": "legacy_reproduction_truth_use_only",
+      "l0": "not used by this runner",
+      "l1": "not used by this runner",
+      "l2": "not used by this runner"
+    }
+  ],
+  "units_ledger": [
+    {
+      "item": "Position/range state",
+      "unit": "kilometer internally",
+      "legacy_source": "Scenario node coordinates and range-domain measurement model",
+      "surgical_policy": "preserved; output localization metric is converted to meters by legacy helper"
+    },
+    {
+      "item": "Range-like measurements",
+      "unit": "kilometer-equivalent legacy TOA/range residual",
+      "legacy_source": "Scenario.h/query_measurements from extracted notebook",
+      "surgical_policy": "preserved; no gauge or unit cleanup in this branch"
+    },
+    {
+      "item": "Clock state",
+      "unit": "range-equivalent kilometer in symbolic delta entries",
+      "legacy_source": "sampled in seconds, converted by legacy c=300000 km/s convention",
+      "surgical_policy": "preserved"
+    },
+    {
+      "item": "Synchronization metric display",
+      "unit": "nanoseconds",
+      "legacy_source": "all-clock mean absolute range-equivalent delta error divided back to seconds, then multiplied by 1e9",
+      "surgical_policy": "reported as ns in raw/summary while retaining seconds fields where useful; not V24 reference-relative RMSE"
+    },
+    {
+      "item": "Initialization perturbation",
+      "unit": "kilometer-scale error_range argument",
+      "legacy_source": "optimizer.initialize_state(..., error_range=100.0)",
+      "surgical_policy": "preserved"
+    },
+    {
+      "item": "Speed of light constant",
+      "unit": "legacy notebook uses approximate 300000 km/s; package constant is km/s",
+      "legacy_source": "C_KM_PER_S=299792.458",
+      "surgical_policy": "ledger only; no unit conversion introduced"
+    },
+    {
+      "item": "Measurement covariance/noise",
+      "unit": "km^2 covariance after seconds-to-km conversion",
+      "legacy_source": "Rician TOA variance in seconds^2 converted by (3e8/1000)^2",
+      "surgical_policy": "preserved"
+    },
+    {
+      "item": "Parameter ordering",
+      "unit": "lexicographic symbolic order",
+      "legacy_source": "symbolic_parameter_vector",
+      "surgical_policy": "preserved because metric slicing depends on it"
+    }
+  ],
+  "figures": {
+    "legacy_surgical_stage_error_comparison": [
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_stage_error_comparison.png",
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_stage_error_comparison.pdf"
+    ],
+    "legacy_surgical_lm_cost_trace": [
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_lm_cost_trace.png",
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_lm_cost_trace.pdf"
+    ],
+    "legacy_surgical_truth_use_map": [
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_truth_use_map.png",
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_truth_use_map.pdf"
+    ]
+  },
+  "runtime_s": 279.880794699995,
+  "protected_file_policy": {
+    "notebook_edited": false,
+    "manuscript_files_edited": false,
+    "existing_manuscript_result_files_edited": false
+  }
+}
