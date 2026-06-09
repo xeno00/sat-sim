@@ -11,6 +11,12 @@ may be used when helpful. Parallel edit-capable work requires Git
 branch/worktree isolation, explicit file ownership, and coordinator-owned
 integration/merge decisions.
 
+Merge/disposition discipline is mandatory. A Codex task branch is not complete
+merely because it was pushed; it must be merged to `main`, parked, superseded,
+quarantined, or explicitly left awaiting human review. The protected-file
+checker is `scripts/check_protected_files.py`, and branch inventory/disposition
+reports live under `outputs/reports/`.
+
 Python tests use the active Python runtime directly. The workflow intentionally
 does not create virtual environments or bootstrap scripts; if standard
 scientific test packages are missing, Codex installs the minimal needed
@@ -24,6 +30,11 @@ code-gauge/provenance review before final confidence. Do not edit manuscript or
 response-letter files from this code workflow.
 
 ## Code status
+
+Integration compliance branch `codex/integration-compliance-and-merge-discipline`
+merged the reviewed C7 manuscript-recreation and lineage/units branch into the
+integration branch, inventoried active/recent Codex branches, and added process
+rules requiring explicit branch disposition before task completion.
 
 Gauge/metrics package and tests are implemented. Measurement-model and explicit
 V24 parameter-vector helpers/tests are implemented. Jacobian and gauged FIM
