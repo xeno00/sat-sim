@@ -1,16 +1,14 @@
-MODE: PLAN_ONLY
+MODE: REVIEW_DIFF
 
-# Next Task: Remaining Benchmark Adapter Boundaries
+# Next Task: Review Minimal Corrected Legacy Primary Row
 
 ## Purpose
 
-Design the next safe adapter implementation step for the normalized benchmark-card
-runner after the first `package_native_c7` primary-standard card.
+Review the new minimal corrected legacy-compatible result pipeline before
+running sparse manuscript-targeted rows.
 
-The first adapter branch produced non-final benchmark cards under
-`outputs/standard_benchmark_cards/`. Only `package_native_c7` is currently
-executable from core `jcls_sim`; the other registered pipelines are represented
-with explicit missing metrics and missing reasons.
+This task should decide whether the primary standard row is credible enough to
+justify running `--mode sparse-manuscript`.
 
 Do not generate manuscript figures. Do not run broad sweeps. Do not edit
 manuscript source, response letters, bibliography, notebook source, PSFrag,
@@ -19,63 +17,43 @@ result files.
 
 ## Required Inputs
 
-- `outputs/reports/NORMALIZED_BENCHMARK_ADAPTER_IMPLEMENTATION_REPORT.md`
-- `outputs/reports/NORMALIZED_STANDARD_BENCHMARK_REPORT.md`
-- `outputs/standard_benchmark_cards/PIPELINE_MANIFEST.md`
-- `outputs/standard_benchmark_cards/raw.csv`
-- `outputs/standard_benchmark_cards/summary.csv`
-- `outputs/reports/PIPELINE_DOWNSELECT_REPORT.md`
-- `outputs/reports/STANDARD_SCENARIO_PIPELINE_SCORECARD.md`
-- `outputs/reports/MISSING_STANDARD_METRICS.md`
-- `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md`
-- `outputs/registry/RESULT_REGISTRY.md`
-- `outputs/reports/JCLS_SIM_PIPELINE_INTEGRATION_PLAN.md`
-- `outputs/reports/PIPELINE_CODE_DUPLICATION_AUDIT.md`
+- `scripts/minimal_legacy_corrected_jcls.py`
+- `outputs/minimal_legacy_corrected/raw.csv`
+- `outputs/minimal_legacy_corrected/summary.csv`
+- `outputs/minimal_legacy_corrected/metadata.json`
+- `outputs/minimal_legacy_corrected/PIPELINE_MANIFEST.md`
+- `outputs/reports/MINIMAL_LEGACY_CORRECTED_PIPELINE_REPORT.md`
+- `tests/test_minimal_legacy_corrected.py`
+
+## Review Questions
+
+1. Does the script remain a minimal corrected legacy-compatible runner rather
+   than a new framework?
+2. Are forbidden truth-use flags false?
+3. Is truth use limited to prior construction and offline metrics?
+4. Is the residual/trust-region LM path used?
+5. Is MAP covariance non-truth residual-scaled information covariance?
+6. Does the primary row satisfy the first-run success criteria?
+7. Is Step B already sufficient?
+8. Does Step C improve Step B without a new truth gate?
+9. Is sparse manuscript mode prepared but not executed?
+10. Should sparse manuscript mode be run next?
+
+## If Review Passes
+
+Recommended next implementation command:
+
+```powershell
+python scripts\minimal_legacy_corrected_jcls.py --run --mode sparse-manuscript --prior-radius-m 100000 --output-root outputs\minimal_legacy_corrected --force
+```
+
+Only run this after human approval or a clean review result.
 
 ## Branch Ledger Policy
 
 `outputs/reports/ACTIVE_BRANCH_LEDGER.md` and
 `outputs/reports/ACTIVE_BRANCH_LEDGER.json` are the canonical live branch-status
 source. Update them whenever branch disposition changes.
-
-A branch with unique work must have one of: merged to main, open PR, parked with
-reason, quarantined with reason, superseded with replacement, or deleted after
-safe disposition. A pushed branch alone is not a valid final state.
-
-## Recommended Next Action
-
-Plan the smallest next implementation that can make the normalized benchmark
-card more scientifically useful without moving legacy notebook execution hooks
-into core `jcls_sim`.
-
-Prioritize:
-
-1. A safe `controlled_migration_step_b_lm_only` adapter boundary if it can call
-   existing reusable code without notebook execution.
-2. A safe `legacy_surgical_prior_region` adapter boundary if the merged code is
-   accessible from main without copying legacy notebook execution into
-   `jcls_sim`.
-3. Keeping `legacy_truth_gated_l0_reference_only` as provenance/reference only
-   unless a read-only external adapter can report metrics with strong truth-use
-   caveats.
-
-The next implementation must preserve:
-
-- pipeline tuple fields;
-- truth-use fields;
-- units fields;
-- readiness/recommended-use fields;
-- missing metric reasons;
-- primary case `std_nu3_ns10_fullmesh_los_clock1us_seed0`.
-
-## Stop Gates
-
-- Need for broad simulations or manuscript figure generation.
-- Need to edit protected manuscript/result files without explicit approval.
-- Need to move legacy notebook execution hooks into `jcls_sim` before an adapter
-  boundary is designed and tested.
-- Need to substitute the secondary low-satellite stress case for the primary
-  standard case.
 
 ## Final Response Checklist
 
@@ -86,9 +64,7 @@ Pushed:
 PR:
 PR status:
 Merged to main:
-Merge commit:
 If not merged, disposition:
-If not merged, reason:
 Tests:
 Protected-file check:
 Reports/outputs:

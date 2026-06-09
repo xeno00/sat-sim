@@ -1,0 +1,185 @@
+{
+  "c5_sliding_window_map_used": false,
+  "covariance_replacement": "Residual-scaled information pseudoinverse with the merged step_c3 residual-scaled covariance policy.",
+  "first_run_success_criteria": {
+    "step_b_localization_lt_1m": true,
+    "step_c_localization_lt_1m": true,
+    "step_c_not_catastrophically_worse_than_step_b": true,
+    "truth_derived_covariance_removed": true,
+    "truth_gates_removed": true
+  },
+  "legacy_behavior_preserved": [
+    "legacy all-clock internal state",
+    "legacy notebook/extracted Scenario and Optimizer classes",
+    "legacy measurement ordering and units",
+    "legacy IL/LM/MAP stage sequence"
+  ],
+  "metadata": {
+    "case_count": 1,
+    "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+    "clock_std_seconds": 1e-06,
+    "diagnostic_only": true,
+    "git_commit": "0e7371b",
+    "manuscript_ready": false,
+    "metric_version": "legacy_all_clock_metric_pending_v24_reference_relative_recompute",
+    "not_for_submission": true,
+    "num_satellites": 10,
+    "num_users": 3,
+    "prior_mode": "prior_ball_R0",
+    "prior_radius_m": 100000.0,
+    "raw_csv": "outputs/minimal_legacy_corrected/raw.csv",
+    "row_count": 1,
+    "runtime_s": 38.80068929999834,
+    "seed": 0,
+    "source_notebook_or_export": "JCLS_Simulation.ipynb",
+    "source_script": "scripts/minimal_legacy_corrected_jcls.py",
+    "sparse_grid_definition": {
+      "clock_sweep": {
+        "clock_std_seconds": [
+          1e-09,
+          1e-07,
+          1e-06,
+          0.0001
+        ],
+        "num_satellites": 10,
+        "num_users": 3,
+        "seed": 0
+      },
+      "network_size": {
+        "clock_std_seconds": 1e-06,
+        "num_satellites": [
+          4,
+          8,
+          10,
+          12,
+          14
+        ],
+        "num_users": [
+          3,
+          5,
+          7
+        ],
+        "seed": 0
+      }
+    },
+    "sparse_manuscript_executed": false,
+    "sparse_manuscript_run": false,
+    "stage_a_version": "A0_prior_region_il",
+    "stage_b_version": "B1_residual_trust_region_lm_no_truth_gate",
+    "stage_c_version": "C_surgical_residual_scaled_info_map",
+    "summary_csv": "outputs/minimal_legacy_corrected/summary.csv",
+    "system_model_version": "legacy_compatible_all_clock",
+    "trace_jsonl": "outputs/minimal_legacy_corrected/trace.jsonl",
+    "truth_use_blocker": false,
+    "truth_used_for_covariance": false,
+    "truth_used_for_fallback_or_reversion": false,
+    "truth_used_for_initialization": false,
+    "truth_used_for_lm_acceptance": false,
+    "truth_used_for_offline_metrics": true,
+    "truth_used_for_prior_construction": true,
+    "truth_used_for_step_c_acceptance": false,
+    "units_ledger": {
+      "clock_sigma_input_units": "seconds",
+      "internal_clock_state_units": "legacy range-equivalent km",
+      "internal_position_units": "km",
+      "localization_error_units": "m",
+      "measurement_covariance_units": "legacy km^2/range-domain covariance",
+      "measurement_units": "km",
+      "synchronization_error_units": "ns",
+      "units_status": "units_consistent_but_legacy"
+    },
+    "units_version": "legacy_km_range_equivalent_clock_units_with_m_ns_reporting"
+  },
+  "primary_standard_case_results": {
+    "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+    "clock_std_seconds": 1e-06,
+    "failure_count": 0,
+    "failure_reason": "",
+    "fallback_count": 0,
+    "initialization_failure_reason": "initialization_sync_metric_not_reported_by_legacy_initializer",
+    "initialization_localization_error_m": 69095.17702453087,
+    "initialization_stage_success": true,
+    "initialization_synchronization_error_ns": null,
+    "lm_acceptance_mode": "residual_trust_region",
+    "map_covariance_mode": "residual_scaled_information_pseudoinverse",
+    "map_update_mode": "observable_residual_covariance_checks",
+    "metric_version": "legacy_all_clock_metric_pending_v24_reference_relative_recompute",
+    "num_satellites": 10,
+    "num_users": 3,
+    "pipeline": "legacy_surgical_nontruth",
+    "prior_mode": "prior_ball_R0",
+    "prior_radius_m": 100000.0,
+    "row_type": "primary_standard",
+    "seed": 0,
+    "sparse_row_type": "primary",
+    "stage_a_version": "A0_prior_region_il",
+    "stage_b_residual_cost_after": 7.776311448438621,
+    "stage_b_residual_cost_before": 27101043023189.965,
+    "stage_b_version": "B1_residual_trust_region_lm_no_truth_gate",
+    "stage_c_version": "C_surgical_residual_scaled_info_map",
+    "step_a_failure_reason": "",
+    "step_a_localization_error_m": 566.249140452735,
+    "step_a_stage_success": true,
+    "step_a_synchronization_error_ns": 1253.462631089372,
+    "step_b_failure_reason": "",
+    "step_b_localization_error_m": 0.0744502771727543,
+    "step_b_stage_success": true,
+    "step_b_synchronization_error_ns": 491.1531460309657,
+    "step_c_failure_reason": "",
+    "step_c_localization_error_m": 0.03623739136921989,
+    "step_c_stage_success": true,
+    "step_c_synchronization_error_ns": 491.15314406554756,
+    "system_model_version": "legacy_compatible_all_clock",
+    "truth_use_blocker": false,
+    "truth_used_for_covariance": false,
+    "truth_used_for_fallback_or_reversion": false,
+    "truth_used_for_initialization": false,
+    "truth_used_for_lm_acceptance": false,
+    "truth_used_for_offline_metrics": true,
+    "truth_used_for_prior_construction": true,
+    "truth_used_for_step_c_acceptance": false,
+    "units_version": "legacy_km_range_equivalent_clock_units_with_m_ns_reporting"
+  },
+  "safe_claims": [
+    "Corrected pipeline uses truth only for simulated prior construction and offline metrics.",
+    "Primary standard case was run as a single row, not a sweep.",
+    "Outputs are non-final and not manuscript-ready."
+  ],
+  "should_become_manuscript_result_pipeline": "needs_review",
+  "sparse_manuscript_targeted_run_status": "prepared_not_executed",
+  "step_b_sufficient": true,
+  "step_c_improves_step_b": {
+    "localization": true,
+    "synchronization": true
+  },
+  "summary": [
+    {
+      "row_count": 1,
+      "row_type": "primary_standard",
+      "sparse_row_type": "primary",
+      "step_b_localization_error_m_mean": 0.0744502771727543,
+      "step_b_synchronization_error_ns_mean": 491.1531460309657,
+      "step_c_improves_step_b_localization_count": 1,
+      "step_c_improves_step_b_sync_count": 1,
+      "step_c_localization_error_m_mean": 0.03623739136921989,
+      "step_c_synchronization_error_ns_mean": 491.15314406554756
+    }
+  ],
+  "truth_gates_removed": [
+    "Stage A truth-output reversion replaced by finite residual completion",
+    "LM truth-error acceptance replaced by residual/trust-region acceptance",
+    "MAP covariance uses residual-scaled information pseudoinverse, not x-true_state error"
+  ],
+  "unsafe_claims": [
+    "Do not claim this is a final manuscript result pipeline until sparse and multi-seed validation pass.",
+    "Do not claim V24 reference-relative synchronization metrics; these are legacy all-clock metrics.",
+    "Do not claim no truth is used anywhere; truth is used to center the simulated prior region."
+  ],
+  "what_this_replaces_if_successful": [
+    "package-native C7 figure recreation path",
+    "broad C0-C7 exploratory variants",
+    "gallery outputs",
+    "root-level v24_* generated outputs",
+    "redundant benchmark glue"
+  ]
+}

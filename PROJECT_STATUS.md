@@ -2,8 +2,8 @@
 
 ## Current phase
 
-sat-sim result-pipeline downselect and normalized primary benchmark-card
-preparation for V24 manuscript-result provenance.
+sat-sim minimal corrected legacy-compatible result-pipeline validation for V24
+manuscript-result provenance.
 
 ## Workflow status
 
@@ -114,6 +114,18 @@ The first primary-standard benchmark-card result for
 `4287.922982486913 m` / `3879.7855148947906 ns`. Step C slightly improves over
 Step B on this card, but both underperform Step A; this is interface evidence,
 not manuscript-result evidence.
+
+A minimal corrected legacy-compatible pipeline is implemented on branch
+`codex/minimal-legacy-corrected-pipeline`. See
+`outputs/reports/MINIMAL_LEGACY_CORRECTED_PIPELINE_REPORT.md`. It preserves the
+legacy all-clock model/order/units and prior-region initialization path while
+removing truth-gated LM/MAP decisions and truth-derived covariance. On the
+primary case `std_nu3_ns10_fullmesh_los_clock1us_seed0` with `R0=100 km`, it
+reports initialization localization `69095.17702453087 m`, Step A
+`566.249140452735 m` / `1253.462631089372 ns`, Step B
+`0.0744502771727543 m` / `491.1531460309657 ns`, and Step C
+`0.03623739136921989 m` / `491.15314406554756 ns`. Sparse manuscript mode is
+prepared but not executed.
 
 Gauge/metrics package and tests are implemented. Measurement-model and explicit
 V24 parameter-vector helpers/tests are implemented. Jacobian and gauged FIM
