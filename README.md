@@ -65,6 +65,18 @@ python scripts\minimal_legacy_corrected_jcls.py --list-plan --mode sparse-manusc
 Sparse manuscript execution is available but should be treated as a bounded
 candidate-data run, not final figure generation.
 
+Generate manuscript-style sparse candidate plots from an existing sparse run:
+
+```powershell
+python scripts\minimal_legacy_corrected_jcls.py --mode sparse-manuscript --output-root outputs\minimal_legacy_corrected --plot-sparse-figures
+```
+
+The plotting layer writes non-final Fig. 4--7 traceability plots under:
+
+```text
+outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/
+```
+
 ## Output Policy
 
 Outputs from this repository are non-final unless explicitly reviewed and

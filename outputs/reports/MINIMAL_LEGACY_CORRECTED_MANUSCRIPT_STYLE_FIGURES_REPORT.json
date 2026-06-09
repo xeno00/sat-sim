@@ -1,0 +1,93 @@
+{
+  "artifact_status": "non_final_sparse_manuscript_style_candidate_figures",
+  "caveats": [
+    "These are non-final sparse candidate figures for human review only.",
+    "Fig. 4/5 use the sparse Step A N_u=3 curve as the without-cooperation reference because the sparse run did not include N_u=1.",
+    "Synchronization metric remains legacy all-clock pending V24 reference-relative recompute.",
+    "The sparse run used one seed and no Monte Carlo averaging."
+  ],
+  "diagnostic_only": true,
+  "figure_root": "outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures",
+  "git_commit": "d5db938",
+  "manuscript_ready": false,
+  "not_for_submission": true,
+  "outputs": {
+    "fig4_pos_vary_ues": {
+      "pdf": "outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/fig4_pos_vary_ues_sparse_candidate.pdf",
+      "png": "outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/fig4_pos_vary_ues_sparse_candidate.png"
+    },
+    "fig5_sync_vary_ues": {
+      "pdf": "outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/fig5_sync_vary_ues_sparse_candidate.pdf",
+      "png": "outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/fig5_sync_vary_ues_sparse_candidate.png"
+    },
+    "fig6_pos_vary_clock": {
+      "pdf": "outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/fig6_pos_vary_clock_sparse_candidate.pdf",
+      "png": "outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/fig6_pos_vary_clock_sparse_candidate.png"
+    },
+    "fig7_sync_vary_clock": {
+      "pdf": "outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/fig7_sync_vary_clock_sparse_candidate.pdf",
+      "png": "outputs/minimal_legacy_corrected/sparse_manuscript/manuscript_style_figures/fig7_sync_vary_clock_sparse_candidate.png"
+    }
+  },
+  "source_metadata_json": "outputs/minimal_legacy_corrected/sparse_manuscript/metadata.json",
+  "source_notebook_or_export": "JCLS_Simulation.ipynb",
+  "source_raw_csv": "outputs/minimal_legacy_corrected/sparse_manuscript/raw.csv",
+  "source_script": "scripts/minimal_legacy_corrected_jcls.py",
+  "style_source": {
+    "manuscript_source": "../Work-In-Progress/SCL-NTN-TAES-2025-V26.tex",
+    "notebook_helper": "ieee_flexible_plot",
+    "notes": [
+      "IEEE-sized serif figures, hollow markers, thin lines, compact legends.",
+      "Sparse data are plotted directly; no smoothing, fitting, or manuscript PSFrag generation is applied."
+    ]
+  },
+  "traceability": [
+    {
+      "candidate_stem": "fig4_pos_vary_ues_sparse_candidate",
+      "figure_number": "Fig. 4",
+      "legacy_filename": "pos_vary_ues.pdf",
+      "manuscript_label": "fig:pos_sats",
+      "metric": "localization_vs_satellites"
+    },
+    {
+      "candidate_stem": "fig5_sync_vary_ues_sparse_candidate",
+      "figure_number": "Fig. 5",
+      "legacy_filename": "sync_vary_ues.pdf",
+      "manuscript_label": "fig:sync_sats",
+      "metric": "synchronization_vs_satellites"
+    },
+    {
+      "candidate_stem": "fig6_pos_vary_clock_sparse_candidate",
+      "figure_number": "Fig. 6",
+      "legacy_filename": "pos_vary_clock.pdf",
+      "manuscript_label": "fig:pos_clocks",
+      "metric": "localization_vs_clock_std"
+    },
+    {
+      "candidate_stem": "fig7_sync_vary_clock_sparse_candidate",
+      "figure_number": "Fig. 7",
+      "legacy_filename": "sync_vary_clock.pdf",
+      "manuscript_label": "fig:sync_clocks",
+      "metric": "synchronization_vs_clock_std"
+    }
+  ],
+  "truth_use_ledger": {
+    "truth_used_for_covariance": false,
+    "truth_used_for_fallback_or_reversion": false,
+    "truth_used_for_initialization": false,
+    "truth_used_for_lm_acceptance": false,
+    "truth_used_for_offline_metrics": true,
+    "truth_used_for_prior_construction": true,
+    "truth_used_for_step_c_acceptance": false
+  },
+  "units_ledger": {
+    "clock_sigma_input_units": "seconds",
+    "internal_clock_state_units": "legacy range-equivalent km",
+    "internal_position_units": "km",
+    "localization_error_units": "m",
+    "measurement_covariance_units": "legacy km^2/range-domain covariance",
+    "measurement_units": "km",
+    "synchronization_error_units": "ns",
+    "units_status": "units_consistent_but_legacy"
+  }
+}

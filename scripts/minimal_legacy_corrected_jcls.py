@@ -41,6 +41,8 @@ REPORT_MD = REPORTS_ROOT / "MINIMAL_LEGACY_CORRECTED_PIPELINE_REPORT.md"
 REPORT_JSON = REPORTS_ROOT / "MINIMAL_LEGACY_CORRECTED_PIPELINE_REPORT.json"
 SPARSE_REPORT_MD = REPORTS_ROOT / "MINIMAL_LEGACY_CORRECTED_SPARSE_MANUSCRIPT_REPORT.md"
 SPARSE_REPORT_JSON = REPORTS_ROOT / "MINIMAL_LEGACY_CORRECTED_SPARSE_MANUSCRIPT_REPORT.json"
+FIGURE_REPORT_MD = REPORTS_ROOT / "MINIMAL_LEGACY_CORRECTED_MANUSCRIPT_STYLE_FIGURES_REPORT.md"
+FIGURE_REPORT_JSON = REPORTS_ROOT / "MINIMAL_LEGACY_CORRECTED_MANUSCRIPT_STYLE_FIGURES_REPORT.json"
 
 PIPELINE = next(pipeline for pipeline in PIPELINES if pipeline.label == "legacy_surgical_nontruth")
 PRIMARY_CASE_ID = "std_nu3_ns10_fullmesh_los_clock1us_seed0"
@@ -572,6 +574,410 @@ def write_sparse_report(rows: list[dict[str, Any]], summary: list[dict[str, Any]
     )
 
 
+def read_csv_rows(path: Path) -> list[dict[str, Any]]:
+    """Read CSV rows as dictionaries."""
+
+    with path.open(newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
+
+
+def value_as_float(row: dict[str, Any], key: str) -> float:
+    """Return a numeric CSV value."""
+
+    return float(row[key])
+
+
+def traceability_definitions() -> list[dict[str, Any]]:
+    """Return manuscript figure traceability definitions."""
+
+    return [
+        {
+            "figure_number": "Fig. 4",
+            "manuscript_label": "fig:pos_sats",
+            "legacy_filename": "pos_vary_ues.pdf",
+            "candidate_stem": "fig4_pos_vary_ues_sparse_candidate",
+            "metric": "localization_vs_satellites",
+        },
+        {
+            "figure_number": "Fig. 5",
+            "manuscript_label": "fig:sync_sats",
+            "legacy_filename": "sync_vary_ues.pdf",
+            "candidate_stem": "fig5_sync_vary_ues_sparse_candidate",
+            "metric": "synchronization_vs_satellites",
+        },
+        {
+            "figure_number": "Fig. 6",
+            "manuscript_label": "fig:pos_clocks",
+            "legacy_filename": "pos_vary_clock.pdf",
+            "candidate_stem": "fig6_pos_vary_clock_sparse_candidate",
+            "metric": "localization_vs_clock_std",
+        },
+        {
+            "figure_number": "Fig. 7",
+            "manuscript_label": "fig:sync_clocks",
+            "legacy_filename": "sync_vary_clock.pdf",
+            "candidate_stem": "fig7_sync_vary_clock_sparse_candidate",
+            "metric": "synchronization_vs_clock_std",
+        },
+    ]
+
+
+def configure_manuscript_plot_style() -> None:
+    """Configure a compact IEEE/manuscript-like Matplotlib style."""
+
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    plt.rcParams.update(
+        {
+            "font.family": "serif",
+            "font.size": 10,
+            "axes.labelsize": 10,
+            "legend.fontsize": 6,
+            "xtick.labelsize": 9,
+            "ytick.labelsize": 9,
+            "lines.linewidth": 1.25,
+            "lines.markersize": 4,
+            "text.usetex": False,
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
+        }
+    )
+
+
+def log_tick_formatter() -> Any:
+    """Return the notebook-style 10^n formatter."""
+
+    import math
+
+    from matplotlib.ticker import FuncFormatter
+
+    def formatter(x: float, _pos: Any) -> str:
+        if x <= 0:
+            return ""
+        exponent = int(round(math.log10(x)))
+        if abs(x - 10**exponent) / x < 1.0e-8:
+            return rf"$10^{{{exponent}}}$"
+        return ""
+
+    return FuncFormatter(formatter)
+
+
+def manuscript_style_plot(
+    x_values: list[float],
+    series: list[dict[str, Any]],
+    *,
+    xlabel: str,
+    ylabel: str,
+    output_stem: Path,
+    log_x: bool = False,
+    log_y: bool = False,
+    x_ticks: list[float] | None = None,
+    y_ticks: list[float] | None = None,
+    legend_loc: str = "best",
+) -> dict[str, str]:
+    """Write one manuscript-style PDF and PNG plot."""
+
+    configure_manuscript_plot_style()
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import LogLocator, NullFormatter
+
+    markers = ["o", "s", "^", "v", "d", "*", "x", "+"]
+    linestyles = ["-", "--", ":", "-."]
+    fig = plt.figure(dpi=600, figsize=(3.5, 3.0), constrained_layout=False)
+    ax = fig.add_axes([0.2, 0.167, 0.75, 0.75])
+    ax.tick_params(which="both", direction="in", top=True, bottom=True, left=True, right=True)
+    ax.grid(False, which="both")
+
+    for idx, item in enumerate(series):
+        marker = item.get("marker", markers[idx % len(markers)])
+        linestyle = item.get("linestyle", linestyles[idx % len(linestyles)])
+        color = item.get("color")
+        ax.plot(
+            item.get("x", x_values),
+            item["y"],
+            marker=marker,
+            markerfacecolor="white",
+            markersize=3,
+            linestyle=linestyle,
+            color=color,
+            label=item["label"],
+            clip_on=False,
+            zorder=3,
+        )
+
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    if log_y:
+        ax.set_yscale("log")
+        ax.yaxis.set_major_formatter(log_tick_formatter())
+        ax.yaxis.set_minor_locator(LogLocator(base=10.0, subs="auto", numticks=10))
+        ax.yaxis.set_minor_formatter(NullFormatter())
+    if log_x:
+        ax.set_xscale("log")
+        ax.xaxis.set_major_formatter(log_tick_formatter())
+        ax.xaxis.set_minor_locator(LogLocator(base=10.0, subs="auto", numticks=10))
+        ax.xaxis.set_minor_formatter(NullFormatter())
+    if x_ticks is not None:
+        ax.set_xticks(x_ticks)
+    if y_ticks is not None:
+        ax.set_yticks(y_ticks)
+    ax.legend(loc=legend_loc, frameon=True, edgecolor="black")
+    pdf_path = output_stem.with_suffix(".pdf")
+    png_path = output_stem.with_suffix(".png")
+    fig.savefig(pdf_path, format="pdf")
+    fig.savefig(png_path, format="png", dpi=300)
+    plt.close(fig)
+    return {"pdf": repo_rel(pdf_path), "png": repo_rel(png_path)}
+
+
+def network_rows_by_user(rows: list[dict[str, Any]]) -> dict[int, list[dict[str, Any]]]:
+    """Group sparse network rows by number of users."""
+
+    grouped: dict[int, list[dict[str, Any]]] = {}
+    for row in rows:
+        if row.get("sparse_row_type") == "network_size":
+            grouped.setdefault(int(row["num_users"]), []).append(row)
+    for items in grouped.values():
+        items.sort(key=lambda item: int(item["num_satellites"]))
+    return grouped
+
+
+def clock_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Return clock-sweep rows sorted by clock standard deviation."""
+
+    items = [row for row in rows if row.get("sparse_row_type") == "clock_sweep"]
+    items.sort(key=lambda item: float(item["clock_std_seconds"]))
+    return items
+
+
+def build_sparse_manuscript_figures(output_root: Path) -> dict[str, Any]:
+    """Build manuscript-style sparse candidate plots from existing sparse data."""
+
+    sparse_root = output_root_for_mode("sparse-manuscript", output_root)
+    raw_path = sparse_root / "raw.csv"
+    metadata_path = sparse_root / "metadata.json"
+    if not raw_path.exists():
+        raise FileNotFoundError(f"Missing sparse raw CSV: {raw_path}")
+    if not metadata_path.exists():
+        raise FileNotFoundError(f"Missing sparse metadata JSON: {metadata_path}")
+
+    rows = read_csv_rows(raw_path)
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    figure_root = sparse_root / "manuscript_style_figures"
+    figure_root.mkdir(parents=True, exist_ok=True)
+
+    by_user = network_rows_by_user(rows)
+    clocks = clock_rows(rows)
+    outputs: dict[str, Any] = {}
+
+    # Fig. 4: original/manuscript pos_vary_ues.pdf.
+    x_network = [float(row["num_satellites"]) for row in by_user[3]]
+    fig4_series = [
+        {
+            "label": "Without cooperation",
+            "x": x_network,
+            "y": [value_as_float(row, "step_a_localization_error_m") for row in by_user[3]],
+            "linestyle": ":",
+            "marker": "o",
+            "color": "0.35",
+        }
+    ]
+    for nu in sorted(by_user):
+        fig4_series.append(
+            {
+                "label": rf"JCLS, $N_{{\mathrm{{u}}}}={nu}$",
+                "x": [float(row["num_satellites"]) for row in by_user[nu]],
+                "y": [value_as_float(row, "step_c_localization_error_m") for row in by_user[nu]],
+            }
+        )
+    outputs["fig4_pos_vary_ues"] = manuscript_style_plot(
+        x_network,
+        fig4_series,
+        xlabel=r"Number of Satellites ($N_{\mathrm{s}}$)",
+        ylabel=r"Average UE error $[\mathrm{m}]$",
+        output_stem=figure_root / "fig4_pos_vary_ues_sparse_candidate",
+        log_y=True,
+        x_ticks=[4, 8, 10, 12, 14],
+        legend_loc="center right",
+    )
+
+    # Fig. 5: original/manuscript sync_vary_ues.pdf.
+    fig5_series = [
+        {
+            "label": "Without cooperation",
+            "x": x_network,
+            "y": [value_as_float(row, "step_a_synchronization_error_ns") for row in by_user[3]],
+            "linestyle": ":",
+            "marker": "o",
+            "color": "0.35",
+        }
+    ]
+    for nu in sorted(by_user):
+        fig5_series.append(
+            {
+                "label": rf"JCLS, $N_{{\mathrm{{u}}}}={nu}$",
+                "x": [float(row["num_satellites"]) for row in by_user[nu]],
+                "y": [value_as_float(row, "step_c_synchronization_error_ns") for row in by_user[nu]],
+            }
+        )
+    outputs["fig5_sync_vary_ues"] = manuscript_style_plot(
+        x_network,
+        fig5_series,
+        xlabel=r"Number of Satellites ($N_{\mathrm{s}}$)",
+        ylabel=r"Average synchronization error $[\mathrm{ns}]$",
+        output_stem=figure_root / "fig5_sync_vary_ues_sparse_candidate",
+        x_ticks=[4, 8, 10, 12, 14],
+        legend_loc="center right",
+    )
+
+    # Fig. 6: original/manuscript pos_vary_clock.pdf.
+    x_clock_ns = [value_as_float(row, "clock_std_seconds") * 1.0e9 for row in clocks]
+    fig6_series = [
+        {
+            "label": "Without cooperation",
+            "y": [value_as_float(row, "step_a_localization_error_m") for row in clocks],
+        },
+        {
+            "label": "Coarse JCLS",
+            "y": [value_as_float(row, "step_b_localization_error_m") for row in clocks],
+        },
+        {
+            "label": r"Refined JCLS, $0.5\,\mathrm{s}$",
+            "y": [value_as_float(row, "step_c_localization_error_m") for row in clocks],
+        },
+    ]
+    outputs["fig6_pos_vary_clock"] = manuscript_style_plot(
+        x_clock_ns,
+        fig6_series,
+        xlabel=r"$\sigma_\delta \; [\mathrm{ns}]$",
+        ylabel=r"Average UE position error $[\mathrm{m}]$",
+        output_stem=figure_root / "fig6_pos_vary_clock_sparse_candidate",
+        log_x=True,
+        log_y=True,
+        x_ticks=x_clock_ns,
+        y_ticks=[1.0e-2, 1.0e0, 1.0e2, 1.0e4],
+        legend_loc="best",
+    )
+
+    # Fig. 7: original/manuscript sync_vary_clock.pdf.
+    fig7_series = [
+        {
+            "label": "Without cooperation",
+            "y": [value_as_float(row, "step_a_synchronization_error_ns") for row in clocks],
+        },
+        {
+            "label": "Coarse JCLS",
+            "y": [value_as_float(row, "step_b_synchronization_error_ns") for row in clocks],
+        },
+        {
+            "label": r"Refined JCLS, $0.5\,\mathrm{s}$",
+            "y": [value_as_float(row, "step_c_synchronization_error_ns") for row in clocks],
+        },
+    ]
+    outputs["fig7_sync_vary_clock"] = manuscript_style_plot(
+        x_clock_ns,
+        fig7_series,
+        xlabel=r"$\sigma_\delta \; [\mathrm{ns}]$",
+        ylabel=r"Average synchronization error $[\mathrm{ns}]$",
+        output_stem=figure_root / "fig7_sync_vary_clock_sparse_candidate",
+        log_x=True,
+        log_y=True,
+        x_ticks=x_clock_ns,
+        y_ticks=[1.0e0, 1.0e2, 1.0e4],
+        legend_loc="best",
+    )
+
+    figure_metadata = {
+        "artifact_status": "non_final_sparse_manuscript_style_candidate_figures",
+        "diagnostic_only": True,
+        "manuscript_ready": False,
+        "not_for_submission": True,
+        "source_raw_csv": repo_rel(raw_path),
+        "source_metadata_json": repo_rel(metadata_path),
+        "source_script": "scripts/minimal_legacy_corrected_jcls.py",
+        "source_notebook_or_export": metadata.get("source_notebook_or_export"),
+        "git_commit": git_commit(),
+        "figure_root": repo_rel(figure_root),
+        "style_source": {
+            "notebook_helper": "ieee_flexible_plot",
+            "manuscript_source": "../Work-In-Progress/SCL-NTN-TAES-2025-V26.tex",
+            "notes": [
+                "IEEE-sized serif figures, hollow markers, thin lines, compact legends.",
+                "Sparse data are plotted directly; no smoothing, fitting, or manuscript PSFrag generation is applied.",
+            ],
+        },
+        "traceability": traceability_definitions(),
+        "outputs": outputs,
+        "truth_use_ledger": {key: metadata.get(key) for key in TRUTH_USE_LEDGER},
+        "units_ledger": metadata.get("units_ledger", UNITS_LEDGER),
+        "caveats": [
+            "These are non-final sparse candidate figures for human review only.",
+            "Fig. 4/5 use the sparse Step A N_u=3 curve as the without-cooperation reference because the sparse run did not include N_u=1.",
+            "Synchronization metric remains legacy all-clock pending V24 reference-relative recompute.",
+            "The sparse run used one seed and no Monte Carlo averaging.",
+        ],
+    }
+    write_json(figure_root / "FIGURE_TRACEABILITY.json", figure_metadata)
+    write_figure_report(figure_metadata)
+    return figure_metadata
+
+
+def write_figure_report(payload: dict[str, Any]) -> None:
+    """Write manuscript-style figure traceability report."""
+
+    write_json(FIGURE_REPORT_JSON, payload)
+    lines = [
+        "# Minimal Legacy Corrected Manuscript-Style Figures Report",
+        "",
+        "> Non-final sparse candidate figures. Not manuscript-ready. Not for submission.",
+        "",
+        "## Executive Summary",
+        "",
+        "- Plotting layer: `scripts/minimal_legacy_corrected_jcls.py --plot-sparse-figures`.",
+        f"- Source data: `{payload['source_raw_csv']}`.",
+        f"- Figure root: `{payload['figure_root']}`.",
+        "- Style: IEEE-sized serif plots adapted from the notebook `ieee_flexible_plot` helper.",
+        "- Data treatment: sparse raw data plotted directly; no smoothing/fitting/PSFrag generation.",
+        "",
+        "## Figure Traceability",
+        "",
+        "| manuscript figure | manuscript label | legacy artifact | candidate outputs |",
+        "|---|---|---|---|",
+    ]
+    output_by_stem = {
+        "fig4_pos_vary_ues_sparse_candidate": payload["outputs"]["fig4_pos_vary_ues"],
+        "fig5_sync_vary_ues_sparse_candidate": payload["outputs"]["fig5_sync_vary_ues"],
+        "fig6_pos_vary_clock_sparse_candidate": payload["outputs"]["fig6_pos_vary_clock"],
+        "fig7_sync_vary_clock_sparse_candidate": payload["outputs"]["fig7_sync_vary_clock"],
+    }
+    for item in payload["traceability"]:
+        outputs = output_by_stem[item["candidate_stem"]]
+        lines.append(
+            f"| {item['figure_number']} | `{item['manuscript_label']}` | "
+            f"`{item['legacy_filename']}` | `{outputs['pdf']}`, `{outputs['png']}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Caveats",
+            "",
+            *[f"- {item}" for item in payload["caveats"]],
+            "",
+            "## Truth-Use Ledger",
+            "",
+            *[f"- `{key}`: `{value}`" for key, value in payload["truth_use_ledger"].items()],
+            "",
+            "## Units Ledger",
+            "",
+            *[f"- `{key}`: `{value}`" for key, value in payload["units_ledger"].items()],
+        ]
+    )
+    FIGURE_REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def run_mode(mode: str, output_root: Path, prior_radius_m: float, *, force: bool, full_clock_grid: bool) -> None:
     """Run a primary or sparse manuscript mode."""
 
@@ -631,6 +1037,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prior-radius-m", type=float, default=DEFAULT_PRIOR_RADIUS_M)
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--full-clock-grid", action="store_true", help="Use the full sparse clock list.")
+    parser.add_argument(
+        "--plot-sparse-figures",
+        action="store_true",
+        help="Plot manuscript-style Fig. 4-7 candidate figures from existing sparse output.",
+    )
     return parser.parse_args()
 
 
@@ -638,18 +1049,24 @@ def main() -> int:
     """CLI entrypoint."""
 
     args = parse_args()
-    if args.list_plan or not args.run:
+    if args.list_plan:
         print_plan(args.mode, full_clock_grid=bool(args.full_clock_grid))
-        if not args.run:
-            return 0
-    run_mode(
-        args.mode,
-        Path(args.output_root),
-        float(args.prior_radius_m),
-        force=bool(args.force),
-        full_clock_grid=bool(args.full_clock_grid),
-    )
-    print(f"Wrote outputs to {output_root_for_mode(args.mode, Path(args.output_root))}")
+    if args.run:
+        run_mode(
+            args.mode,
+            Path(args.output_root),
+            float(args.prior_radius_m),
+            force=bool(args.force),
+            full_clock_grid=bool(args.full_clock_grid),
+        )
+        print(f"Wrote outputs to {output_root_for_mode(args.mode, Path(args.output_root))}")
+    elif not args.plot_sparse_figures and not args.list_plan:
+        print_plan(args.mode, full_clock_grid=bool(args.full_clock_grid))
+    if args.plot_sparse_figures:
+        payload = build_sparse_manuscript_figures(Path(args.output_root))
+        print(f"Wrote manuscript-style figures to {payload['figure_root']}")
+    if not args.run and not args.plot_sparse_figures:
+        return 0
     return 0
 
 
