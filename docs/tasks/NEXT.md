@@ -1,31 +1,41 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Review C7 Residual-Covariance Sync-Safeguard Estimator
+# Next Task: Review C7 Manuscript-Figure Recreation
 
 ## Purpose
 
-Review branch `codex/step-c7-residual-cov-sync-safeguard` before merge. Do not
-edit files, do not run notebook code, do not run broad exploration, do not run
-full ladders, do not generate manuscript figures, and do not update manuscript
-claims.
+Review branch `codex/c7-manuscript-figure-recreation` before merge. Do not edit
+files, do not generate new outputs, do not run broad exploration, do not execute
+the notebook, and do not mark anything manuscript-ready.
+
+## Mandatory Result-Lineage Guardrail
+
+Before any new result family is discussed as evidence, it must have an entry in
+`outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md` and
+`outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json`. The entry must
+include a system/stage pipeline tuple, units verdict, readiness status, and
+recommended-use status. Missing entries are a review blocker.
 
 ## Scope
 
 Inspect:
 
-- `jcls_sim/algorithm.py`
-- `jcls_sim/migration.py`
-- `jcls_sim/figure_generation.py`
-- `scripts/run_step_c7_residual_cov_sync_safeguard.py`
-- `scripts/run_controlled_migration_ladder.py`
+- `scripts/run_c7_manuscript_figure_recreation.py`
 - `scripts/render_all_figure_previews.py`
-- `tests/test_step_c7_residual_cov_sync_safeguard.py`
-- `outputs/step_c7_residual_cov_sync_safeguard/`
-- `outputs/reports/STEP_C7_TASK_MATRIX.md`
-- `outputs/reports/STEP_C7_TASK_MATRIX.json`
-- `outputs/reports/STEP_C7_RESIDUAL_COV_SYNC_SAFEGUARD_REPORT.md`
-- `outputs/reports/STEP_C7_RESIDUAL_COV_SYNC_SAFEGUARD_REPORT.json`
-- C7 entries under `outputs/gallery/`
+- `tests/test_c7_manuscript_figure_recreation.py`
+- `outputs/c7_manuscript_figure_recreation/`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_PROVENANCE_AUDIT.md`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_PROVENANCE_AUDIT.json`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_TASK_MATRIX.md`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_TASK_MATRIX.json`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_RECREATION_REPORT.md`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_RECREATION_REPORT.json`
+- `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md`
+- `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json`
+- `outputs/registry/RESULT_REGISTRY.md`
+- C7 manuscript recreation entries under `outputs/gallery/`
+- `outputs/reports/CURRENT_GRAPH_STATUS.md`
+- `outputs/reports/CURRENT_GRAPH_STATUS.json`
 - `PROJECT_STATUS.md`
 
 Do not edit:
@@ -41,34 +51,41 @@ Do not edit:
 
 ## Required Review Checks
 
-1. Confirm C7 is implemented as a real package estimator mode, not only as an
-   audit/report-layer diagnostic.
-2. Confirm `step_c7_residual_cov_sync_safeguard` is registered as its own
-   migration estimator mode and cannot silently fall through to copied legacy
-   rows.
-3. Confirm residual-scaled covariance uses
-   `sigma_hat^2 pinv(J.T R^-1 J + lambda I)` with
-   `sigma_hat^2 = r.T R^-1 r / max(1, N_z - N_theta)`.
-4. Confirm covariance is block-diagonalized/diagonal-clipped with position,
-   UE-clock, satellite-clock, and drift blocks.
-5. Confirm the synchronization safeguard uses only non-truth diagnostics.
-6. Confirm single-UE clock/drift fallback records
-   `single_user_clock_update_not_observable` and reverts unsafe clock/drift
-   updates to Step B.
-7. Confirm truth-state errors are used only for offline metric labels/ratios.
-8. Confirm medium validation reproduces the reviewed audit-level behavior:
-   9/12 both improved, 12/12 position improved, 9/12 sync improved, max sync
-   ratio 1.0, fallback count 3.
-9. Confirm ablation outputs are clearly non-final and not manuscript-ready.
-10. Confirm gallery previews include the C7 plots.
-11. Confirm reports are human-readable and include direct output links.
-12. Confirm focused and full tests pass.
+1. Confirm the provenance audit inspected the original notebook/script figure
+   generation path for Fig. 4--7 and did not rely on memory.
+2. Confirm the runner is bounded and resumable, with dry-run/list-plan,
+   row-level checkpoints, row status logs, cache manifests, row timeouts,
+   runtime limits, `--only-family`, `--only-row`, and `--cache-root`.
+3. Confirm no notebook execution, manuscript-file edits, final manuscript figure
+   generation, broad algorithm exploration, or dense clock sweep was performed.
+4. Confirm single-UE rows are not treated as cooperative JCLS curves.
+5. Confirm Stage A, Stage B, and Stage C semantics are explicit and use:
+   without-cooperation/DL-only/coarse baseline, Step B LM-only JCLS, and
+   `step_c7_residual_cov_sync_safeguard`.
+6. Confirm outputs are under `outputs/c7_manuscript_figure_recreation/` and are
+   marked candidate-only, non-final, not for manuscript submission, and not
+   manuscript-ready.
+7. Confirm Fig. 4/5 network-size outputs are suitable for human review only.
+8. Confirm Fig. 6/7 clock-sweep outputs are marked diagnostic/candidate-failed
+   when high clock-standard-deviation rows worsen localization.
+9. Confirm generated plots match manuscript style reasonably while avoiding
+   misleading smoothing/fitting or overclaiming.
+10. Confirm gallery previews exist for all four recreated candidate plots.
+11. Confirm Markdown reports are human-readable and use valid relative links.
+12. Confirm focused tests pass.
+13. Confirm every new result family has a lineage/units entry before it is used
+    as evidence.
 
 Run:
 
 ```powershell
-python -m unittest tests.test_step3_residual_covariance_audit
-python -m unittest tests.test_step_c7_residual_cov_sync_safeguard
+python -m unittest tests.test_c7_manuscript_figure_recreation tests.test_result_lineage_units_review
+```
+
+Optionally run the full sat-sim suite only if practical and only if it does not
+rewrite unrelated diagnostic outputs:
+
+```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
 ```
 
@@ -79,9 +96,14 @@ Return:
 - PASS / FAIL / PASS WITH CAVEAT;
 - merge recommendation;
 - required fixes before merge, if any;
-- C7 medium-validation summary;
-- ablation summary;
-- fallback count/reasons;
-- no-truth-leak verdict;
-- whether Step B/LM-only remains the clean baseline pending human graph review;
+- provenance-audit verdict;
+- cache/resume/recovery verdict;
+- Fig. 4/5 network-size verdict;
+- Fig. 6/7 clock-sweep blocker summary;
+- single-UE semantics verdict;
+- no-truth-leak and no-notebook-execution verdict;
+- gallery/report verdict;
+- tests run/results;
+- whether outputs are ready for human graph review;
+- whether outputs are ready for manuscript use;
 - next recommended action after merge.

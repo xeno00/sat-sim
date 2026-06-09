@@ -54,8 +54,20 @@
       "contains": "human-readable reports and machine JSON",
       "safe_to_cite": false,
       "safe_to_delete_regenerate": true
+    },
+    {
+      "path": "outputs/registry",
+      "contains": "mandatory result registry and lineage/units cross-links",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
     }
   ],
+  "mandatory_result_bookkeeping": {
+    "lineage_units_review_md": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md",
+    "lineage_units_review_json": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json",
+    "result_registry_md": "outputs/registry/RESULT_REGISTRY.md",
+    "requirement": "New result families must include a pipeline tuple, units verdict, readiness status, and recommended-use status before they are discussed as evidence."
+  },
   "legacy_provenance_paths": [
     "v24_notebook_regression_outputs",
     "v24_plot_gallery",

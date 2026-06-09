@@ -1,0 +1,297 @@
+{
+  "artifact_status": "manuscript_algorithm_parity_check",
+  "branch": "codex/manuscript-algorithm-parity-check",
+  "notebook_executed": false,
+  "heavy_simulations_run": false,
+  "manuscript_files_edited": false,
+  "jcls_simulation_py_available": false,
+  "sources_inspected": [
+    "../AGENTS.md",
+    "AGENTS.md",
+    "RUN_CODEX.md",
+    "PROJECT_STATUS.md",
+    "docs/tasks/NEXT.md",
+    "docs/tasks/QUEUE.md",
+    "../Work-In-Progress/SCL-NTN-TAES-2025-V24.tex",
+    "JCLS_Simulation.ipynb",
+    "jcls_sim/algorithm.py",
+    "jcls_sim/migration.py",
+    "jcls_sim/figure_generation.py",
+    "scripts/run_step_c7_residual_cov_sync_safeguard.py",
+    "scripts/run_c7_candidate_figures.py",
+    "scripts/run_c7_manuscript_figure_recreation.py",
+    "outputs/reports/STEP_B_LM_ACCEPTANCE_COMPARISON.md",
+    "outputs/reports/STEP_C7_RESIDUAL_COV_SYNC_SAFEGUARD_REPORT.md",
+    "outputs/reports/STEP_C7_HUMAN_GRAPH_REVIEW.md",
+    "outputs/reports/C7_CANDIDATE_FIGURE_VALIDATION_REPORT.md",
+    "outputs/reports/CURRENT_GRAPH_STATUS.md"
+  ],
+  "summary": {
+    "parity_row_count": 16,
+    "high_severity_count": 5,
+    "medium_severity_count": 6,
+    "low_severity_count": 5,
+    "highest_risks": [
+      "Manuscript numerical text says x=theta and F=I while current defensible C7 uses theta plus clock drift.",
+      "Manuscript Step 3 covariance/MAP description omits C7 residual-scaled covariance, diagonal clipping, and safeguards.",
+      "C7 candidate outputs are non-final and not manuscript-ready.",
+      "Sparse C7 clock sweep is blocked by high-clock localization instability.",
+      "Single-UE rows must not be described as cooperative synchronization improvement."
+    ]
+  },
+  "manuscript_algorithm_components": [
+    {
+      "component": "Step 1 coarse localization",
+      "section": "Coarse Localization",
+      "line_range": "1296-1348",
+      "equation_labels": ["eq:step1optimization", "eq:ue_models", "eq:parameter_vector"],
+      "variables": ["p_i", "z_i", "h_i", "R_z_i", "J_h_i"],
+      "assumptions": ["first interval only", "individual UE measurements", "clock padding/fixed-zero subproblem", "Rician WNLS specialization"],
+      "step": "Step 1",
+      "use_in_numerical_results": "used as initialization and no-cooperation baseline"
+    },
+    {
+      "component": "Step 2 joint LM",
+      "section": "Initial Joint Localization and Synchronization",
+      "line_range": "1350-1383",
+      "equation_labels": ["eq:step2optimization", "eq:measurement_model", "eq:parameter_vector"],
+      "variables": ["theta", "z", "h(theta)", "R_z", "J_h", "lambda_m"],
+      "assumptions": ["first interval only", "Step 1 positions initialize LM", "non-reference clocks initialized to zero"],
+      "step": "Step 2",
+      "use_in_numerical_results": "used as cooperative coarse JCLS stage"
+    },
+    {
+      "component": "Step 3 SCI/SFI refinement",
+      "section": "Joint Localization and Synchronization Refinement",
+      "line_range": "1386-1619",
+      "equation_labels": ["eq:space_projection", "eq:pred", "eq:state_transition", "eq:update"],
+      "variables": ["x", "theta", "Pi", "F", "Q", "P", "R_z", "J_h", "mu"],
+      "assumptions": ["Bayesian state", "pairwise independent measurements", "Gaussian prior and linearized likelihood for closed-form update"],
+      "step": "Step 3",
+      "use_in_numerical_results": "conceptual framework; numerical specialization must be reconciled with C7"
+    },
+    {
+      "component": "Numerical specialization",
+      "section": "Numerical Results",
+      "line_range": "1733-1759",
+      "equation_labels": ["eq:crlb", "eq:state_transition"],
+      "variables": ["x", "theta", "F", "sigma_delta"],
+      "assumptions": ["stationary UEs", "short 0.5 s interval", "fixed clock-offset realizations", "x=theta", "F=I"],
+      "step": "Step 3/results",
+      "use_in_numerical_results": "stated manuscript results path, but not aligned to current C7 candidate"
+    }
+  ],
+  "code_algorithm_components": [
+    {
+      "component": "V24 theta and gauge",
+      "file_function": "jcls_sim/gauge.py; jcls_sim/parameters.py",
+      "estimator_mode": "all V24 modes",
+      "input_output_state": "UE positions, UE clocks, non-reference satellite clocks",
+      "units": "position km, clock range-domain km",
+      "covariance_convention": null,
+      "truth_usage": false,
+      "fallback_behavior": null
+    },
+    {
+      "component": "Stage A DL-only baseline",
+      "file_function": "jcls_sim/algorithm.py::coarse_individual_localization",
+      "estimator_mode": "step1_coarse_individual_dl_gn",
+      "input_output_state": "DL-only per-UE position estimates packed into theta with zero clocks",
+      "units": "km and range-km",
+      "covariance_convention": "weighted normal equations with range sigmas",
+      "truth_usage": false,
+      "fallback_behavior": "rank-deficient DL geometry marks failure"
+    },
+    {
+      "component": "Stage B cooperative LM",
+      "file_function": "jcls_sim/algorithm.py::joint_lm_jcls",
+      "estimator_mode": "step2_joint_lm_jcls",
+      "input_output_state": "full gauged theta",
+      "units": "km and range-km",
+      "covariance_convention": "precision weighting with damping",
+      "truth_usage": false,
+      "fallback_behavior": "residual-cost acceptance and damping adjustment"
+    },
+    {
+      "component": "Migration Step B",
+      "file_function": "jcls_sim/migration.py::step_b_lm_residual_acceptance",
+      "estimator_mode": "legacy_staged_compatible",
+      "input_output_state": "legacy-compatible all-clock internal state",
+      "units": "legacy range-domain representation",
+      "covariance_convention": "legacy MAP covariance retained in migration step",
+      "truth_usage": "LM truth gate removed; offline metrics use truth",
+      "fallback_behavior": "observable residual/trust-region checks"
+    },
+    {
+      "component": "C7 residual covariance and safeguard",
+      "file_function": "jcls_sim/algorithm.py::step_c7_residual_cov_sync_safeguard_refinement",
+      "estimator_mode": "step_c7_residual_cov_sync_safeguard",
+      "input_output_state": "theta plus clock-drift state",
+      "units": "position km, clock km, drift km/s",
+      "covariance_convention": "typed block-extracted, diagonal-clipped residual-scaled covariance",
+      "truth_usage": "truth_state_used_for_acceptance=false; truth_state_used_for_covariance=false; truth_state_used_for_safeguard=false",
+      "fallback_behavior": "revert clock and drift updates to Step B while preserving position update"
+    },
+    {
+      "component": "C7 candidate figures",
+      "file_function": "scripts/run_c7_candidate_figures.py",
+      "estimator_mode": "step_c7_residual_cov_sync_safeguard",
+      "input_output_state": "Step B baseline versus C7 refined rows",
+      "units": "sync ns in plots; range-domain km retained in raw CSV",
+      "covariance_convention": "C7 covariance metadata",
+      "truth_usage": "truth only for offline metrics",
+      "fallback_behavior": "clock sweep blocked if high-clock rows degrade localization"
+    }
+  ],
+  "parity_matrix": [
+    {
+      "row": "state vector definition",
+      "manuscript_says": "theta contains UE positions, UE clocks, and non-reference satellite clocks; x includes at least theta and may include dynamics states.",
+      "code_does": "V24 theta matches; C7 uses x=[theta, clock_drift].",
+      "parity_status": "conceptual_match_but_needs_clarification",
+      "severity": "medium",
+      "recommended_action": "Clarify whether final Step 3 results use identity state or augmented drift state."
+    },
+    {
+      "row": "gauge/reference clock convention",
+      "manuscript_says": "First satellite is reference, delta_Nu+1=0, N_theta=4Nu+Ns-1.",
+      "code_does": "Reference satellite node id is Nu+1 and excluded from estimated clocks.",
+      "parity_status": "matches",
+      "severity": "low",
+      "recommended_action": "Keep; add metric convention for synchronization averages."
+    },
+    {
+      "row": "measurement model",
+      "manuscript_says": "Range-domain TOA model with transmitter/receiver clock differences and additive noise.",
+      "code_does": "range + transmitter_clock - receiver_clock, R=diag(sigma^2).",
+      "parity_status": "matches",
+      "severity": "low",
+      "recommended_action": "Keep main model."
+    },
+    {
+      "row": "units for position/clock",
+      "manuscript_says": "Model in meters/time offsets with c conversion; results in m/ns.",
+      "code_does": "Internal km and range-domain km; metrics converted to m/s/ns.",
+      "parity_status": "implementation_detail",
+      "severity": "low",
+      "recommended_action": "Mention internal range-equivalent clock units only if needed."
+    },
+    {
+      "row": "Step 1 implementation",
+      "manuscript_says": "Per-UE WNLS/GN coarse localization.",
+      "code_does": "DL-only weighted GN with deterministic multistart and zero clocks.",
+      "parity_status": "matches",
+      "severity": "low",
+      "recommended_action": "Say DL-only explicitly."
+    },
+    {
+      "row": "Step 2 implementation",
+      "manuscript_says": "LM over full theta initialized by Step 1 and zero clocks.",
+      "code_does": "Weighted LM over full gauged V24 theta.",
+      "parity_status": "matches",
+      "severity": "low",
+      "recommended_action": "Keep."
+    },
+    {
+      "row": "Step 2 acceptance logic",
+      "manuscript_says": "Generic LM update and damping.",
+      "code_does": "Residual-cost/trust-region acceptance and no truth gate.",
+      "parity_status": "implementation_detail",
+      "severity": "medium",
+      "recommended_action": "Add numerical-method note if discussing defensible code."
+    },
+    {
+      "row": "Step 3 dynamic model",
+      "manuscript_says": "Generic F,Q,P,Pi SCI/SFI model; numerical text says x=theta and F=I.",
+      "code_does": "Current C7 uses theta plus clock drift, not the identity-state numerical specialization.",
+      "parity_status": "conceptual_match_but_needs_clarification",
+      "severity": "high",
+      "recommended_action": "Reconcile final algorithm and numerical text."
+    },
+    {
+      "row": "Step 3 covariance",
+      "manuscript_says": "Gaussian predicted covariance and information-form posterior covariance.",
+      "code_does": "Typed block-extracted, diagonal-clipped residual-scaled covariance from LM curvature.",
+      "parity_status": "mismatch",
+      "severity": "high",
+      "recommended_action": "Caveat or revise if C7 becomes final."
+    },
+    {
+      "row": "Step 3 clock drift",
+      "manuscript_says": "Theory allows drift; numerical results say fixed offsets and x=theta.",
+      "code_does": "C7 appends and updates clock drift.",
+      "parity_status": "mismatch",
+      "severity": "high",
+      "recommended_action": "Must reconcile before using C7 results."
+    },
+    {
+      "row": "Step 3 projection Pi",
+      "manuscript_says": "theta=Pi x with diagonal projection.",
+      "code_does": "Generic Pi=I; C7 projects by slicing theta from theta-plus-drift state.",
+      "parity_status": "conceptual_match_but_needs_clarification",
+      "severity": "medium",
+      "recommended_action": "Describe selection projection for augmented state if C7 is final."
+    },
+    {
+      "row": "Step 3 MAP/information update",
+      "manuscript_says": "Linearized Gaussian prior/likelihood yields posterior mean and MAP estimate.",
+      "code_does": "Generic helper implements information-form EKF; C7 uses one safeguarded linearized update.",
+      "parity_status": "conceptual_match_but_needs_clarification",
+      "severity": "medium",
+      "recommended_action": "Condense generic prose; avoid overclaiming standard EKF adoption."
+    },
+    {
+      "row": "Step 3 safeguard/fallback",
+      "manuscript_says": "No safeguard/fallback described.",
+      "code_does": "C7 reverts unsafe clock/drift updates using non-truth diagnostics.",
+      "parity_status": "manuscript_missing",
+      "severity": "high",
+      "recommended_action": "Add numerical-method caveat if C7 is used."
+    },
+    {
+      "row": "single-UE semantics",
+      "manuscript_says": "Single UE cannot exploit cooperation and uses conventional TOA.",
+      "code_does": "C7 recreation uses Nu=1 only as no-cooperation baseline; candidate validation has fallback equality.",
+      "parity_status": "conceptual_match_but_needs_clarification",
+      "severity": "medium",
+      "recommended_action": "Make no-cooperation/fallback semantics explicit."
+    },
+    {
+      "row": "output metrics",
+      "manuscript_says": "Average UE localization error and average node synchronization error after 0.5 s.",
+      "code_does": "Position mean in m; sync relative to reference satellite excluding reference, seconds/ns for plots.",
+      "parity_status": "conceptual_match_but_needs_clarification",
+      "severity": "medium",
+      "recommended_action": "Define synchronization metric reference/exclusion convention."
+    },
+    {
+      "row": "figure-generation workflow",
+      "manuscript_says": "Current figures and result prose imply final refined JCLS trends.",
+      "code_does": "C7 outputs are non-final, candidate-only, not manuscript-ready; sparse clock sweep is blocked.",
+      "parity_status": "mismatch",
+      "severity": "high",
+      "recommended_action": "Do not use C7 outputs as final manuscript evidence without approval and final rerun."
+    }
+  ],
+  "must_fix_before_submission": [
+    "Reconcile numerical Step 3 state/dynamics text with final code path.",
+    "Do not present current C7 outputs as final manuscript evidence.",
+    "If C7 is final, mention residual-scaled covariance and safeguards as numerical-method caveats.",
+    "Clarify single-UE/no-cooperation semantics.",
+    "Define synchronization metric relative to reference satellite and excluding reference clock."
+  ],
+  "safe_wording": [
+    "The proposed framework consists of a DL-only coarse localization stage, a cooperative joint position/clock LM stage, and a dynamic soft-information refinement stage.",
+    "In the current C7 candidate implementation, the refinement state augments the gauged position/clock vector with clock-drift components.",
+    "The C7 covariance is a typed block-extracted, diagonal-clipped residual-scaled covariance used as a numerical safeguard.",
+    "Single-UE cases cannot exploit sidelink cooperation; they are treated as a no-cooperation baseline or as safeguarded non-observable clock-update cases.",
+    "Current C7 outputs are non-final diagnostics for human review."
+  ],
+  "unsafe_wording": [
+    "C7 outputs are manuscript-ready.",
+    "The current sparse clock sweep validates the final refined-JCLS clock-sweep figures.",
+    "Single-UE C7 improves synchronization.",
+    "The C7 covariance is a dense block covariance or cross-covariance method.",
+    "The reported refined-JCLS results are produced by a generic EKF/MAP filter unless the final code path actually uses that filter without C7 safeguards."
+  ]
+}

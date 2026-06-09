@@ -3,8 +3,112 @@
 ## Executive Summary
 This gallery renders non-final diagnostic and legacy-replay PDFs as PNG previews. No entry here is automatically manuscript-ready.
 
-- Generated entries: 125
-- Generated at: 2026-06-08T23:51:50.145502+00:00
+- Generated entries: 135
+- Generated at: 2026-06-09T03:56:08.840341+00:00
+
+## C7 candidate figure validation
+
+### c7_clock_sweep_localization.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_candidate_figures/plots/c7_clock_sweep_localization.pdf](../c7_candidate_figures/plots/c7_clock_sweep_localization.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![c7_clock_sweep_localization.pdf](previews/8bb50142ac13__outputs__c7_candidate_figures__plots__c7_clock_sweep_localization-1.png)
+- Preview metadata: [previews/8bb50142ac13__outputs__c7_candidate_figures__plots__c7_clock_sweep_localization.json](previews/8bb50142ac13__outputs__c7_candidate_figures__plots__c7_clock_sweep_localization.json)
+
+### c7_clock_sweep_synchronization.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_candidate_figures/plots/c7_clock_sweep_synchronization.pdf](../c7_candidate_figures/plots/c7_clock_sweep_synchronization.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![c7_clock_sweep_synchronization.pdf](previews/5a2dc08a1c7b__outputs__c7_candidate_figures__plots__c7_clock_sweep_synchronization-1.png)
+- Preview metadata: [previews/5a2dc08a1c7b__outputs__c7_candidate_figures__plots__c7_clock_sweep_synchronization.json](previews/5a2dc08a1c7b__outputs__c7_candidate_figures__plots__c7_clock_sweep_synchronization.json)
+
+### c7_fallback_annotations.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_candidate_figures/plots/c7_fallback_annotations.pdf](../c7_candidate_figures/plots/c7_fallback_annotations.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![c7_fallback_annotations.pdf](previews/820a2cf72d0b__outputs__c7_candidate_figures__plots__c7_fallback_annotations-1.png)
+- Preview metadata: [previews/820a2cf72d0b__outputs__c7_candidate_figures__plots__c7_fallback_annotations.json](previews/820a2cf72d0b__outputs__c7_candidate_figures__plots__c7_fallback_annotations.json)
+
+### c7_network_localization_vs_satellites.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_candidate_figures/plots/c7_network_localization_vs_satellites.pdf](../c7_candidate_figures/plots/c7_network_localization_vs_satellites.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![c7_network_localization_vs_satellites.pdf](previews/c9e6961b9799__outputs__c7_candidate_figures__plots__c7_network_localization_vs_satellites-1.png)
+- Preview metadata: [previews/c9e6961b9799__outputs__c7_candidate_figures__plots__c7_network_localization_vs_satellites.json](previews/c9e6961b9799__outputs__c7_candidate_figures__plots__c7_network_localization_vs_satellites.json)
+
+### c7_network_synchronization_vs_satellites.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_candidate_figures/plots/c7_network_synchronization_vs_satellites.pdf](../c7_candidate_figures/plots/c7_network_synchronization_vs_satellites.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![c7_network_synchronization_vs_satellites.pdf](previews/deb0a8dedae6__outputs__c7_candidate_figures__plots__c7_network_synchronization_vs_satellites-1.png)
+- Preview metadata: [previews/deb0a8dedae6__outputs__c7_candidate_figures__plots__c7_network_synchronization_vs_satellites.json](previews/deb0a8dedae6__outputs__c7_candidate_figures__plots__c7_network_synchronization_vs_satellites.json)
+
+### c7_ratio_summary.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_candidate_figures/plots/c7_ratio_summary.pdf](../c7_candidate_figures/plots/c7_ratio_summary.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![c7_ratio_summary.pdf](previews/801fe5544392__outputs__c7_candidate_figures__plots__c7_ratio_summary-1.png)
+- Preview metadata: [previews/801fe5544392__outputs__c7_candidate_figures__plots__c7_ratio_summary.json](previews/801fe5544392__outputs__c7_candidate_figures__plots__c7_ratio_summary.json)
+
+## C7 manuscript figure recreation
+
+### fig4_c7_localization_vs_satellites.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_manuscript_figure_recreation/plots/fig4_c7_localization_vs_satellites.pdf](../c7_manuscript_figure_recreation/plots/fig4_c7_localization_vs_satellites.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![fig4_c7_localization_vs_satellites.pdf](previews/c4ab8d5c14ad__outputs__c7_manuscript_figure_recreation__plots__fig4_c7_localization_vs_satellites-1.png)
+- Preview metadata: [previews/c4ab8d5c14ad__outputs__c7_manuscript_figure_recreation__plots__fig4_c7_localization_vs_satellites.json](previews/c4ab8d5c14ad__outputs__c7_manuscript_figure_recreation__plots__fig4_c7_localization_vs_satellites.json)
+
+### fig5_c7_synchronization_vs_satellites.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_manuscript_figure_recreation/plots/fig5_c7_synchronization_vs_satellites.pdf](../c7_manuscript_figure_recreation/plots/fig5_c7_synchronization_vs_satellites.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![fig5_c7_synchronization_vs_satellites.pdf](previews/b611b1e3c30a__outputs__c7_manuscript_figure_recreation__plots__fig5_c7_synchronization_vs_satellites-1.png)
+- Preview metadata: [previews/b611b1e3c30a__outputs__c7_manuscript_figure_recreation__plots__fig5_c7_synchronization_vs_satellites.json](previews/b611b1e3c30a__outputs__c7_manuscript_figure_recreation__plots__fig5_c7_synchronization_vs_satellites.json)
+
+### fig6_c7_localization_vs_clock_std.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_manuscript_figure_recreation/plots/fig6_c7_localization_vs_clock_std.pdf](../c7_manuscript_figure_recreation/plots/fig6_c7_localization_vs_clock_std.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![fig6_c7_localization_vs_clock_std.pdf](previews/801610e38127__outputs__c7_manuscript_figure_recreation__plots__fig6_c7_localization_vs_clock_std-1.png)
+- Preview metadata: [previews/801610e38127__outputs__c7_manuscript_figure_recreation__plots__fig6_c7_localization_vs_clock_std.json](previews/801610e38127__outputs__c7_manuscript_figure_recreation__plots__fig6_c7_localization_vs_clock_std.json)
+
+### fig7_c7_synchronization_vs_clock_std.pdf
+
+- Status: `diagnostic_output`
+- Manuscript ready: `False`
+- Source PDF: [outputs/c7_manuscript_figure_recreation/plots/fig7_c7_synchronization_vs_clock_std.pdf](../c7_manuscript_figure_recreation/plots/fig7_c7_synchronization_vs_clock_std.pdf)
+- Warning: Diagnostic-only output; not marked manuscript-ready.
+
+![fig7_c7_synchronization_vs_clock_std.pdf](previews/70321092ea19__outputs__c7_manuscript_figure_recreation__plots__fig7_c7_synchronization_vs_clock_std-1.png)
+- Preview metadata: [previews/70321092ea19__outputs__c7_manuscript_figure_recreation__plots__fig7_c7_synchronization_vs_clock_std.json](previews/70321092ea19__outputs__c7_manuscript_figure_recreation__plots__fig7_c7_synchronization_vs_clock_std.json)
 
 ## Step 3 covariance exploration
 

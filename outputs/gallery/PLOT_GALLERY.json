@@ -1,6 +1,6 @@
 {
   "artifact_status": "non_final_plot_gallery",
-  "generated_at_utc": "2026-06-08T23:51:50.145502+00:00",
+  "generated_at_utc": "2026-06-09T03:56:08.840341+00:00",
   "source_roots": [
     "outputs/legacy_replay",
     "outputs/package_diagnostic",
@@ -16,13 +16,17 @@
     "outputs/step3_residual_cov_failure_audit",
     "outputs/step3_residual_cov_robust_candidates",
     "outputs/step_c7_residual_cov_sync_safeguard",
+    "outputs/c7_candidate_figures",
+    "outputs/c7_manuscript_figure_recreation",
     "v24_notebook_regression_outputs",
     "v24_human_review_outputs",
     "v24_manuscript_candidate_outputs",
     "v24_figure_outputs"
   ],
-  "entry_count": 125,
+  "entry_count": 135,
   "groups": [
+    "C7 candidate figure validation",
+    "C7 manuscript figure recreation",
     "Step 3 covariance exploration",
     "Step 3 gate exploration",
     "Step 3 low-cost exploration",
@@ -42,6 +46,186 @@
     "package diagnostic"
   ],
   "entries": [
+    {
+      "figure_name": "c7_clock_sweep_localization.pdf",
+      "group": "C7 candidate figure validation",
+      "source_pdf_path": "outputs/c7_candidate_figures/plots/c7_clock_sweep_localization.pdf",
+      "preview_paths": [
+        "previews/8bb50142ac13__outputs__c7_candidate_figures__plots__c7_clock_sweep_localization-1.png"
+      ],
+      "metadata_path": "previews/8bb50142ac13__outputs__c7_candidate_figures__plots__c7_clock_sweep_localization.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "a318c7f85289aec84ec761f7313d007f89ea04c51c5338cfe4c4d1a8b6f6a886",
+      "source_pdf_size_bytes": 17403
+    },
+    {
+      "figure_name": "c7_clock_sweep_synchronization.pdf",
+      "group": "C7 candidate figure validation",
+      "source_pdf_path": "outputs/c7_candidate_figures/plots/c7_clock_sweep_synchronization.pdf",
+      "preview_paths": [
+        "previews/5a2dc08a1c7b__outputs__c7_candidate_figures__plots__c7_clock_sweep_synchronization-1.png"
+      ],
+      "metadata_path": "previews/5a2dc08a1c7b__outputs__c7_candidate_figures__plots__c7_clock_sweep_synchronization.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "f62699db39882494ee4660f945b24f958279618eae530823c30f3f0387c43a78",
+      "source_pdf_size_bytes": 17100
+    },
+    {
+      "figure_name": "c7_fallback_annotations.pdf",
+      "group": "C7 candidate figure validation",
+      "source_pdf_path": "outputs/c7_candidate_figures/plots/c7_fallback_annotations.pdf",
+      "preview_paths": [
+        "previews/820a2cf72d0b__outputs__c7_candidate_figures__plots__c7_fallback_annotations-1.png"
+      ],
+      "metadata_path": "previews/820a2cf72d0b__outputs__c7_candidate_figures__plots__c7_fallback_annotations.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "e16d8fc405e0f4d0d0b89134a240dd3e1d19a1572a670e02d31122c802d9a08b",
+      "source_pdf_size_bytes": 14436
+    },
+    {
+      "figure_name": "c7_network_localization_vs_satellites.pdf",
+      "group": "C7 candidate figure validation",
+      "source_pdf_path": "outputs/c7_candidate_figures/plots/c7_network_localization_vs_satellites.pdf",
+      "preview_paths": [
+        "previews/c9e6961b9799__outputs__c7_candidate_figures__plots__c7_network_localization_vs_satellites-1.png"
+      ],
+      "metadata_path": "previews/c9e6961b9799__outputs__c7_candidate_figures__plots__c7_network_localization_vs_satellites.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "d53bddb3819a612551a30357f0d833c2c9030b67682fd45facf477e6155cba9b",
+      "source_pdf_size_bytes": 20410
+    },
+    {
+      "figure_name": "c7_network_synchronization_vs_satellites.pdf",
+      "group": "C7 candidate figure validation",
+      "source_pdf_path": "outputs/c7_candidate_figures/plots/c7_network_synchronization_vs_satellites.pdf",
+      "preview_paths": [
+        "previews/deb0a8dedae6__outputs__c7_candidate_figures__plots__c7_network_synchronization_vs_satellites-1.png"
+      ],
+      "metadata_path": "previews/deb0a8dedae6__outputs__c7_candidate_figures__plots__c7_network_synchronization_vs_satellites.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "9ee6e1cd506274bb2efb15f514f0afdfe0b73a08741cce825f3f71d907f439ab",
+      "source_pdf_size_bytes": 20571
+    },
+    {
+      "figure_name": "c7_ratio_summary.pdf",
+      "group": "C7 candidate figure validation",
+      "source_pdf_path": "outputs/c7_candidate_figures/plots/c7_ratio_summary.pdf",
+      "preview_paths": [
+        "previews/801fe5544392__outputs__c7_candidate_figures__plots__c7_ratio_summary-1.png"
+      ],
+      "metadata_path": "previews/801fe5544392__outputs__c7_candidate_figures__plots__c7_ratio_summary.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "0d2a9543dc76d553948cc8e3e7a67c3e1011f61a244620766235db58403feeab",
+      "source_pdf_size_bytes": 13254
+    },
+    {
+      "figure_name": "fig4_c7_localization_vs_satellites.pdf",
+      "group": "C7 manuscript figure recreation",
+      "source_pdf_path": "outputs/c7_manuscript_figure_recreation/plots/fig4_c7_localization_vs_satellites.pdf",
+      "preview_paths": [
+        "previews/c4ab8d5c14ad__outputs__c7_manuscript_figure_recreation__plots__fig4_c7_localization_vs_satellites-1.png"
+      ],
+      "metadata_path": "previews/c4ab8d5c14ad__outputs__c7_manuscript_figure_recreation__plots__fig4_c7_localization_vs_satellites.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "2bde504b3fe8dc1abb82a2608f40ef8052f5f47d5cc9c360e4b29f04a6c56af9",
+      "source_pdf_size_bytes": 26447
+    },
+    {
+      "figure_name": "fig5_c7_synchronization_vs_satellites.pdf",
+      "group": "C7 manuscript figure recreation",
+      "source_pdf_path": "outputs/c7_manuscript_figure_recreation/plots/fig5_c7_synchronization_vs_satellites.pdf",
+      "preview_paths": [
+        "previews/b611b1e3c30a__outputs__c7_manuscript_figure_recreation__plots__fig5_c7_synchronization_vs_satellites-1.png"
+      ],
+      "metadata_path": "previews/b611b1e3c30a__outputs__c7_manuscript_figure_recreation__plots__fig5_c7_synchronization_vs_satellites.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "c0667e2650329bed9f2700088295b323f50b22c000cb47ab92355f7a65d84b2f",
+      "source_pdf_size_bytes": 26891
+    },
+    {
+      "figure_name": "fig6_c7_localization_vs_clock_std.pdf",
+      "group": "C7 manuscript figure recreation",
+      "source_pdf_path": "outputs/c7_manuscript_figure_recreation/plots/fig6_c7_localization_vs_clock_std.pdf",
+      "preview_paths": [
+        "previews/801610e38127__outputs__c7_manuscript_figure_recreation__plots__fig6_c7_localization_vs_clock_std-1.png"
+      ],
+      "metadata_path": "previews/801610e38127__outputs__c7_manuscript_figure_recreation__plots__fig6_c7_localization_vs_clock_std.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "29872357dfd8795f392b0a591b00e2474cd3e16a8426456df1cabe6166cf7d0d",
+      "source_pdf_size_bytes": 24055
+    },
+    {
+      "figure_name": "fig7_c7_synchronization_vs_clock_std.pdf",
+      "group": "C7 manuscript figure recreation",
+      "source_pdf_path": "outputs/c7_manuscript_figure_recreation/plots/fig7_c7_synchronization_vs_clock_std.pdf",
+      "preview_paths": [
+        "previews/70321092ea19__outputs__c7_manuscript_figure_recreation__plots__fig7_c7_synchronization_vs_clock_std-1.png"
+      ],
+      "metadata_path": "previews/70321092ea19__outputs__c7_manuscript_figure_recreation__plots__fig7_c7_synchronization_vs_clock_std.json",
+      "raw_data_paths": [],
+      "nearby_metadata_paths": [],
+      "status": "diagnostic_output",
+      "manuscript_ready": false,
+      "warning": "Diagnostic-only output; not marked manuscript-ready.",
+      "render_status": "rendered",
+      "render_error": null,
+      "source_pdf_sha256": "149f20e160668d9392b270a33d380c5fd07765fd37782264af581d0bb48a8e05",
+      "source_pdf_size_bytes": 23429
+    },
     {
       "figure_name": "pos_vary_clock.pdf",
       "group": "legacy clock-sweep full",
@@ -1639,7 +1823,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "94dba8fdc6d58ce54f2487addb62cbae8a9d181e22c424b24313732a8b350ae3",
+      "source_pdf_sha256": "5af0b52389eb52f385f3e17bb02f0bdb86bce86d3e88b6a55fd74be79d864730",
       "source_pdf_size_bytes": 13976
     },
     {
@@ -1657,7 +1841,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "49618898b5ce59d272f82335d540a430bdc2d720c418aeea77735b248a52d116",
+      "source_pdf_sha256": "6f3eb30ea9666fb6111a0f9f7a0e50b6f33095ec6f6b509c0133495d711d219b",
       "source_pdf_size_bytes": 14867
     },
     {
@@ -1675,7 +1859,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "537af7cbb0b70f6dd8739b4bfaae9ea7e1123ea5667e28b537fe6a79657fa8f7",
+      "source_pdf_sha256": "a7d0995f7e67cb82b64b4c220bec9480020f06998411e8f71d8c01ab89a0b6aa",
       "source_pdf_size_bytes": 18051
     },
     {
@@ -1693,7 +1877,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "30354a2a5a0b47d931e85f01414d34cbc0ac3571706ef7231083378a58a44f5e",
+      "source_pdf_sha256": "ff9184480b946f4bac0fc11be57eff5567992ecb0759f4c06f85fe526b241a72",
       "source_pdf_size_bytes": 17911
     },
     {
@@ -1711,7 +1895,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "0c260d6460ec8cc932320927f28d1eee9cd21d8ca66bbc34692875d8c19b9e70",
+      "source_pdf_sha256": "10e8d6b5abccd165c67eacd6cc61d16795b2adef6f33929b5093c09bea89b088",
       "source_pdf_size_bytes": 19479
     },
     {
@@ -1729,8 +1913,8 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "5cf16c90e2f2385664a42fbf42c5289b135bbc03457302c73bd53cbe0f4d6133",
-      "source_pdf_size_bytes": 13512
+      "source_pdf_sha256": "9d98fd51b63812b979c1616e5614269719be861b4c217daa515131c4c2dbab1d",
+      "source_pdf_size_bytes": 13040
     },
     {
       "figure_name": "update_norm_by_block.pdf",
@@ -1747,7 +1931,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "b23e8e6e43665fa3061c3eb9c98a97779644452d3746c928f5fc8d43767fbf3b",
+      "source_pdf_sha256": "8429a592858cae5bacfb92a351cf43da05beb38313346af0cef2bd7e66d47eca",
       "source_pdf_size_bytes": 14257
     },
     {
@@ -1965,7 +2149,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "1029982444b6b45cbc838b752789b8facde932f0db9eecf2cf042768caee8111",
+      "source_pdf_sha256": "8d3594219f7fe790c282ae4177f44d74a07859e3ae27f05baab2d7a555d0fc9a",
       "source_pdf_size_bytes": 18840
     },
     {
@@ -1983,7 +2167,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "083f8d728a298554f2c841b7c3f8a9d61aed6ea4646e41e3e2202fbdb0642331",
+      "source_pdf_sha256": "8e9c321b88226e8bc89fd1acb5ffd310f1f2416038dbbcb099694f13b0df4242",
       "source_pdf_size_bytes": 16730
     },
     {
@@ -2001,7 +2185,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "d75df510ddbc3a75f45e95acc1fd4594ac4cab3563c1347ae2a188344f7ea83e",
+      "source_pdf_sha256": "9603ab50e15674ac0f6236183a2bc13135e02a8c95410d35c137c8d8c7f02b51",
       "source_pdf_size_bytes": 12263
     },
     {
@@ -2019,7 +2203,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "08124815fddae349285fa4e6ac104e6c1f0c9623c84c8f245e2e6f0048997158",
+      "source_pdf_sha256": "40acd8877d0e67706edcff07d43642fda0124f4db3122da90dce5eac0060bc78",
       "source_pdf_size_bytes": 19429
     },
     {
@@ -2037,7 +2221,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "b5e7eec5384a32ced0f58f5723601ca3af36e1def43f38131ae60f92a9abd832",
+      "source_pdf_sha256": "35a34917c7709f834da10362bbf6d740d352477c1ac40b7846eebc0e69a616ee",
       "source_pdf_size_bytes": 16416
     },
     {
@@ -2055,7 +2239,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "856e733e534ab7cf743e3b2f4ca2ea6eb94c6ee8d6f066c033e3cc34f3a7069d",
+      "source_pdf_sha256": "b478053580c6bfa075e726c58422169e0d61d32bd1bff5d9ea78445324b50908",
       "source_pdf_size_bytes": 13448
     },
     {
@@ -2073,7 +2257,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "0023e50cb9de88c2c0504ada67969dea13415e6635c90b58b7c2c0858359befc",
+      "source_pdf_sha256": "9290ee2a46fc6b785698c6378612ca8e9b4e6b50f5755cfe33e9d71b37c54e88",
       "source_pdf_size_bytes": 17362
     },
     {
@@ -2091,7 +2275,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "6752bc4e90cb076162cb90cda55a93eeda99bfe73bf0e099e0a48ca1fe06c786",
+      "source_pdf_sha256": "c0abd092aa37be96381b7c044db6e0285889caa2e9b14262e04662a1dc46c6e8",
       "source_pdf_size_bytes": 19486
     },
     {
@@ -2109,8 +2293,8 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "66ba652b66228d3381feb2e8b72ac48557190cbc35563ebbbc9b439ed111f9f4",
-      "source_pdf_size_bytes": 13716
+      "source_pdf_sha256": "8dd925f4aae02c1fb705be6bcb8fcc1914442337c7f176d2b4bdbdea5e13ea31",
+      "source_pdf_size_bytes": 13718
     },
     {
       "figure_name": "sync_ratio_heatmap.pdf",
@@ -2127,7 +2311,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "7d33e55cc5dc852694f83f388061041088391b301eff9bd085feb70a8e52408b",
+      "source_pdf_sha256": "f6a77447daa1371a4c91a618d9fb178257bf02353ef104022e0ae363f06d2fec",
       "source_pdf_size_bytes": 18020
     },
     {
@@ -2145,7 +2329,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "3a1d245d40761a931e3b4997f9c82ba8051c280346212ad5db706c05758a4f9a",
+      "source_pdf_sha256": "31bc11d6e5faa69b836e2ae4971fa04d72627cd7463ff5617ba1ccf104bef117",
       "source_pdf_size_bytes": 14572
     },
     {
@@ -2163,7 +2347,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "43215d07838f4a4eccd9834463feb23ff048f4f2e0e1d27c2dccea8f71cf8b99",
+      "source_pdf_sha256": "d97998081c1f1fe7e082366d3d203a8bcc8856a6b14cec952af085f1b4d5568c",
       "source_pdf_size_bytes": 13233
     },
     {
@@ -2181,7 +2365,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "a382dd5d2de3cf0f215d41e9dc97fbd3a3aeade196f7c1a06574af1a2aa80660",
+      "source_pdf_sha256": "94fad404d669487039a0c558add5de24e09d98e6e3b548b1e9667480b584b9f9",
       "source_pdf_size_bytes": 15697
     },
     {
@@ -2199,7 +2383,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "dd416aa0e419357d12e98775a7e1dbe8faeafa42fac089c8dfe84063a1d2b873",
+      "source_pdf_sha256": "aae31e4cff62a6c421dc93a95ea46824f40db6c65a617228f779f9ed58d9c106",
       "source_pdf_size_bytes": 18424
     },
     {
@@ -2217,7 +2401,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "865b4bee277077d0812c538f0ff08ca009990a5d12c57e4965ee58857d20ea8e",
+      "source_pdf_sha256": "3d3ef4cb748d853a2bfbb2bc15f242f56e0cde9b99cdac445c5e21bab364a766",
       "source_pdf_size_bytes": 15241
     },
     {
@@ -2235,7 +2419,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "051ecee0d796b0f26eb6d4db67af39e8eb22159fe358bdd75bc0958c637bb1b4",
+      "source_pdf_sha256": "92ea6e880268735253150c216234cac94adaf1b236c2471122e504bed52183cf",
       "source_pdf_size_bytes": 14979
     },
     {
@@ -2253,7 +2437,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "a4fbd62b385a6d32bce623d59a8c6ed95997c7e4994b5dd303252c8cc991b270",
+      "source_pdf_sha256": "4e0d08ee0018de45d2f71b15246699edc2585d915f11059503a15c395df8289e",
       "source_pdf_size_bytes": 14796
     },
     {
@@ -2271,7 +2455,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "bb04e5a4edf0fd065962540eec2882b87da22a6fce6e1b777dfd2985ec37987d",
+      "source_pdf_sha256": "ce4278ba2fc88e9250ef689b84768ab4803c5ad9e35ce3576da122a592927854",
       "source_pdf_size_bytes": 12364
     },
     {
@@ -2289,7 +2473,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "aab6cd05f715d9a05ff8417a886b516a23275302c7534850cba380d3c09b0291",
+      "source_pdf_sha256": "3d52900fb1556ac036905e4a8805e9d762829c25b237c644c86dddc80b839e8b",
       "source_pdf_size_bytes": 13213
     },
     {
@@ -2307,7 +2491,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "bc4e9c65c0fa17f3646621a5234095f16b05dd08bda43bd3e0195b6b5c81e799",
+      "source_pdf_sha256": "bf134ae164383a999e27e5a01c01def864b235854be73437edd8d049478f3615",
       "source_pdf_size_bytes": 19815
     },
     {
@@ -2325,7 +2509,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "7721629a48f613c6cc0972b290a8745aa2d32d54850e730daeb49c9a0c9892d6",
+      "source_pdf_sha256": "e5961f03e5eae041bce6adf01d5a4b7838597033375cba5f890a05ad1e0d6014",
       "source_pdf_size_bytes": 15602
     },
     {
@@ -2343,7 +2527,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "6e51e1cf9eb19ff5289722e793ba1edfa8771e2081e95112c02d0bfb7319e377",
+      "source_pdf_sha256": "32e31a78ed7357575b5a4bf4689901823438aa15cc26346d57b1362e67a6b1c1",
       "source_pdf_size_bytes": 16325
     },
     {
@@ -2361,7 +2545,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "7fe21632cb650d986872fcffecc466a8e508cd897b0c9600219c368e16cf1dad",
+      "source_pdf_sha256": "1b4f417afdfda585e77642c53b104c8343899a93d74a58e9515d317b39307f51",
       "source_pdf_size_bytes": 19619
     },
     {
@@ -2379,7 +2563,7 @@
       "warning": "Diagnostic-only output; not marked manuscript-ready.",
       "render_status": "rendered",
       "render_error": null,
-      "source_pdf_sha256": "e0e3f3ed76f955fc7d4cb8c39a2d630bac4c1fea5f6afa0f19865a3dbf470899",
+      "source_pdf_sha256": "bdb56538dbc0ac15b3ca0dd1eb3fe84033154b67f14e7700963e54262bfa2596",
       "source_pdf_size_bytes": 12619
     },
     {
@@ -2819,6 +3003,6 @@
       "source_pdf_size_bytes": 23711
     }
   ],
-  "branch": "codex/step-c7-residual-cov-sync-safeguard",
-  "commit": "1cda0a6"
+  "branch": "codex/manuscript-algorithm-parity-check",
+  "commit": "e78a0e1"
 }

@@ -432,6 +432,40 @@ are under `outputs/step3_residual_cov_failure_audit/` and
 `outputs/step3_residual_cov_robust_candidates/`; these diagnostics are
 non-final and not manuscript figures.
 
+Bounded C7 candidate-figure validation is implemented on branch
+`codex/c7-candidate-figure-validation`. It generates non-final candidate
+outputs under `outputs/c7_candidate_figures/` for network-size localization/
+synchronization and a sparse four-point clock sweep, using Step B / LM-only as
+the baseline and `step_c7_residual_cov_sync_safeguard` as the C7 candidate.
+The network-size validation reproduces the C7 medium-grid behavior: 12/12
+localization rows improve, 9/12 synchronization rows improve, and 9/12 rows
+improve both metrics. The sparse clock sweep is generated but explicitly
+blocked for candidate-figure use because high clock-standard-deviation rows
+worsen localization substantially. All outputs are candidate-only, non-final,
+not manuscript-ready, and use the terminology "typed block-extracted,
+diagonal-clipped residual-scaled covariance."
+
+An overnight-resumable C7 manuscript-figure recreation sprint is implemented on
+branch `codex/c7-manuscript-figure-recreation`. It audits the original notebook
+Fig. 4--7 generation cells, implements a bounded resumable row-level runner
+with dry-run/list-plan, cache manifests, row status logs, timeouts, and
+single-UE cooperative-curve suppression, and writes candidate-only outputs
+under `outputs/c7_manuscript_figure_recreation/`. Fig. 4/5 network-size
+candidate plots are generated for human review. Fig. 6/7 sparse clock-sweep
+plots are generated but marked diagnostic/candidate-failed because high
+clock-standard-deviation rows still expose C7 localization instability. All
+outputs are non-final, not manuscript-ready, and use Stage A DL-only/coarse,
+Stage B LM-only JCLS, and Stage C C7 as the defensible current algorithm path.
+
+A mandatory result lineage and units review is implemented on branch
+`codex/c7-manuscript-figure-recreation`. The first-class bookkeeping report
+lives at `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md` with a
+machine-readable JSON twin. It covers original notebook/manuscript artifacts,
+legacy replays, Step B, C7 diagnostics, C7 candidate/recreation outputs,
+package-native suspect Fig. 4--7 outputs, and missing wave/GNSS exploration
+families. New results must have a pipeline tuple, units verdict, readiness
+status, and recommended-use status before they are discussed as evidence.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -539,3 +573,21 @@ See `docs/tasks/NEXT.md`.
   safeguards. These outputs remain non-final and not manuscript-ready; the next
   task is read-only human/agent graph review before any broader figure-candidate
   run.
+- `outputs/reports/C7_CANDIDATE_FIGURE_VALIDATION_REPORT.md` records bounded
+  C7 candidate-figure validation outputs under `outputs/c7_candidate_figures/`.
+  The network-size localization/synchronization candidate plots are ready for
+  human review only. The sparse clock-sweep plots are not ready as candidate
+  manuscript evidence because high clock-standard-deviation rows expose severe
+  localization instability. Do not run a denser clock sweep until that behavior
+  is explained.
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_RECREATION_REPORT.md` records the
+  overnight-resumable C7 manuscript-figure recreation outputs under
+  `outputs/c7_manuscript_figure_recreation/`. Fig. 4/5 network-size plots are
+  ready for human review only. Fig. 6/7 clock-sweep plots are diagnostic-only
+  and candidate-failed because high clock-standard-deviation rows still expose
+  localization instability. None of these outputs are manuscript-ready.
+- `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md` is now the
+  mandatory first-stop bookkeeping artifact for generated results. It records
+  result-family lineage, system/stage tuples, truth usage, internal/plotted
+  units, rough benchmark cards where available, contradictions, quarantine
+  decisions, and the blunt current-use recommendation.
