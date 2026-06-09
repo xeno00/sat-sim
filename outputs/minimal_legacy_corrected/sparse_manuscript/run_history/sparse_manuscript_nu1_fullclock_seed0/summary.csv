@@ -1,0 +1,4 @@
+row_count,row_type,sparse_row_type,step_b_localization_error_m_mean,step_b_synchronization_error_ns_mean,step_c_improves_step_b_localization_count,step_c_improves_step_b_sync_count,step_c_localization_error_m_mean,step_c_synchronization_error_ns_mean
+7,sparse_manuscript,clock_sweep,0.07445027859691854,7974.0631652224765,6,3,0.04265610482419251,7974.058376069048
+15,sparse_manuscript,network_size,0.10736812928498467,614.1321386916403,8,10,0.08576597533838708,614.1321379062015
+5,sparse_manuscript,network_size_noncooperative_baseline,,,0,0,,

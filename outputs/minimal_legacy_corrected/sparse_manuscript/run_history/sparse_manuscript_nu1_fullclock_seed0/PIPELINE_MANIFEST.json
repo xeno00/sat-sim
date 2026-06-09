@@ -1,0 +1,20 @@
+{
+  "artifact_status": "minimal_legacy_corrected_non_final",
+  "case_count": 27,
+  "diagnostic_only": true,
+  "git_commit": "67610dd",
+  "manuscript_ready": false,
+  "not_for_submission": true,
+  "pipeline": "legacy_surgical_nontruth",
+  "source_notebook_or_export": "JCLS_Simulation.ipynb",
+  "source_script": "scripts/minimal_legacy_corrected_jcls.py",
+  "truth_use_ledger": {
+    "truth_used_for_covariance": false,
+    "truth_used_for_fallback_or_reversion": false,
+    "truth_used_for_initialization": false,
+    "truth_used_for_lm_acceptance": false,
+    "truth_used_for_offline_metrics": true,
+    "truth_used_for_prior_construction": true,
+    "truth_used_for_step_c_acceptance": false
+  }
+}
