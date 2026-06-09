@@ -32,6 +32,12 @@ A branch with unique work must either be merged, have an open PR, or be
 recorded as parked, quarantined, superseded, or awaiting human review with a
 reason. A pushed branch alone is not an acceptable final state.
 
+The canonical live branch-status source is
+`outputs/reports/ACTIVE_BRANCH_LEDGER.md` and
+`outputs/reports/ACTIVE_BRANCH_LEDGER.json`. Update it when branch disposition
+changes. Cleanup and integration reports are snapshots and should point to the
+active branch ledger.
+
 ## Python dependencies
 
 Do not add virtual-environment or bootstrap machinery unless the human
@@ -119,6 +125,23 @@ If branch deleted, deletion confirmation:
 Tests:
 Protected-file check:
 Reports/outputs:
+Current main before:
+Current main after:
+Working tree clean:
+Branches inspected:
+Branches remaining:
+PRs opened:
+PRs closed:
+PRs merged:
+Branches deleted local:
+Branches deleted remote:
+Branches parked:
+Branches quarantined:
+Branches needing human review:
+ACTIVE_BRANCH_LEDGER updated:
+If no, reason:
+Branches changed:
+Remaining active branches:
 Next action:
 ```
 

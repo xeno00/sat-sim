@@ -18,6 +18,16 @@ explicitly instructed.
 - `outputs/reports/V24_THEORY_FIX_RECOMMENDATIONS.md`
 - current V24 manuscript source in the manuscript repository/directory
 
+## Branch Ledger Policy
+
+`outputs/reports/ACTIVE_BRANCH_LEDGER.md` and
+`outputs/reports/ACTIVE_BRANCH_LEDGER.json` are the canonical live branch-status
+source. Update them whenever branch disposition changes.
+
+A branch with unique work must have one of: merged to main, open PR, parked
+with reason, quarantined with reason, superseded with replacement, or deleted
+after safe disposition. A pushed branch alone is not a valid final state.
+
 ## Recommended Next Action
 
 Prepare a surgical manuscript edit plan for the required theory fixes:
@@ -34,3 +44,29 @@ Prepare a surgical manuscript edit plan for the required theory fixes:
 - Need to edit protected manuscript/result files without explicit approval.
 - Discovery that the intended clock sign convention conflicts with the code or
   current manuscript equations.
+
+## Final Response Checklist
+
+```text
+Current main before:
+Current main after:
+Working tree clean:
+Branches inspected:
+Branches remaining:
+PRs opened:
+PRs closed:
+PRs merged:
+Branches deleted local:
+Branches deleted remote:
+Branches parked:
+Branches quarantined:
+Branches needing human review:
+Protected-file check:
+Tests:
+Reports updated:
+ACTIVE_BRANCH_LEDGER updated:
+If no, reason:
+Branches changed:
+Remaining active branches:
+Next action:
+```

@@ -2,40 +2,21 @@
 
 A Codex task is not complete merely because a branch was pushed.
 
-Every task branch must end with one explicit disposition:
+The canonical live branch-status source is [ACTIVE_BRANCH_LEDGER.md](ACTIVE_BRANCH_LEDGER.md) and [ACTIVE_BRANCH_LEDGER.json](ACTIVE_BRANCH_LEDGER.json). Update it whenever branch state changes.
 
-- `already_merged_close_delete`
-- `open_pr_needed`
-- `merge_directly_if_safe`
-- `park_keep_branch`
-- `quarantine_keep_branch`
-- `superseded_close_delete`
+Every active branch must have one explicit disposition:
+
+- `merged_delete_safe`
+- `parked_keep`
+- `quarantined_keep`
+- `superseded_delete_safe`
+- `open_pr_review`
 - `needs_human_review`
-- `unknown`
+- `unknown_blocked`
 
-A branch with unique work must either be merged, have an open PR, or be recorded as parked, quarantined, superseded, or awaiting human review with a reason. A pushed branch alone is not a complete task disposition.
+A branch with unique work must either be merged, have an open PR, or be recorded as parked, quarantined, superseded, needing human review, or blocked with a reason. A pushed branch alone is not a complete task disposition.
 
-Final responses must include:
-
-```text
-Branch:
-Commit:
-Pushed:
-PR:
-PR status:
-Merged to main:
-Merge commit:
-If not merged, disposition:
-Reason not merged:
-If branch remains open, why:
-If branch deleted, deletion confirmation:
-Tests:
-Protected-file check:
-Reports/outputs:
-Next action:
-```
-
-Output-producing branches must include pipeline/units/readiness metadata before they are discussed as evidence or considered for merge.
+Final responses for branch-related work must include current main before/after, working tree status, PR status, PRs opened/closed/merged, branches deleted local/remote, parked/quarantined/human-review branches, protected-file check, tests, reports updated, and whether `ACTIVE_BRANCH_LEDGER` was updated.
 
 Protected-file changes must be checked with:
 

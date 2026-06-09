@@ -136,6 +136,39 @@ A branch with unique work must either be merged, have an open PR, or be
 recorded as parked, quarantined, superseded, or awaiting human review with a
 reason. A pushed branch alone is not a complete task disposition.
 
+The canonical live branch-status source is
+`outputs/reports/ACTIVE_BRANCH_LEDGER.md` and
+`outputs/reports/ACTIVE_BRANCH_LEDGER.json`. Update it whenever a branch is
+opened, merged, parked, quarantined, superseded, deleted, or otherwise changes
+disposition. Older branch cleanup and integration reports are snapshots and
+should link back to the active branch ledger.
+
+Final responses for branch-related work must also include:
+
+```text
+Current main before:
+Current main after:
+Working tree clean:
+Branches inspected:
+Branches remaining:
+PRs opened:
+PRs closed:
+PRs merged:
+Branches deleted local:
+Branches deleted remote:
+Branches parked:
+Branches quarantined:
+Branches needing human review:
+Protected-file check:
+Tests:
+Reports updated:
+ACTIVE_BRANCH_LEDGER updated:
+If no, reason:
+Branches changed:
+Remaining active branches:
+Next action:
+```
+
 ## Standard benchmark policy
 
 Use `std_nu3_ns10_fullmesh_los_clock1us_seed0` as the primary universal

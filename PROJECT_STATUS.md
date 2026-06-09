@@ -23,6 +23,15 @@ awaiting human review with a reason. The final response must include PR status,
 merge status, branch-deletion status when applicable, tests, and protected-file
 check results.
 
+The canonical live branch-status source is
+`outputs/reports/ACTIVE_BRANCH_LEDGER.md` and
+`outputs/reports/ACTIVE_BRANCH_LEDGER.json`. As of the latest reconciliation,
+six non-main branches remain active: three parked exploration/worktree
+branches, two merged/delete-safe legacy-surgical local worktree refs, and one
+human-review branch (`codex/legacy-figures-gallery-crlb-nlos`). Older cleanup
+and integration reports are snapshots and should point to the active branch
+ledger.
+
 Primary benchmark policy is updated: the universal standard case is
 `std_nu3_ns10_fullmesh_los_clock1us_seed0`. The previous
 `std_nu3_ns4_fullmesh_los_clock1us_seed0` case is retained only as a secondary

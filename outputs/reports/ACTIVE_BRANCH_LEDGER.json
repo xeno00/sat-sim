@@ -1,9 +1,8 @@
 {
-  "generated_at_utc": "2026-06-09T15:59:05.845805+00:00",
-  "snapshot_type": "active_branch_reconciliation_snapshot",
-  "canonical_live_ledger_md": "outputs/reports/ACTIVE_BRANCH_LEDGER.md",
-  "canonical_live_ledger_json": "outputs/reports/ACTIVE_BRANCH_LEDGER.json",
+  "generated_at_utc": "2026-06-09T15:57:23.869397+00:00",
+  "canonical": true,
   "current_main_commit": "21e3969",
+  "current_main_full_commit": "21e39691d5050a608d03b3e3efbc25ad999ed9b7",
   "active_branch_count": 6,
   "active_branches": [
     "codex/gps-gnss-baseline-exploration",
@@ -12,6 +11,17 @@
     "codex/legacy-surgical-prior-region-initialization",
     "codex/legacy-surgical-truth-gate-removal",
     "codex/wave-observability-estimator-gap-audit"
+  ],
+  "open_pr_count": 0,
+  "parked_count": 3,
+  "quarantined_count": 0,
+  "needs_human_review_count": 1,
+  "merged_delete_safe_count": 2,
+  "safe_to_delete_count": 0,
+  "drift_warnings": [
+    "User expected 6 active/open branches; actual Git state briefly had 7 because codex/v24-theory-red-team-audit existed, but PR #5 merged and the branch was deleted during reconciliation.",
+    "codex/wave-observability-estimator-gap-audit is local-only and points to the same commit as codex/jcls-wave-results-exploration, but it is attached to an active worktree.",
+    "codex/legacy-surgical-prior-region-initialization and codex/legacy-surgical-truth-gate-removal are merged into main but local refs remain because active worktrees own them."
   ],
   "branches": [
     {

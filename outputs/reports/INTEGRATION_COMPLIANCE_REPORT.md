@@ -1,49 +1,29 @@
 # Integration Compliance Report
 
-## Executive Summary
+Generated: `2026-06-09T15:59:05.845805+00:00`
+Current main commit: `21e3969`
 
-Current main commit: `4e12117`.
-Branches reviewed from Git before cleanup: `41`.
-Local branch refs deleted: `35`.
-Remote branch refs deleted: `34`.
-PR #3 was closed as quarantined. Parked/quarantined/human-review branches were kept.
+Canonical live branch state is maintained in [ACTIVE_BRANCH_LEDGER.md](ACTIVE_BRANCH_LEDGER.md) and [ACTIVE_BRANCH_LEDGER.json](ACTIVE_BRANCH_LEDGER.json). This integration compliance report is a snapshot.
 
-## PR Actions
+Active branches remaining: `6`.
 
-- Opened: none.
-- Merged: none.
-- Closed: PR #3 as quarantined.
-
-## Deleted Branches
-
-- Local: `35`
-- Remote: `34`
-
-## Parked Branches
+## Remaining Active Branches
 
 - `codex/gps-gnss-baseline-exploration`
 - `codex/jcls-wave-results-exploration`
-- `codex/wave-observability-estimator-gap-audit`
-
-## Quarantined Branches
-
+- `codex/legacy-figures-gallery-crlb-nlos`
 - `codex/legacy-surgical-prior-region-initialization`
 - `codex/legacy-surgical-truth-gate-removal`
+- `codex/wave-observability-estimator-gap-audit`
 
-## Human Review Branches
+## PR State
 
-- `codex/legacy-figures-gallery-crlb-nlos`
+- Open PRs: none.
+- PR #4 and PR #5 are merged.
+- PR #3 is closed/quarantined.
 
-## Remaining Branch Clutter
+## Next Actions
 
-- codex/gps-gnss-baseline-exploration (parked, active worktree)
-- codex/jcls-wave-results-exploration (parked, active worktree)
-- codex/wave-observability-estimator-gap-audit (parked, active worktree/local alias)
-- codex/legacy-surgical-truth-gate-removal (quarantined, active worktree, PR #3 closed)
-- codex/legacy-surgical-prior-region-initialization (quarantined, active worktree)
-- codex/legacy-figures-gallery-crlb-nlos (needs human review)
-
-## Checks Run
-
-- `python scripts/check_protected_files.py --base main --target HEAD --fail-on-protected` -> PASS
-- `python -m unittest tests.test_integration_compliance` -> PASS (5 tests)
+1. Human review `codex/legacy-figures-gallery-crlb-nlos`.
+2. Add lineage/units entries before GNSS or wave branches are considered for PR/merge.
+3. Remove active legacy-surgical worktrees, then delete their local branch refs.
