@@ -1,11 +1,12 @@
 MODE: IMPLEMENT_APPROVED
 
-# Next Task: Normalized Primary Benchmark-Card Runner
+# Next Task: Pipeline Schema And Standard-Case Package Layer
 
 ## Purpose
 
-Build the smallest normalized benchmark-card runner needed to compare the
-current candidate result pipelines under the same primary standard case:
+Create the package-level pipeline and benchmark schema layer needed before the
+normalized primary benchmark-card runner is implemented. Do not run benchmark
+cards yet.
 
 `std_nu3_ns10_fullmesh_los_clock1us_seed0`
 
@@ -23,6 +24,9 @@ result files.
 - `outputs/reports/MISSING_STANDARD_METRICS.md`
 - `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md`
 - `outputs/registry/RESULT_REGISTRY.md`
+- `outputs/reports/EXPERIMENT_CODE_LOCATION_AUDIT.md`
+- `outputs/reports/JCLS_SIM_PIPELINE_INTEGRATION_PLAN.md`
+- `outputs/reports/PIPELINE_CODE_DUPLICATION_AUDIT.md`
 
 ## Branch Ledger Policy
 
@@ -36,34 +40,50 @@ after safe disposition. A pushed branch alone is not a valid final state.
 
 ## Recommended Next Action
 
-Create a normalized benchmark-card runner for
-`std_nu3_ns10_fullmesh_los_clock1us_seed0` that reports initialization, Step A,
-Step B, and Step C localization/synchronization metrics for:
+Add schema-only package modules:
+
+- `jcls_sim/pipelines/__init__.py`
+- `jcls_sim/pipelines/specs.py`
+- `jcls_sim/pipelines/registry.py`
+- `jcls_sim/benchmark/__init__.py`
+- `jcls_sim/benchmark/standard_cases.py`
+- optional `jcls_sim/benchmark/runner.py` skeleton if it has no execution side effects.
+
+Define:
+
+- `PipelineStageVersions`
+- `TruthUseLedger`
+- `PipelineSpec`
+- `StandardCaseSpec`
+- `StageMetrics`
+- `PipelineRunResult`
+- `BenchmarkCard`
+
+Register, as specs only:
 
 1. `legacy_surgical_prior_region` as the recommended primary candidate;
 2. `controlled_migration_step_b_lm_only` as the Step B backbone;
 3. `package_native_c7` as the theory-clean backup/reference;
 4. `legacy_truth_gated_l0` as reference-only provenance.
 
-The runner must write non-final benchmark-card CSV/JSON outputs with:
+The schema must preserve:
 
 - pipeline tuple fields;
 - truth-use fields;
 - units fields;
-- initialization, Step A, Step B, and Step C metrics;
-- V24 reference-relative synchronization where possible;
-- legacy all-clock synchronization kept separate when needed;
 - readiness/recommended-use fields.
+- missing metric reasons.
 
-After the run, update the result registry, lineage/units review, scorecard, and
-downselect report.
+Do not implement execution adapters or run any benchmark rows in this task.
+After this schema-only layer passes tests, the following task should implement
+the normalized primary benchmark-card runner.
 
 ## Stop Gates
 
-- Need for broad simulations or manuscript figure generation.
+- Need for benchmark execution, broad simulations, or manuscript figure generation.
 - Need to edit protected manuscript/result files without explicit approval.
-- Discovery that candidate pipelines cannot be normalized without a human
-  scientific decision.
+- Need to move legacy notebook execution hooks into `jcls_sim` before an adapter
+  boundary is designed and tested.
 
 ## Final Response Checklist
 

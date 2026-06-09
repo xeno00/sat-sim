@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-06-09",
+  "recommended_package_layout": {
+    "pipelines": [
+      "jcls_sim/pipelines/__init__.py",
+      "jcls_sim/pipelines/specs.py",
+      "jcls_sim/pipelines/registry.py",
+      "jcls_sim/pipelines/legacy.py",
+      "jcls_sim/pipelines/migration.py",
+      "jcls_sim/pipelines/package_native.py",
+      "jcls_sim/pipelines/c7.py",
+      "jcls_sim/pipelines/legacy_surgical.py"
+    ],
+    "benchmark": [
+      "jcls_sim/benchmark/__init__.py",
+      "jcls_sim/benchmark/standard_cases.py",
+      "jcls_sim/benchmark/runner.py",
+      "jcls_sim/benchmark/metrics.py"
+    ]
+  },
+  "dataclasses": [
+    "PipelineStageVersions",
+    "TruthUseLedger",
+    "PipelineSpec",
+    "StandardCaseSpec",
+    "StageMetrics",
+    "PipelineRunResult",
+    "BenchmarkCard"
+  ],
+  "common_interface": "run_pipeline(case: StandardCaseSpec, pipeline: PipelineSpec) -> PipelineRunResult",
+  "integration_table": [
+    {
+      "item": "Pipeline dataclasses",
+      "current_path": "not present",
+      "classification": "new reusable schema",
+      "target_path": "jcls_sim/pipelines/specs.py",
+      "integrate_now": true,
+      "reason": "Needed before benchmark-card runner.",
+      "risk": "low",
+      "test_needed": "Unit tests for JSON-ready fields and missing metrics."
+    },
+    {
+      "item": "Primary/secondary standard cases",
+      "current_path": "scattered in reports/scripts",
+      "classification": "reusable standard cases",
+      "target_path": "jcls_sim/benchmark/standard_cases.py",
+      "integrate_now": true,
+      "reason": "Stops primary-case drift.",
+      "risk": "low",
+      "test_needed": "Test primary is Ns=10 and Ns=4 is secondary only."
+    },
+    {
+      "item": "Legacy-surgical specs",
+      "current_path": "scripts/run_legacy_surgical_*.py",
+      "classification": "script-local pipeline spec",
+      "target_path": "jcls_sim/pipelines/legacy_surgical.py",
+      "integrate_now": true,
+      "reason": "Recommended primary path.",
+      "risk": "medium_high",
+      "test_needed": "Tests for truth-use ledger and standard-case mapping."
+    },
+    {
+      "item": "Legacy namespace execution hooks",
+      "current_path": "scripts/replay_legacy_clock_sweep_figures.py and migration scripts",
+      "classification": "legacy/provenance adapter",
+      "target_path": "remain script-only initially",
+      "integrate_now": false,
+      "reason": "Unsafe to pull notebook execution into core package before adapter boundary.",
+      "risk": "high",
+      "test_needed": "Later adapter tests with no notebook mutation."
+    }
+  ],
+  "standard_benchmark_runner_plan": {
+    "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+    "pipelines": [
+      "legacy_surgical_prior_region",
+      "controlled_migration_step_b_lm_only",
+      "package_native_c7",
+      "legacy_truth_gated_l0_reference_only"
+    ],
+    "outputs": [
+      "pipeline tuple",
+      "truth-use ledger",
+      "units status",
+      "readiness and recommended use",
+      "initialization/Step A/Step B/Step C localization and synchronization metrics",
+      "missing metric reasons",
+      "warnings"
+    ]
+  },
+  "first_integration_step": "Add schema-only jcls_sim.pipelines and jcls_sim.benchmark modules plus tests; do not execute benchmarks yet."
+}

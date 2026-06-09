@@ -82,6 +82,20 @@ should remain candidate/refinement only until normalized primary benchmark,
 V24 reference-relative synchronization recomputation, and bounded figure-family
 validation pass.
 
+An experiment-code location audit and package integration plan was completed on
+2026-06-09. See:
+
+- `outputs/reports/EXPERIMENT_CODE_LOCATION_AUDIT.md`
+- `outputs/reports/JCLS_SIM_PIPELINE_INTEGRATION_PLAN.md`
+- `outputs/reports/PIPELINE_CODE_DUPLICATION_AUDIT.md`
+
+The audit found that reusable V24 math/estimator pieces mostly live in
+`jcls_sim/`, while the selected legacy-surgical prior-region path is still
+script-bound in `scripts/run_legacy_surgical_prior_region_initialization.py`.
+The next implementation step should add schema-only package modules under
+`jcls_sim/pipelines/` and `jcls_sim/benchmark/` before any new benchmark-card
+runner executes pipeline code.
+
 Gauge/metrics package and tests are implemented. Measurement-model and explicit
 V24 parameter-vector helpers/tests are implemented. Jacobian and gauged FIM
 helpers/tests are implemented. Estimator correctness helpers/tests are
