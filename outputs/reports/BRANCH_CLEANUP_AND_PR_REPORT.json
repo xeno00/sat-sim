@@ -3,7 +3,7 @@
   "snapshot_type": "post_cleanup_active_branch_snapshot",
   "canonical_live_ledger_md": "outputs/reports/ACTIVE_BRANCH_LEDGER.md",
   "canonical_live_ledger_json": "outputs/reports/ACTIVE_BRANCH_LEDGER.json",
-  "current_main_commit": "21e3969",
+  "snapshot_base_main_commit": "21e3969",
   "active_branch_count": 6,
   "active_branches": [
     "codex/gps-gnss-baseline-exploration",

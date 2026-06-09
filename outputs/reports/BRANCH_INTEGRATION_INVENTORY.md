@@ -1,7 +1,7 @@
 # Branch Integration Inventory
 
 Generated: `2026-06-09T15:59:05.845805+00:00`
-Current main commit: `21e3969`
+Snapshot base main commit: `21e3969`
 
 Canonical live branch state is maintained in [ACTIVE_BRANCH_LEDGER.md](ACTIVE_BRANCH_LEDGER.md) and [ACTIVE_BRANCH_LEDGER.json](ACTIVE_BRANCH_LEDGER.json). This file is a snapshot summary.
 

@@ -3,7 +3,7 @@
 ## Executive Summary
 
 Canonical live branch-status source of truth. Generated `2026-06-09T15:57:23.869397+00:00` from actual Git refs and GitHub PR state.
-Current main commit: `21e3969`.
+Snapshot base main commit: `21e3969`.
 Active branches remaining: `6`.
 Open PRs among active branches: `0`.
 

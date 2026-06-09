@@ -1,8 +1,8 @@
 {
   "generated_at_utc": "2026-06-09T15:57:23.869397+00:00",
   "canonical": true,
-  "current_main_commit": "21e3969",
-  "current_main_full_commit": "21e39691d5050a608d03b3e3efbc25ad999ed9b7",
+  "snapshot_base_main_commit": "21e3969",
+  "snapshot_base_main_full_commit": "21e39691d5050a608d03b3e3efbc25ad999ed9b7",
   "active_branch_count": 6,
   "active_branches": [
     "codex/gps-gnss-baseline-exploration",
