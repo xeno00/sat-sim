@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/c7_manuscript_figure_recreation/plots/fig7_c7_synchronization_vs_clock_std.pdf",
+  "source_pdf_sha256": "149f20e160668d9392b270a33d380c5fd07765fd37782264af581d0bb48a8e05",
+  "source_pdf_size_bytes": 23429,
+  "preview_paths": [
+    "previews/70321092ea19__outputs__c7_manuscript_figure_recreation__plots__fig7_c7_synchronization_vs_clock_std-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/70321092ea19__outputs__c7_manuscript_figure_recreation__plots__fig7_c7_synchronization_vs_clock_std.json",
+  "render_timestamp_utc": "2026-06-09T03:54:34.999487+00:00",
+  "render_status": "rendered",
+  "branch": "codex/manuscript-algorithm-parity-check",
+  "commit": "e78a0e1"
+}

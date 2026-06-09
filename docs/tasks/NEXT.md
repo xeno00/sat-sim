@@ -1,26 +1,30 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Review Bounded C7 Candidate-Figure Validation
+# Next Task: Review C7 Manuscript-Figure Recreation
 
 ## Purpose
 
-Review branch `codex/c7-candidate-figure-validation` before merge. Do not edit
-files, do not run broad exploration, do not generate manuscript figures, do not
-modify the C7 algorithm, and do not mark anything manuscript-ready.
+Review branch `codex/c7-manuscript-figure-recreation` before merge. Do not edit
+files, do not generate new outputs, do not run broad exploration, do not execute
+the notebook, and do not mark anything manuscript-ready.
 
 ## Scope
 
 Inspect:
 
-- `scripts/run_c7_candidate_figures.py`
+- `scripts/run_c7_manuscript_figure_recreation.py`
 - `scripts/render_all_figure_previews.py`
-- `tests/test_c7_candidate_figures.py`
-- `outputs/c7_candidate_figures/`
-- `outputs/reports/C7_CANDIDATE_FIGURE_TASK_MATRIX.md`
-- `outputs/reports/C7_CANDIDATE_FIGURE_TASK_MATRIX.json`
-- `outputs/reports/C7_CANDIDATE_FIGURE_VALIDATION_REPORT.md`
-- `outputs/reports/C7_CANDIDATE_FIGURE_VALIDATION_REPORT.json`
-- C7 candidate entries under `outputs/gallery/`
+- `tests/test_c7_manuscript_figure_recreation.py`
+- `outputs/c7_manuscript_figure_recreation/`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_PROVENANCE_AUDIT.md`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_PROVENANCE_AUDIT.json`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_TASK_MATRIX.md`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_TASK_MATRIX.json`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_RECREATION_REPORT.md`
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_RECREATION_REPORT.json`
+- C7 manuscript recreation entries under `outputs/gallery/`
+- `outputs/reports/CURRENT_GRAPH_STATUS.md`
+- `outputs/reports/CURRENT_GRAPH_STATUS.json`
 - `PROJECT_STATUS.md`
 
 Do not edit:
@@ -36,33 +40,33 @@ Do not edit:
 
 ## Required Review Checks
 
-1. Confirm the candidate generator is bounded and uses only Step B / LM-only and
+1. Confirm the provenance audit inspected the original notebook/script figure
+   generation path for Fig. 4--7 and did not rely on memory.
+2. Confirm the runner is bounded and resumable, with dry-run/list-plan,
+   row-level checkpoints, row status logs, cache manifests, row timeouts,
+   runtime limits, `--only-family`, `--only-row`, and `--cache-root`.
+3. Confirm no notebook execution, manuscript-file edits, final manuscript figure
+   generation, broad algorithm exploration, or dense clock sweep was performed.
+4. Confirm single-UE rows are not treated as cooperative JCLS curves.
+5. Confirm Stage A, Stage B, and Stage C semantics are explicit and use:
+   without-cooperation/DL-only/coarse baseline, Step B LM-only JCLS, and
    `step_c7_residual_cov_sync_safeguard`.
-2. Confirm no broad algorithm exploration, full clock sweep, notebook execution,
-   or manuscript-figure generation is performed.
-3. Confirm all outputs are under `outputs/c7_candidate_figures/` and are marked
-   non-final, candidate-only, not for manuscript submission, and not
+6. Confirm outputs are under `outputs/c7_manuscript_figure_recreation/` and are
+   marked candidate-only, non-final, not for manuscript submission, and not
    manuscript-ready.
-4. Confirm the report uses the exact terminology:
-   `typed block-extracted, diagonal-clipped residual-scaled covariance`.
-5. Confirm synchronization plots use ns while raw CSV retains range-domain km.
-6. Confirm network-size candidate data match the C7 medium-grid behavior:
-   12/12 localization rows improve, 9/12 synchronization rows improve, 9/12
-   rows improve both metrics, and fallback count is 3.
-7. Confirm fallback rows are visible or explained, especially the single-UE
-   rows with `single_user_clock_update_not_observable`.
-8. Confirm sparse clock-sweep outputs are generated but explicitly blocked for
-   candidate-figure use because high clock-standard-deviation rows worsen
-   localization substantially.
-9. Confirm truth is not used for acceptance, covariance, or safeguard decisions.
-10. Confirm gallery previews exist for all six candidate plots.
+7. Confirm Fig. 4/5 network-size outputs are suitable for human review only.
+8. Confirm Fig. 6/7 clock-sweep outputs are marked diagnostic/candidate-failed
+   when high clock-standard-deviation rows worsen localization.
+9. Confirm generated plots match manuscript style reasonably while avoiding
+   misleading smoothing/fitting or overclaiming.
+10. Confirm gallery previews exist for all four recreated candidate plots.
 11. Confirm Markdown reports are human-readable and use valid relative links.
 12. Confirm focused tests pass.
 
 Run:
 
 ```powershell
-python -m unittest tests.test_c7_candidate_figures
+python -m unittest tests.test_c7_manuscript_figure_recreation
 ```
 
 Optionally run the full sat-sim suite only if practical and only if it does not
@@ -79,10 +83,12 @@ Return:
 - PASS / FAIL / PASS WITH CAVEAT;
 - merge recommendation;
 - required fixes before merge, if any;
-- network-size figure-family summary;
-- sparse clock-sweep blocker summary;
-- fallback count/reasons;
-- no-truth-leak verdict;
+- provenance-audit verdict;
+- cache/resume/recovery verdict;
+- Fig. 4/5 network-size verdict;
+- Fig. 6/7 clock-sweep blocker summary;
+- single-UE semantics verdict;
+- no-truth-leak and no-notebook-execution verdict;
 - gallery/report verdict;
 - tests run/results;
 - whether outputs are ready for human graph review;

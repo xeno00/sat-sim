@@ -44,6 +44,12 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - C7 is ready for human graph review.
 - Recommended next action: Human graph review of C7 diagnostics, then decide whether to run a bounded clock/network figure-candidate validation.
 
+## Latest C7 Manuscript-Figure Recreation
+- Output root: [`outputs/c7_manuscript_figure_recreation`](../c7_manuscript_figure_recreation/).
+- Fig. 4/5 network-size recreation plots are candidate-only and ready for human review.
+- Fig. 6/7 clock-sweep recreation plots are diagnostic/candidate-failed because high clock-standard-deviation rows still expose localization instability.
+- None of these outputs are manuscript-ready.
+
 ## Warnings
 - No graph is manuscript-ready.
 - Legacy CRLB is all-clock/post-hoc and not V24-clean.
@@ -53,3 +59,5 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - Step 3 covariance exploration uses deterministic sparse diagnostics and promoted-only medium validation; it is not a final figure workflow.
 - Step 3 residual covariance robust candidates use bounded medium-grid diagnostics; the best candidate still requires review before estimator integration.
 - Step C7 residual-covariance sync-safeguard outputs are non-final diagnostics, not manuscript figures.
+- C7 manuscript-figure recreation outputs are non-final and not manuscript-ready.
+- C7 clock-sweep recreation remains diagnostic/candidate-failed until high-clock localization instability is explained.

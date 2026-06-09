@@ -1,5 +1,5 @@
 {
-  "artifact_status": "current_graph_status_with_step_c7",
+  "artifact_status": "current_graph_status_with_c7_manuscript_figure_recreation",
   "c7_main_candidate_summary": {
     "both_improved_count": 9,
     "candidate": "step_c7_residual_cov_sync_safeguard",
@@ -161,6 +161,30 @@
     }
   ],
   "latest_step3_mode": "step_c7_residual_cov_sync_safeguard",
+  "latest_c7_manuscript_figure_recreation": {
+    "candidate_only": true,
+    "clock_sweep_status": "candidate_failed_or_diagnostic_only",
+    "manuscript_ready": false,
+    "output_root": "outputs/c7_manuscript_figure_recreation",
+    "plots": {
+      "fig4": {
+        "pdf": "outputs/c7_manuscript_figure_recreation/plots/fig4_c7_localization_vs_satellites.pdf",
+        "png": "outputs/c7_manuscript_figure_recreation/plots/fig4_c7_localization_vs_satellites.png"
+      },
+      "fig5": {
+        "pdf": "outputs/c7_manuscript_figure_recreation/plots/fig5_c7_synchronization_vs_satellites.pdf",
+        "png": "outputs/c7_manuscript_figure_recreation/plots/fig5_c7_synchronization_vs_satellites.png"
+      },
+      "fig6": {
+        "pdf": "outputs/c7_manuscript_figure_recreation/plots/fig6_c7_localization_vs_clock_std.pdf",
+        "png": "outputs/c7_manuscript_figure_recreation/plots/fig6_c7_localization_vs_clock_std.png"
+      },
+      "fig7": {
+        "pdf": "outputs/c7_manuscript_figure_recreation/plots/fig7_c7_synchronization_vs_clock_std.pdf",
+        "png": "outputs/c7_manuscript_figure_recreation/plots/fig7_c7_synchronization_vs_clock_std.png"
+      }
+    }
+  },
   "nlos_status": {
     "artifact_status": "non_final_nlos_crlb_failure_report",
     "dl_sl_nlos_scope": "not generated",
@@ -187,6 +211,10 @@
     {
       "path": "outputs/step_c7_residual_cov_sync_safeguard",
       "reason": "C7 medium validation diagnostics only; ready for human graph review but not manuscript-ready"
+    },
+    {
+      "path": "outputs/c7_manuscript_figure_recreation",
+      "reason": "C7 manuscript-style recreation outputs are candidate-only; Fig. 6/7 clock-sweep plots remain diagnostic/candidate-failed"
     }
   ],
   "suspect_or_broken_graphs": [
@@ -219,6 +247,8 @@
     "Low-cost Step 3 exploration did not identify a medium-validation candidate and uses proxy evidence for clock-drift and Schur/nuisance-clock lanes.",
     "Step 3 covariance exploration uses deterministic sparse diagnostics and promoted-only medium validation; it is not a final figure workflow.",
     "Step 3 residual covariance robust candidates use bounded medium-grid diagnostics; the best candidate still requires review before estimator integration.",
-    "Step C7 residual-covariance sync-safeguard outputs are non-final diagnostics, not manuscript figures."
+    "Step C7 residual-covariance sync-safeguard outputs are non-final diagnostics, not manuscript figures.",
+    "C7 manuscript-figure recreation outputs are non-final and not manuscript-ready.",
+    "C7 clock-sweep recreation remains diagnostic/candidate-failed until high-clock localization instability is explained."
   ]
 }

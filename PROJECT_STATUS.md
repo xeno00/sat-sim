@@ -445,6 +445,18 @@ worsen localization substantially. All outputs are candidate-only, non-final,
 not manuscript-ready, and use the terminology "typed block-extracted,
 diagonal-clipped residual-scaled covariance."
 
+An overnight-resumable C7 manuscript-figure recreation sprint is implemented on
+branch `codex/c7-manuscript-figure-recreation`. It audits the original notebook
+Fig. 4--7 generation cells, implements a bounded resumable row-level runner
+with dry-run/list-plan, cache manifests, row status logs, timeouts, and
+single-UE cooperative-curve suppression, and writes candidate-only outputs
+under `outputs/c7_manuscript_figure_recreation/`. Fig. 4/5 network-size
+candidate plots are generated for human review. Fig. 6/7 sparse clock-sweep
+plots are generated but marked diagnostic/candidate-failed because high
+clock-standard-deviation rows still expose C7 localization instability. All
+outputs are non-final, not manuscript-ready, and use Stage A DL-only/coarse,
+Stage B LM-only JCLS, and Stage C C7 as the defensible current algorithm path.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -559,3 +571,9 @@ See `docs/tasks/NEXT.md`.
   manuscript evidence because high clock-standard-deviation rows expose severe
   localization instability. Do not run a denser clock sweep until that behavior
   is explained.
+- `outputs/reports/C7_MANUSCRIPT_FIGURE_RECREATION_REPORT.md` records the
+  overnight-resumable C7 manuscript-figure recreation outputs under
+  `outputs/c7_manuscript_figure_recreation/`. Fig. 4/5 network-size plots are
+  ready for human review only. Fig. 6/7 clock-sweep plots are diagnostic-only
+  and candidate-failed because high clock-standard-deviation rows still expose
+  localization instability. None of these outputs are manuscript-ready.

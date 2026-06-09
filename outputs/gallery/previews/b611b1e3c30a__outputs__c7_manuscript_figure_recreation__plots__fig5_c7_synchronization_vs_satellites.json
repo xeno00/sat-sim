@@ -1,0 +1,14 @@
+{
+  "source_pdf_path": "outputs/c7_manuscript_figure_recreation/plots/fig5_c7_synchronization_vs_satellites.pdf",
+  "source_pdf_sha256": "c0667e2650329bed9f2700088295b323f50b22c000cb47ab92355f7a65d84b2f",
+  "source_pdf_size_bytes": 26891,
+  "preview_paths": [
+    "previews/b611b1e3c30a__outputs__c7_manuscript_figure_recreation__plots__fig5_c7_synchronization_vs_satellites-1.png"
+  ],
+  "preview_count": 1,
+  "metadata_path": "previews/b611b1e3c30a__outputs__c7_manuscript_figure_recreation__plots__fig5_c7_synchronization_vs_satellites.json",
+  "render_timestamp_utc": "2026-06-09T03:54:33.584244+00:00",
+  "render_status": "rendered",
+  "branch": "codex/manuscript-algorithm-parity-check",
+  "commit": "e78a0e1"
+}
