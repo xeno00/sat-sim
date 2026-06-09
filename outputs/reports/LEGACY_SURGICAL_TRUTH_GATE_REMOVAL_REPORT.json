@@ -1,0 +1,315 @@
+{
+  "manuscript_ready": false,
+  "non_final_diagnostic": true,
+  "branch_objective": "legacy_surgical_truth_gate_removal",
+  "runtime_s": 279.880794699995,
+  "cases": [
+    {
+      "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+      "num_users": 3,
+      "num_satellites": 10,
+      "clock_std_dev_seconds": 1e-06,
+      "seed": 0,
+      "map_iterations": 2,
+      "error_range_km": 100.0,
+      "sidelink_topology": "fullmesh",
+      "propagation": "legacy_los_rician"
+    },
+    {
+      "case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+      "num_users": 3,
+      "num_satellites": 4,
+      "clock_std_dev_seconds": 1e-06,
+      "seed": 0,
+      "map_iterations": 2,
+      "error_range_km": 100.0,
+      "sidelink_topology": "fullmesh",
+      "propagation": "legacy_los_rician"
+    },
+    {
+      "case_id": "std_nu3_ns10_fullmesh_los_clock10ns_seed0",
+      "num_users": 3,
+      "num_satellites": 10,
+      "clock_std_dev_seconds": 1e-08,
+      "seed": 0,
+      "map_iterations": 2,
+      "error_range_km": 100.0,
+      "sidelink_topology": "fullmesh",
+      "propagation": "legacy_los_rician"
+    }
+  ],
+  "pipelines": [
+    {
+      "label": "legacy_exact_truth_gated",
+      "description": "Exact legacy notebook staged flow with legacy truth-gated LM and truth-derived MAP covariance/acceptance.",
+      "residual_lm": false,
+      "map_enabled": true,
+      "nontruth_map": false,
+      "status": "legacy provenance only; not deployable; not manuscript algorithm evidence",
+      "algorithmic_truth_use": "legacy_reproduction_truth_use_only",
+      "truth_state_used_for_initialization": true,
+      "truth_state_used_for_lm_acceptance": true,
+      "truth_state_used_for_map_covariance": true,
+      "truth_state_used_for_map_acceptance": true,
+      "truth_state_used_for_metrics": true
+    },
+    {
+      "label": "legacy_nontruth_lm",
+      "description": "Legacy IL and LM flow with residual/trust-region LM acceptance; Stage C is intentionally not run.",
+      "residual_lm": true,
+      "map_enabled": false,
+      "nontruth_map": false,
+      "status": "Stage B deployability diagnostic",
+      "algorithmic_truth_use": "algorithmic_truth_use_remove_for_lm; legacy_initialization_truth_preserved",
+      "truth_state_used_for_initialization": true,
+      "truth_state_used_for_lm_acceptance": false,
+      "truth_state_used_for_map_covariance": false,
+      "truth_state_used_for_map_acceptance": false,
+      "truth_state_used_for_metrics": true
+    },
+    {
+      "label": "legacy_surgical_nontruth",
+      "description": "Legacy IL/LM flow with residual/trust-region LM acceptance and residual-scaled information covariance for MAP.",
+      "residual_lm": true,
+      "map_enabled": true,
+      "nontruth_map": true,
+      "status": "surgical non-truth Stage A/B/C diagnostic",
+      "algorithmic_truth_use": "algorithmic_truth_use_remove_for_lm_map; legacy_initialization_truth_preserved",
+      "truth_state_used_for_initialization": true,
+      "truth_state_used_for_lm_acceptance": false,
+      "truth_state_used_for_map_covariance": false,
+      "truth_state_used_for_map_acceptance": false,
+      "truth_state_used_for_metrics": true
+    }
+  ],
+  "truth_use_inventory": [
+    {
+      "component": "Legacy initialization",
+      "source": "JCLS_Simulation.ipynb:1243-1255",
+      "legacy_behavior": "Samples UE initial positions around true UE positions.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "preserved by explicit branch constraint to keep legacy initial state logic",
+      "l2": "preserved by explicit branch constraint to keep legacy initial state logic"
+    },
+    {
+      "component": "LM acceptance",
+      "source": "JCLS_Simulation.ipynb:1413",
+      "legacy_behavior": "Accepts LM candidate only if true-state norm decreases.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "replaced by residual/trust-region acceptance",
+      "l2": "replaced by residual/trust-region acceptance"
+    },
+    {
+      "component": "check_output reversion",
+      "source": "JCLS_Simulation.ipynb:1287-1297,1551",
+      "legacy_behavior": "Returns initial state when final true-state error is worse.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "not used for residual-LM path",
+      "l2": "not used for residual-LM path"
+    },
+    {
+      "component": "MAP covariance",
+      "source": "JCLS_Simulation.ipynb:1258-1265",
+      "legacy_behavior": "Builds diagonal covariance from squared true-state error.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "Stage C not run",
+      "l2": "replaced by residual-scaled information pseudoinverse"
+    },
+    {
+      "component": "MAP acceptance/reversion",
+      "source": "JCLS_Simulation.ipynb:1728-1738",
+      "legacy_behavior": "Compares candidate and prior by true-state error.",
+      "classification": "algorithmic_truth_use_remove",
+      "l0": "preserved for reproduction",
+      "l1": "Stage C not run",
+      "l2": "replaced by observable residual/covariance checks"
+    },
+    {
+      "component": "Offline localization/synchronization metrics",
+      "source": "JCLS_Simulation.ipynb:1567-1620",
+      "legacy_behavior": "Computes reported errors against true state.",
+      "classification": "offline_metric_truth_use_ok",
+      "l0": "used for metrics only",
+      "l1": "used for metrics only",
+      "l2": "used for metrics only"
+    },
+    {
+      "component": "CRLB/Jacobian diagnostics at true state",
+      "source": "JCLS_Simulation.ipynb:2913,3500",
+      "legacy_behavior": "Evaluates diagnostics at the true state in separate notebook analysis cells.",
+      "classification": "legacy_reproduction_truth_use_only",
+      "l0": "not used by this runner",
+      "l1": "not used by this runner",
+      "l2": "not used by this runner"
+    }
+  ],
+  "units_ledger": [
+    {
+      "item": "Position/range state",
+      "unit": "kilometer internally",
+      "legacy_source": "Scenario node coordinates and range-domain measurement model",
+      "surgical_policy": "preserved; output localization metric is converted to meters by legacy helper"
+    },
+    {
+      "item": "Range-like measurements",
+      "unit": "kilometer-equivalent legacy TOA/range residual",
+      "legacy_source": "Scenario.h/query_measurements from extracted notebook",
+      "surgical_policy": "preserved; no gauge or unit cleanup in this branch"
+    },
+    {
+      "item": "Clock state",
+      "unit": "range-equivalent kilometer in symbolic delta entries",
+      "legacy_source": "sampled in seconds, converted by legacy c=300000 km/s convention",
+      "surgical_policy": "preserved"
+    },
+    {
+      "item": "Synchronization metric display",
+      "unit": "nanoseconds",
+      "legacy_source": "all-clock mean absolute range-equivalent delta error divided back to seconds, then multiplied by 1e9",
+      "surgical_policy": "reported as ns in raw/summary while retaining seconds fields where useful; not V24 reference-relative RMSE"
+    },
+    {
+      "item": "Initialization perturbation",
+      "unit": "kilometer-scale error_range argument",
+      "legacy_source": "optimizer.initialize_state(..., error_range=100.0)",
+      "surgical_policy": "preserved"
+    },
+    {
+      "item": "Speed of light constant",
+      "unit": "legacy notebook uses approximate 300000 km/s; package constant is km/s",
+      "legacy_source": "C_KM_PER_S=299792.458",
+      "surgical_policy": "ledger only; no unit conversion introduced"
+    },
+    {
+      "item": "Measurement covariance/noise",
+      "unit": "km^2 covariance after seconds-to-km conversion",
+      "legacy_source": "Rician TOA variance in seconds^2 converted by (3e8/1000)^2",
+      "surgical_policy": "preserved"
+    },
+    {
+      "item": "Parameter ordering",
+      "unit": "lexicographic symbolic order",
+      "legacy_source": "symbolic_parameter_vector",
+      "surgical_policy": "preserved because metric slicing depends on it"
+    }
+  ],
+  "summary": [
+    {
+      "case_id": "std_nu3_ns10_fullmesh_los_clock10ns_seed0",
+      "l0_stage_a_loc_m": 5.66221045379746,
+      "l0_stage_b_loc_m": 0.07144244702260096,
+      "l0_stage_c_loc_m": 0.07144244702260096,
+      "l1_stage_b_loc_m": 0.07440775481810342,
+      "l2_stage_b_loc_m": 0.07440775481810342,
+      "l2_stage_c_loc_m": 0.13276438066590662,
+      "l0_stage_b_sync_ns": 4.915891366611962,
+      "l1_stage_b_sync_ns": 4.917708623934116,
+      "l2_stage_b_sync_ns": 4.917708623934116,
+      "l2_stage_c_sync_ns": 4.917716540949764,
+      "l1_stage_b_ratio_to_l0": 1.0415062462035265,
+      "l2_stage_b_ratio_to_l0": 1.0415062462035265,
+      "l2_stage_c_ratio_to_l0": 1.8583403312586193,
+      "l1_stage_b_close_to_l0": true,
+      "l2_stage_b_close_to_l0": true,
+      "l2_stage_c_close_to_l0": true,
+      "verdict": "green_light"
+    },
+    {
+      "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+      "l0_stage_a_loc_m": 566.2488293078361,
+      "l0_stage_b_loc_m": 0.0744077569554327,
+      "l0_stage_c_loc_m": 0.0744077569554327,
+      "l1_stage_b_loc_m": 0.0744077548162389,
+      "l2_stage_b_loc_m": 0.0744077548162389,
+      "l2_stage_c_loc_m": 0.1354026786207419,
+      "l0_stage_b_sync_ns": 491.9423919278964,
+      "l1_stage_b_sync_ns": 492.0063863749948,
+      "l2_stage_b_sync_ns": 492.0063863749948,
+      "l2_stage_c_sync_ns": 492.00638284191376,
+      "l1_stage_b_ratio_to_l0": 0.9999999712503926,
+      "l2_stage_b_ratio_to_l0": 0.9999999712503926,
+      "l2_stage_c_ratio_to_l0": 1.8197387498435513,
+      "l1_stage_b_close_to_l0": true,
+      "l2_stage_b_close_to_l0": true,
+      "l2_stage_c_close_to_l0": true,
+      "verdict": "green_light"
+    },
+    {
+      "case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+      "l0_stage_a_loc_m": 2231.064515289717,
+      "l0_stage_b_loc_m": 0.8799808953306845,
+      "l0_stage_c_loc_m": 0.4768526166398049,
+      "l1_stage_b_loc_m": 0.9900655648271267,
+      "l2_stage_b_loc_m": 0.9900655648271267,
+      "l2_stage_c_loc_m": 0.7712503598655222,
+      "l0_stage_b_sync_ns": 481.9167879982868,
+      "l1_stage_b_sync_ns": 481.76267374845156,
+      "l2_stage_b_sync_ns": 481.76267374845156,
+      "l2_stage_c_sync_ns": 481.7626741552192,
+      "l1_stage_b_ratio_to_l0": 1.125098931216085,
+      "l2_stage_b_ratio_to_l0": 1.125098931216085,
+      "l2_stage_c_ratio_to_l0": 1.6173768014532954,
+      "l1_stage_b_close_to_l0": true,
+      "l2_stage_b_close_to_l0": true,
+      "l2_stage_c_close_to_l0": true,
+      "verdict": "green_light"
+    }
+  ],
+  "figures": {
+    "legacy_surgical_stage_error_comparison": [
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_stage_error_comparison.png",
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_stage_error_comparison.pdf"
+    ],
+    "legacy_surgical_lm_cost_trace": [
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_lm_cost_trace.png",
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_lm_cost_trace.pdf"
+    ],
+    "legacy_surgical_truth_use_map": [
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_truth_use_map.png",
+      "outputs\\legacy_surgical_truth_gate_removal\\figures\\legacy_surgical_truth_use_map.pdf"
+    ]
+  },
+  "l0_reproduces_legacy": true,
+  "l1_preserves_stage_b_without_truth_lm": true,
+  "l2_preserves_stage_c_without_truth_covariance": true,
+  "decision": "green_light",
+  "legacy_surgical_better_than_current_package_native_c7": true,
+  "package_native_c7_recommendation": "Pause current package-native manuscript recreation for final figures; use it only as a diagnostic until it matches this legacy-surgical path.",
+  "legacy_quirks_preserved": [
+    "Legacy notebook geometry and symbolic state ordering.",
+    "Legacy all-clock state convention.",
+    "Legacy truth-centered initialization around the true UE positions.",
+    "Legacy measurement ordering and query_measurements noise generation.",
+    "Legacy IL initialization and LM/MAP stage sequence.",
+    "Legacy metric definitions for offline localization and synchronization error.",
+    "Legacy error_range=100.0 initialization perturbation."
+  ],
+  "legacy_quirks_suspicious": [
+    "Legacy L0 LM and check_output use true-state error for acceptance/reversion.",
+    "All pipelines preserve legacy truth-centered initialization because the branch isolates decision/covariance changes only.",
+    "Legacy L0 MAP covariance uses squared true-state error.",
+    "Legacy L0 MAP fallback path may leave Stage C equal to Stage B in these bounded rows.",
+    "Internal position/range states are km while output localization is meters; no gauge or unit cleanup was attempted.",
+    "Legacy synchronization is all-clock mean absolute error, not V24 reference-relative RMSE.",
+    "Legacy SNR/covariance code contains unit-suspicious km/m mixing; this branch preserves it rather than silently correcting it."
+  ],
+  "safe_claims": [
+    "On the bounded standard cases, residual/trust-region LM reproduces the L0 Stage B localization result without true-state LM acceptance.",
+    "For the primary standard case, residual-scaled information covariance gives a non-truth Stage C update that remains sub-meter and close to L0.",
+    "L0 is provenance/reproduction evidence only and is not deployable algorithm evidence.",
+    "The notebook file was not executed end-to-end; selected extracted legacy definitions were executed.",
+    "In L1/L2, truth-gated LM/MAP decisions and truth-derived MAP covariance are removed; legacy truth-centered initialization remains preserved and documented."
+  ],
+  "unsafe_claims": [
+    "Do not claim the legacy notebook results were originally truth-free.",
+    "Do not claim the package-native C7 recreation is validated by these results.",
+    "Do not claim broad-sweep robustness; this branch intentionally ran only bounded standard rows.",
+    "Do not use L0 as manuscript algorithm evidence.",
+    "Do not claim comparability with package-native C7 unless the full estimator/clock/gauge/metric/unit/seed tuple is matched."
+  ],
+  "recommended_next_action": "Promote the legacy-surgical path for final candidate figure generation, with the current package-native C7 recreation paused until separately diagnosed."
+}
