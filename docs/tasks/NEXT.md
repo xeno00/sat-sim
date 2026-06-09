@@ -1,12 +1,11 @@
 MODE: IMPLEMENT_APPROVED
 
-# Next Task: Pipeline Schema And Standard-Case Package Layer
+# Next Task: Normalized Primary Benchmark-Card Runner Adapters
 
 ## Purpose
 
-Create the package-level pipeline and benchmark schema layer needed before the
-normalized primary benchmark-card runner is implemented. Do not run benchmark
-cards yet.
+Implement the first execution adapters and bounded normalized benchmark-card
+runner against the new schema-only package layer.
 
 `std_nu3_ns10_fullmesh_los_clock1us_seed0`
 
@@ -27,6 +26,7 @@ result files.
 - `outputs/reports/EXPERIMENT_CODE_LOCATION_AUDIT.md`
 - `outputs/reports/JCLS_SIM_PIPELINE_INTEGRATION_PLAN.md`
 - `outputs/reports/PIPELINE_CODE_DUPLICATION_AUDIT.md`
+- `outputs/reports/JCLS_SIM_PIPELINE_SCHEMA_IMPLEMENTATION_REPORT.md`
 
 ## Branch Ledger Policy
 
@@ -40,33 +40,14 @@ after safe disposition. A pushed branch alone is not a valid final state.
 
 ## Recommended Next Action
 
-Add schema-only package modules:
-
-- `jcls_sim/pipelines/__init__.py`
-- `jcls_sim/pipelines/specs.py`
-- `jcls_sim/pipelines/registry.py`
-- `jcls_sim/benchmark/__init__.py`
-- `jcls_sim/benchmark/standard_cases.py`
-- optional `jcls_sim/benchmark/runner.py` skeleton if it has no execution side effects.
-
-Define:
-
-- `PipelineStageVersions`
-- `TruthUseLedger`
-- `PipelineSpec`
-- `StandardCaseSpec`
-- `StageMetrics`
-- `PipelineRunResult`
-- `BenchmarkCard`
-
-Register, as specs only:
+Use the registered schema pipeline specs:
 
 1. `legacy_surgical_prior_region` as the recommended primary candidate;
 2. `controlled_migration_step_b_lm_only` as the Step B backbone;
 3. `package_native_c7` as the theory-clean backup/reference;
 4. `legacy_truth_gated_l0` as reference-only provenance.
 
-The schema must preserve:
+Implement adapters incrementally and preserve:
 
 - pipeline tuple fields;
 - truth-use fields;
@@ -74,13 +55,14 @@ The schema must preserve:
 - readiness/recommended-use fields.
 - missing metric reasons.
 
-Do not implement execution adapters or run any benchmark rows in this task.
-After this schema-only layer passes tests, the following task should implement
-the normalized primary benchmark-card runner.
+Start with the package-native C7 adapter if possible, then add a legacy-surgical
+adapter boundary that keeps notebook/legacy namespace execution hooks out of
+core `jcls_sim`. The runner must not generate manuscript figures or broad
+sweeps.
 
 ## Stop Gates
 
-- Need for benchmark execution, broad simulations, or manuscript figure generation.
+- Need for broad simulations or manuscript figure generation.
 - Need to edit protected manuscript/result files without explicit approval.
 - Need to move legacy notebook execution hooks into `jcls_sim` before an adapter
   boundary is designed and tested.
