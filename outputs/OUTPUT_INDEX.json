@@ -1,80 +1,5 @@
 {
   "artifact_status": "canonical_output_index",
-  "folders": [
-    {
-      "path": "outputs/gallery",
-      "contains": "PNG previews and browsable Markdown/HTML/JSON gallery",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    },
-    {
-      "path": "outputs/legacy_replay",
-      "contains": "legacy-compatible replay graphs and raw diagnostics",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    },
-    {
-      "path": "outputs/package_diagnostic",
-      "contains": "package diagnostic aliases/status only",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    },
-    {
-      "path": "outputs/manuscript_candidate",
-      "contains": "candidate-only graph provenance/status",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    },
-    {
-      "path": "outputs/human_review",
-      "contains": "human-review diagnostics/status",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    },
-    {
-      "path": "outputs/migration_baseline",
-      "contains": "frozen legacy behavior baseline for controlled migration comparisons",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    },
-    {
-      "path": "outputs/migration_ladder",
-      "contains": "controlled legacy-to-V24 migration step outputs",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    },
-    {
-      "path": "outputs/cache",
-      "contains": "validated replay cache/checkpoint entries",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    },
-    {
-      "path": "outputs/reports",
-      "contains": "human-readable reports and machine JSON",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    },
-    {
-      "path": "outputs/registry",
-      "contains": "mandatory result registry and lineage/units cross-links",
-      "safe_to_cite": false,
-      "safe_to_delete_regenerate": true
-    }
-  ],
-  "mandatory_result_bookkeeping": {
-    "lineage_units_review_md": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md",
-    "lineage_units_review_json": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json",
-    "result_registry_md": "outputs/registry/RESULT_REGISTRY.md",
-    "requirement": "New result families must include a pipeline tuple, units verdict, readiness status, and recommended-use status before they are discussed as evidence."
-  },
-  "legacy_provenance_paths": [
-    "v24_notebook_regression_outputs",
-    "v24_plot_gallery",
-    "v24_figure_outputs",
-    "v24_manuscript_candidate_outputs",
-    "v24_human_review_outputs"
-  ],
   "current_best_graphs": [
     {
       "name": "Corrected LOS localization CRLB replay",
@@ -216,5 +141,83 @@
       "path": "outputs/migration_ladder/step_c4_composite_map_acceptance/medium/sync_vary_ues.pdf",
       "status": "controlled Migration Step C4 composite acceptance, non-final"
     }
-  ]
+  ],
+  "folders": [
+    {
+      "contains": "PNG previews and browsable Markdown/HTML/JSON gallery",
+      "path": "outputs/gallery",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "contains": "legacy-compatible replay graphs and raw diagnostics",
+      "path": "outputs/legacy_replay",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "contains": "package diagnostic aliases/status only",
+      "path": "outputs/package_diagnostic",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "contains": "candidate-only graph provenance/status",
+      "path": "outputs/manuscript_candidate",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "contains": "human-review diagnostics/status",
+      "path": "outputs/human_review",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "contains": "frozen legacy behavior baseline for controlled migration comparisons",
+      "path": "outputs/migration_baseline",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "contains": "controlled legacy-to-V24 migration step outputs",
+      "path": "outputs/migration_ladder",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "contains": "validated replay cache/checkpoint entries",
+      "path": "outputs/cache",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "contains": "human-readable reports and machine JSON",
+      "path": "outputs/reports",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    },
+    {
+      "contains": "mandatory result registry and lineage/units cross-links",
+      "path": "outputs/registry",
+      "safe_to_cite": false,
+      "safe_to_delete_regenerate": true
+    }
+  ],
+  "legacy_provenance_paths": [
+    "v24_notebook_regression_outputs",
+    "v24_plot_gallery",
+    "v24_figure_outputs",
+    "v24_manuscript_candidate_outputs",
+    "v24_human_review_outputs"
+  ],
+  "mandatory_result_bookkeeping": {
+    "lineage_units_review_json": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json",
+    "lineage_units_review_md": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md",
+    "primary_standard_case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+    "requirement": "New result families must include a pipeline tuple, units verdict, readiness status, recommended-use status, and primary-standard status before they are discussed as evidence.",
+    "result_registry_json": "outputs/registry/RESULT_REGISTRY.json",
+    "result_registry_md": "outputs/registry/RESULT_REGISTRY.md",
+    "secondary_low_satellite_stress_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0"
+  }
 }

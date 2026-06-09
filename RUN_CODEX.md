@@ -128,6 +128,17 @@ Output-producing branches must include branch/commit/script metadata,
 candidate/final/diagnostic readiness, units status, and recommended use before
 their outputs are treated as evidence or merged without caveat.
 
+## Standard benchmark policy
+
+Use `std_nu3_ns10_fullmesh_los_clock1us_seed0` as the primary universal
+standard benchmark. The previous `std_nu3_ns4_fullmesh_los_clock1us_seed0`
+case is retained only as `secondary_low_satellite_stress_case`.
+
+If a result family lacks the primary `N_u=3,N_s=10` values, mark
+`primary_standard_status` as `missing_needs_benchmark_run`, `unsupported`,
+`not_applicable`, or `unknown_needs_review`; do not substitute the old
+low-satellite stress case into primary fields.
+
 ## Tests
 
 Preferred test command:

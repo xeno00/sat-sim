@@ -17,6 +17,12 @@ quarantined, or explicitly left awaiting human review. The protected-file
 checker is `scripts/check_protected_files.py`, and branch inventory/disposition
 reports live under `outputs/reports/`.
 
+Primary benchmark policy is updated: the universal standard case is
+`std_nu3_ns10_fullmesh_los_clock1us_seed0`. The previous
+`std_nu3_ns4_fullmesh_los_clock1us_seed0` case is retained only as a secondary
+low-satellite stress case and must not be substituted into primary-standard
+fields.
+
 Python tests use the active Python runtime directly. The workflow intentionally
 does not create virtual environments or bootstrap scripts; if standard
 scientific test packages are missing, Codex installs the minimal needed
@@ -35,6 +41,11 @@ Integration compliance branch `codex/integration-compliance-and-merge-discipline
 merged the reviewed C7 manuscript-recreation and lineage/units branch into the
 integration branch, inventoried active/recent Codex branches, and added process
 rules requiring explicit branch disposition before task completion.
+
+Standard benchmark bookkeeping now treats `N_u=3,N_s=10,\sigma_\delta=1 us`
+as the primary universal fingerprint. Several pipelines currently have
+`primary_standard_status=missing_needs_benchmark_run`; the next diagnostic
+should build a normalized benchmark-card runner for that case.
 
 Gauge/metrics package and tests are implemented. Measurement-model and explicit
 V24 parameter-vector helpers/tests are implemented. Jacobian and gauged FIM

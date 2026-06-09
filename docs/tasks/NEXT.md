@@ -1,12 +1,13 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Parked Branch Review and Lineage Registration
+# Next Task: Primary Standard Benchmark-Card Runner
 
 ## Purpose
 
-Review parked diagnostic branches before any further merge. Do not edit
-manuscript files, do not execute the notebook, do not run broad simulations,
-and do not generate final manuscript figures.
+Build a normalized benchmark-card runner for
+`std_nu3_ns10_fullmesh_los_clock1us_seed0`. Do not edit manuscript files, do
+not execute the notebook, do not run broad simulations, and do not generate
+final manuscript figures.
 
 ## MERGE_POLICY
 
@@ -50,11 +51,24 @@ powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1
 
 ## Scope
 
-Begin with parked branches from
-`outputs/reports/BRANCH_INTEGRATION_INVENTORY.json`, especially wave, GNSS, and
-legacy-surgical diagnostic branches. For each branch, decide whether it needs a
-lineage/units entry, should remain parked, should be quarantined, or is safe to
-merge.
+Create a small runner/report that evaluates the primary standard case:
+
+- case id: `std_nu3_ns10_fullmesh_los_clock1us_seed0`;
+- `N_u=3`, `N_s=10`;
+- full-mesh sidelinks;
+- LOS/Rician when supported;
+- manuscript-like MIT/Stata UE geometry and Starlink-like LEO geometry when
+  supported;
+- clock standard deviation `1 microsecond`;
+- seed `0`;
+- operation time `0.5 s` when Stage C is available;
+- one trial for the standard fingerprint.
+
+Compare Step B / LM-only and C7 under identical geometry/noise/clock settings.
+Keep the old `std_nu3_ns4_fullmesh_los_clock1us_seed0` case only as
+`secondary_low_satellite_stress_case`; do not use it as the primary benchmark.
+Update `RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW` after the benchmark-card
+runner exists.
 
 ## FINAL_RESPONSE_SCHEMA
 

@@ -160,7 +160,6 @@
       "status": "controlled Migration Step C4 composite acceptance, non-final"
     }
   ],
-  "latest_step3_mode": "step_c7_residual_cov_sync_safeguard",
   "latest_c7_manuscript_figure_recreation": {
     "candidate_only": true,
     "clock_sweep_status": "candidate_failed_or_diagnostic_only",
@@ -185,11 +184,15 @@
       }
     }
   },
+  "latest_step3_mode": "step_c7_residual_cov_sync_safeguard",
   "mandatory_lineage_units_review": {
-    "report_md": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md",
-    "report_json": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json",
+    "primary_standard_case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+    "registry_json": "outputs/registry/RESULT_REGISTRY.json",
     "registry_md": "outputs/registry/RESULT_REGISTRY.md",
-    "verdict": "No generated graph should be cited or treated as evidence without a lineage/units row."
+    "report_json": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json",
+    "report_md": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md",
+    "secondary_low_satellite_stress_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+    "verdict": "No generated graph should be cited or treated as evidence without a lineage/units row and primary-standard status."
   },
   "nlos_status": {
     "artifact_status": "non_final_nlos_crlb_failure_report",
@@ -204,7 +207,7 @@
   },
   "not_for_manuscript_submission": true,
   "overall": "legacy-compatible graphs are best available for visual review; none are manuscript-ready",
-  "recommended_next_action": "Human graph review of C7 diagnostics, then decide whether to run a bounded clock/network figure-candidate validation.",
+  "recommended_next_action": "Build a normalized benchmark-card runner for std_nu3_ns10_fullmesh_los_clock1us_seed0 before treating any pipeline as primary-standard evidence.",
   "suspect_graphs": [
     {
       "path": "v24_human_review_outputs",
