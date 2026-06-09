@@ -49,18 +49,21 @@ The package-native C7 path remains the backup because it is the cleanest against
 
 ## Required Minimal Next Run
 
-Build and run a normalized benchmark-card runner for:
+The first normalized benchmark-card runner now exists and writes cards under:
+
+`outputs/standard_benchmark_cards/`
+
+It has executed the `package_native_c7` adapter on:
 
 `std_nu3_ns10_fullmesh_los_clock1us_seed0`
 
-Include exactly these candidate families first:
+The remaining minimal run is to implement safe adapters for:
 
-1. legacy-surgical prior-region path, with multiple prior radii already represented if cheap;
+1. legacy-surgical prior-region path, with multiple prior radii represented only if cheap;
 2. controlled Step B residual LM-only path;
-3. package-native C7 path;
-4. legacy truth-gated L0 only as a provenance reference, clearly excluded from manuscript evidence.
+3. legacy truth-gated L0 only as a provenance reference, clearly excluded from manuscript evidence.
 
-The runner must produce initialization, Step A, Step B, and Step C localization/synchronization metrics with one shared schema and explicit truth-use/units metadata.
+The existing runner already preserves initialization, Step A, Step B, and Step C localization/synchronization fields with explicit missing reasons, truth-use metadata, and units metadata.
 
 ## Recommendation
 

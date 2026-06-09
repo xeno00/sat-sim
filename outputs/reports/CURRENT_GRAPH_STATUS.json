@@ -18,6 +18,27 @@
     "sync_worse_rows": []
   },
   "c7_ready_for_human_graph_review": true,
+  "latest_normalized_benchmark_cards": {
+    "output_root": "outputs/standard_benchmark_cards",
+    "case_id": "std_nu3_ns10_fullmesh_los_clock1us_seed0",
+    "executable_adapters": [
+      "package_native_c7"
+    ],
+    "unavailable_adapters": [
+      "controlled_migration_step_b_lm_only",
+      "legacy_surgical_prior_region",
+      "legacy_truth_gated_l0_reference_only"
+    ],
+    "package_native_c7": {
+      "step_a_pos_error_m": 1105.1545455064208,
+      "step_b_pos_error_m": 4289.809278407522,
+      "step_c_pos_error_m": 4287.922982486913,
+      "step_a_sync_error_ns": 937.2143214222392,
+      "step_b_sync_error_ns": 3882.0609532939025,
+      "step_c_sync_error_ns": 3879.7855148947906,
+      "manuscript_ready": false
+    }
+  },
   "current_best_graphs": [
     {
       "name": "Corrected LOS localization CRLB replay",

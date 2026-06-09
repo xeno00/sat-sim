@@ -103,10 +103,10 @@ def _package_native_c7() -> PipelineSpec:
         recommended_use="v24_clean_backup_reference",
         units_status="units_consistent",
         result_lineage_status="registered",
-        implementation_status="adapter_planned",
-        adapter_module="jcls_sim.pipelines.c7",
-        runner_script="scripts/run_c7_manuscript_figure_recreation.py",
-        notes="V24-clean backup/reference path; execution adapter is planned for benchmark cards.",
+        implementation_status="adapter_available",
+        adapter_module="jcls_sim.pipelines.adapters",
+        runner_script="scripts/run_standard_benchmark_cards.py",
+        notes="V24-clean backup/reference path; bounded primary-standard benchmark-card adapter is available.",
     )
 
 

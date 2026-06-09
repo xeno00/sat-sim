@@ -1,5 +1,6 @@
 """Pipeline schema and registry helpers for JCLS result provenance."""
 
+from .adapters import adapter_status, run_pipeline_adapter
 from .registry import (
     get_pipeline_spec,
     pipeline_ids,
@@ -25,7 +26,9 @@ __all__ = [
     "READINESS_STATUSES",
     "StageMetrics",
     "TruthUseLedger",
+    "adapter_status",
     "get_pipeline_spec",
     "pipeline_ids",
     "pipeline_specs",
+    "run_pipeline_adapter",
 ]

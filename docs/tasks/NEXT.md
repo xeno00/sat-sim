@@ -1,13 +1,16 @@
-MODE: IMPLEMENT_APPROVED
+MODE: PLAN_ONLY
 
-# Next Task: Normalized Primary Benchmark-Card Runner Adapters
+# Next Task: Remaining Benchmark Adapter Boundaries
 
 ## Purpose
 
-Implement the first execution adapters and bounded normalized benchmark-card
-runner against the new schema-only package layer.
+Design the next safe adapter implementation step for the normalized benchmark-card
+runner after the first `package_native_c7` primary-standard card.
 
-`std_nu3_ns10_fullmesh_los_clock1us_seed0`
+The first adapter branch produced non-final benchmark cards under
+`outputs/standard_benchmark_cards/`. Only `package_native_c7` is currently
+executable from core `jcls_sim`; the other registered pipelines are represented
+with explicit missing metrics and missing reasons.
 
 Do not generate manuscript figures. Do not run broad sweeps. Do not edit
 manuscript source, response letters, bibliography, notebook source, PSFrag,
@@ -16,17 +19,18 @@ result files.
 
 ## Required Inputs
 
-- `outputs/reports/REPO_AND_MANUSCRIPT_CONTEXT_REBASE.md`
+- `outputs/reports/NORMALIZED_BENCHMARK_ADAPTER_IMPLEMENTATION_REPORT.md`
+- `outputs/reports/NORMALIZED_STANDARD_BENCHMARK_REPORT.md`
+- `outputs/standard_benchmark_cards/PIPELINE_MANIFEST.md`
+- `outputs/standard_benchmark_cards/raw.csv`
+- `outputs/standard_benchmark_cards/summary.csv`
 - `outputs/reports/PIPELINE_DOWNSELECT_REPORT.md`
 - `outputs/reports/STANDARD_SCENARIO_PIPELINE_SCORECARD.md`
-- `outputs/reports/MANUSCRIPT_RESULT_REQUIREMENTS_MATRIX.md`
 - `outputs/reports/MISSING_STANDARD_METRICS.md`
 - `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md`
 - `outputs/registry/RESULT_REGISTRY.md`
-- `outputs/reports/EXPERIMENT_CODE_LOCATION_AUDIT.md`
 - `outputs/reports/JCLS_SIM_PIPELINE_INTEGRATION_PLAN.md`
 - `outputs/reports/PIPELINE_CODE_DUPLICATION_AUDIT.md`
-- `outputs/reports/JCLS_SIM_PIPELINE_SCHEMA_IMPLEMENTATION_REPORT.md`
 
 ## Branch Ledger Policy
 
@@ -34,31 +38,35 @@ result files.
 `outputs/reports/ACTIVE_BRANCH_LEDGER.json` are the canonical live branch-status
 source. Update them whenever branch disposition changes.
 
-A branch with unique work must have one of: merged to main, open PR, parked
-with reason, quarantined with reason, superseded with replacement, or deleted
-after safe disposition. A pushed branch alone is not a valid final state.
+A branch with unique work must have one of: merged to main, open PR, parked with
+reason, quarantined with reason, superseded with replacement, or deleted after
+safe disposition. A pushed branch alone is not a valid final state.
 
 ## Recommended Next Action
 
-Use the registered schema pipeline specs:
+Plan the smallest next implementation that can make the normalized benchmark
+card more scientifically useful without moving legacy notebook execution hooks
+into core `jcls_sim`.
 
-1. `legacy_surgical_prior_region` as the recommended primary candidate;
-2. `controlled_migration_step_b_lm_only` as the Step B backbone;
-3. `package_native_c7` as the theory-clean backup/reference;
-4. `legacy_truth_gated_l0` as reference-only provenance.
+Prioritize:
 
-Implement adapters incrementally and preserve:
+1. A safe `controlled_migration_step_b_lm_only` adapter boundary if it can call
+   existing reusable code without notebook execution.
+2. A safe `legacy_surgical_prior_region` adapter boundary if the merged code is
+   accessible from main without copying legacy notebook execution into
+   `jcls_sim`.
+3. Keeping `legacy_truth_gated_l0_reference_only` as provenance/reference only
+   unless a read-only external adapter can report metrics with strong truth-use
+   caveats.
+
+The next implementation must preserve:
 
 - pipeline tuple fields;
 - truth-use fields;
 - units fields;
-- readiness/recommended-use fields.
-- missing metric reasons.
-
-Start with the package-native C7 adapter if possible, then add a legacy-surgical
-adapter boundary that keeps notebook/legacy namespace execution hooks out of
-core `jcls_sim`. The runner must not generate manuscript figures or broad
-sweeps.
+- readiness/recommended-use fields;
+- missing metric reasons;
+- primary case `std_nu3_ns10_fullmesh_los_clock1us_seed0`.
 
 ## Stop Gates
 
@@ -66,29 +74,24 @@ sweeps.
 - Need to edit protected manuscript/result files without explicit approval.
 - Need to move legacy notebook execution hooks into `jcls_sim` before an adapter
   boundary is designed and tested.
+- Need to substitute the secondary low-satellite stress case for the primary
+  standard case.
 
 ## Final Response Checklist
 
 ```text
-Current main before:
-Current main after:
-Working tree clean:
-Branches inspected:
-Branches remaining:
-PRs opened:
-PRs closed:
-PRs merged:
-Branches deleted local:
-Branches deleted remote:
-Branches parked:
-Branches quarantined:
-Branches needing human review:
-Protected-file check:
+Branch:
+Commit:
+Pushed:
+PR:
+PR status:
+Merged to main:
+Merge commit:
+If not merged, disposition:
+If not merged, reason:
 Tests:
-Reports updated:
+Protected-file check:
+Reports/outputs:
 ACTIVE_BRANCH_LEDGER updated:
-If no, reason:
-Branches changed:
-Remaining active branches:
 Next action:
 ```

@@ -133,9 +133,12 @@ class PipelineSchemaTests(unittest.TestCase):
         self.assertEqual(payload["unsafe_claims"], ["no benchmark result has been generated"])
         self.assertFalse(payload["result"]["step_c"]["available"])
 
-    def test_runner_stub_does_not_fabricate_results(self) -> None:
-        with self.assertRaisesRegex(NotImplementedError, "schema-only layer"):
-            run_pipeline(primary_standard_case(), get_pipeline_spec("package_native_c7"))
+    def test_runner_does_not_fabricate_unavailable_adapter_results(self) -> None:
+        result = run_pipeline(primary_standard_case(), get_pipeline_spec("legacy_surgical_prior_region"))
+
+        self.assertFalse(result.step_a.available)
+        self.assertIsNone(result.step_a.pos_error_m)
+        self.assertEqual(result.step_a.missing_reason, "legacy_surgical_adapter_not_integrated_on_main")
 
 
 if __name__ == "__main__":

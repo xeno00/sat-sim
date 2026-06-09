@@ -58,6 +58,12 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - Secondary low-satellite stress case only: `std_nu3_ns4_fullmesh_los_clock1us_seed0`.
 - No generated graph should be cited without a lineage row, units verdict, readiness status, recommended-use status, and primary-standard status.
 
+## Latest Normalized Benchmark Cards
+- Output root: [`outputs/standard_benchmark_cards`](../standard_benchmark_cards/).
+- The first adapter run includes all four registered pipeline IDs, but only `package_native_c7` is executable in v1.
+- `package_native_c7` primary-card values: Step A `1105.154546 m` / `937.214321 ns`, Step B `4289.809278 m` / `3882.060953 ns`, Step C `4287.922982 m` / `3879.785515 ns`.
+- The benchmark cards are non-final, not manuscript-ready, and are useful mainly to validate the unified schema/adapter interface.
+
 ## Warnings
 - No graph is manuscript-ready.
 - Legacy CRLB is all-clock/post-hoc and not V24-clean.
@@ -69,4 +75,4 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - Step C7 residual-covariance sync-safeguard outputs are non-final diagnostics, not manuscript figures.
 - C7 manuscript-figure recreation outputs are non-final and not manuscript-ready.
 - C7 clock-sweep recreation remains diagnostic/candidate-failed until high-clock localization instability is explained.
-- Primary-standard benchmark cards for `std_nu3_ns10_fullmesh_los_clock1us_seed0` are still missing for several pipelines.
+- Primary-standard benchmark cards for `std_nu3_ns10_fullmesh_los_clock1us_seed0` are still missing for controlled Step B, legacy-surgical, and L0 reference adapters.
