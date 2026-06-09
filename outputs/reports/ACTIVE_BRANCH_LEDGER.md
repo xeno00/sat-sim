@@ -2,10 +2,10 @@
 
 ## Executive Summary
 
-Canonical live branch-status source of truth. Generated `2026-06-09T15:57:23.869397+00:00` from actual Git refs and GitHub PR state.
-Snapshot base main commit: `21e3969`.
-Active branches remaining: `6`.
-Open PRs among active branches: `0`.
+Canonical live branch-status source of truth. Generated `2026-06-09T17:49:08.1387246Z` from actual Git refs and GitHub PR state.
+Snapshot base main commit: `ce5890c`.
+Active branches remaining: `7`.
+Open PRs among active branches: `1`.
 
 This ledger supersedes ad hoc branch-status prose in older cleanup reports. Other reports are snapshots and should point here for live branch state.
 
@@ -15,6 +15,7 @@ This ledger supersedes ad hoc branch-status prose in older cleanup reports. Othe
 |---|---|---|---|---|---|---|---|
 | codex/gps-gnss-baseline-exploration | 041d00f | both | none | parked_keep | result_lineage_missing | debug_only | Review GNSS report outputs and add a result-lineage/units entry or keep parked. |
 | codex/jcls-wave-results-exploration | 24524fb | both | none | parked_keep | result_lineage_missing | debug_only | Run read-only lineage/units review for wave-results outputs. |
+| codex/jcls-sim-pipeline-schema | e399f79 | both | #6 open_draft | open_pr_review | process_only | not_science | Review and merge/approve schema-only pipeline/benchmark layer PR #6. |
 | codex/legacy-figures-gallery-crlb-nlos | ad58418 | both | none | needs_human_review | diagnostic_only | legacy_reference_only | Human review of legacy graph review package; decide park vs quarantine vs sanitized PR. |
 | codex/legacy-surgical-prior-region-initialization | 0eefdea | local_only | #4 closed_merged | merged_delete_safe | legacy_truth_risk | legacy_reference_only | Remove active worktree when no longer needed, then delete local branch. |
 | codex/legacy-surgical-truth-gate-removal | 8a1419d | local_only | #3 closed_quarantined; commit reachable through merged PR #4 | merged_delete_safe | legacy_truth_risk | legacy_reference_only | Remove active worktree when no longer needed, then delete local branch. |
@@ -41,6 +42,7 @@ This ledger supersedes ad hoc branch-status prose in older cleanup reports. Othe
 
 ## Branches With PRs
 
+- `codex/jcls-sim-pipeline-schema`: PR #6 `open_draft` https://github.com/xeno00/sat-sim/pull/6
 - `codex/legacy-surgical-prior-region-initialization`: PR #4 `closed_merged` https://github.com/xeno00/sat-sim/pull/4
 - `codex/legacy-surgical-truth-gate-removal`: PR #3 `closed_quarantined; commit reachable through merged PR #4` https://github.com/xeno00/sat-sim/pull/3
 
@@ -51,9 +53,10 @@ This ledger supersedes ad hoc branch-status prose in older cleanup reports. Othe
 ## Next Actions In Priority Order
 
 1. Human review `codex/legacy-figures-gallery-crlb-nlos` and decide park/quarantine/sanitized PR/supersede.
-2. Add lineage/units entries before GNSS or wave-result branch PRs.
-3. Remove duplicate/parked worktrees only after their branches are merged, superseded, or explicitly abandoned.
-4. Remove active legacy-surgical worktrees, then delete their local branch refs.
+2. Review and merge/approve `codex/jcls-sim-pipeline-schema` PR #6, then proceed to benchmark adapter implementation.
+3. Add lineage/units entries before GNSS or wave-result branch PRs.
+4. Remove duplicate/parked worktrees only after their branches are merged, superseded, or explicitly abandoned.
+5. Remove active legacy-surgical worktrees, then delete their local branch refs.
 
 ## Drift Warnings
 
