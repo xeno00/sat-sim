@@ -185,6 +185,12 @@
       }
     }
   },
+  "mandatory_lineage_units_review": {
+    "report_md": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md",
+    "report_json": "outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json",
+    "registry_md": "outputs/registry/RESULT_REGISTRY.md",
+    "verdict": "No generated graph should be cited or treated as evidence without a lineage/units row."
+  },
   "nlos_status": {
     "artifact_status": "non_final_nlos_crlb_failure_report",
     "dl_sl_nlos_scope": "not generated",

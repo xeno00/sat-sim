@@ -457,6 +457,15 @@ clock-standard-deviation rows still expose C7 localization instability. All
 outputs are non-final, not manuscript-ready, and use Stage A DL-only/coarse,
 Stage B LM-only JCLS, and Stage C C7 as the defensible current algorithm path.
 
+A mandatory result lineage and units review is implemented on branch
+`codex/c7-manuscript-figure-recreation`. The first-class bookkeeping report
+lives at `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md` with a
+machine-readable JSON twin. It covers original notebook/manuscript artifacts,
+legacy replays, Step B, C7 diagnostics, C7 candidate/recreation outputs,
+package-native suspect Fig. 4--7 outputs, and missing wave/GNSS exploration
+families. New results must have a pipeline tuple, units verdict, readiness
+status, and recommended-use status before they are discussed as evidence.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -577,3 +586,8 @@ See `docs/tasks/NEXT.md`.
   ready for human review only. Fig. 6/7 clock-sweep plots are diagnostic-only
   and candidate-failed because high clock-standard-deviation rows still expose
   localization instability. None of these outputs are manuscript-ready.
+- `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md` is now the
+  mandatory first-stop bookkeeping artifact for generated results. It records
+  result-family lineage, system/stage tuples, truth usage, internal/plotted
+  units, rough benchmark cards where available, contradictions, quarantine
+  decisions, and the blunt current-use recommendation.

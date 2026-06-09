@@ -1,0 +1,629 @@
+{
+  "artifact_status": "result_version_lineage_and_units_review",
+  "branch": "codex/c7-manuscript-figure-recreation",
+  "commit": "0e6300b",
+  "contradictions": [
+    {
+      "contradiction_id": "c7_centimeter_vs_manuscript_recreation_meter_scale",
+      "likely_cause": "The rows are not a controlled same-system benchmark: diagnostic medium uses a small deterministic validation setup, while manuscript recreation uses notebook-inspired figure-family settings, different geometry/noise/clock assumptions, and manuscript-style output semantics.",
+      "next_diagnostic_action": "Create a single benchmark runner that drives Step B and C7 through the exact same geometry, noise, links, seeds, and clock sigma.",
+      "numerical_mismatch": "C7 diagnostic Stage C position 0.0393877 m versus C7 manuscript recreation Stage C position 180.203 m; ratio about 4575.11",
+      "quarantine_decision": "Do not compare these as evidence of algorithm performance until a normalized benchmark card is run across both paths.",
+      "source_a": "outputs/step_c7_residual_cov_sync_safeguard/raw.csv Nu=3,Ns=4",
+      "source_b": "outputs/c7_manuscript_figure_recreation/raw.csv network Nu=3,Ns=4 refined_jcls"
+    },
+    {
+      "contradiction_id": "legacy_clock_sweep_good_behavior_vs_c7_clock_sweep_instability",
+      "likely_cause": "Legacy uses all-clock state, truth-error acceptance/fallback behavior, all-clock synchronization metric, and smoothing/fitting transforms; C7 uses non-truth safeguards and package-native metrics.",
+      "next_diagnostic_action": "Run a normalized clock-sweep benchmark with raw Stage A/B/C metrics, no smoothing, and explicit clock-unit conversion audit.",
+      "numerical_mismatch": "Legacy replay reports refined position below 0.06 m at all seven clock points after truth-gated fallback behavior; C7 bounded/sparse clock-sweep reports candidate-failed localization at high clock standard deviation.",
+      "quarantine_decision": "Use legacy clock sweep as reference only and C7 clock sweep as debugging evidence only.",
+      "source_a": "outputs/legacy_replay/clock_sweep_full/legacy_clock_sweep_metadata.json",
+      "source_b": "outputs/c7_candidate_figures/metadata.json and outputs/c7_manuscript_figure_recreation/metadata.json"
+    },
+    {
+      "contradiction_id": "jcls_label_mixes_stage_tuples",
+      "likely_cause": "Historical figure labels are algorithm-stage labels, not full pipeline tuple identifiers.",
+      "next_diagnostic_action": "Add pipeline tuple labels to future summary CSV/metadata and figure notes.",
+      "numerical_mismatch": "Same label can refer to legacy truth-gated all-clock MAP, Step B LM-only, generic dynamic SCI/SFI, or C7 residual-covariance safeguard.",
+      "quarantine_decision": "Every new result must include the explicit system/A/B/C tuple before being discussed as evidence.",
+      "source_a": "legacy replay labels coarse/refined JCLS",
+      "source_b": "package-native and C7 labels coarse/refined JCLS"
+    },
+    {
+      "contradiction_id": "manuscript_ready_claim_absent_but_outputs_exist",
+      "likely_cause": "Diagnostic and candidate plots intentionally mimic figure families for review.",
+      "next_diagnostic_action": "Keep RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW as the first lookup before discussing figures.",
+      "numerical_mismatch": "No inspected current output claims manuscript_ready=true, but many PDFs resemble manuscript figures.",
+      "quarantine_decision": "Do not cite any generated PDF unless its lineage row is promoted by human signoff.",
+      "source_a": "all inspected report JSON files",
+      "source_b": "generated PDF outputs"
+    }
+  ],
+  "current_use_decisions": [
+    {
+      "current_use_status": "legacy_reference_only",
+      "decision": "Do not use as manuscript evidence.",
+      "reason": "Manuscript artifacts predate the current tested provenance stack and mix legacy all-clock/truth-gated behavior.",
+      "result_family": "original_notebook_manuscript_results"
+    },
+    {
+      "current_use_status": "legacy_reference_only",
+      "decision": "Do not use as manuscript evidence.",
+      "reason": "Truth-gated acceptance, all-clock state, and legacy synchronization metric are unsafe for V24 evidence.",
+      "result_family": "legacy_clock_sweep_replay"
+    },
+    {
+      "current_use_status": "legacy_reference_only",
+      "decision": "Do not use as manuscript evidence.",
+      "reason": "Legacy all-clock/truth-gated path is provenance, not V24-clean evidence.",
+      "result_family": "legacy_network_size_replay"
+    },
+    {
+      "current_use_status": "legacy_reference_only",
+      "decision": "Do not use as manuscript evidence.",
+      "reason": "All-clock/post-hoc CRLB path is incompatible with current V24 gauged FIM requirements.",
+      "result_family": "legacy_crlb_los_replay"
+    },
+    {
+      "current_use_status": "use_for_human_review",
+      "decision": "Use only with explicit caveats.",
+      "reason": "healthy clean baseline on controlled migration grid",
+      "result_family": "step_b_lm_only_results"
+    },
+    {
+      "current_use_status": "use_for_human_review",
+      "decision": "Use only with explicit caveats.",
+      "reason": "centimeter-level toy/medium diagnostic on selected standard row",
+      "result_family": "c7_residual_cov_sync_safeguard"
+    },
+    {
+      "current_use_status": "use_for_human_review",
+      "decision": "Use only with explicit caveats.",
+      "reason": "Sparse clock-sweep localization instability blocks manuscript use.",
+      "result_family": "c7_candidate_figure_validation"
+    },
+    {
+      "current_use_status": "use_for_human_review",
+      "decision": "Use only with explicit caveats.",
+      "reason": "Clock-sweep family remains diagnostic/candidate-failed because high-clock rows worsen localization.",
+      "result_family": "c7_manuscript_figure_recreation"
+    },
+    {
+      "current_use_status": "do_not_use",
+      "decision": "Do not use as manuscript evidence.",
+      "reason": "Required family name was requested, but no matching output artifacts were found.",
+      "result_family": "wave_results_exploration"
+    },
+    {
+      "current_use_status": "use_for_debugging_only",
+      "decision": "Do not use as manuscript evidence.",
+      "reason": "Synthetic geometry/noise and algorithm fidelity were unresolved; outputs are suspect diagnostics only.",
+      "result_family": "package_native_suspect_fig4_7_outputs"
+    },
+    {
+      "current_use_status": "use_for_debugging_only",
+      "decision": "Do not use as manuscript evidence.",
+      "reason": "Synthetic satellite geometry, estimator robustness, and numerical behavior remain unresolved.",
+      "result_family": "manuscript_candidate_geometry_noise_outputs"
+    },
+    {
+      "current_use_status": "use_for_debugging_only",
+      "decision": "Do not use as manuscript evidence.",
+      "reason": "JCLS success rates were low and refined JCLS could underperform baseline.",
+      "result_family": "human_review_fig4_7_outputs"
+    },
+    {
+      "current_use_status": "do_not_use",
+      "decision": "Do not use as manuscript evidence.",
+      "reason": "Required family was requested if present; no matching output artifacts were found.",
+      "result_family": "gnss_baseline_exploration"
+    }
+  ],
+  "currently_recommended_result_family": "step_b_lm_only_results and c7_residual_cov_sync_safeguard for human review only; no family is manuscript-ready",
+  "next_diagnostic_action": "Create one normalized benchmark-card runner that compares Step B and C7 under identical geometry/noise/clock settings before any manuscript evidence claim.",
+  "pipeline_tuples": [
+    {
+      "candidate_final": false,
+      "has_benchmark_card": true,
+      "implemented": true,
+      "notes": "Use as legacy reference only; truth gates and all-clock metrics are unsafe for V24 evidence.",
+      "pipeline_tuple": "legacy_all_clock + A0_legacy_il + B0_legacy_lm_truth_gate + C0_legacy_truth_cov_ekf",
+      "quarantined": true,
+      "reproduces_legacy": true
+    },
+    {
+      "candidate_final": false,
+      "has_benchmark_card": true,
+      "implemented": true,
+      "notes": "Current clean Step B/LM-only baseline for human review.",
+      "pipeline_tuple": "legacy_compatible_all_clock + A0_legacy_il + B1_residual_lm + C_none",
+      "quarantined": false,
+      "reproduces_legacy": false
+    },
+    {
+      "candidate_final": false,
+      "has_benchmark_card": true,
+      "implemented": true,
+      "notes": "Used as baseline in C7 candidate validation.",
+      "pipeline_tuple": "package_native_current + A1_package_dl_only + B1_residual_lm + C_none",
+      "quarantined": false,
+      "reproduces_legacy": false
+    },
+    {
+      "candidate_final": false,
+      "has_benchmark_card": true,
+      "implemented": true,
+      "notes": "Ready for human graph review only; not manuscript-ready.",
+      "pipeline_tuple": "package_native_current + A1_package_dl_only + B1_residual_lm + C7_residual_cov_sync_safeguard",
+      "quarantined": false,
+      "reproduces_legacy": false
+    },
+    {
+      "candidate_final": false,
+      "has_benchmark_card": false,
+      "implemented": false,
+      "notes": "Recognized future tuple; not implemented as a distinct result family.",
+      "pipeline_tuple": "gauge_fixed + A2_gauge_fixed_dl_only + B2_gauge_fixed_residual_lm + C7_residual_cov_sync_safeguard",
+      "quarantined": true,
+      "reproduces_legacy": false
+    }
+  ],
+  "quarantine_count": 6,
+  "result_families": [
+    {
+      "branch": "manual_manuscript_storage",
+      "commit": "not_git_tracked",
+      "generating_script": "JCLS_Simulation.ipynb original figure cells",
+      "output_root": "Work-In-Progress/Figures/GeneratePSFrag",
+      "pipeline_class": "legacy_final_artifact",
+      "quarantine_reason": "Manuscript artifacts predate the current tested provenance stack and mix legacy all-clock/truth-gated behavior.",
+      "readiness": "quarantine_until_reconciled",
+      "recommended_use": "legacy_reference_only",
+      "result_family": "original_notebook_manuscript_results",
+      "rough_performance_tag": "unknown",
+      "stage_a_version": "A0_legacy_il_clockless_preconditioning",
+      "stage_b_version": "B0_legacy_lm_truth_gate",
+      "stage_c_version": "C0_legacy_truth_cov_ekf",
+      "standard_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": null,
+      "standard_case_stage_b_sync_ns": null,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "legacy_all_clock_notebook",
+      "truth_usage": "truth gates/covariance suspected from legacy notebook path; exact manuscript artifact lineage not fully executable",
+      "units_status": "units_uncertain"
+    },
+    {
+      "branch": "codex/legacy-clock-sweep-replay",
+      "commit": "unknown_not_recorded",
+      "generating_script": "scripts/replay_legacy_clock_sweep_figures.py --full",
+      "output_root": "outputs/legacy_replay/clock_sweep_full",
+      "pipeline_class": "legacy",
+      "quarantine_reason": "Truth-gated acceptance, all-clock state, and legacy synchronization metric are unsafe for V24 evidence.",
+      "readiness": "legacy_reference_only",
+      "recommended_use": "legacy_reference_only",
+      "result_family": "legacy_clock_sweep_replay",
+      "rough_performance_tag": "legacy clock sweep reproduces executable behavior but uses oracle gates/fallbacks",
+      "stage_a_version": "A0_legacy_il_clockless_preconditioning",
+      "stage_b_version": "B0_legacy_lm_truth_gate",
+      "stage_c_version": "C0_legacy_truth_cov_ekf",
+      "standard_case_id": "clock_sweep_nu3_ns10_legacy_full",
+      "standard_case_stage_a_pos_m": 463.6785178399205,
+      "standard_case_stage_a_sync_ns": 638.3830781812234,
+      "standard_case_stage_b_pos_m": 0.14985744976086263,
+      "standard_case_stage_b_sync_ns": 43.52204382065097,
+      "standard_case_stage_c_pos_m": 0.034051261770223336,
+      "standard_case_stage_c_sync_ns": 43.52204009052861,
+      "system_model_version": "legacy_all_clock_notebook",
+      "truth_usage": "truth-error LM/MAP acceptance and legacy fallbacks used; full notebook not executed",
+      "units_status": "units_consistent_but_legacy"
+    },
+    {
+      "branch": "codex/legacy-network-size-and-v24-port-plan",
+      "commit": "093fbdf",
+      "generating_script": "scripts/replay_legacy_network_size_figures.py --medium",
+      "output_root": "outputs/legacy_replay/network_size_medium",
+      "pipeline_class": "legacy",
+      "quarantine_reason": "Legacy all-clock/truth-gated path is provenance, not V24-clean evidence.",
+      "readiness": "legacy_reference_only",
+      "recommended_use": "legacy_reference_only",
+      "result_family": "legacy_network_size_replay",
+      "rough_performance_tag": "legacy medium replay improves JCLS in 9/9 baseline comparisons",
+      "stage_a_version": "A0_legacy_il_clockless_preconditioning",
+      "stage_b_version": "B0_legacy_lm_truth_gate",
+      "stage_c_version": "C0_legacy_truth_cov_ekf",
+      "standard_case_id": "legacy_medium_nu3_ns4_clock0p5ns_seed2042",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": null,
+      "standard_case_stage_b_sync_ns": null,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "legacy_all_clock_notebook",
+      "truth_usage": "truth gates/fallbacks used in legacy estimator path",
+      "units_status": "units_consistent_but_legacy"
+    },
+    {
+      "branch": "codex/legacy-crlb-figure-replay",
+      "commit": "unknown_not_recorded",
+      "generating_script": "scripts/replay_legacy_crlb_figures.py",
+      "output_root": "outputs/legacy_replay/crlb_los",
+      "pipeline_class": "legacy_diagnostic",
+      "quarantine_reason": "All-clock/post-hoc CRLB path is incompatible with current V24 gauged FIM requirements.",
+      "readiness": "legacy_reference_only",
+      "recommended_use": "legacy_reference_only",
+      "result_family": "legacy_crlb_los_replay",
+      "rough_performance_tag": "legacy CRLB replay; not V24-clean",
+      "stage_a_version": "not_applicable",
+      "stage_b_version": "not_applicable",
+      "stage_c_version": "not_applicable",
+      "standard_case_id": "not_applicable_crlb_curve",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": null,
+      "standard_case_stage_b_sync_ns": null,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "legacy_all_clock_crlb",
+      "truth_usage": "no estimator truth gate, but all-clock/post-hoc CRLB slicing preserved",
+      "units_status": "units_consistent_but_legacy"
+    },
+    {
+      "branch": "codex/migration-step-b-lm-no-truth-gate",
+      "commit": "unknown_not_recorded",
+      "generating_script": "scripts/run_controlled_migration_ladder.py --step step_b_lm_residual_acceptance --medium",
+      "output_root": "outputs/migration_ladder/step_b_lm_residual_acceptance/medium",
+      "pipeline_class": "diagnostic",
+      "quarantine_reason": "",
+      "readiness": "use_for_human_review",
+      "recommended_use": "use_for_human_review",
+      "result_family": "step_b_lm_only_results",
+      "rough_performance_tag": "healthy clean baseline on controlled migration grid",
+      "stage_a_version": "A0_legacy_il_clockless_preconditioning",
+      "stage_b_version": "B1_residual_lm",
+      "stage_c_version": "C_none_or_legacy_fallback_disabled_for_lm_only_readout",
+      "standard_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+      "standard_case_stage_a_pos_m": 0.6725903831549868,
+      "standard_case_stage_a_sync_ns": 0.536918739880879,
+      "standard_case_stage_b_pos_m": 0.2131941128459946,
+      "standard_case_stage_b_sync_ns": 0.13351889972769754,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "legacy_compatible_all_clock",
+      "truth_usage": "LM truth acceptance removed; later legacy MAP fields in CSV are not used as Step B evidence",
+      "units_status": "units_consistent_but_legacy"
+    },
+    {
+      "branch": "codex/step-c7-residual-cov-sync-safeguard",
+      "commit": "89a9b2a",
+      "generating_script": "scripts/run_step_c7_residual_cov_sync_safeguard.py",
+      "output_root": "outputs/step_c7_residual_cov_sync_safeguard",
+      "pipeline_class": "diagnostic",
+      "quarantine_reason": "",
+      "readiness": "use_for_human_review",
+      "recommended_use": "use_for_human_review",
+      "result_family": "c7_residual_cov_sync_safeguard",
+      "rough_performance_tag": "centimeter-level toy/medium diagnostic on selected standard row",
+      "stage_a_version": "A1_package_dl_only",
+      "stage_b_version": "B1_residual_lm",
+      "stage_c_version": "C7_residual_cov_sync_safeguard",
+      "standard_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": 2.3854571589654223,
+      "standard_case_stage_b_sync_ns": 0.8150395445872223,
+      "standard_case_stage_c_pos_m": 0.03938770262905154,
+      "standard_case_stage_c_sync_ns": 0.10436516207804697,
+      "system_model_version": "package_native_current",
+      "truth_usage": "truth used only for offline metrics; no truth acceptance/covariance/safeguard",
+      "units_status": "units_consistent"
+    },
+    {
+      "branch": "codex/c7-candidate-figure-validation",
+      "commit": "04ba189",
+      "generating_script": "scripts/run_c7_candidate_figures.py",
+      "output_root": "outputs/c7_candidate_figures",
+      "pipeline_class": "candidate",
+      "quarantine_reason": "Sparse clock-sweep localization instability blocks manuscript use.",
+      "readiness": "use_for_human_review",
+      "recommended_use": "use_for_human_review",
+      "result_family": "c7_candidate_figure_validation",
+      "rough_performance_tag": "network mean ratios pos=0.054160465424072914, sync=0.38561149595048044; clock sweep blocked",
+      "stage_a_version": "A1_package_dl_only",
+      "stage_b_version": "B1_residual_lm",
+      "stage_c_version": "C7_residual_cov_sync_safeguard",
+      "standard_case_id": "bounded_network_grid_and_sparse_clock_sweep",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": null,
+      "standard_case_stage_b_sync_ns": null,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "package_native_current",
+      "truth_usage": "truth used only for offline metrics; no truth acceptance/covariance/safeguard",
+      "units_status": "units_consistent"
+    },
+    {
+      "branch": "codex/c7-manuscript-figure-recreation",
+      "commit": "0e6300b",
+      "generating_script": "scripts/run_c7_manuscript_figure_recreation.py",
+      "output_root": "outputs/c7_manuscript_figure_recreation",
+      "pipeline_class": "candidate",
+      "quarantine_reason": "Clock-sweep family remains diagnostic/candidate-failed because high-clock rows worsen localization.",
+      "readiness": "use_for_human_review",
+      "recommended_use": "use_for_human_review",
+      "result_family": "c7_manuscript_figure_recreation",
+      "rough_performance_tag": "network-size figures human-review only; clock sweep candidate failed",
+      "stage_a_version": "A1_package_dl_only",
+      "stage_b_version": "B1_residual_lm",
+      "stage_c_version": "C7_residual_cov_sync_safeguard",
+      "standard_case_id": "network_nu3_ns4_clock1us_trial0",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": 184.97887406185075,
+      "standard_case_stage_b_sync_ns": 308.754436467559,
+      "standard_case_stage_c_pos_m": 180.20289571016,
+      "standard_case_stage_c_sync_ns": 315.58350175371925,
+      "system_model_version": "package_native_current_manuscript_style_geometry",
+      "truth_usage": "truth used only for offline metrics; no truth acceptance/covariance/safeguard; notebook not executed",
+      "units_status": "units_consistent"
+    },
+    {
+      "branch": "not_found",
+      "commit": "not_found",
+      "generating_script": "not_found",
+      "output_root": "not_found",
+      "pipeline_class": "not_found",
+      "quarantine_reason": "Required family name was requested, but no matching output artifacts were found.",
+      "readiness": "quarantine_until_reconciled",
+      "recommended_use": "do_not_use",
+      "result_family": "wave_results_exploration",
+      "rough_performance_tag": "no wave-results output root found in repository inventory",
+      "stage_a_version": "unknown",
+      "stage_b_version": "unknown",
+      "stage_c_version": "unknown",
+      "standard_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": null,
+      "standard_case_stage_b_sync_ns": null,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "unknown",
+      "truth_usage": "unknown",
+      "units_status": "units_uncertain"
+    },
+    {
+      "branch": "codex/package-native-figures-4-7",
+      "commit": "unknown_not_recorded",
+      "generating_script": "scripts/run_package_native_figures_4_7.py",
+      "output_root": "v24_figure_outputs",
+      "pipeline_class": "diagnostic",
+      "quarantine_reason": "Synthetic geometry/noise and algorithm fidelity were unresolved; outputs are suspect diagnostics only.",
+      "readiness": "quarantine_until_reconciled",
+      "recommended_use": "use_for_debugging_only",
+      "result_family": "package_native_suspect_fig4_7_outputs",
+      "rough_performance_tag": "package-native suspect Fig. 4-7 diagnostics conflict with manuscript narrative",
+      "stage_a_version": "A1_package_dl_only",
+      "stage_b_version": "B1_residual_lm",
+      "stage_c_version": "generic_dynamic_sci_sfi",
+      "standard_case_id": "unknown_needs_review",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": null,
+      "standard_case_stage_b_sync_ns": null,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "package_native_current_synthetic_static",
+      "truth_usage": "truth used only for offline metrics, but algorithm fidelity unresolved",
+      "units_status": "units_consistent"
+    },
+    {
+      "branch": "codex/manuscript-geometry-noise",
+      "commit": "unknown_not_recorded",
+      "generating_script": "scripts/run_v24_manuscript_candidate_figures.py",
+      "output_root": "v24_manuscript_candidate_outputs",
+      "pipeline_class": "candidate",
+      "quarantine_reason": "Synthetic satellite geometry, estimator robustness, and numerical behavior remain unresolved.",
+      "readiness": "quarantine_until_reconciled",
+      "recommended_use": "use_for_debugging_only",
+      "result_family": "manuscript_candidate_geometry_noise_outputs",
+      "rough_performance_tag": "closer geometry/noise, still not final",
+      "stage_a_version": "A1_package_dl_only",
+      "stage_b_version": "B1_residual_lm",
+      "stage_c_version": "generic_dynamic_sci_sfi",
+      "standard_case_id": "unknown_needs_review",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": null,
+      "standard_case_stage_b_sync_ns": null,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "package_native_mit_stata_leo_synthetic",
+      "truth_usage": "truth used only for offline metrics, but estimator robustness unresolved",
+      "units_status": "units_consistent"
+    },
+    {
+      "branch": "codex/human-ready-figures-sprint",
+      "commit": "unknown_not_recorded",
+      "generating_script": "scripts/run_human_review_figures.py",
+      "output_root": "v24_human_review_outputs",
+      "pipeline_class": "diagnostic",
+      "quarantine_reason": "JCLS success rates were low and refined JCLS could underperform baseline.",
+      "readiness": "quarantine_until_reconciled",
+      "recommended_use": "use_for_debugging_only",
+      "result_family": "human_review_fig4_7_outputs",
+      "rough_performance_tag": "human-review package conflicts with manuscript narrative in several regimes",
+      "stage_a_version": "A1_package_dl_only",
+      "stage_b_version": "B1_residual_lm",
+      "stage_c_version": "generic_dynamic_sci_sfi",
+      "standard_case_id": "unknown_needs_review",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": null,
+      "standard_case_stage_b_sync_ns": null,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "package_native_human_review",
+      "truth_usage": "truth used only for offline metrics; not final",
+      "units_status": "units_consistent"
+    },
+    {
+      "branch": "not_found",
+      "commit": "not_found",
+      "generating_script": "not_found",
+      "output_root": "not_found",
+      "pipeline_class": "not_found",
+      "quarantine_reason": "Required family was requested if present; no matching output artifacts were found.",
+      "readiness": "quarantine_until_reconciled",
+      "recommended_use": "do_not_use",
+      "result_family": "gnss_baseline_exploration",
+      "rough_performance_tag": "no GNSS/baseline exploration output root found in repository inventory",
+      "stage_a_version": "unknown",
+      "stage_b_version": "unknown",
+      "stage_c_version": "unknown",
+      "standard_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+      "standard_case_stage_a_pos_m": null,
+      "standard_case_stage_a_sync_ns": null,
+      "standard_case_stage_b_pos_m": null,
+      "standard_case_stage_b_sync_ns": null,
+      "standard_case_stage_c_pos_m": null,
+      "standard_case_stage_c_sync_ns": null,
+      "system_model_version": "unknown",
+      "truth_usage": "unknown",
+      "units_status": "units_uncertain"
+    }
+  ],
+  "result_family_count": 13,
+  "standard_case_id": "std_nu3_ns4_fullmesh_los_clock1us_seed0",
+  "unit_status_counts": {
+    "units_consistent": 6,
+    "units_consistent_but_legacy": 4,
+    "units_uncertain": 3
+  },
+  "units_review": [
+    {
+      "clock_units": {
+        "clock_error_conversion": "range-equivalent km divided by c_km_per_s, then multiplied by 1e9 for ns plots",
+        "clock_sigma_input_units": "seconds in notebook clock-sweep inputs",
+        "clock_sigma_internal_units": "range-equivalent km after speed-of-light conversion in legacy logic",
+        "internal_clock_state_units": "range-equivalent km",
+        "synchronization_error_output_units": "seconds/raw or ns/plotted depending on replay"
+      },
+      "measurement_units": {
+        "jacobian_units": "position columns dimensionless; clock columns dimensionless for range-equivalent clocks",
+        "measurement_covariance_units": "km^2",
+        "measurement_model_units": "km",
+        "measurement_vector_units": "km"
+      },
+      "notes": "Executable fixtures verified row order and km/range-clock representation for tiny cases, but legacy all-clock/truth-gated behavior remains unsafe.",
+      "pipeline_family": "legacy_notebook_and_legacy_replays",
+      "position_units": {
+        "internal_satellite_position_units": "km",
+        "internal_ue_position_units": "km",
+        "output_localization_metric_units": "m",
+        "plotted_localization_conversion": "legacy position error km multiplied by 1000 where plotting/reporting expects meters"
+      },
+      "unit_risk_verdict": "units_consistent_but_legacy"
+    },
+    {
+      "clock_units": {
+        "clock_error_conversion": "gauge-relative range-km error divided by c_km_per_s; ns uses *1e9",
+        "clock_sigma_input_units": "seconds or ns in figure configs, converted before range-domain simulation",
+        "clock_sigma_internal_units": "range-equivalent km",
+        "internal_clock_state_units": "range-equivalent km",
+        "synchronization_error_output_units": "seconds internally, ns for plotted/reported figure metrics"
+      },
+      "measurement_units": {
+        "jacobian_units": "position columns dimensionless direction cosines; clock columns dimensionless range-km derivatives",
+        "measurement_covariance_units": "km^2 from sigma_km^2",
+        "measurement_model_units": "km",
+        "measurement_vector_units": "km"
+      },
+      "notes": "Package tests cover km-to-meter position output and gauge-relative clock metrics; C7 reports raw km and plotted ns explicitly.",
+      "pipeline_family": "package_native_current_and_c7",
+      "position_units": {
+        "internal_satellite_position_units": "km",
+        "internal_ue_position_units": "km",
+        "output_localization_metric_units": "m",
+        "plotted_localization_conversion": "position_error_m reports Euclidean km error multiplied by 1000"
+      },
+      "unit_risk_verdict": "units_consistent"
+    },
+    {
+      "clock_units": {
+        "clock_error_conversion": "package metric conversion as above",
+        "clock_sigma_input_units": "figure-config dependent",
+        "clock_sigma_internal_units": "range-equivalent km",
+        "internal_clock_state_units": "range-equivalent km",
+        "synchronization_error_output_units": "seconds/ns depending on figure family"
+      },
+      "measurement_units": {
+        "jacobian_units": "package range-domain Jacobian",
+        "measurement_covariance_units": "km^2",
+        "measurement_model_units": "km",
+        "measurement_vector_units": "km"
+      },
+      "notes": "Units appear consistent, but system model and algorithm fidelity are suspect; do not cite as evidence.",
+      "pipeline_family": "package_native_suspect_v24_figures",
+      "position_units": {
+        "internal_satellite_position_units": "km",
+        "internal_ue_position_units": "km",
+        "output_localization_metric_units": "m",
+        "plotted_localization_conversion": "reported as meters in metadata/summary"
+      },
+      "unit_risk_verdict": "units_consistent"
+    },
+    {
+      "clock_units": {
+        "clock_error_conversion": "unknown_needs_review",
+        "clock_sigma_input_units": "seconds/ns depending on figure",
+        "clock_sigma_internal_units": "unknown_needs_review",
+        "internal_clock_state_units": "unknown from artifact alone",
+        "synchronization_error_output_units": "ns in labels"
+      },
+      "measurement_units": {
+        "jacobian_units": "unknown_needs_review",
+        "measurement_covariance_units": "unknown_needs_review",
+        "measurement_model_units": "unknown_needs_review",
+        "measurement_vector_units": "unknown_needs_review"
+      },
+      "notes": "The PDF artifacts alone do not prove the execution path or units; keep as manuscript artifacts, not code evidence.",
+      "pipeline_family": "original_manuscript_artifacts",
+      "position_units": {
+        "internal_satellite_position_units": "unknown from artifact alone",
+        "internal_ue_position_units": "unknown from artifact alone",
+        "output_localization_metric_units": "m in manuscript-style labels",
+        "plotted_localization_conversion": "unknown_needs_review"
+      },
+      "unit_risk_verdict": "units_uncertain"
+    },
+    {
+      "clock_units": {
+        "clock_error_conversion": "unknown",
+        "clock_sigma_input_units": "unknown",
+        "clock_sigma_internal_units": "unknown",
+        "internal_clock_state_units": "unknown",
+        "synchronization_error_output_units": "unknown"
+      },
+      "measurement_units": {
+        "jacobian_units": "unknown",
+        "measurement_covariance_units": "unknown",
+        "measurement_model_units": "unknown",
+        "measurement_vector_units": "unknown"
+      },
+      "notes": "No matching wave-results or GNSS/baseline exploration output roots were found.",
+      "pipeline_family": "wave_or_gnss_missing",
+      "position_units": {
+        "internal_satellite_position_units": "unknown",
+        "internal_ue_position_units": "unknown",
+        "output_localization_metric_units": "unknown",
+        "plotted_localization_conversion": "unknown"
+      },
+      "unit_risk_verdict": "units_uncertain"
+    }
+  ]
+}

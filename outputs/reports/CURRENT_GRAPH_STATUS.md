@@ -50,6 +50,11 @@ legacy-compatible graphs are best available for visual review; none are manuscri
 - Fig. 6/7 clock-sweep recreation plots are diagnostic/candidate-failed because high clock-standard-deviation rows still expose localization instability.
 - None of these outputs are manuscript-ready.
 
+## Mandatory Result Lineage and Units Review
+- [Result lineage and units review](RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md) is the first-stop bookkeeping artifact before any generated result is discussed as evidence.
+- [Result registry](../registry/RESULT_REGISTRY.md) lists registered result families and their system/stage tuples.
+- No generated graph should be cited without a lineage row, units verdict, readiness status, and recommended-use status.
+
 ## Warnings
 - No graph is manuscript-ready.
 - Legacy CRLB is all-clock/post-hoc and not V24-clean.

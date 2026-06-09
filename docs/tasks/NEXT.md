@@ -8,6 +8,14 @@ Review branch `codex/c7-manuscript-figure-recreation` before merge. Do not edit
 files, do not generate new outputs, do not run broad exploration, do not execute
 the notebook, and do not mark anything manuscript-ready.
 
+## Mandatory Result-Lineage Guardrail
+
+Before any new result family is discussed as evidence, it must have an entry in
+`outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md` and
+`outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json`. The entry must
+include a system/stage pipeline tuple, units verdict, readiness status, and
+recommended-use status. Missing entries are a review blocker.
+
 ## Scope
 
 Inspect:
@@ -22,6 +30,9 @@ Inspect:
 - `outputs/reports/C7_MANUSCRIPT_FIGURE_TASK_MATRIX.json`
 - `outputs/reports/C7_MANUSCRIPT_FIGURE_RECREATION_REPORT.md`
 - `outputs/reports/C7_MANUSCRIPT_FIGURE_RECREATION_REPORT.json`
+- `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.md`
+- `outputs/reports/RESULT_VERSION_LINEAGE_AND_UNITS_REVIEW.json`
+- `outputs/registry/RESULT_REGISTRY.md`
 - C7 manuscript recreation entries under `outputs/gallery/`
 - `outputs/reports/CURRENT_GRAPH_STATUS.md`
 - `outputs/reports/CURRENT_GRAPH_STATUS.json`
@@ -62,11 +73,13 @@ Do not edit:
 10. Confirm gallery previews exist for all four recreated candidate plots.
 11. Confirm Markdown reports are human-readable and use valid relative links.
 12. Confirm focused tests pass.
+13. Confirm every new result family has a lineage/units entry before it is used
+    as evidence.
 
 Run:
 
 ```powershell
-python -m unittest tests.test_c7_manuscript_figure_recreation
+python -m unittest tests.test_c7_manuscript_figure_recreation tests.test_result_lineage_units_review
 ```
 
 Optionally run the full sat-sim suite only if practical and only if it does not
