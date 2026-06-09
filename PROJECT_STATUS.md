@@ -96,6 +96,13 @@ The next implementation step should add schema-only package modules under
 `jcls_sim/pipelines/` and `jcls_sim/benchmark/` before any new benchmark-card
 runner executes pipeline code.
 
+The schema-only package layer is now implemented on branch
+`codex/jcls-sim-pipeline-schema`. See
+`outputs/reports/JCLS_SIM_PIPELINE_SCHEMA_IMPLEMENTATION_REPORT.md`. The layer
+defines canonical pipeline specs, truth-use ledgers, standard cases, missing
+metric semantics, and a no-execution runner stub. It does not execute adapters,
+run simulations, generate figures, or produce benchmark cards.
+
 Gauge/metrics package and tests are implemented. Measurement-model and explicit
 V24 parameter-vector helpers/tests are implemented. Jacobian and gauged FIM
 helpers/tests are implemented. Estimator correctness helpers/tests are
