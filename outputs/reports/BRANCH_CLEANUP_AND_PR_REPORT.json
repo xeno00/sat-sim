@@ -2,14 +2,117 @@
   "generated_at_utc": "2026-06-09T15:10:39.260348+00:00",
   "current_main_commit": "4e12117",
   "current_main_full_commit": "4e121175eb75356b49fed3486da49cdd690f046d",
-  "disposition_counts": {
-    "already_merged_close_delete": 34,
-    "park_keep_branch": 3,
-    "needs_human_review": 1,
-    "quarantine_keep_branch": 2,
-    "superseded_close_delete": 1
-  },
-  "branches": [
+  "branches_found": 41,
+  "pull_requests_opened": [],
+  "pull_requests_merged": [],
+  "pull_requests_closed": [
+    {
+      "number": 3,
+      "url": "https://github.com/xeno00/sat-sim/pull/3",
+      "reason": "quarantined legacy surgical truth-gate diagnostic"
+    }
+  ],
+  "branches_deleted_locally": [
+    "codex/c7-candidate-figure-validation",
+    "codex/c7-manuscript-figure-recreation",
+    "codex/controlled-legacy-to-v24-migration",
+    "codex/crlb-decision-sprint",
+    "codex/crlb-diagnostic-hardening",
+    "codex/crlb-figure-candidate-data",
+    "codex/crlb-geometry-diagnostics",
+    "codex/crlb-preview-candidates",
+    "codex/human-ready-figures-sprint",
+    "codex/integration-compliance-and-merge-discipline",
+    "codex/legacy-clock-sweep-replay",
+    "codex/legacy-crlb-figure-replay",
+    "codex/legacy-network-size-and-v24-port-plan",
+    "codex/manuscript-algorithm-parity-check",
+    "codex/manuscript-align-to-c7-support",
+    "codex/manuscript-crlb-candidate",
+    "codex/manuscript-geometry-noise",
+    "codex/migration-step-b-lm-no-truth-gate",
+    "codex/migration-step-c-diagnosis",
+    "codex/migration-step-c-map-no-truth-gate",
+    "codex/notebook-manuscript-regression-sprint",
+    "codex/notebook-regression-execution-audit",
+    "codex/package-native-figures-4-7",
+    "codex/plot-gallery-cache",
+    "codex/step-c4-composite-map-acceptance",
+    "codex/step-c5-sliding-window-map",
+    "codex/step-c7-residual-cov-sync-safeguard",
+    "codex/step3-covariance-exploration",
+    "codex/step3-gate-exploration",
+    "codex/step3-low-cost-exploration",
+    "codex/step3-micro-benchmarks",
+    "codex/step3-near-winner-sparse",
+    "codex/step3-residual-cov-audit",
+    "codex/update-primary-standard-case-nu3-ns10",
+    "codex/v24-algorithm-fidelity"
+  ],
+  "branches_deleted_remotely": [
+    "codex/c7-candidate-figure-validation",
+    "codex/c7-manuscript-figure-recreation",
+    "codex/controlled-legacy-to-v24-migration",
+    "codex/crlb-decision-sprint",
+    "codex/crlb-diagnostic-hardening",
+    "codex/crlb-figure-candidate-data",
+    "codex/crlb-geometry-diagnostics",
+    "codex/crlb-preview-candidates",
+    "codex/human-ready-figures-sprint",
+    "codex/integration-compliance-and-merge-discipline",
+    "codex/legacy-clock-sweep-replay",
+    "codex/legacy-crlb-figure-replay",
+    "codex/legacy-network-size-and-v24-port-plan",
+    "codex/manuscript-algorithm-parity-check",
+    "codex/manuscript-crlb-candidate",
+    "codex/manuscript-geometry-noise",
+    "codex/migration-step-b-lm-no-truth-gate",
+    "codex/migration-step-c-diagnosis",
+    "codex/migration-step-c-map-no-truth-gate",
+    "codex/notebook-manuscript-regression-sprint",
+    "codex/notebook-regression-execution-audit",
+    "codex/package-native-figures-4-7",
+    "codex/plot-gallery-cache",
+    "codex/step-c4-composite-map-acceptance",
+    "codex/step-c5-sliding-window-map",
+    "codex/step-c7-residual-cov-sync-safeguard",
+    "codex/step3-covariance-exploration",
+    "codex/step3-gate-exploration",
+    "codex/step3-low-cost-exploration",
+    "codex/step3-micro-benchmarks",
+    "codex/step3-near-winner-sparse",
+    "codex/step3-residual-cov-audit",
+    "codex/update-primary-standard-case-nu3-ns10",
+    "codex/v24-algorithm-fidelity"
+  ],
+  "branches_kept_parked": [
+    "codex/gps-gnss-baseline-exploration",
+    "codex/jcls-wave-results-exploration",
+    "codex/wave-observability-estimator-gap-audit"
+  ],
+  "branches_kept_quarantined": [
+    "codex/legacy-surgical-prior-region-initialization",
+    "codex/legacy-surgical-truth-gate-removal"
+  ],
+  "branches_requiring_human_review": [
+    "codex/legacy-figures-gallery-crlb-nlos"
+  ],
+  "protected_file_check_results": [
+    "PASS: no protected-file changes detected for main...HEAD"
+  ],
+  "tests_run": [
+    "python scripts/check_protected_files.py --base main --target HEAD --fail-on-protected -> PASS",
+    "python -m unittest tests.test_integration_compliance -> PASS (5 tests)"
+  ],
+  "remaining_branch_clutter": [
+    "codex/gps-gnss-baseline-exploration (parked, active worktree)",
+    "codex/jcls-wave-results-exploration (parked, active worktree)",
+    "codex/wave-observability-estimator-gap-audit (parked, active worktree/local alias)",
+    "codex/legacy-surgical-truth-gate-removal (quarantined, active worktree, PR #3 closed)",
+    "codex/legacy-surgical-prior-region-initialization (quarantined, active worktree)",
+    "codex/legacy-figures-gallery-crlb-nlos (needs human review)"
+  ],
+  "branch_rows": [
     {
       "branch_name": "codex/c7-candidate-figure-validation",
       "locations": "both",
@@ -31,10 +134,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/c7-manuscript-figure-recreation",
@@ -57,10 +158,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/controlled-legacy-to-v24-migration",
@@ -83,10 +182,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/crlb-decision-sprint",
@@ -109,10 +206,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/crlb-diagnostic-hardening",
@@ -135,10 +230,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/crlb-figure-candidate-data",
@@ -161,10 +254,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/crlb-geometry-diagnostics",
@@ -187,10 +278,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/crlb-preview-candidates",
@@ -213,10 +302,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/gps-gnss-baseline-exploration",
@@ -260,10 +347,8 @@
       "primary_purpose": "GNSS/baseline exploration diagnostics; unique work kept parked pending lineage/units review.",
       "local_deletion_planned": false,
       "remote_deletion_planned": false,
-      "disposition": "park_keep_branch",
-      "pushed_status": "both",
-      "merge_status": "not_on_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": false,
+      "remote_deletion_confirmed": false
     },
     {
       "branch_name": "codex/human-ready-figures-sprint",
@@ -286,10 +371,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/integration-compliance-and-merge-discipline",
@@ -312,10 +395,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/jcls-wave-results-exploration",
@@ -359,10 +440,8 @@
       "primary_purpose": "Wave-results exploration diagnostics; unique work kept parked pending lineage/units review.",
       "local_deletion_planned": false,
       "remote_deletion_planned": false,
-      "disposition": "park_keep_branch",
-      "pushed_status": "both",
-      "merge_status": "not_on_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": false,
+      "remote_deletion_confirmed": false
     },
     {
       "branch_name": "codex/legacy-clock-sweep-replay",
@@ -387,10 +466,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/legacy-crlb-figure-replay",
@@ -413,10 +490,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/legacy-figures-gallery-crlb-nlos",
@@ -460,10 +535,8 @@
       "primary_purpose": "Legacy graph review / CRLB NLOS gallery branch with large unique diagnostic/output deltas; needs human review before any action.",
       "local_deletion_planned": false,
       "remote_deletion_planned": false,
-      "disposition": "needs_human_review",
-      "pushed_status": "both",
-      "merge_status": "not_on_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": false,
+      "remote_deletion_confirmed": false
     },
     {
       "branch_name": "codex/legacy-network-size-and-v24-port-plan",
@@ -486,10 +559,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/legacy-surgical-prior-region-initialization",
@@ -533,10 +604,8 @@
       "primary_purpose": "Legacy surgical prior-region diagnostic; quarantined with related truth-gate branch.",
       "local_deletion_planned": false,
       "remote_deletion_planned": false,
-      "disposition": "quarantine_keep_branch",
-      "pushed_status": "local",
-      "merge_status": "not_on_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": false,
+      "remote_deletion_confirmed": false
     },
     {
       "branch_name": "codex/legacy-surgical-truth-gate-removal",
@@ -582,10 +651,8 @@
       "primary_purpose": "Legacy surgical truth-gate diagnostic; quarantined because truth-centered legacy behavior can mislead V24 evidence.",
       "local_deletion_planned": false,
       "remote_deletion_planned": false,
-      "disposition": "quarantine_keep_branch",
-      "pushed_status": "both",
-      "merge_status": "not_on_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": false,
+      "remote_deletion_confirmed": false
     },
     {
       "branch_name": "codex/manuscript-algorithm-parity-check",
@@ -608,10 +675,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/manuscript-align-to-c7-support",
@@ -634,10 +699,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": false,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "local",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": false
     },
     {
       "branch_name": "codex/manuscript-crlb-candidate",
@@ -660,10 +723,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/manuscript-geometry-noise",
@@ -686,10 +747,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/migration-step-b-lm-no-truth-gate",
@@ -712,10 +771,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/migration-step-c-diagnosis",
@@ -738,10 +795,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/migration-step-c-map-no-truth-gate",
@@ -785,10 +840,8 @@
       "primary_purpose": "Older observable MAP acceptance experiment; superseded by Step C diagnosis, C4/C5, C7, and residual covariance audit.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "superseded_close_delete",
-      "pushed_status": "both",
-      "merge_status": "not_on_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/notebook-manuscript-regression-sprint",
@@ -811,10 +864,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/notebook-regression-execution-audit",
@@ -837,10 +888,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/package-native-figures-4-7",
@@ -863,10 +912,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/plot-gallery-cache",
@@ -891,10 +938,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/step-c4-composite-map-acceptance",
@@ -917,10 +962,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/step-c5-sliding-window-map",
@@ -943,10 +986,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/step-c7-residual-cov-sync-safeguard",
@@ -969,10 +1010,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/step3-covariance-exploration",
@@ -995,10 +1034,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/step3-gate-exploration",
@@ -1021,10 +1058,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/step3-low-cost-exploration",
@@ -1047,10 +1082,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/step3-micro-benchmarks",
@@ -1073,10 +1106,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/step3-near-winner-sparse",
@@ -1099,10 +1130,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/step3-residual-cov-audit",
@@ -1125,10 +1154,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/update-primary-standard-case-nu3-ns10",
@@ -1151,10 +1178,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/v24-algorithm-fidelity",
@@ -1177,10 +1202,8 @@
       "primary_purpose": "Already merged historical Codex task branch.",
       "local_deletion_planned": true,
       "remote_deletion_planned": true,
-      "disposition": "already_merged_close_delete",
-      "pushed_status": "both",
-      "merge_status": "reachable_from_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": true,
+      "remote_deletion_confirmed": true
     },
     {
       "branch_name": "codex/wave-observability-estimator-gap-audit",
@@ -1224,10 +1247,10 @@
       "primary_purpose": "Wave observability/estimator-gap audit; local worktree alias of wave exploration tip, parked.",
       "local_deletion_planned": false,
       "remote_deletion_planned": false,
-      "disposition": "park_keep_branch",
-      "pushed_status": "local",
-      "merge_status": "not_on_main",
-      "modifies_manuscript_or_protected": false
+      "local_deletion_confirmed": false,
+      "remote_deletion_confirmed": false
     }
-  ]
+  ],
+  "post_cleanup_main_commit": "4e12117",
+  "post_cleanup_branch_status_checked_at_utc": "2026-06-09T15:17:17.433795+00:00"
 }

@@ -76,10 +76,14 @@ runner exists.
 Branch:
 Commit:
 Pushed:
+PR:
+PR status:
 Merged to main:
 Merge commit:
 If not merged, disposition:
 Reason not merged:
+If branch remains open, why:
+If branch deleted, deletion confirmation:
 Tests:
 Protected-file check:
 Reports/outputs:

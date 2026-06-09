@@ -114,10 +114,14 @@ Use this final response schema:
 Branch:
 Commit:
 Pushed:
+PR:
+PR status:
 Merged to main:
 Merge commit:
 If not merged, disposition:
 Reason not merged:
+If branch remains open, why:
+If branch deleted, deletion confirmation:
 Tests:
 Protected-file check:
 Reports/outputs:
@@ -127,6 +131,10 @@ Next action:
 Output-producing branches must include branch/commit/script metadata,
 candidate/final/diagnostic readiness, units status, and recommended use before
 their outputs are treated as evidence or merged without caveat.
+
+A branch with unique work must either be merged, have an open PR, or be
+recorded as parked, quarantined, superseded, or awaiting human review with a
+reason. A pushed branch alone is not a complete task disposition.
 
 ## Standard benchmark policy
 

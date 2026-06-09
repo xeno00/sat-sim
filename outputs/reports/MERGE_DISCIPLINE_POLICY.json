@@ -1,18 +1,32 @@
 {
-  "generated_at_utc": "2026-06-09T14:24:11.072662+00:00",
-  "policy": "A Codex branch is not complete until it is merged, parked, superseded, quarantined, or explicitly awaiting human review.",
-  "protected_file_checker": "scripts/check_protected_files.py",
+  "generated_at_utc": "2026-06-09T15:13:18.741882+00:00",
+  "policy": "A Codex branch is not complete until it is merged, has an open PR, or is recorded as parked, superseded, quarantined, or awaiting human review with a reason.",
+  "valid_branch_dispositions": [
+    "already_merged_close_delete",
+    "open_pr_needed",
+    "merge_directly_if_safe",
+    "park_keep_branch",
+    "quarantine_keep_branch",
+    "superseded_close_delete",
+    "needs_human_review",
+    "unknown"
+  ],
   "required_final_response_fields": [
-    "branch",
-    "commit",
-    "pushed",
-    "merged_to_main",
-    "merge_commit",
-    "if_not_merged_disposition",
-    "reason_not_merged",
-    "tests",
-    "protected_file_check",
-    "reports_outputs",
-    "next_action"
-  ]
+    "Branch",
+    "Commit",
+    "Pushed",
+    "PR",
+    "PR status",
+    "Merged to main",
+    "Merge commit",
+    "If not merged, disposition",
+    "Reason not merged",
+    "If branch remains open, why",
+    "If branch deleted, deletion confirmation",
+    "Tests",
+    "Protected-file check",
+    "Reports/outputs",
+    "Next action"
+  ],
+  "protected_file_checker": "scripts/check_protected_files.py"
 }

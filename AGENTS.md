@@ -164,15 +164,23 @@ Every final response must include:
 Branch:
 Commit:
 Pushed:
+PR:
+PR status:
 Merged to main:
 Merge commit:
 If not merged, disposition:
 Reason not merged:
+If branch remains open, why:
+If branch deleted, deletion confirmation:
 Tests:
 Protected-file check:
 Reports/outputs:
 Next action:
 ```
+
+A pushed branch with unique work is not an acceptable final state by itself.
+It must either be merged, have an open PR, or be recorded as parked,
+quarantined, superseded, or awaiting human review with a reason.
 
 Use `scripts/check_protected_files.py` before merging to ensure no protected
 manuscript, notebook, bibliography, PSFrag, generated manuscript PDF, or

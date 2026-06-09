@@ -17,6 +17,12 @@ quarantined, or explicitly left awaiting human review. The protected-file
 checker is `scripts/check_protected_files.py`, and branch inventory/disposition
 reports live under `outputs/reports/`.
 
+Branch cleanup/PR discipline is now explicit: a branch with unique work must be
+merged, have an open PR, or be recorded as parked, quarantined, superseded, or
+awaiting human review with a reason. The final response must include PR status,
+merge status, branch-deletion status when applicable, tests, and protected-file
+check results.
+
 Primary benchmark policy is updated: the universal standard case is
 `std_nu3_ns10_fullmesh_los_clock1us_seed0`. The previous
 `std_nu3_ns4_fullmesh_los_clock1us_seed0` case is retained only as a secondary

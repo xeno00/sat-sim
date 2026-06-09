@@ -44,21 +44,31 @@ class IntegrationComplianceTests(unittest.TestCase):
             self.assertIn(
                 branch["disposition"],
                 {
-                    "merge_now",
-                    "merge_after_minor_fix",
-                    "park_do_not_merge_yet",
-                    "superseded_do_not_merge",
-                    "quarantine_do_not_merge",
-                    "already_merged",
-                    "unknown_needs_human_review",
+                    "already_merged_close_delete",
+                    "open_pr_needed",
+                    "merge_directly_if_safe",
+                    "park_keep_branch",
+                    "quarantine_keep_branch",
+                    "superseded_close_delete",
+                    "needs_human_review",
+                    "unknown",
                 },
             )
 
     def test_policy_requires_merge_disposition(self) -> None:
         text = Path("outputs/reports/MERGE_DISCIPLINE_POLICY.md").read_text(encoding="utf-8")
         self.assertIn("not complete merely because a branch was pushed", text)
-        self.assertIn("quarantined_do_not_merge", text)
+        self.assertIn("quarantine_keep_branch", text)
+        self.assertIn("PR status", text)
         self.assertIn("protected-file", text.lower())
+
+    def test_cleanup_report_exists_and_records_pr_status(self) -> None:
+        path = Path("outputs/reports/BRANCH_CLEANUP_AND_PR_REPORT.json")
+        self.assertTrue(path.exists(), "Missing branch cleanup report")
+        data = json.loads(path.read_text(encoding="utf-8"))
+        self.assertIn("pull_requests_closed", data)
+        self.assertIn("branches_deleted_locally", data)
+        self.assertIn("branches_deleted_remotely", data)
 
 
 if __name__ == "__main__":

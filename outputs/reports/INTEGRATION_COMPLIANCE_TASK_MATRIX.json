@@ -1,60 +1,30 @@
 {
-  "branch": "codex/integration-compliance-and-merge-discipline",
-  "generated_at_utc": "2026-06-09T14:24:11.072662+00:00",
+  "generated_at_utc": "2026-06-09T15:10:39.260348+00:00",
   "lanes": [
     {
-      "lane": "Agent A - Branch inventory",
-      "outputs": [
-        "outputs/reports/BRANCH_INTEGRATION_INVENTORY.md",
-        "outputs/reports/BRANCH_INTEGRATION_INVENTORY.json"
-      ],
-      "owner": "Planck plus integration coordinator",
-      "status": "subagent_completed"
+      "lane": "Branch inventory",
+      "status": "orchestrator_completed",
+      "result": "Fresh inventory generated from local/remote Git refs."
     },
     {
-      "lane": "Agent B - Protected-file compliance",
-      "outputs": [
-        "scripts/check_protected_files.py"
-      ],
-      "owner": "Boole plus integration coordinator",
-      "status": "subagent_completed"
+      "lane": "PR audit",
+      "status": "orchestrator_completed",
+      "result": "GitHub app found PRs #1-#3; PR #3 closed as quarantined."
     },
     {
-      "lane": "Agent C - Merge triage/red-team",
-      "outputs": [
-        "outputs/reports/INTEGRATION_COMPLIANCE_REPORT.md",
-        "outputs/reports/INTEGRATION_COMPLIANCE_REPORT.json"
-      ],
-      "owner": "Ampere plus integration coordinator",
-      "status": "subagent_completed"
+      "lane": "Merge triage",
+      "status": "orchestrator_completed",
+      "result": "Already-merged branches marked for deletion; unique work parked/quarantined/superseded/human-review."
     },
     {
-      "lane": "Agent D - Integration executor",
-      "outputs": [
-        "merge commit on integration branch"
-      ],
-      "owner": "integration coordinator",
-      "status": "orchestrator_completed"
+      "lane": "Branch deletion",
+      "status": "pending_until_after_report_recorded",
+      "result": "Safe deletion list recorded before branch deletion."
     },
     {
-      "lane": "Agent E - Process-rule updater",
-      "outputs": [
-        "AGENTS.md",
-        "RUN_CODEX.md",
-        "docs/tasks/README.md",
-        "docs/tasks/NEXT.md"
-      ],
-      "owner": "integration coordinator",
-      "status": "orchestrator_completed"
-    },
-    {
-      "lane": "Agent F - Red-team",
-      "outputs": [
-        "outputs/reports/MERGE_DISCIPLINE_POLICY.md",
-        "outputs/reports/MERGE_DISCIPLINE_POLICY.json"
-      ],
-      "owner": "integration coordinator",
-      "status": "orchestrator_completed"
+      "lane": "Process docs",
+      "status": "orchestrator_in_progress",
+      "result": "Docs will be updated on main with stronger completion checklist."
     }
   ]
 }

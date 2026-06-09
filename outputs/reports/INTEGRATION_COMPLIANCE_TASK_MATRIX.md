@@ -1,10 +1,9 @@
 # Integration Compliance Task Matrix
 
-| Lane | Status | Owner | Outputs |
-|---|---|---|---|
-| Agent A - Branch inventory | subagent_completed | Planck plus integration coordinator | outputs/reports/BRANCH_INTEGRATION_INVENTORY.md, outputs/reports/BRANCH_INTEGRATION_INVENTORY.json |
-| Agent B - Protected-file compliance | subagent_completed | Boole plus integration coordinator | scripts/check_protected_files.py |
-| Agent C - Merge triage/red-team | subagent_completed | Ampere plus integration coordinator | outputs/reports/INTEGRATION_COMPLIANCE_REPORT.md, outputs/reports/INTEGRATION_COMPLIANCE_REPORT.json |
-| Agent D - Integration executor | orchestrator_completed | integration coordinator | merge commit on integration branch |
-| Agent E - Process-rule updater | orchestrator_completed | integration coordinator | AGENTS.md, RUN_CODEX.md, docs/tasks/README.md, docs/tasks/NEXT.md |
-| Agent F - Red-team | orchestrator_completed | integration coordinator | outputs/reports/MERGE_DISCIPLINE_POLICY.md, outputs/reports/MERGE_DISCIPLINE_POLICY.json |
+| Lane | Status | Result |
+|---|---|---|
+| Branch inventory | orchestrator_completed | Fresh inventory generated from local/remote Git refs. |
+| PR audit | orchestrator_completed | GitHub app found PRs #1-#3; PR #3 closed as quarantined. |
+| Merge triage | orchestrator_completed | Already-merged branches marked for deletion; unique work parked/quarantined/superseded/human-review. |
+| Branch deletion | pending_until_after_report_recorded | Safe deletion list recorded before branch deletion. |
+| Process docs | orchestrator_in_progress | Docs will be updated on main with stronger completion checklist. |

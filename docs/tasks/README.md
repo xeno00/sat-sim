@@ -28,6 +28,10 @@ parked, superseded, quarantined, or explicitly awaiting human review. If it is
 not merged, the task report must say why and name the next disposition action.
 Use `scripts/check_protected_files.py` before merging any task branch.
 
+A branch with unique work must either be merged, have an open PR, or be
+recorded as parked, quarantined, superseded, or awaiting human review with a
+reason. A pushed branch alone is not an acceptable final state.
+
 ## Python dependencies
 
 Do not add virtual-environment or bootstrap machinery unless the human
@@ -104,10 +108,14 @@ May run expensive simulations: no
 Branch:
 Commit:
 Pushed:
+PR:
+PR status:
 Merged to main:
 Merge commit:
 If not merged, disposition:
 Reason not merged:
+If branch remains open, why:
+If branch deleted, deletion confirmation:
 Tests:
 Protected-file check:
 Reports/outputs:

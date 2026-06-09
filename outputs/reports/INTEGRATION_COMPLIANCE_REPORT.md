@@ -2,21 +2,22 @@
 
 ## Executive Summary
 
-This integration pass merged the reviewed C7 manuscript recreation and lineage/units work into the integration branch, inventoried active Codex branches, and added explicit merge/disposition discipline for future tasks.
-Subagent review agreed with the merge posture: merge the C7 integration stack, park GNSS/wave until lineage catches up, and quarantine legacy-surgical truth-gate evidence until human red-team review.
+Current main commit: `4e12117`.
+Branches reviewed from Git before cleanup: `41`.
+Local branch refs deleted: `35`.
+Remote branch refs deleted: `34`.
+PR #3 was closed as quarantined. Parked/quarantined/human-review branches were kept.
 
-## Branches Reviewed
+## PR Actions
 
-- Total reviewed: 41
-- Merge now or already merged: 31
-- Parked: 3
-- Superseded: 5
-- Quarantined: 2
-- Unknown/human review: 0
+- Opened: none.
+- Merged: none.
+- Closed: PR #3 as quarantined.
 
-## Branches Merged In This Integration Branch
+## Deleted Branches
 
-- `codex/c7-manuscript-figure-recreation` via merge commit `Merge C7 manuscript recreation and lineage reports`.
+- Local: `35`
+- Remote: `34`
 
 ## Parked Branches
 
@@ -24,23 +25,25 @@ Subagent review agreed with the merge posture: merge the C7 integration stack, p
 - `codex/jcls-wave-results-exploration`
 - `codex/wave-observability-estimator-gap-audit`
 
-## Superseded Branches
-
-- `codex/c7-candidate-figure-validation`
-- `codex/legacy-figures-gallery-crlb-nlos`
-- `codex/manuscript-algorithm-parity-check`
-- `codex/manuscript-align-to-c7-support`
-- `codex/migration-step-c-map-no-truth-gate`
-
 ## Quarantined Branches
 
 - `codex/legacy-surgical-prior-region-initialization`
 - `codex/legacy-surgical-truth-gate-removal`
 
-## Protected-File Check
+## Human Review Branches
 
-The integration branch must pass `python scripts/check_protected_files.py --base main --target HEAD --fail-on-protected` before merge to main.
+- `codex/legacy-figures-gallery-crlb-nlos`
 
-## Remaining Unmerged Work
+## Remaining Branch Clutter
 
-Parked and quarantined branches should not be merged until their result lineage, units status, readiness, and recommended-use status are explicit.
+- codex/gps-gnss-baseline-exploration (parked, active worktree)
+- codex/jcls-wave-results-exploration (parked, active worktree)
+- codex/wave-observability-estimator-gap-audit (parked, active worktree/local alias)
+- codex/legacy-surgical-truth-gate-removal (quarantined, active worktree, PR #3 closed)
+- codex/legacy-surgical-prior-region-initialization (quarantined, active worktree)
+- codex/legacy-figures-gallery-crlb-nlos (needs human review)
+
+## Checks Run
+
+- `python scripts/check_protected_files.py --base main --target HEAD --fail-on-protected` -> PASS
+- `python -m unittest tests.test_integration_compliance` -> PASS (5 tests)
