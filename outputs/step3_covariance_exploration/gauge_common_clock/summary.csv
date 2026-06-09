@@ -1,2 +1,0 @@
-both_improved_count,lane,max_position_ratio,max_sync_ratio,mean_p_clock_trace,mean_p_position_trace,mean_position_ratio,mean_runtime_seconds,mean_sync_ratio,position_improved_count,sync_improved_count,tested_cases
-9,gauge_common_clock,0.07674722388945975,0.659972911571981,8.75e-05,0.45333333333333353,0.056001979764547634,0.029333333329608042,0.3810132934719081,9,9,9

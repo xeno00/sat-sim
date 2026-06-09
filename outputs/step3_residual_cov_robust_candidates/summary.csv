@@ -1,5 +1,0 @@
-both_improved_count,candidate,failure_row_count,fallback_count,max_position_ratio,max_sync_ratio,mean_position_ratio,mean_sync_ratio,passes_strict_promotion_criterion,position_improved_count,sync_improved_count,tested_cases
-9,residual_scaled_block_diag_base,3,0,0.14448710044194635,1.679045010559675,0.054160465424072914,0.4623240434169573,False,12,9,12
-9,residual_scaled_block_diag_with_sync_safeguard,0,3,0.14448710044194635,1.0,0.054160465424072914,0.38561149595048044,True,12,9,12
-9,residual_scaled_block_diag_clock_only_fallback,0,3,1.0,1.0,0.2697637016308243,0.38561149595048044,True,9,9,12
-9,residual_scaled_block_diag_position_damped,3,0,0.7808038545596481,1.679045010559675,0.7591208362442217,0.4623240434169573,False,12,9,12

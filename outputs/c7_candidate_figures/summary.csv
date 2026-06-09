@@ -1,3 +1,0 @@
-family,row_count,position_improved_count,sync_improved_count,both_improved_count,fallback_count,mean_position_ratio,max_position_ratio,mean_sync_ratio,max_sync_ratio
-network_size,12,12,9,9,3,0.054160465424072914,0.14448710044194635,0.38561149595048044,1.0
-clock_sweep,4,2,2,2,2,253.2873569311025,1002.9979861095624,0.6074156136024965,1.0

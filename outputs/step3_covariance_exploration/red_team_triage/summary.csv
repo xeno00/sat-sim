@@ -1,4 +1,0 @@
-both_improved_count,lane,max_position_ratio,max_sync_ratio,mean_p_clock_trace,mean_p_position_trace,mean_position_ratio,mean_runtime_seconds,mean_sync_ratio,position_improved_count,sync_improved_count,tested_cases,variant
-0,red_team_triage,0.8511234836810138,1.2670234885718268,0.0,0.0,0.2064192151982194,0.0,0.4539301199529825,17,15,17,inconclusive
-2,red_team_triage,0.021074811911639246,0.18382523041636625,0.0,0.0,0.021074811911639246,0.0,0.18382523041636625,2,2,2,promising
-0,red_team_triage,1.0,1.0,0.0,0.0,0.687995670193839,0.0,0.5602686902703634,1,2,3,tradeoff

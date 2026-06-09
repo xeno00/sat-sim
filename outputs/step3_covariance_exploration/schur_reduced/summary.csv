@@ -1,2 +1,0 @@
-both_improved_count,lane,max_position_ratio,max_sync_ratio,mean_p_clock_trace,mean_p_position_trace,mean_position_ratio,mean_runtime_seconds,mean_sync_ratio,position_improved_count,sync_improved_count,tested_cases
-6,schur_reduced,1.0,1.0,8.75e-05,0.4533333333333336,0.4947743762110118,0.03766666666585176,0.5380171016043679,9,9,12

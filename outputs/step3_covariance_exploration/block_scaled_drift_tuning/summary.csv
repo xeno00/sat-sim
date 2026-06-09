@@ -1,2 +1,0 @@
-both_improved_count,lane,max_position_ratio,max_sync_ratio,mean_p_clock_trace,mean_p_position_trace,mean_position_ratio,mean_runtime_seconds,mean_sync_ratio,position_improved_count,sync_improved_count,tested_cases
-15,block_scaled_drift_tuning,0.07399351045813918,0.6044436520038122,0.00015610000000000003,0.8531733333333336,0.05007061110730422,0.030266666668467224,0.331535551195357,15,15,15

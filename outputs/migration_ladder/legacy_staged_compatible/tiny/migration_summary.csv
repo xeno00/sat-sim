@@ -1,3 +1,0 @@
-num_users,mean_position_error_m,mean_sync_error_ns,row_count,fallback_count,failure_count
-1,0.2507874351036952,0.2941165762884412,2,2,0
-3,0.13135611942492711,0.19263379250124307,2,10,0
