@@ -1,26 +1,30 @@
 MODE: REVIEW_DIFF
 
-# Next Task: Review Bounded C7 Candidate-Figure Validation
+# Next Task: Review Wave-Results Exploration Pilot
 
 ## Purpose
 
-Review branch `codex/c7-candidate-figure-validation` before merge. Do not edit
-files, do not run broad exploration, do not generate manuscript figures, do not
-modify the C7 algorithm, and do not mark anything manuscript-ready.
+Review branch `codex/jcls-wave-results-exploration` before any larger
+observability or result-generation expansion. Do not edit manuscript files, do
+not run full sweeps, do not generate manuscript figures, and do not mark any
+wave-results output manuscript-ready.
 
 ## Scope
 
 Inspect:
 
-- `scripts/run_c7_candidate_figures.py`
-- `scripts/render_all_figure_previews.py`
-- `tests/test_c7_candidate_figures.py`
-- `outputs/c7_candidate_figures/`
-- `outputs/reports/C7_CANDIDATE_FIGURE_TASK_MATRIX.md`
-- `outputs/reports/C7_CANDIDATE_FIGURE_TASK_MATRIX.json`
-- `outputs/reports/C7_CANDIDATE_FIGURE_VALIDATION_REPORT.md`
-- `outputs/reports/C7_CANDIDATE_FIGURE_VALIDATION_REPORT.json`
-- C7 candidate entries under `outputs/gallery/`
+- `scripts/run_wave_results_exploration.py`
+- `tests/test_wave_results_exploration.py`
+- `outputs/wave_results/`
+- `outputs/reports/WAVE_RESULTS_PROVENANCE_AUDIT.md`
+- `outputs/reports/WAVE_RESULTS_EXECUTIVE_SUMMARY.md`
+- `outputs/reports/WAVE_RESULTS_PHASE_TRANSITION_REPORT.md`
+- `outputs/reports/WAVE_RESULTS_SATELLITE_SUBSTITUTION_REPORT.md`
+- `outputs/reports/WAVE_RESULTS_CLOCK_TOLERANCE_REPORT.md`
+- `outputs/reports/WAVE_RESULTS_SPARSE_SL_REPORT.md`
+- `outputs/reports/WAVE_RESULTS_TIME_TO_ACCURACY_REPORT.md`
+- `outputs/reports/WAVE_LITERATURE_COMPARISON_TABLE.md`
+- `outputs/reports/WAVE_RESULTS_TASK_MATRIX.md`
 - `PROJECT_STATUS.md`
 
 Do not edit:
@@ -36,40 +40,33 @@ Do not edit:
 
 ## Required Review Checks
 
-1. Confirm the candidate generator is bounded and uses only Step B / LM-only and
-   `step_c7_residual_cov_sync_safeguard`.
-2. Confirm no broad algorithm exploration, full clock sweep, notebook execution,
-   or manuscript-figure generation is performed.
-3. Confirm all outputs are under `outputs/c7_candidate_figures/` and are marked
-   non-final, candidate-only, not for manuscript submission, and not
-   manuscript-ready.
-4. Confirm the report uses the exact terminology:
-   `typed block-extracted, diagonal-clipped residual-scaled covariance`.
-5. Confirm synchronization plots use ns while raw CSV retains range-domain km.
-6. Confirm network-size candidate data match the C7 medium-grid behavior:
-   12/12 localization rows improve, 9/12 synchronization rows improve, 9/12
-   rows improve both metrics, and fallback count is 3.
-7. Confirm fallback rows are visible or explained, especially the single-UE
-   rows with `single_user_clock_update_not_observable`.
-8. Confirm sparse clock-sweep outputs are generated but explicitly blocked for
-   candidate-figure use because high clock-standard-deviation rows worsen
-   localization substantially.
-9. Confirm truth is not used for acceptance, covariance, or safeguard decisions.
-10. Confirm gallery previews exist for all six candidate plots.
-11. Confirm Markdown reports are human-readable and use valid relative links.
-12. Confirm focused tests pass.
+1. Confirm the runner is bounded, resumable, and writes only under
+   `outputs/wave_results/` and `outputs/reports/WAVE_*`.
+2. Confirm required CLI options are implemented:
+   `--dry-run`, `--list-plan`, `--resume`, `--force-rerun`,
+   `--max-runtime-minutes`, `--row-timeout-seconds`,
+   `--trial-timeout-seconds`, `--max-trials`, `--only-product`,
+   `--only-row`, `--pilot`, `--full`, and `--cache-root`.
+3. Confirm single-UE rows are marked `jcls_applicable=false` and
+   `single_ue_baseline_only=true`.
+4. Confirm CRLB values are unavailable for rank-deficient displayed FIM cases.
+5. Confirm failed rows are preserved rather than dropped.
+6. Confirm all outputs are non-final, candidate diagnostics, not for manuscript
+   submission, and `manuscript_ready=false`.
+7. Confirm the pilot generated the first two priority products before relying
+   on lower-priority products.
+8. Confirm the executive summary does not overclaim: Stage B/LM-only improves
+   localization in only 4/32 comparable pilot cells and no iso-accuracy
+   threshold is reached.
+9. Confirm the literature table uses caveated comparison language and does not
+   claim JCLS beats Starlink PNT or differential Doppler methods.
+10. Confirm focused and full tests pass.
 
 Run:
 
 ```powershell
-python -m unittest tests.test_c7_candidate_figures
-```
-
-Optionally run the full sat-sim suite only if practical and only if it does not
-rewrite unrelated diagnostic outputs:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1'
+python -m unittest tests.test_wave_results_exploration
+python -m unittest discover -s tests
 ```
 
 ## Expected Output
@@ -77,14 +74,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File '..\scripts\test_sat_sim.ps1
 Return:
 
 - PASS / FAIL / PASS WITH CAVEAT;
-- merge recommendation;
+- merge or expansion recommendation;
 - required fixes before merge, if any;
-- network-size figure-family summary;
-- sparse clock-sweep blocker summary;
-- fallback count/reasons;
-- no-truth-leak verdict;
-- gallery/report verdict;
+- observability/rank summary;
+- satellite-substitution summary;
+- empirical Stage A/B/C caveat;
+- sparse sidelink and clock-tolerance caveats;
+- no-manuscript-edit verdict;
 - tests run/results;
-- whether outputs are ready for human graph review;
+- whether outputs are ready for human diagnostic review;
 - whether outputs are ready for manuscript use;
-- next recommended action after merge.
+- next recommended action.

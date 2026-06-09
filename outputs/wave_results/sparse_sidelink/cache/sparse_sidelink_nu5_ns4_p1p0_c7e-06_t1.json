@@ -1,0 +1,173 @@
+{
+  "arrays_npz": "outputs/wave_results/sparse_sidelink/cache/sparse_sidelink_nu5_ns4_p1p0_c7e-06_t1.npz",
+  "bounds_reportability_status_raw": "finite_crlb",
+  "cache_status": "miss",
+  "candidate_diagnostic": true,
+  "clock_sigma_ns": 7499.999999999999,
+  "clock_sigma_seconds": 7.499999999999999e-06,
+  "clock_subspace_estimable": true,
+  "condition_number": 3935250086969.928,
+  "convergence_boolean": false,
+  "covariance_method": "pinv",
+  "crlb_clock_ns": 2078.255382252478,
+  "crlb_full_rank": true,
+  "crlb_position_m": 999.1109083534185,
+  "crlb_status": "finite_crlb",
+  "elapsed_time_s": null,
+  "failure_reason": "none",
+  "failure_recorded": false,
+  "fim_rank": 23,
+  "fim_saved": true,
+  "graph_average_degree": 4.0,
+  "graph_connected_components": 1,
+  "human_signoff_required": true,
+  "jcls_applicable": true,
+  "log10_condition_number": 12.594972337188047,
+  "manuscript_ready": false,
+  "measurement_vector_saved": true,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "num_satellites": 4,
+  "num_users": 5,
+  "product": "sparse_sidelink",
+  "random_seed": 300107,
+  "rank_deficiency": 0,
+  "row_id": "sparse_sidelink_nu5_ns4_p1p0_c7e-06_t1",
+  "runtime_seconds": 0.11000000000012733,
+  "satellite_geometry_id": "seed300107_synthetic_visible_leo",
+  "scenario_metadata": {
+    "clock_drift_reference": "0.5 ppm over 15 s gives 7.5 us, approximately 2.25 km range-domain bias",
+    "geometry_model": "manuscript_candidate_mit_stata_synthetic_leo",
+    "noise": {
+      "beta_interpretation": "bandwidth_as_rms_bandwidth",
+      "dl_bandwidth_hz": 20000000.0,
+      "dl_frequency_hz": 2200000000.0,
+      "dl_range_sigma_km_max": 0.00017608913650183744,
+      "dl_range_sigma_km_min": 0.00017243381246816959,
+      "dl_range_sigma_m_max": 0.17608913650183744,
+      "dl_range_sigma_m_min": 0.17243381246816958,
+      "dl_receive_antenna_gain_db": 3.0,
+      "dl_transmit_antenna_gain_db": 20.0,
+      "dl_transmit_power_dbm": 55.0,
+      "implementation_loss_db": 0.0,
+      "link_budget_model": "free_space_path_loss_beta_snr_toa",
+      "noise_density_dbm_per_hz": -174.0,
+      "range_sigma_km_max": 0.00020495698310180705,
+      "range_sigma_km_min": 3.606382357636279e-05,
+      "receiver_noise_figure_db": 5.0,
+      "sigma_scale": 1.0,
+      "sl_bandwidth_hz": 40000000.0,
+      "sl_frequency_hz": 5900000000.0,
+      "sl_range_sigma_km_max": 0.00020495698310180705,
+      "sl_range_sigma_km_min": 3.606382357636279e-05,
+      "sl_range_sigma_m_max": 0.20495698310180704,
+      "sl_range_sigma_m_min": 0.03606382357636279,
+      "sl_receive_antenna_gain_db": 3.0,
+      "sl_transmit_antenna_gain_db": 3.0,
+      "sl_transmit_power_dbm": 20.0,
+      "snr_db_max": 27.379881512003564,
+      "snr_db_min": 12.288062512632337
+    },
+    "sl_graph": {
+      "average_degree": 4.0,
+      "connected_component_count": 1,
+      "connected_components": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "directed_sl_measurement_count": 20,
+      "graph_connected": true,
+      "possible_undirected_edges": 10,
+      "sl_edge_probability": 1.0,
+      "undirected_edge_count": 10
+    },
+    "sl_undirected_edges": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ]
+    ]
+  },
+  "single_ue_baseline_only": false,
+  "sl_edge_probability": 1.0,
+  "stage_a_position_by_ue_m": [
+    20080.322309570372,
+    19963.907856791582,
+    20162.48126522241,
+    20389.561375029385,
+    20392.01635243271
+  ],
+  "stage_a_position_rmse_m": 20198.371992440938,
+  "stage_a_status": "converged",
+  "stage_a_success": true,
+  "stage_b_position_by_ue_m": [
+    77451.06845325518,
+    77477.52794043475,
+    77488.49589206862,
+    77468.69780110412,
+    77540.72564274094
+  ],
+  "stage_b_position_rmse_m": 77485.30906969194,
+  "stage_b_status": "updated_not_converged",
+  "stage_b_success": false,
+  "stage_b_sync_error_km": 41.11619104433757,
+  "stage_b_sync_error_ns": 137148.85063698824,
+  "stage_c_position_by_ue_m": [
+    77451.44959505195,
+    77477.91030743136,
+    77488.876628307,
+    77469.08080204902,
+    77541.11198870486
+  ],
+  "stage_c_position_rmse_m": 77485.69178868766,
+  "stage_c_status": "updated",
+  "stage_c_success": true,
+  "stage_c_sync_error_km": 41.11629075611874,
+  "stage_c_sync_error_ns": 137149.1832396889,
+  "stage_c_used": true,
+  "state_dimension": 23,
+  "trial_id": 1,
+  "ue_position_subspace_estimable": true,
+  "ue_positions_saved": true
+}

@@ -1,0 +1,37 @@
+{
+  "artifact_status": "non_final_wave_results_provenance_audit",
+  "candidate_diagnostic": true,
+  "exported_script_present": false,
+  "human_signoff_required": true,
+  "legacy_clock_sweep": {
+    "pos_vary_clock_pdf": false,
+    "sync_vary_clock_pdf": false
+  },
+  "legacy_crlb_figures": {
+    "pos_crlb": true,
+    "sync_crlb": true
+  },
+  "legacy_network_size_grid": {
+    "num_iterations": "15 found near generate_data_for_heatmap",
+    "num_satellites_range": "range(3, 15+1) found in notebook text",
+    "num_users_range": "[1, 3, 5, 7] found in notebook text"
+  },
+  "legacy_risks": [
+    "Notebook contains TODO comments for clock drift modeling.",
+    "Notebook contains legacy all-clock and truth-gated behavior documented by existing project reports.",
+    "This wave runner does not execute or edit the notebook."
+  ],
+  "manuscript_ready": false,
+  "manuscript_settings_used_as_start": {
+    "clock_reference": "0.5 ppm over 15 s = 7.5 us ~= 2.25 km",
+    "dl": "2.2 GHz, 20 MHz, 55 dBm, 20 dB Tx gain",
+    "leo_model": "synthetic Starlink-like visible LEO satellites",
+    "minimum_elevation_deg": 30.0,
+    "sl": "5.9 GHz, 40 MHz, 20 dBm, 3 dB Tx gain",
+    "snapshot_time_s": 0.5,
+    "ue_area": "UEs around MIT Stata center via package candidate geometry helper"
+  },
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "notebook_present": true
+}

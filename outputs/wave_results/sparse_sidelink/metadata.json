@@ -1,0 +1,19 @@
+{
+  "artifact_status": "non_final_wave_sparse_sidelink",
+  "candidate_diagnostic": true,
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "pilot_scope": true,
+  "plots": [
+    "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rmse_vs_density.pdf",
+    "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rmse_vs_density.png",
+    "outputs/wave_results/sparse_sidelink/wave_sparse_sl_convergence_vs_density.pdf",
+    "outputs/wave_results/sparse_sidelink/wave_sparse_sl_convergence_vs_density.png",
+    "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rank_condition_vs_density.pdf",
+    "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rank_condition_vs_density.png"
+  ],
+  "row_count": 9,
+  "summary_count": 3
+}

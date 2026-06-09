@@ -445,6 +445,25 @@ worsen localization substantially. All outputs are candidate-only, non-final,
 not manuscript-ready, and use the terminology "typed block-extracted,
 diagonal-clipped residual-scaled covariance."
 
+Wave-results exploration is implemented on branch
+`codex/jcls-wave-results-exploration`. It creates a separate short-path
+worktree at `C:/codex-wt/jcls-wave-results-exploration`, adds a resumable
+diagnostic runner with row cache/checkpointing, and writes non-final pilot
+artifacts under `outputs/wave_results/` plus human-readable reports under
+`outputs/reports/WAVE_*`. The runner supports the required `--dry-run`,
+`--list-plan`, `--resume`, `--force-rerun`, `--max-runtime-minutes`,
+`--row-timeout-seconds`, `--trial-timeout-seconds`, `--max-trials`,
+`--only-product`, `--only-row`, `--pilot`, `--full`, and `--cache-root`
+options. The 5-trial pilot generates observability/rank,
+satellite-substitution, clock-tolerance, sparse-sidelink, time-to-accuracy,
+and literature-comparison diagnostics. The strongest current positive evidence
+is observability: full-rank FIM feasibility appears only for multi-UE cells,
+with minimum full-rank `N_s` in the pilot of `{2: 5, 3: 5, 4: 4, 5: 4}`. The
+empirical Stage B/C accuracy path is not healthy yet: Stage B improves
+localization in only 4/32 comparable pilot cells, and no 10 m, 1 m, 0.2 m, or
+0.1 m satellite-substitution threshold is reached. All outputs are non-final,
+candidate diagnostics and not manuscript-ready.
+
 ## Next task
 
 See `docs/tasks/NEXT.md`.
@@ -559,3 +578,9 @@ See `docs/tasks/NEXT.md`.
   manuscript evidence because high clock-standard-deviation rows expose severe
   localization instability. Do not run a denser clock sweep until that behavior
   is explained.
+- `outputs/reports/WAVE_RESULTS_EXECUTIVE_SUMMARY.md` records the wave-results
+  pilot under `outputs/wave_results/`. These diagnostics are not manuscript
+  figures. They currently support an observability/feasibility review but do
+  not support a wave-making empirical accuracy claim: no tested iso-accuracy
+  threshold was reached and Stage B/LM-only often worsens localization versus
+  Stage A in the package-native pilot.

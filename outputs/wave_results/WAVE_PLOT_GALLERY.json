@@ -1,0 +1,95 @@
+{
+  "artifact_status": "non_final_wave_plot_gallery",
+  "candidate_diagnostic": true,
+  "entries": [
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/observability/wave_observability_rank_heatmap.png",
+      "product": "observability",
+      "source_pdf_path": "outputs/wave_results/observability/wave_observability_rank_heatmap.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/observability/wave_condition_number_heatmap.png",
+      "product": "observability",
+      "source_pdf_path": "outputs/wave_results/observability/wave_condition_number_heatmap.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/observability/wave_crlb_position_heatmap.png",
+      "product": "observability",
+      "source_pdf_path": "outputs/wave_results/observability/wave_crlb_position_heatmap.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/observability/wave_empirical_rmse_heatmap.png",
+      "product": "observability",
+      "source_pdf_path": "outputs/wave_results/observability/wave_empirical_rmse_heatmap.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/satellite_substitution/wave_satellite_substitution_curve.png",
+      "product": "satellite_substitution",
+      "source_pdf_path": "outputs/wave_results/satellite_substitution/wave_satellite_substitution_curve.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/clock_tolerance/wave_clock_tolerance_position_plot.png",
+      "product": "clock_tolerance",
+      "source_pdf_path": "outputs/wave_results/clock_tolerance/wave_clock_tolerance_position_plot.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/clock_tolerance/wave_clock_tolerance_sync_plot.png",
+      "product": "clock_tolerance",
+      "source_pdf_path": "outputs/wave_results/clock_tolerance/wave_clock_tolerance_sync_plot.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rmse_vs_density.png",
+      "product": "sparse_sidelink",
+      "source_pdf_path": "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rmse_vs_density.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/sparse_sidelink/wave_sparse_sl_convergence_vs_density.png",
+      "product": "sparse_sidelink",
+      "source_pdf_path": "outputs/wave_results/sparse_sidelink/wave_sparse_sl_convergence_vs_density.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rank_condition_vs_density.png",
+      "product": "sparse_sidelink",
+      "source_pdf_path": "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rank_condition_vs_density.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_position.png",
+      "product": "time_to_accuracy",
+      "source_pdf_path": "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_position.pdf",
+      "status": "non_final_wave_diagnostic"
+    },
+    {
+      "manuscript_ready": false,
+      "preview_png_path": "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_sync.png",
+      "product": "time_to_accuracy",
+      "source_pdf_path": "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_sync.pdf",
+      "status": "non_final_wave_diagnostic"
+    }
+  ],
+  "entry_count": 12,
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true
+}

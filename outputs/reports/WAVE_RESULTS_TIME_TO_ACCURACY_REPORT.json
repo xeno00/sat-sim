@@ -1,0 +1,121 @@
+{
+  "artifact_status": "non_final_wave_time_to_accuracy_report",
+  "candidate_diagnostic": true,
+  "files": {
+    "arrays_npz": "outputs/wave_results/time_to_accuracy/arrays.npz",
+    "metadata_json": "outputs/wave_results/time_to_accuracy/metadata.json",
+    "notes_md": "outputs/wave_results/time_to_accuracy/notes.md",
+    "raw_csv": "outputs/wave_results/time_to_accuracy/raw.csv",
+    "summary_csv": "outputs/wave_results/time_to_accuracy/summary.csv",
+    "wave_time_threshold_table_csv": "outputs/wave_results/time_to_accuracy/wave_time_threshold_table.csv"
+  },
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "metadata": {
+    "artifact_status": "non_final_wave_time_to_accuracy",
+    "candidate_diagnostic": true,
+    "human_signoff_required": true,
+    "manuscript_ready": false,
+    "non_final": true,
+    "not_for_manuscript_submission": true,
+    "pilot_scope": true,
+    "plots": [
+      "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_position.pdf",
+      "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_position.png",
+      "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_sync.pdf",
+      "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_sync.png"
+    ],
+    "row_count": 5,
+    "summary_count": 5,
+    "threshold_rows": [
+      {
+        "elapsed_time_s": null,
+        "method": "Stage A",
+        "threshold_m": 10.0
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage B",
+        "threshold_m": 10.0
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage C",
+        "threshold_m": 10.0
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage A",
+        "threshold_m": 1.0
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage B",
+        "threshold_m": 1.0
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage C",
+        "threshold_m": 1.0
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage A",
+        "threshold_m": 0.2
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage B",
+        "threshold_m": 0.2
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage C",
+        "threshold_m": 0.2
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage A",
+        "threshold_m": 0.1
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage B",
+        "threshold_m": 0.1
+      },
+      {
+        "elapsed_time_s": null,
+        "method": "Stage C",
+        "threshold_m": 0.1
+      }
+    ]
+  },
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "raw_row_count": 5,
+  "recommended_next_action": "Review pilot evidence, then expand only the promising products with higher Monte Carlo counts.",
+  "safe_claims": [
+    "The outputs test observability, rank, and estimator behavior under explicit non-final settings.",
+    "Single-UE rows are marked baseline-only, not cooperative JCLS."
+  ],
+  "summary_row_count": 5,
+  "unsafe_claims": [
+    "These outputs are final manuscript figures.",
+    "JCLS beats Starlink PNT or any field-trial method head-to-head.",
+    "Clock drift is estimated by the static offset state."
+  ],
+  "what_failed": [],
+  "what_is_not_comparable": [
+    "Pilot and diagnostic outputs are not manuscript-ready.",
+    "Synthetic LEO geometry is not an SGP4/TLE replay.",
+    "Stage C is package C7 residual-covariance sync safeguard, not a final manuscript-approved dynamic estimator."
+  ],
+  "what_was_generated": [
+    "outputs/wave_results/time_to_accuracy/raw.csv",
+    "outputs/wave_results/time_to_accuracy/summary.csv",
+    "outputs/wave_results/time_to_accuracy/arrays.npz",
+    "outputs/wave_results/time_to_accuracy/wave_time_threshold_table.csv",
+    "outputs/wave_results/time_to_accuracy/metadata.json",
+    "outputs/wave_results/time_to_accuracy/notes.md"
+  ]
+}

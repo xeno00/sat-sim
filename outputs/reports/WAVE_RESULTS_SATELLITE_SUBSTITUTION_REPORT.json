@@ -1,0 +1,62 @@
+{
+  "artifact_status": "non_final_wave_satellite_substitution_report",
+  "candidate_diagnostic": true,
+  "files": {
+    "arrays_npz": "outputs/wave_results/satellite_substitution/arrays.npz",
+    "metadata_json": "outputs/wave_results/satellite_substitution/metadata.json",
+    "notes_md": "outputs/wave_results/satellite_substitution/notes.md",
+    "raw_csv": "outputs/wave_results/satellite_substitution/raw.csv",
+    "summary_csv": "outputs/wave_results/satellite_substitution/summary.csv",
+    "wave_iso_accuracy_table_csv": "outputs/wave_results/satellite_substitution/wave_iso_accuracy_table.csv"
+  },
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "metadata": {
+    "artifact_status": "non_final_wave_satellite_substitution",
+    "candidate_diagnostic": true,
+    "claim_tested_not_assumed": "JCLS with cooperating UEs can match or exceed DL-only localization with more satellites.",
+    "human_signoff_required": true,
+    "manuscript_ready": false,
+    "non_final": true,
+    "not_for_manuscript_submission": true,
+    "plots": [
+      "outputs/wave_results/satellite_substitution/wave_satellite_substitution_curve.pdf",
+      "outputs/wave_results/satellite_substitution/wave_satellite_substitution_curve.png"
+    ],
+    "row_count": 20,
+    "thresholds_m": [
+      10.0,
+      1.0,
+      0.2,
+      0.1
+    ]
+  },
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "raw_row_count": 40,
+  "recommended_next_action": "Review pilot evidence, then expand only the promising products with higher Monte Carlo counts.",
+  "safe_claims": [
+    "The outputs test observability, rank, and estimator behavior under explicit non-final settings.",
+    "Single-UE rows are marked baseline-only, not cooperative JCLS."
+  ],
+  "summary_row_count": 20,
+  "unsafe_claims": [
+    "These outputs are final manuscript figures.",
+    "JCLS beats Starlink PNT or any field-trial method head-to-head.",
+    "Clock drift is estimated by the static offset state."
+  ],
+  "what_failed": [],
+  "what_is_not_comparable": [
+    "Pilot and diagnostic outputs are not manuscript-ready.",
+    "Synthetic LEO geometry is not an SGP4/TLE replay.",
+    "Stage C is package C7 residual-covariance sync safeguard, not a final manuscript-approved dynamic estimator."
+  ],
+  "what_was_generated": [
+    "outputs/wave_results/satellite_substitution/raw.csv",
+    "outputs/wave_results/satellite_substitution/summary.csv",
+    "outputs/wave_results/satellite_substitution/wave_iso_accuracy_table.csv",
+    "outputs/wave_results/satellite_substitution/arrays.npz",
+    "outputs/wave_results/satellite_substitution/metadata.json",
+    "outputs/wave_results/satellite_substitution/notes.md"
+  ]
+}

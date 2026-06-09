@@ -1,0 +1,11 @@
+{
+  "artifact_status": "non_final_wave_literature_comparison",
+  "candidate_diagnostic": true,
+  "comparability_caveat": "Rows are qualitative and assumption-sensitive; do not claim JCLS beats Starlink PNT from this table.",
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "row_count": 6,
+  "web_search_used_by_orchestrator": true
+}

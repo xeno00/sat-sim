@@ -1,0 +1,13 @@
+threshold_m,method,elapsed_time_s
+10.0,Stage A,
+10.0,Stage B,
+10.0,Stage C,
+1.0,Stage A,
+1.0,Stage B,
+1.0,Stage C,
+0.2,Stage A,
+0.2,Stage B,
+0.2,Stage C,
+0.1,Stage A,
+0.1,Stage B,
+0.1,Stage C,

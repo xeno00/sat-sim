@@ -1,0 +1,32 @@
+{
+  "artifact_status": "non_final_wave_observability",
+  "candidate_diagnostic": true,
+  "grid_mode": "pilot",
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "plots": [
+    "outputs/wave_results/observability/wave_observability_rank_heatmap.pdf",
+    "outputs/wave_results/observability/wave_observability_rank_heatmap.png",
+    "outputs/wave_results/observability/wave_condition_number_heatmap.pdf",
+    "outputs/wave_results/observability/wave_condition_number_heatmap.png",
+    "outputs/wave_results/observability/wave_crlb_position_heatmap.pdf",
+    "outputs/wave_results/observability/wave_crlb_position_heatmap.png",
+    "outputs/wave_results/observability/wave_empirical_rmse_heatmap.pdf",
+    "outputs/wave_results/observability/wave_empirical_rmse_heatmap.png"
+  ],
+  "required_figures": [
+    "wave_observability_rank_heatmap",
+    "wave_condition_number_heatmap",
+    "wave_crlb_position_heatmap",
+    "wave_empirical_rmse_heatmap"
+  ],
+  "row_count": 200,
+  "stage_terms": {
+    "stage_a": "without cooperation / DL-only / conventional TOA baseline",
+    "stage_b": "cooperative JCLS LM-only",
+    "stage_c": "refined JCLS / C7 residual-covariance sync safeguard"
+  },
+  "summary_count": 40
+}

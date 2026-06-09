@@ -1,0 +1,120 @@
+{
+  "artifact_status": "non_final_wave_results_task_matrix",
+  "candidate_diagnostic": true,
+  "file_ownership": [
+    {
+      "branch_worktree": "codex/jcls-wave-results-exploration @ C:/codex-wt/jcls-wave-results-exploration",
+      "files_allowed_to_edit": [
+        "scripts/run_wave_results_exploration.py",
+        "tests/test_wave_results_exploration.py",
+        "outputs/wave_results/**",
+        "outputs/reports/WAVE_*",
+        "PROJECT_STATUS.md",
+        "docs/tasks/NEXT.md"
+      ],
+      "read_only_files": [
+        "JCLS_Simulation.ipynb",
+        "Work-In-Progress/**",
+        "All-Version-Archive/**",
+        "existing manuscript result files"
+      ],
+      "stop_conditions": [
+        "need for notebook edits",
+        "need for manuscript edits",
+        "expensive unbounded run"
+      ],
+      "subagent_role": "orchestrator",
+      "workstream": "wave-results implementation"
+    }
+  ],
+  "human_signoff_required": true,
+  "lanes": [
+    {
+      "agent": "Agent A",
+      "blocker": null,
+      "expected_output_files": "outputs/reports/WAVE_RESULTS_PROVENANCE_AUDIT.*",
+      "fallback_owner": "orchestrator",
+      "lane": "Provenance and Notebook Figure Audit",
+      "status": "read_only_subagent_or_orchestrator"
+    },
+    {
+      "agent": "Agent B",
+      "blocker": null,
+      "expected_output_files": "outputs/wave_results/observability/",
+      "fallback_owner": "orchestrator",
+      "lane": "Observability / CRLB Product",
+      "status": "orchestrator_completed"
+    },
+    {
+      "agent": "Agent C",
+      "blocker": null,
+      "expected_output_files": "raw trial rows and empirical heatmap",
+      "fallback_owner": "orchestrator",
+      "lane": "Empirical RMSE Product",
+      "status": "orchestrator_completed"
+    },
+    {
+      "agent": "Agent D",
+      "blocker": null,
+      "expected_output_files": "outputs/wave_results/satellite_substitution/",
+      "fallback_owner": "orchestrator",
+      "lane": "Satellite Substitution Product",
+      "status": "orchestrator_completed"
+    },
+    {
+      "agent": "Agent E",
+      "blocker": null,
+      "expected_output_files": "outputs/wave_results/clock_tolerance/",
+      "fallback_owner": "orchestrator",
+      "lane": "Clock Tolerance Product",
+      "status": "orchestrator_pilot_completed"
+    },
+    {
+      "agent": "Agent F",
+      "blocker": null,
+      "expected_output_files": "outputs/wave_results/sparse_sidelink/",
+      "fallback_owner": "orchestrator",
+      "lane": "Sparse Sidelink Product",
+      "status": "orchestrator_pilot_completed"
+    },
+    {
+      "agent": "Agent G",
+      "blocker": null,
+      "expected_output_files": "outputs/wave_results/time_to_accuracy/",
+      "fallback_owner": "orchestrator",
+      "lane": "Time-to-Accuracy Product",
+      "status": "orchestrator_surrogate_pilot_completed"
+    },
+    {
+      "agent": "Agent H",
+      "blocker": null,
+      "expected_output_files": "outputs/reports/WAVE_LITERATURE_COMPARISON_TABLE.*",
+      "fallback_owner": "orchestrator",
+      "lane": "Literature Comparison Product",
+      "status": "orchestrator_web_and_local_completed"
+    },
+    {
+      "agent": "Agent I",
+      "blocker": null,
+      "expected_output_files": "RUN_STATUS, ROW_STATUS, cache manifests",
+      "fallback_owner": "orchestrator",
+      "lane": "Crash/Cache/Resume Product",
+      "status": "orchestrator_completed"
+    },
+    {
+      "agent": "Agent J",
+      "blocker": null,
+      "expected_output_files": "safe/unsafe claims in reports",
+      "fallback_owner": "orchestrator",
+      "lane": "Scientific Red Team",
+      "status": "read_only_subagent_or_orchestrator"
+    }
+  ],
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "subagent_status": {
+    "edit_owner": "orchestrator",
+    "mode": "orchestrator_with_read_only_sidecars"
+  }
+}

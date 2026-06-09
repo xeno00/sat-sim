@@ -1,0 +1,72 @@
+{
+  "artifact_status": "non_final_wave_phase_transition_report",
+  "candidate_diagnostic": true,
+  "files": {
+    "arrays_npz": "outputs/wave_results/observability/arrays.npz",
+    "metadata_json": "outputs/wave_results/observability/metadata.json",
+    "notes_md": "outputs/wave_results/observability/notes.md",
+    "raw_csv": "outputs/wave_results/observability/raw.csv",
+    "summary_csv": "outputs/wave_results/observability/summary.csv"
+  },
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "metadata": {
+    "artifact_status": "non_final_wave_observability",
+    "candidate_diagnostic": true,
+    "grid_mode": "pilot",
+    "human_signoff_required": true,
+    "manuscript_ready": false,
+    "non_final": true,
+    "not_for_manuscript_submission": true,
+    "plots": [
+      "outputs/wave_results/observability/wave_observability_rank_heatmap.pdf",
+      "outputs/wave_results/observability/wave_observability_rank_heatmap.png",
+      "outputs/wave_results/observability/wave_condition_number_heatmap.pdf",
+      "outputs/wave_results/observability/wave_condition_number_heatmap.png",
+      "outputs/wave_results/observability/wave_crlb_position_heatmap.pdf",
+      "outputs/wave_results/observability/wave_crlb_position_heatmap.png",
+      "outputs/wave_results/observability/wave_empirical_rmse_heatmap.pdf",
+      "outputs/wave_results/observability/wave_empirical_rmse_heatmap.png"
+    ],
+    "required_figures": [
+      "wave_observability_rank_heatmap",
+      "wave_condition_number_heatmap",
+      "wave_crlb_position_heatmap",
+      "wave_empirical_rmse_heatmap"
+    ],
+    "row_count": 200,
+    "stage_terms": {
+      "stage_a": "without cooperation / DL-only / conventional TOA baseline",
+      "stage_b": "cooperative JCLS LM-only",
+      "stage_c": "refined JCLS / C7 residual-covariance sync safeguard"
+    },
+    "summary_count": 40
+  },
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "raw_row_count": 200,
+  "recommended_next_action": "Review pilot evidence, then expand only the promising products with higher Monte Carlo counts.",
+  "safe_claims": [
+    "The outputs test observability, rank, and estimator behavior under explicit non-final settings.",
+    "Single-UE rows are marked baseline-only, not cooperative JCLS."
+  ],
+  "summary_row_count": 40,
+  "unsafe_claims": [
+    "These outputs are final manuscript figures.",
+    "JCLS beats Starlink PNT or any field-trial method head-to-head.",
+    "Clock drift is estimated by the static offset state."
+  ],
+  "what_failed": [],
+  "what_is_not_comparable": [
+    "Pilot and diagnostic outputs are not manuscript-ready.",
+    "Synthetic LEO geometry is not an SGP4/TLE replay.",
+    "Stage C is package C7 residual-covariance sync safeguard, not a final manuscript-approved dynamic estimator."
+  ],
+  "what_was_generated": [
+    "outputs/wave_results/observability/raw.csv",
+    "outputs/wave_results/observability/summary.csv",
+    "outputs/wave_results/observability/arrays.npz",
+    "outputs/wave_results/observability/metadata.json",
+    "outputs/wave_results/observability/notes.md"
+  ]
+}

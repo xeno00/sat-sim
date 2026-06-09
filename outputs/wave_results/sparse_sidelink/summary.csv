@@ -1,0 +1,4 @@
+product,trial_count,num_users,num_satellites,stage_a_position_rmse_m_mean,stage_b_position_rmse_m_mean,stage_c_position_rmse_m_mean,stage_b_sync_error_ns_mean,stage_c_sync_error_ns_mean,stage_b_convergence_probability,stage_c_convergence_probability,fim_rank_mean,condition_number_mean,log10_condition_number_mean,graph_average_degree_mean,graph_connected_probability,sl_edge_probability
+sparse_sidelink,3,5,4,12187.884400920435,,,,,0.0,0.0,20.0,2.4339065395883888e+17,17.313562283396994,0.0,0.0,0.0
+sparse_sidelink,3,5,4,11668.256845277763,21755.132250899143,21754.609900116804,12692.026053331703,12691.231051686418,0.0,1.0,23.0,23620660610045.824,12.502213509885273,1.7333333333333334,1.0,0.5
+sparse_sidelink,3,5,4,23749.45765469792,40577.61071462675,40573.51675713555,48621.43320068967,48621.170760242814,0.0,1.0,23.0,5994786313834.258,12.577850263388498,4.0,1.0,1.0

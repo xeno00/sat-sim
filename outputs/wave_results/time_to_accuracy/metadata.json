@@ -1,0 +1,79 @@
+{
+  "artifact_status": "non_final_wave_time_to_accuracy",
+  "candidate_diagnostic": true,
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "pilot_scope": true,
+  "plots": [
+    "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_position.pdf",
+    "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_position.png",
+    "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_sync.pdf",
+    "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_sync.png"
+  ],
+  "row_count": 5,
+  "summary_count": 5,
+  "threshold_rows": [
+    {
+      "elapsed_time_s": null,
+      "method": "Stage A",
+      "threshold_m": 10.0
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage B",
+      "threshold_m": 10.0
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage C",
+      "threshold_m": 10.0
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage A",
+      "threshold_m": 1.0
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage B",
+      "threshold_m": 1.0
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage C",
+      "threshold_m": 1.0
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage A",
+      "threshold_m": 0.2
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage B",
+      "threshold_m": 0.2
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage C",
+      "threshold_m": 0.2
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage A",
+      "threshold_m": 0.1
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage B",
+      "threshold_m": 0.1
+    },
+    {
+      "elapsed_time_s": null,
+      "method": "Stage C",
+      "threshold_m": 0.1
+    }
+  ]
+}

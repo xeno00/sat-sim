@@ -1,0 +1,91 @@
+{
+  "artifact_status": "non_final_wave_literature_comparison",
+  "candidate_diagnostic": true,
+  "comparability_caveat": "Rows are qualitative and assumption-sensitive; do not claim JCLS beats Starlink PNT from this table.",
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "row_count": 6,
+  "rows": [
+    {
+      "citation": "This diagnostic branch",
+      "clock_correction_assumed": "Joint UE and non-reference satellite clock-offset estimation relative to reference satellite",
+      "comparability_caveat": "Not manuscript-ready; cannot be compared directly to field trials.",
+      "cooperation": "UE cooperation via sidelinks",
+      "gnss_assistance": "No GNSS assumed in estimator state",
+      "method": "JCLS wave diagnostic",
+      "position_error": "Computed in this branch; non-final",
+      "scenario_realism": "MIT/Stata UE disk, synthetic Starlink-like LEO geometry, link-budget TOA sigma",
+      "signals_used": "NTN downlink TOA plus UE sidelink TOA",
+      "time_to_solution": "Diagnostic; snapshot defaults to 500 ms, time sweep is surrogate only",
+      "url": ""
+    },
+    {
+      "citation": "Kassas et al., first Starlink carrier-phase tracking and positioning results",
+      "clock_correction_assumed": "Receiver/satellite signal structure handled by opportunistic receiver processing",
+      "comparability_caveat": "Different signal, receiver, and batching assumptions; do not frame as head-to-head.",
+      "cooperation": "No UE cooperation",
+      "gnss_assistance": "Often requires known ephemeris/receiver setup assumptions; GNSS-denied motivation",
+      "method": "Starlink opportunistic carrier-phase PNT",
+      "position_error": "Reported examples include meter-level to tens-of-meters field results",
+      "scenario_realism": "Real Starlink signals; not 3GPP NTN PRS",
+      "signals_used": "Ku-band Starlink signals of opportunity, carrier phase/Doppler style tracking",
+      "time_to_solution": "Field-trial batch/tracking dependent",
+      "url": "https://ece.osu.edu/sites/default/files/2022-09/The_first_carrier_phase_tracking_and_positioning_results_with_Starlink_LEO_satellite_Signals.pdf"
+    },
+    {
+      "citation": "Differential Doppler LEO opportunistic navigation literature",
+      "clock_correction_assumed": "Differencing mitigates common errors under baseline assumptions",
+      "comparability_caveat": "Doppler observable and reference-baseline assumptions differ from JCLS TOA+sidelink.",
+      "cooperation": "Reference-receiver style differential processing, not UE cooperative JCLS",
+      "gnss_assistance": "Usually reference receiver, ephemeris, or differential assumptions",
+      "method": "Differential Doppler LEO opportunistic navigation",
+      "position_error": "Baseline and propagation-error sensitive",
+      "scenario_realism": "LEO SOP navigation literature",
+      "signals_used": "Doppler or differential Doppler from LEO signals of opportunity",
+      "time_to_solution": "Pass/batch dependent",
+      "url": "https://www.researchgate.net/publication/366981365_Analysis_of_Baseline_Impact_on_Differential_Doppler_Positioning_and_Performance_Improvement_Method_for_LEO_Opportunistic_Navigation"
+    },
+    {
+      "citation": "3GPP NTN overview and Rel-18 positioning discussions",
+      "clock_correction_assumed": "Network timing/synchronization assumptions vary",
+      "comparability_caveat": "Standardization context, not an identical estimator result.",
+      "cooperation": "No UE sidelink cooperation",
+      "gnss_assistance": "May be UE-assisted/network-assisted depending architecture",
+      "method": "TOA NTN PRS without cooperation",
+      "position_error": "Not directly comparable; depends on PRS bandwidth, geometry, and timing",
+      "scenario_realism": "3GPP NTN and Rel-18 positioning context",
+      "signals_used": "5G/NR positioning reference signals and timing measurements",
+      "time_to_solution": "3GPP procedure/configuration dependent",
+      "url": "https://www.3gpp.org/technologies/ntn-overview"
+    },
+    {
+      "citation": "Survey on LEO-PNT systems",
+      "clock_correction_assumed": "GNSS or augmentation may supply timing/ephemeris support",
+      "comparability_caveat": "GNSS assistance changes the ambiguity structure.",
+      "cooperation": "Usually no UE-to-UE cooperation",
+      "gnss_assistance": "Yes",
+      "method": "GNSS-aided NTN / LEO-PNT",
+      "position_error": "Surveyed; varies by design",
+      "scenario_realism": "LEO-PNT survey category",
+      "signals_used": "GNSS plus LEO/NTN augmentation or complementary signals",
+      "time_to_solution": "Architecture dependent",
+      "url": "https://www.jpnt.org/a-survey-on-leo-pnt-systems/"
+    },
+    {
+      "citation": "5G/6G positioning surveys and integrated NTN positioning work",
+      "clock_correction_assumed": "Anchor/network timing assumptions vary",
+      "comparability_caveat": "Anchors provide external information that JCLS is trying not to require.",
+      "cooperation": "Anchor assistance rather than UE cooperation",
+      "gnss_assistance": "May or may not use GNSS",
+      "method": "Terrestrial-anchor-aided NTN",
+      "position_error": "Scenario dependent",
+      "scenario_realism": "Integrated TN/NTN positioning literature",
+      "signals_used": "NTN plus terrestrial anchors or integrated terrestrial/non-terrestrial measurements",
+      "time_to_solution": "Architecture dependent",
+      "url": "https://www.mdpi.com/1424-8220/22/13/4757"
+    }
+  ],
+  "web_search_used_by_orchestrator": true
+}

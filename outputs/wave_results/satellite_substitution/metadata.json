@@ -1,0 +1,20 @@
+{
+  "artifact_status": "non_final_wave_satellite_substitution",
+  "candidate_diagnostic": true,
+  "claim_tested_not_assumed": "JCLS with cooperating UEs can match or exceed DL-only localization with more satellites.",
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "plots": [
+    "outputs/wave_results/satellite_substitution/wave_satellite_substitution_curve.pdf",
+    "outputs/wave_results/satellite_substitution/wave_satellite_substitution_curve.png"
+  ],
+  "row_count": 20,
+  "thresholds_m": [
+    10.0,
+    1.0,
+    0.2,
+    0.1
+  ]
+}

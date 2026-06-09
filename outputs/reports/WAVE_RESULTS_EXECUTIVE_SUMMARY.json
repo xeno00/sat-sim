@@ -1,0 +1,349 @@
+{
+  "artifact_status": "non_final_wave_results_executive_summary",
+  "candidate_diagnostic": true,
+  "human_signoff_required": true,
+  "manuscript_ready": false,
+  "non_final": true,
+  "not_for_manuscript_submission": true,
+  "products": [
+    {
+      "failed_rows": [],
+      "files": {
+        "arrays_npz": "outputs/wave_results/observability/arrays.npz",
+        "metadata_json": "outputs/wave_results/observability/metadata.json",
+        "notes_md": "outputs/wave_results/observability/notes.md",
+        "raw_csv": "outputs/wave_results/observability/raw.csv",
+        "summary_csv": "outputs/wave_results/observability/summary.csv"
+      },
+      "name": "observability",
+      "row_count": 200,
+      "status": "generated",
+      "summary": {
+        "artifact_status": "non_final_wave_observability",
+        "candidate_diagnostic": true,
+        "grid_mode": "pilot",
+        "human_signoff_required": true,
+        "manuscript_ready": false,
+        "non_final": true,
+        "not_for_manuscript_submission": true,
+        "plots": [
+          "outputs/wave_results/observability/wave_observability_rank_heatmap.pdf",
+          "outputs/wave_results/observability/wave_observability_rank_heatmap.png",
+          "outputs/wave_results/observability/wave_condition_number_heatmap.pdf",
+          "outputs/wave_results/observability/wave_condition_number_heatmap.png",
+          "outputs/wave_results/observability/wave_crlb_position_heatmap.pdf",
+          "outputs/wave_results/observability/wave_crlb_position_heatmap.png",
+          "outputs/wave_results/observability/wave_empirical_rmse_heatmap.pdf",
+          "outputs/wave_results/observability/wave_empirical_rmse_heatmap.png"
+        ],
+        "required_figures": [
+          "wave_observability_rank_heatmap",
+          "wave_condition_number_heatmap",
+          "wave_crlb_position_heatmap",
+          "wave_empirical_rmse_heatmap"
+        ],
+        "row_count": 200,
+        "stage_terms": {
+          "stage_a": "without cooperation / DL-only / conventional TOA baseline",
+          "stage_b": "cooperative JCLS LM-only",
+          "stage_c": "refined JCLS / C7 residual-covariance sync safeguard"
+        },
+        "summary_count": 40
+      }
+    },
+    {
+      "failed_rows": [],
+      "files": {
+        "arrays_npz": "outputs/wave_results/satellite_substitution/arrays.npz",
+        "metadata_json": "outputs/wave_results/satellite_substitution/metadata.json",
+        "notes_md": "outputs/wave_results/satellite_substitution/notes.md",
+        "raw_csv": "outputs/wave_results/satellite_substitution/raw.csv",
+        "summary_csv": "outputs/wave_results/satellite_substitution/summary.csv",
+        "wave_iso_accuracy_table_csv": "outputs/wave_results/satellite_substitution/wave_iso_accuracy_table.csv"
+      },
+      "name": "satellite_substitution",
+      "row_count": 20,
+      "status": "generated",
+      "summary": {
+        "artifact_status": "non_final_wave_satellite_substitution",
+        "candidate_diagnostic": true,
+        "claim_tested_not_assumed": "JCLS with cooperating UEs can match or exceed DL-only localization with more satellites.",
+        "human_signoff_required": true,
+        "manuscript_ready": false,
+        "non_final": true,
+        "not_for_manuscript_submission": true,
+        "plots": [
+          "outputs/wave_results/satellite_substitution/wave_satellite_substitution_curve.pdf",
+          "outputs/wave_results/satellite_substitution/wave_satellite_substitution_curve.png"
+        ],
+        "row_count": 20,
+        "thresholds_m": [
+          10.0,
+          1.0,
+          0.2,
+          0.1
+        ]
+      }
+    },
+    {
+      "failed_rows": [],
+      "files": {
+        "arrays_npz": "outputs/wave_results/clock_tolerance/arrays.npz",
+        "metadata_json": "outputs/wave_results/clock_tolerance/metadata.json",
+        "notes_md": "outputs/wave_results/clock_tolerance/notes.md",
+        "raw_csv": "outputs/wave_results/clock_tolerance/raw.csv",
+        "summary_csv": "outputs/wave_results/clock_tolerance/summary.csv",
+        "wave_clock_tolerance_threshold_table_csv": "outputs/wave_results/clock_tolerance/wave_clock_tolerance_threshold_table.csv"
+      },
+      "name": "clock_tolerance",
+      "row_count": 18,
+      "status": "generated",
+      "summary": {
+        "artifact_status": "non_final_wave_clock_tolerance",
+        "candidate_diagnostic": true,
+        "human_signoff_required": true,
+        "manuscript_ready": false,
+        "non_final": true,
+        "not_for_manuscript_submission": true,
+        "pilot_scope": true,
+        "plots": [
+          "outputs/wave_results/clock_tolerance/wave_clock_tolerance_position_plot.pdf",
+          "outputs/wave_results/clock_tolerance/wave_clock_tolerance_position_plot.png",
+          "outputs/wave_results/clock_tolerance/wave_clock_tolerance_sync_plot.pdf",
+          "outputs/wave_results/clock_tolerance/wave_clock_tolerance_sync_plot.png"
+        ],
+        "row_count": 18,
+        "summary_count": 6,
+        "threshold_rows": [
+          {
+            "clock_sigma_seconds": 1e-08,
+            "method": "Stage A",
+            "threshold_m": 10.0
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage B",
+            "threshold_m": 10.0
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage C",
+            "threshold_m": 10.0
+          },
+          {
+            "clock_sigma_seconds": 1e-09,
+            "method": "Stage A",
+            "threshold_m": 1.0
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage B",
+            "threshold_m": 1.0
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage C",
+            "threshold_m": 1.0
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage A",
+            "threshold_m": 0.2
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage B",
+            "threshold_m": 0.2
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage C",
+            "threshold_m": 0.2
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage A",
+            "threshold_m": 0.1
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage B",
+            "threshold_m": 0.1
+          },
+          {
+            "clock_sigma_seconds": null,
+            "method": "Stage C",
+            "threshold_m": 0.1
+          }
+        ]
+      }
+    },
+    {
+      "failed_rows": [],
+      "files": {
+        "arrays_npz": "outputs/wave_results/sparse_sidelink/arrays.npz",
+        "metadata_json": "outputs/wave_results/sparse_sidelink/metadata.json",
+        "notes_md": "outputs/wave_results/sparse_sidelink/notes.md",
+        "raw_csv": "outputs/wave_results/sparse_sidelink/raw.csv",
+        "summary_csv": "outputs/wave_results/sparse_sidelink/summary.csv"
+      },
+      "name": "sparse_sidelink",
+      "row_count": 9,
+      "status": "generated",
+      "summary": {
+        "artifact_status": "non_final_wave_sparse_sidelink",
+        "candidate_diagnostic": true,
+        "human_signoff_required": true,
+        "manuscript_ready": false,
+        "non_final": true,
+        "not_for_manuscript_submission": true,
+        "pilot_scope": true,
+        "plots": [
+          "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rmse_vs_density.pdf",
+          "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rmse_vs_density.png",
+          "outputs/wave_results/sparse_sidelink/wave_sparse_sl_convergence_vs_density.pdf",
+          "outputs/wave_results/sparse_sidelink/wave_sparse_sl_convergence_vs_density.png",
+          "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rank_condition_vs_density.pdf",
+          "outputs/wave_results/sparse_sidelink/wave_sparse_sl_rank_condition_vs_density.png"
+        ],
+        "row_count": 9,
+        "summary_count": 3
+      }
+    },
+    {
+      "failed_rows": [],
+      "files": {
+        "arrays_npz": "outputs/wave_results/time_to_accuracy/arrays.npz",
+        "metadata_json": "outputs/wave_results/time_to_accuracy/metadata.json",
+        "notes_md": "outputs/wave_results/time_to_accuracy/notes.md",
+        "raw_csv": "outputs/wave_results/time_to_accuracy/raw.csv",
+        "summary_csv": "outputs/wave_results/time_to_accuracy/summary.csv",
+        "wave_time_threshold_table_csv": "outputs/wave_results/time_to_accuracy/wave_time_threshold_table.csv"
+      },
+      "name": "time_to_accuracy",
+      "row_count": 5,
+      "status": "generated",
+      "summary": {
+        "artifact_status": "non_final_wave_time_to_accuracy",
+        "candidate_diagnostic": true,
+        "human_signoff_required": true,
+        "manuscript_ready": false,
+        "non_final": true,
+        "not_for_manuscript_submission": true,
+        "pilot_scope": true,
+        "plots": [
+          "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_position.pdf",
+          "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_position.png",
+          "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_sync.pdf",
+          "outputs/wave_results/time_to_accuracy/wave_time_to_accuracy_sync.png"
+        ],
+        "row_count": 5,
+        "summary_count": 5,
+        "threshold_rows": [
+          {
+            "elapsed_time_s": null,
+            "method": "Stage A",
+            "threshold_m": 10.0
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage B",
+            "threshold_m": 10.0
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage C",
+            "threshold_m": 10.0
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage A",
+            "threshold_m": 1.0
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage B",
+            "threshold_m": 1.0
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage C",
+            "threshold_m": 1.0
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage A",
+            "threshold_m": 0.2
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage B",
+            "threshold_m": 0.2
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage C",
+            "threshold_m": 0.2
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage A",
+            "threshold_m": 0.1
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage B",
+            "threshold_m": 0.1
+          },
+          {
+            "elapsed_time_s": null,
+            "method": "Stage C",
+            "threshold_m": 0.1
+          }
+        ]
+      }
+    },
+    {
+      "failed_rows": [],
+      "files": {
+        "arrays_npz": "outputs/wave_results/literature_comparison/arrays.npz",
+        "metadata_json": "outputs/wave_results/literature_comparison/metadata.json",
+        "notes_md": "outputs/wave_results/literature_comparison/notes.md",
+        "raw_csv": "outputs/wave_results/literature_comparison/raw.csv",
+        "summary_csv": "outputs/wave_results/literature_comparison/summary.csv",
+        "table_json": "outputs/reports/WAVE_LITERATURE_COMPARISON_TABLE.json",
+        "table_md": "outputs/reports/WAVE_LITERATURE_COMPARISON_TABLE.md"
+      },
+      "name": "literature_comparison",
+      "row_count": 6,
+      "status": "generated",
+      "summary": {
+        "artifact_status": "non_final_wave_literature_comparison",
+        "candidate_diagnostic": true,
+        "comparability_caveat": "Rows are qualitative and assumption-sensitive; do not claim JCLS beats Starlink PNT from this table.",
+        "human_signoff_required": true,
+        "manuscript_ready": false,
+        "non_final": true,
+        "not_for_manuscript_submission": true,
+        "row_count": 6,
+        "web_search_used_by_orchestrator": true
+      }
+    }
+  ],
+  "recommended_next_action": "Continue with a full-grid observability/satellite-substitution expansion if the pilot findings survive human review.",
+  "safe_claims": [
+    "Cooperation can be evaluated as an observability/rank and satellite-substitution mechanism, not just an RMSE improvement.",
+    "Single-UE rows are baseline-only and are excluded from cooperative JCLS claims.",
+    "Sparse and clock-tolerance pilots identify where more runtime should be spent next."
+  ],
+  "top_three_wave_making_findings": [
+    "FIM full-rank feasibility appears only for multi-UE cells in this pilot; minimum full-rank N_s by N_u is {2: 5, 3: 5, 4: 4, 5: 4}.",
+    "Empirical Stage B/LM-only improves localization in 4/32 comparable pilot cells; most cells need estimator/initialization review before any accuracy claim.",
+    "No 10 m, 1 m, 0.2 m, or 0.1 m satellite-substitution threshold was reached in the current pilot; the table correctly preserves these gaps."
+  ],
+  "unsafe_claims": [
+    "Any plot is manuscript-ready.",
+    "Static clock-offset estimates are clock-drift estimates.",
+    "JCLS is proven superior to unrelated Starlink or Doppler PNT literature."
+  ]
+}
